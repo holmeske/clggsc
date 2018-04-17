@@ -6,16 +6,10 @@ import java.util.regex.Pattern;
 
 public class StringUtil {
 
-    public static void main(String[] args){
-        System.out.printf("中文");
-    }
-
     public static String toBigDecimal(String str) {
         BigDecimal bigDecimal = new BigDecimal(str);
-        String returnstr = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
-        return returnstr;
+        return bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
     }
-
 
     /**
      * 正则表达式，校验设置密码
