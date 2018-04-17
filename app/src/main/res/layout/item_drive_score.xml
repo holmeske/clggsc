@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                style="@style/width_m_height_w"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_ranking"
+        style="@style/width_w_height_w"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/tv_car_no"
+        style="@style/width_w_height_w"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/tv_ranking"
+        android:layout_toRightOf="@+id/tv_ranking"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16"
+        tools:text="--"/>
+
+    <TextView
+        android:id="@+id/tv_drive_mile"
+        style="@style/width_w_height_w"
+        android:layout_below="@+id/tv_car_no"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/tv_ranking"
+        android:layout_toRightOf="@+id/tv_ranking"
+        android:gravity="center"
+        android:textColor="#666666"
+        android:textSize="@dimen/text_size_14"
+        tools:text="--"/>
+
+    <TextView
+        android:id="@+id/tv_mark"
+        style="@style/width_w_height_w"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/img_arrow"
+        android:layout_toStartOf="@+id/img_arrow"
+        android:textSize="@dimen/text_size_18"
+        tools:text="60分"/>
+
+    <ImageView
+        android:id="@+id/img_arrow"
+        style="@style/width_w_height_w"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:src="@drawable/jiankong_arrow"
+        android:visibility="invisible"/>
+</RelativeLayout>

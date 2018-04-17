@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="16dp"
+            android:background="@color/red"/>
+
+        <TextView
+            android:id="@+id/tv_waybill_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            tools:text="2016-05-20 16:00:03"/>
+
+        <tool.widget.ShapeTextView
+            android:id="@+id/shapeTextView"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="未提货"
+            android:textColor="@color/red"
+            android:visibility="gone"
+            app:corners="5dp"
+            app:stroke_color="@color/red"
+            app:stroke_width="1dp"/>
+
+        <TextView
+            android:id="@+id/tv_waybill_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            tools:text="运单号:W0000002012"/>
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/jiankong_arrow"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_send_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawableLeft="@mipmap/from"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:maxLines="2"
+                android:textColor="@color/gray_aaa"
+                android:textSize="13sp"
+                tools:text="浙江省-杭州市|桐庐县王大新区22号东方环球企业中心22楼2201室"/>
+
+            <ImageView
+                android:id="@+id/iv_three_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/dot"/>
+
+            <TextView
+                android:id="@+id/tv_receive_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@mipmap/to"
+                android:drawablePadding="10dp"
+                android:gravity="center|start"
+                android:maxLines="2"
+                android:textColor="@color/gray_aaa"
+                android:textSize="13sp"
+                tools:text="上海市-上海市|闸北区永和路118弄56号2号楼"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_amount"
+            android:layout_width="100dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/tv_order_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:ellipsize="end"
+                android:maxEms="4"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="380.00元"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/jiankong_arrow"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_operation"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:background="@mipmap/tihuo"
+            android:gravity="center"
+            android:text="点击\n提货"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone"/>
+    </LinearLayout>
+</LinearLayout>

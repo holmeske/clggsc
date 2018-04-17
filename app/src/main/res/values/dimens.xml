@@ -1,0 +1,94 @@
+<resources>
+    <!--williamchart-->
+    <dimen name="axis_thickness">2dp</dimen>
+
+    <dimen name="axis_labels_spacing">5dp</dimen>
+
+    <dimen name="axis_border_spacing">0dp</dimen>
+
+    <dimen name="axis_top_spacing">0dp</dimen>
+
+    <!-- Text Labels size -->
+    <dimen name="font_size">10dp</dimen>
+
+    <!-- Grid thickness-->
+    <dimen name="grid_thickness">1dp</dimen>
+
+
+    <!-- LineChartView -->
+    <!-- Dot region radius used on click -->
+    <dimen name="dot_region_radius">18dp</dimen>
+
+
+    <!-- BarChartView -->
+    <dimen name="bar_spacing">6dp</dimen>
+    <dimen name="set_spacing">3dp</dimen>
+    <dimen name="corner_radius">0dp</dimen>
+<!--williamchart-->
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_18">20sp</dimen>
+    <dimen name="text_size_16">18sp</dimen>
+    <dimen name="text_size_14">16sp</dimen>
+    <dimen name="text_size_12">14sp</dimen>
+    <dimen name="text_size_10">12sp</dimen>
+
+    <dimen name="text_size_day">16sp</dimen>
+    <dimen name="text_size_month">16sp</dimen>
+    <dimen name="text_size_day_name">10sp</dimen>
+    <dimen name="header_month_height">50dip</dimen>
+    <dimen name="selected_day_radius">16dip</dimen>
+    <dimen name="calendar_height">270dip</dimen>
+
+    <dimen name="txt28">11.7sp</dimen>
+    <dimen name="txt36">15.0sp</dimen>
+    <dimen name="txt40">16.7sp</dimen>
+
+    <!-- dp -->
+    <dimen name="dim3">1.2dp</dimen>
+    <dimen name="dim10">4.2dp</dimen>
+    <dimen name="dim20">8.3dp</dimen>
+    <dimen name="dim90">37.5dp</dimen>
+    <dimen name="dim170">70.8dp</dimen>
+    <dimen name="dim440">183.3dp</dimen>
+
+
+    <!-- 项目整合过度期    ，后续会将重复的值合并 -->
+
+    <!-- 常规界面头、导航、标签字号 -->
+    <dimen name="textsize_16">17sp</dimen>
+
+    <dimen name="textsize_15">16sp</dimen>
+    <!-- 按钮、弹出菜单、头部菜单 -->
+    <dimen name="textsize_14">15sp</dimen>
+    <!-- 常规界面作者、简介、底部导航字号 -->
+    <dimen name="textsize_13">14sp</dimen>
+    <dimen name="textsize_12">13sp</dimen>
+    <dimen name="textsize_12_">12sp</dimen>
+    <dimen name="textsize_10">11sp</dimen>
+    <!-- 常规小标识内动态文字在小，例更新时间、本地书格式 -->
+
+    <!-- 长度 -->
+    <dimen name="length_1px">1px</dimen>
+    <dimen name="length_1">1dp</dimen>
+    <dimen name="length_3">3dp</dimen>
+    <dimen name="length_4">4dp</dimen>
+    <dimen name="length_5">5dp</dimen>
+    <dimen name="length_6">6dp</dimen>
+    <dimen name="length_8">8dp</dimen>
+    <dimen name="length_10">10dp</dimen>
+    <dimen name="length_13">13dp</dimen>
+    <dimen name="length_14">14dp</dimen>
+    <dimen name="length_15">15dp</dimen>
+    <dimen name="length_16">16dp</dimen>
+    <dimen name="length_17">17dp</dimen>
+    <dimen name="length_18">18dp</dimen>
+    <dimen name="length_20">20dp</dimen>
+    <dimen name="length_26">26dp</dimen>
+    <dimen name="length_40">40dp</dimen>
+    <dimen name="length_43">43dp</dimen>
+    <dimen name="length_45">45dp</dimen>
+    <dimen name="length_50">50dp</dimen>
+    <dimen name="length_250">250dp</dimen>
+
+    <dimen name="divider_line">0.5dp</dimen>
+</resources>

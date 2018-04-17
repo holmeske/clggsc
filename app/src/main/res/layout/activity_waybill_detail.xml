@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@color/bg_app">
+
+    <com.lvke.tools.widget.TitleBar
+        android:id="@+id/t"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/waybill_detail"/>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/t">
+
+        <LinearLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="15dp"
+                    android:background="@color/red"/>
+
+                <TextView
+                    android:id="@+id/tv_waybill_number"
+                    style="@style/width_w_height_w"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    tools:ignore="RtlHardcoded"
+                    tools:text="运单号：23846135"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingEnd="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_with_car_time"
+                    style="@style/width_w_height_w"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxWidth="200dp"
+                    android:textColor="@color/font_grey"
+                    tools:text="调度时间: 2016-04-28 13：58"/>
+
+                <TextView
+                    android:id="@+id/tv_pickup_goods_time"
+                    style="@style/width_w_height_w"
+                    android:layout_below="@id/tv_with_car_time"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxWidth="200dp"
+                    android:textColor="@color/font_grey"
+                    tools:text="提货时间: 2016-04-28 13：58"/>
+
+                <TextView
+                    android:id="@+id/tv_sign_for_time"
+                    style="@style/width_w_height_w"
+                    android:layout_below="@id/tv_pickup_goods_time"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxWidth="200dp"
+                    android:textColor="@color/font_grey"
+                    tools:text="签收时间: ---------------------"/>
+
+                <TextView
+                    android:id="@+id/tv_waybill_amount"
+                    style="@style/width_w_height_w"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_waybill_money"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxWidth="100dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="4dp"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    tools:text="￥ 0.00000"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_order_amount"
+                style="@style/width_m_height_w"
+                android:padding="10dp"
+                android:textColor="#A2A2A2"
+                tools:text="订单列表(2)"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/fl_operation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:background="@color/divider_line"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:text="@string/waybill_amount"
+            android:textColor="@color/font_grey"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_waybill_amount_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            tools:text="￥ 3800.00"/>
+
+        <TextView
+            android:id="@+id/tv_operation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@color/red"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="10dp"
+            android:text="@string/sign_for"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

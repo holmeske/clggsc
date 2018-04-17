@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/width_m_height_m"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_titlebar"/>
+
+    <LinearLayout
+        style="@style/width_m_height_w"
+        android:background="@color/red"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_count_mileage"
+            style="@style/width_w_height_w"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/tv_count_date"
+            style="@style/width_w_height_w"
+            android:layout_marginTop="10dp"
+            android:background="#1fFFFFFF"
+            android:drawableLeft="@drawable/riqi"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/riqi"
+            android:paddingBottom="3dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv"
+        style="@style/width_m_height_m"
+        android:divider="#CCCCCC"
+        android:layoutAnimation="@anim/anim_layout"
+        android:dividerHeight="1px"/>
+</LinearLayout>

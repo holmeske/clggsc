@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/view_titlebar"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/line_f"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/divider_line"/>
+
+        <RelativeLayout
+            style="@style/width_m_height_w"
+            android:layout_height="50dp"
+            android:layout_below="@+id/line_f">
+
+            <Button
+                android:id="@+id/last_week"
+                style="@style/width_w_height_m"
+                android:gravity="center"
+                android:onClick="onBtnClick"
+                android:padding="5dp"
+                android:text="@string/on_the_day"
+                android:textColor="#999999"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/baobiao"
+                style="@style/width_w_height_w"
+                android:layout_centerInParent="true"
+                android:drawableEnd="@drawable/bb_arrow"
+                android:drawableRight="@drawable/bb_arrow"
+                android:gravity="center"
+                android:onClick="onBtnClick"
+                android:padding="5dp"
+                android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/next_week"
+                style="@style/width_w_height_m"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:onClick="onBtnClick"
+                android:padding="5dp"
+                android:text="@string/next_day"
+                android:textColor="#999999"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_detail"
+            style="@style/width_w_height_w"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/icon_40_xiangxi"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/icon_40_xiangxi"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:text="@string/detail"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            tools:ignore="RtlSymmetry"/>
+
+        <View
+            android:id="@+id/line_3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_detail"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#E40013"/>
+
+        <RelativeLayout
+            android:id="@+id/relative_t"
+            style="@style/width_m_height_w"
+            android:layout_below="@+id/line_3"
+            android:background="#FFFFFF"
+            android:onClick="onBtnClick"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="14sp"
+                tools:text="10.25"/>
+
+            <TextView
+                android:id="@+id/pathway"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_weeek"
+                android:layout_alignTop="@+id/tv_day"
+                android:layout_toEndOf="@+id/tv_day"
+                android:layout_toLeftOf="@+id/tv_tomap"
+                android:layout_toRightOf="@+id/tv_day"
+                android:layout_toStartOf="@+id/tv_tomap"
+                android:maxLines="2"/>
+
+            <TextView
+                android:id="@+id/tv_tomap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:drawableEnd="@drawable/jiankong_arrow"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/jiankong_arrow"
+                android:gravity="center"
+                android:text="@string/locus_free"
+                android:textColor="#999999"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_weeek"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_day"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                tools:text="周三"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/tv_weeek"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="15dp"
+                android:background="#CCCCCC"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

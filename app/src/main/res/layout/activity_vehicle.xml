@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:chart="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            style="@style/width_m_height_m"
+            android:background="@color/bg_app"
+            android:scrollbars="none">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/ll_title"
+            layout="@layout/view_titlebar"
+            chart:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_today_mile"
+            style="@style/width_m_height_w"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="18sp"
+            chart:layout_constraintTop_toBottomOf="@id/ll_title"/>
+
+        <com.db.chart.view.BarChartView
+            android:id="@+id/barchart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            chart:chart_axisBorderSpacing="5dp"
+            chart:chart_axisColor="#EDEDED"
+            chart:chart_axisTopSpacing="0dp"
+            chart:chart_fontSize="12sp"
+            chart:chart_labelColor="#000000"
+            chart:chart_shadowColor="#80000000"
+            chart:chart_shadowDx="1dp"
+            chart:chart_shadowDy="1dp"
+            chart:chart_shadowRadius="1dp"
+            chart:layout_constraintTop_toBottomOf="@+id/tv_today_mile"/>
+
+        <View
+            android:id="@+id/vline"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:background="@color/grey_ccc"
+            chart:layout_constraintTop_toBottomOf="@id/barchart"/>
+
+        <LinearLayout
+            android:id="@+id/ll_oil"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            chart:layout_constraintLeft_toLeftOf="parent"
+            chart:layout_constraintRight_toLeftOf="@+id/ll_oilkm"
+            chart:layout_constraintTop_toBottomOf="@id/vline">
+
+            <LinearLayout
+                style="@style/width_w_height_w"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_day_oil"
+                    style="@style/width_w_height_w"
+                    android:gravity="center"
+                    android:maxLength="9"
+                    android:textColor="#FF6600"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    style="@style/width_w_height_w"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:gravity="center"
+                    android:text="@string/litre"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <TextView
+                style="@style/width_w_height_w"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/icon_jryh"
+                android:drawablePadding="4dp"
+                android:drawableStart="@drawable/icon_jryh"
+                android:gravity="center"
+                android:text="@string/fuel_consumption_today"
+                android:textColor="#999999"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_oilkm"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            chart:layout_constraintBottom_toBottomOf="@id/ll_oil"
+            chart:layout_constraintLeft_toRightOf="@id/ll_oil"
+            chart:layout_constraintRight_toRightOf="parent"
+            chart:layout_constraintTop_toTopOf="@id/ll_oil">
+
+            <LinearLayout
+                style="@style/width_w_height_w"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_day_oilkm"
+                    style="@style/width_w_height_w"
+                    android:gravity="center"
+                    android:textColor="#34CC99"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    style="@style/width_w_height_w"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:gravity="center"
+                    android:text="@string/litres_per_hundred_km"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <TextView
+                style="@style/width_w_height_w"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/icon_bglyh"
+                android:drawablePadding="4dp"
+                android:drawableStart="@drawable/icon_bglyh"
+                android:gravity="center"
+                android:text="@string/hundred_km_fuel_consumption"
+                android:textColor="#999999"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/mane"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:text="@string/driver"
+            android:textSize="18sp"
+            chart:layout_constraintLeft_toLeftOf="parent"
+            chart:layout_constraintRight_toLeftOf="@+id/tv_drivename_tel"
+            chart:layout_constraintTop_toBottomOf="@id/ll_oil"/>
+
+        <TextView
+            android:id="@+id/tv_drivename_tel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:gravity="end|center_vertical"
+            android:paddingRight="15dp"
+            android:textSize="18sp"
+            chart:layout_constraintBottom_toBottomOf="@id/textView2"
+            chart:layout_constraintEnd_toEndOf="parent"
+            chart:layout_constraintLeft_toRightOf="@id/textView2"
+            chart:layout_constraintTop_toTopOf="@id/textView2"
+            tools:text="--"/>
+
+        <TextView
+            android:id="@+id/mile_rpt"
+            style="@style/width_m_height_w"
+            android:layout_marginTop="@dimen/divider_line"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/icon_50_licheng"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/jiankong_arrow"
+            android:gravity="center_vertical|start"
+            android:onClick="onBtnClick"
+            android:padding="15dp"
+            android:text="@string/miles"
+            android:textSize="18sp"
+            chart:layout_constraintTop_toBottomOf="@+id/textView2"/>
+
+        <TextView
+            android:id="@+id/time_rpt"
+            style="@style/width_m_height_w"
+            android:layout_marginTop="@dimen/divider_line"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/icon_50_youhao"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/jiankong_arrow"
+            android:gravity="center|left"
+            android:onClick="onBtnClick"
+            android:padding="15dp"
+            android:text="@string/fuel_consumption"
+            android:textSize="18sp"
+            chart:layout_constraintTop_toBottomOf="@+id/mile_rpt"/>
+
+        <TextView
+            android:id="@+id/time_tj"
+            style="@style/width_m_height_w"
+            android:layout_marginTop="@dimen/divider_line"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/icon_50_tujin"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/jiankong_arrow"
+            android:gravity="center|start"
+            android:onClick="onBtnClick"
+            android:padding="15dp"
+            android:text="@string/historical_route"
+            android:textSize="18sp"
+            chart:layout_constraintBottom_toBottomOf="parent"
+            chart:layout_constraintTop_toBottomOf="@+id/time_rpt"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            chart:layout_constraintBottom_toBottomOf="parent"
+            chart:layout_constraintLeft_toLeftOf="parent"
+            chart:layout_constraintRight_toRightOf="parent"
+            chart:layout_constraintTop_toTopOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

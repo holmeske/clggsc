@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <com.lvke.tools.widget.TitleBar
+        style="@style/match_wrap"
+        app:title="@string/about_sc"/>
+
+    <TextView
+        style="@style/width_m_height_w"
+        android:lineSpacingExtra="3dp"
+        android:lineSpacingMultiplier="1.2"
+        android:padding="15dp"
+        android:text="@string/about_us"
+        android:textColor="@color/color_text_0"
+        android:textSize="@dimen/textsize_14"/>
+
+    <TextView
+        android:id="@+id/tv_version" 
+        style="@style/width_m_height_w"
+        android:gravity="end"
+        android:lineSpacingExtra="3dp"
+        android:lineSpacingMultiplier="1.2"
+        android:paddingRight="15dp"
+        android:textColor="@color/color_text_0"
+        android:textSize="@dimen/textsize_14"
+        tools:ignore="RtlHardcoded,RtlSymmetry"
+        tools:text="--"/>
+
+</LinearLayout>

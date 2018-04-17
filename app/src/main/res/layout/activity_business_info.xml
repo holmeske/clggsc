@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@color/white">
+
+    <include
+        android:id="@+id/head"
+        layout="@layout/view_titlebar"/>
+
+    <TextView
+        android:id="@+id/company_name"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:textColor="@color/black_333"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintTop_toBottomOf="@id/head"
+        tools:text="陕西宇顺汽车销售服务有限公司"/>
+
+    <TextView
+        android:id="@+id/company_instance"
+        style="@style/width_w_height_w"
+        android:padding="10dp"
+        android:textColor="@color/font_grey"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintBottom_toBottomOf="@id/company_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/company_name"
+        tools:text="10.5km"/>
+
+    <ImageView
+        android:id="@+id/company_img"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/picture"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/company_name"/>
+
+    <TextView
+        android:id="@+id/company_position"
+        style="@style/width_w_height_w"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:drawableLeft="@drawable/dingwei"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/dingwei"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/font_grey"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintBottom_toTopOf="@+id/company_phone"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@id/company_img"
+        app:layout_constraintTop_toTopOf="@id/company_img"
+        tools:text="西安市未央区三桥镇阿房一路39号"/>
+
+    <TextView
+        android:id="@id/company_phone"
+        style="@style/width_w_height_w"
+        android:drawableLeft="@drawable/dainhua"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/dainhua"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/font_grey"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintBottom_toTopOf="@+id/company_person"
+        app:layout_constraintLeft_toLeftOf="@id/company_position"
+        app:layout_constraintLeft_toRightOf="@id/company_img"
+        app:layout_constraintTop_toBottomOf="@+id/company_position"
+        tools:text="029-84217707"/>
+
+    <TextView
+        android:id="@id/company_person"
+        style="@style/width_w_height_w"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/font_grey"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintBottom_toBottomOf="@id/company_img"
+        app:layout_constraintLeft_toLeftOf="@id/company_position"
+        app:layout_constraintLeft_toRightOf="@id/company_img"
+        app:layout_constraintTop_toBottomOf="@+id/company_phone"
+        tools:text="联系人: 黄小姐(13654278954)"/>
+
+    <LinearLayout
+        android:id="@+id/line_tel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_kuang_selecter2"
+        android:gravity="center"
+        android:padding="4dp"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/line_map"
+        app:layout_constraintTop_toBottomOf="@id/company_img">
+
+        <TextView
+            android:id="@+id/tv_tel"
+            style="@style/width_w_height_w"
+            android:drawableLeft="@drawable/bodadianhua"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/bodadianhua"
+            android:text="@string/make_call"
+            android:textColor="@color/text_color_selecter2"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/line_map"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_kuang_selecter2"
+        android:gravity="center"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/line_tel"
+        app:layout_constraintLeft_toRightOf="@id/line_tel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/company_img"
+        app:layout_constraintTop_toTopOf="@id/line_tel">
+
+        <TextView
+            android:id="@+id/tv_map"
+            style="@style/width_w_height_w"
+            android:drawableLeft="@drawable/quzheli"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/quzheli"
+            android:text="@string/go_here"
+            android:textColor="@color/text_color_selecter2"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_news"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:text="@string/news"
+        android:textColor="@color/black_333"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintTop_toBottomOf="@id/line_tel"/>
+
+    <com.sc.clgg.view.ScrollViewListView
+        android:id="@+id/news_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:listSelector="@drawable/bg_kuang_selecter"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@id/tv_news"/>
+
+    <com.sc.clgg.view.ScrollViewListView
+        android:id="@+id/business_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:listSelector="@drawable/bg_kuang_selecter"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@id/news_lv"/>
+
+    <TextView
+        android:id="@+id/tv_service_type"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/black_333"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintTop_toBottomOf="@id/business_lv"
+        tools:text="服务类型"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:paddingLeft="20dp"
+              android:paddingRight="20dp">
+
+    <NumberPicker
+        android:id="@+id/picker_province"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:divider="#000000"/>
+
+    <TextView
+        style="@style/width_w_height_w"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:text="@string/year"
+        android:textColor="#999999"
+        android:textSize="12sp"/>
+
+    <TextView
+        style="@style/width_w_height_w"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="@string/the"
+        android:textColor="#999999"
+        android:textSize="12sp"/>
+
+    <NumberPicker
+        android:id="@+id/picker_city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/tv_weekormon"
+        style="@style/width_w_height_w"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="@string/week"
+        android:textColor="#999999"
+        android:textSize="12sp"/>
+
+</LinearLayout>

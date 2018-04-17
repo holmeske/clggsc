@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="normal_day">#ff999999</color>
+    <color name="selected_day_background">#E75F49</color>
+    <color name="selected_day_text">#fff2f2f2</color>
+
+    <color name="split_line">#ffd9d9d9</color>
+
+    <color name="text_color">#ff313131</color>
+
+    <color name="chose_car_status">#FF999A</color>
+
+    <color name="red">#E40010</color>
+    <color name="green">#01bb5d</color>
+
+    <color name="grey_e4">#E4E4E4</color><!--主背景色-->
+    <color name="color_btn_press">#40000000</color>
+    <color name="bg_app">#EBEBEB</color>
+    <color name="color_text_grey">#555555</color>
+    <color name="color_title2">#35ADEC</color>
+    <color name="color_text_hint_0">#BABABA</color>
+    <color name="color_text_0">#515B5F</color>
+    <color name="color_bg_1">#E7E7E7</color>
+    <color name="yellow">#ffeb29</color>
+
+    <!-- 急修救援页面背景颜色 -->
+    <color name="color_first_help_press">#FF794C</color>
+    <!-- 字体  黑色 -->
+    <color name="black_333">#333333</color>
+    <color name="font_grey">#999999</color>
+    <color name="font_black_7f">#7f000000</color>
+
+    <color name="black">#000000</color>
+    <color name="color_home_bottom_menu_n">#717171</color>
+
+    <color name="top_icon_bg_press">#33000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="divider_line">#cccccc</color>
+    <color name="grey_ccc">#cccccc</color>
+
+    <color name="white">#ffffff</color>
+    <color name="state_pressed">#f5f5f5</color>
+    <color name="text_refresh">#707070</color>
+    <color name="gray_bg">#F1F1F1</color>
+    <color name="gray_aaa">#aaaaaa</color>
+
+
+</resources>

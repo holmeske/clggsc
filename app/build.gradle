@@ -1,0 +1,158 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+androidExtensions {
+    experimental = true
+}
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file("D:/keystore/bluemobi.keystore")
+            storePassword "bluemobi"
+            keyAlias "bluemobi.keystore"
+            keyPassword "bluemobi"
+        }
+    }
+    defaultConfig {
+        applicationId "com.sc.clgg"
+        multiDexEnabled true
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode = 7
+        versionName = "3.2.1"
+        signingConfig signingConfigs.debug
+        resConfigs "zh", "en"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${debugTime()}_v${variant.versionName}_${variant.buildType.name}.apk"
+                }
+            }
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled true  //混淆
+            zipAlignEnabled true  //Zipalign优化
+            shrinkResources true  // 移除无用的resource文件
+
+            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明，后一个文件是自己的定义混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release  //签名
+
+            applicationVariants.all { variant ->
+                variant.outputs.all {//variant.productFlavors[0].name
+                    outputFileName = "${releaseTime()}_v${variant.versionName}_${variant.buildType.name}.apk"
+                }
+            }
+        }
+
+    }
+}
+
+def static debugTime() {//-HH-mm-ss
+    return new Date().format("yyyyMMdd", TimeZone.getDefault())
+}
+
+def static releaseTime() {//-HH-mm-ss
+    return new Date().format("yyyyMMdd", TimeZone.getDefault())
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    testImplementation "junit:junit:$rootProject.junitLibraryVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    implementation 'com.amap.api:3dmap:latest.integration'
+    implementation 'com.amap.api:location:latest.integration'
+    implementation 'com.amap.api:search:latest.integration'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.4'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.lzy.net:okgo:3.0.4'
+    implementation 'com.lzy.net:okserver:2.0.5'
+    implementation 'com.alibaba:fastjson:1.1.68.android'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.yanzhenjie:permission:2.0.0-rc3'
+    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation  'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    implementation project(':tools')
+    implementation project(':pickerview')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // Anko Commons
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+
+    // Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
+    // sdk15, sdk19, sdk21, sdk23 are also available
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+
+    // Coroutine listeners for Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
+
+    // Anko SQLite
+    implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+
+    implementation 'androidx.core:core-ktx:0.2'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.4"
+
+}
+
+
+
+

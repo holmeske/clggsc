@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              style="@style/width_m_height_m"
+              android:background="@color/bg_app"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_titlebar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/default_head"
+            app:civ_border_color="@color/gray_aaa"
+            app:civ_border_width="1dp"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/width_w_height_w"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:text="18918230517"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_account_number"
+        style="@style/width_m_height_w"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/txj_login_right_btn"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <ImageButton
+            style="@style/width_w_height_m"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/zhanghao"/>
+
+        <EditText
+            android:id="@+id/et_account"
+            style="@style/wh_0w"
+            android:hint="@string/please_enter_your_account_number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:paddingBottom="10dp"
+            android:paddingEnd="@dimen/length_16"
+            android:paddingLeft="@dimen/length_16"
+            android:paddingRight="@dimen/length_16"
+            android:paddingStart="@dimen/length_16"
+            android:paddingTop="10dp"
+            android:textColor="@color/color_text_0"
+            android:textColorHint="@color/color_text_hint_0"
+            android:textSize="@dimen/textsize_14"/>
+
+        <ImageButton
+            android:id="@+id/iv_delete_account"
+            style="@style/width_w_height_m"
+            android:contentDescription="@null"
+            android:padding="10dp"
+            android:src="@drawable/delete"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/width_m_height_w"
+        android:layout_margin="10dp"
+        android:background="@drawable/txj_login_right_btn"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            style="@style/width_w_height_m"
+            android:contentDescription="@null"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/mima"/>
+
+        <EditText
+            android:id="@+id/et_pwd"
+            style="@style/wh_0w"
+            android:hint="@string/enter_your_password"
+            android:inputType="textPassword"
+            android:maxLength="18"
+            android:maxLines="1"
+            android:paddingBottom="10dp"
+            android:paddingEnd="@dimen/length_16"
+            android:paddingLeft="@dimen/length_16"
+            android:paddingRight="@dimen/length_16"
+            android:paddingStart="@dimen/length_16"
+            android:paddingTop="10dp"
+            android:textColor="@color/color_text_0"
+            android:textColorHint="@color/color_text_hint_0"
+            android:textSize="@dimen/textsize_14"/>
+
+        <ImageButton
+            android:id="@+id/iv_delete_password"
+            style="@style/width_w_height_w"
+            android:contentDescription="@null"
+            android:padding="10dp"
+            android:src="@drawable/delete"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"/>
+
+    <com.sc.clgg.widget.loadbutton.CircularProgressButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/txj_login_main_btn"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/textsize_16"
+        app:cpb_cornerRadius="50dp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <tool.widget.ShapeTextView
+        android:id="@+id/tv_forget_password"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="@string/forget_password"
+        android:textSize="16sp"
+        app:corners="50dp"
+        app:stroke_color="@color/red"
+        app:stroke_width="1dp"/>
+
+    <tool.widget.ShapeTextView
+        android:id="@+id/tv_switch_account"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/switch_account"
+        android:textSize="16sp"
+        app:corners="50dp"
+        app:stroke_color="@color/red"
+        app:stroke_width="1dp"/>
+
+    <tool.widget.ShapeTextView
+        android:id="@+id/tv_register"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/new_user_register"
+        android:textSize="16sp"
+        app:corners="50dp"
+        app:stroke_color="@color/red"
+        app:stroke_width="1dp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+</LinearLayout>

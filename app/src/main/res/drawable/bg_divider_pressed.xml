@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--lowest layer-->
+    <item>
+        <shape
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <solid android:color="@color/divider_line"/>
+        </shape>
+    </item>
+
+    <!--above layer-->
+    <item android:bottom="1px"><!--bottom pandding-->
+        <shape>
+            <solid android:color="@color/state_pressed" />
+        </shape>
+    </item>
+
+</layer-list>

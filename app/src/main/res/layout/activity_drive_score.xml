@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/width_m_height_m"
+    android:background="@color/red">
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/view_titlebar"/>
+
+    <tool.widget.Triangle
+        android:id="@+id/triangle_left"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_count_date"
+        app:layout_constraintRight_toLeftOf="@+id/tv_count_date"
+        app:layout_constraintTop_toTopOf="@+id/tv_count_date"
+        app:rotation="-90"/>
+
+    <TextView
+        android:id="@+id/tv_count_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top"
+        tools:text="本周"/>
+
+    <tool.widget.Triangle
+        android:id="@+id/triangle_right"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_count_date"
+        app:layout_constraintLeft_toRightOf="@+id/tv_count_date"
+        app:layout_constraintTop_toTopOf="@+id/tv_count_date"
+        app:rotation="90"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:divider="@color/divider_line"
+        android:dividerHeight="@dimen/divider_line"
+        android:padding="10dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_count_date"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</android.support.constraint.ConstraintLayout>

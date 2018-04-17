@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/length_10"
+              android:paddingLeft="@dimen/length_10"
+              android:paddingRight="@dimen/length_10"
+              android:paddingTop="@dimen/length_26">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/warm_prompt"
+        android:textColor="#666666"
+        android:textSize="@dimen/textsize_16"/>
+
+    <TextView
+        android:id="@+id/promtTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/length_40"
+        android:padding="@dimen/length_5"
+        android:textColor="#666666"
+        tools:text="@string/will_you_unbind_the_bank_card"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/length_26">
+
+        <Button
+            android:id="@+id/giveUpBtn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/length_40"
+            android:layout_weight="0.8"
+            android:background="@drawable/main_btn_second"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/textsize_14"/>
+
+        <com.sc.clgg.widget.loadbutton.CircularProgressButton
+            android:id="@+id/markSureTxt"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/length_40"
+            android:layout_marginLeft="@dimen/length_13"
+            android:layout_marginStart="@dimen/length_13"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_14"
+            tools:text="@string/confirm"/>
+    </LinearLayout>
+
+</LinearLayout>

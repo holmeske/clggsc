@@ -1,0 +1,141 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_app"
+              android:orientation="vertical"
+              tools:context=".activity.fragment.TransportManageFragment">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:text="@string/transport_manage"/>
+
+        <TextView
+            android:id="@+id/titlebar_right_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/add_car_list_selector"
+            android:gravity="center"
+            android:minWidth="80dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="@string/all"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <tool.widget.ShapeLinearLayout
+            android:id="@+id/ll_wait_pickup_goods"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:solid="@color/red"
+            app:stroke_color="@color/red"
+            app:stroke_width="1dp">
+
+            <TextView
+                android:id="@+id/tv_wait_pickup_goods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wait_pick_up_goods"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <tool.widget.ShapeTextView
+                android:id="@+id/tv_wait_pickup_goods_number"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                app:shape="oval"
+                app:solid="@color/white"/>
+        </tool.widget.ShapeLinearLayout>
+
+        <tool.widget.ShapeLinearLayout
+            android:id="@+id/ll_wait_sign_for"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:stroke_color="@color/red"
+            app:stroke_width="1dp">
+
+            <TextView
+                android:id="@+id/tv_wait_sign_for"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wait_sign_for"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <tool.widget.ShapeTextView
+                android:id="@+id/tv_wait_sign_for_number"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:shape="oval"
+                app:solid="@color/red"/>
+        </tool.widget.ShapeLinearLayout>
+
+        <tool.widget.ShapeTextView
+            android:id="@+id/tv_all"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/all"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:shape="rectangle"
+            app:stroke_color="@color/red"
+            app:stroke_width="1dp"/>
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutAnimation="@anim/anim_layout"
+            android:overScrollMode="always"
+            android:scrollbars="none"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>
