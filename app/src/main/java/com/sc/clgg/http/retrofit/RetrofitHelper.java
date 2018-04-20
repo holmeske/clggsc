@@ -1,47 +1,26 @@
 package com.sc.clgg.http.retrofit;
 
-import java.util.concurrent.TimeUnit;
+import com.sc.clgg.bean.DrivingScoreBean;
+import com.sc.clgg.bean.PayDetailBean;
 
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * @author：lvke
- * @date：2018/1/10 09:43
+ * @date：2018/1/2 10:29
  */
 
-public class RetrofitHelper {
+public interface RetrofitHelper {
 
-    public <T> T init(String baseUrl, final Class<T> service) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        return retrofit.create(service);
-    }
-    //    public class HttpInterceptor implements Interceptor {
-//        @Override
-//        public okhttp3.Response intercept(Chain chain) throws IOException {
-//            Request.Builder builder = chain.request().newBuilder();
-//            Request requst = builder.addHeader("Content-type", "application/json").build();
-//            return chain.proceed(requst);
-//        }
-//    }
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//需要添加头
+    @POST("txj/driveReport/getDriveReportList")
+    Call<DrivingScoreBean> drivingScore(@Body Object s);
 
-    public HttpService init(String baseUrl) {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-        return retrofit.create(HttpService.class);
-    }
-
+    @GET("account/waybillCostDetail/{waybillNo}")
+    Call<PayDetailBean> get(@Path("waybillNo") String waybillNo);
 }

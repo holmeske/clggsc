@@ -2,7 +2,7 @@ package com.sc.clgg.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.content.edit
+import androidx.core.content.edit
 import com.sc.clgg.application.App
 import com.sc.clgg.bean.UserInfoBean
 import com.sc.clgg.config.Constants
