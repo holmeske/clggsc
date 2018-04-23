@@ -91,7 +91,7 @@
     <string name="load_more">加载更多</string>
     <string name="fuel_gas">加油加气</string>
     <string name="placeholders_two">%1$s%2$s</string>
-    <string name="now_no">暂无</string>暂无电话号码
+    <string name="now_no">暂无</string>
     <string name="now_no_phone_number">暂无电话号码</string>
     <string name="connection_person">联系人:&#160;</string>
     <string name="make_call">拨打电话</string>

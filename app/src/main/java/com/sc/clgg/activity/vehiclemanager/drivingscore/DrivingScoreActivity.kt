@@ -12,7 +12,7 @@ import com.sc.clgg.adapter.DrivingScoreAdapter
 import com.sc.clgg.bean.DrivingScoreBean
 import com.sc.clgg.config.NetField
 import com.sc.clgg.http.ParamsHelper
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.http.retrofit.Retrofiter
 import kotlinx.android.synthetic.main.activity_drive_score.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -63,7 +63,7 @@ class DrivingScoreActivity : AppCompatActivity(), OnClickListener {
             "本月" -> timeLine = "03"
         }
         progressBar.visibility = View.VISIBLE
-        call = RetrofitHelper()
+        call = Retrofiter()
                 .init(NetField.SITE)
                 .drivingScore(ParamsHelper.drivingScore(timeLine))
 
