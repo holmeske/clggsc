@@ -76,7 +76,8 @@
         android:textSize="@dimen/text_size_16"
         app:layout_constraintHorizontal_weight="0.7"
         app:layout_constraintLeft_toRightOf="@id/tv_truck_number"
-        app:layout_constraintTop_toTopOf="@id/tv_truck_freamNumber"/>
+        app:layout_constraintTop_toTopOf="@id/tv_truck_freamNumber"
+        tools:ignore="TextFields"/>
 
 
     <TextView
