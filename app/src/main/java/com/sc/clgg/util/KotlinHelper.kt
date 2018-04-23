@@ -51,7 +51,7 @@ fun Context.creatProgressBar(): ProgressBar {
     progressBar.setOnKeyListener(object : View.OnKeyListener {
         override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
-                windowManager.removeView(progressBar)
+                if (this@creatProgressBar is Activity) finish()
             }
             return true
         }

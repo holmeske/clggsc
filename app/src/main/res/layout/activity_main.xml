@@ -60,8 +60,9 @@
         android:id="@+id/tv_unread"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="6dp"
+        app:layout_constraintCircle="@id/tv_transport_manage"
+        app:layout_constraintCircleAngle="45"
+        app:layout_constraintCircleRadius="30dp"
         android:background="@drawable/red_heart_white_ring"
         android:ellipsize="end"
         android:gravity="center"
@@ -69,9 +70,6 @@
         android:text="@string/number_0"
         android:textColor="@android:color/white"
         android:textSize="8sp"
-        app:layout_constraintLeft_toLeftOf="@id/tv_transport_manage"
-        app:layout_constraintRight_toRightOf="@id/tv_transport_manage"
-        app:layout_constraintTop_toTopOf="@id/tv_transport_manage"
         tools:ignore="RtlHardcoded,SmallSp"/>
 
 

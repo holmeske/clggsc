@@ -40,16 +40,13 @@ class MyVehicleActivity : BaseAppCompatActivity() {
 
         titlebar_title?.text = "我的车辆"
         titlebar_right_text?.text = "+ 添加车辆"
-//        val layoutParams = titlebar_right_text?.layoutParams as ConstraintLayout.LayoutParams
-//        layoutParams.setMargins(0, 0, MeasureUtils.dp2px(applicationContext, 10f), 0)
-//        layoutParams.height = MeasureUtils.dp2px(applicationContext, 30f)
         titlebar_right_text?.layoutParams.let {
             it as ConstraintLayout.LayoutParams
             it.setMargins(0, 0, MeasureUtils.dp2px(applicationContext, 10f), 0)
             it.height = MeasureUtils.dp2px(applicationContext, 30f)
         }
 
-        titlebar_right_text?.setPadding(MeasureUtils.dp2px(applicationContext, 6f), 0, MeasureUtils.dp2px(applicationContext, 6f), 0)
+        titlebar_right_text?.setPadding(MeasureUtils.dp2px(applicationContext, 4f), 0, MeasureUtils.dp2px(applicationContext, 4f), 0)
         titlebar_right_text?.textSize = 12f
         titlebar_right_text?.visibility = View.VISIBLE
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -73,8 +70,8 @@ class MyVehicleActivity : BaseAppCompatActivity() {
     private var progressBar: ProgressBar? = null
 
     override fun onDestroy() {
-        super.onDestroy()
         removeProgressBar(progressBar)
+        super.onDestroy()
         OkGo.getInstance().cancelTag("okgo")
     }
 
