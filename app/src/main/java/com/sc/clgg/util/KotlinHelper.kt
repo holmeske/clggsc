@@ -45,22 +45,20 @@ fun Context.creatProgressBar(): ProgressBar {
             MeasureUtils.dp2px(this.applicationContext, 30f), 0, 0, PixelFormat.TRANSPARENT)
     layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
     layoutParams.gravity = Gravity.CENTER_HORIZONTAL
-    windowManager?.addView(progressBar, layoutParams)
+    windowManager.addView(progressBar, layoutParams)
 
-    progressBar.setFocusableInTouchMode(true);
-    progressBar.setOnKeyListener(object : View.OnKeyListener {
-        override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (this@creatProgressBar is Activity) finish()
-            }
-            return true
+    progressBar.isFocusableInTouchMode = true
+    progressBar.setOnKeyListener { _, keyCode, event ->
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            (this@creatProgressBar as? Activity)?.finish()
         }
-    })
+        true
+    }
     return progressBar
 }
 
 fun Context.removeProgressBar(view: View?) {
-    windowManager.removeViewImmediate(view)
+    windowManager.removeView(view)
 }
 
 
