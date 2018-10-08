@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    tools:context=".activity.RechargeActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <TextView
+        android:id="@+id/tv_0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_white"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="15dp"
+        android:text="@string/etc_s1"
+        android:textColor="@color/_444"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/titlebar"/>
+
+    <com.lvke.tools.widget.DashLine
+        android:id="@+id/dash_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        app:color="@color/divider_line"
+        app:layout_constraintTop_toBottomOf="@id/tv_0"/>
+
+    <View
+        android:id="@+id/v_0"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/bg_white"
+        app:layout_constraintTop_toBottomOf="@id/dash_line"/>
+
+    <ImageView
+        android:id="@+id/iv_nfc"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:src="@drawable/recharge_nfc"
+        app:layout_constraintBottom_toBottomOf="@id/v_0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_0"/>
+
+    <TextView
+        android:id="@+id/tv_nfc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="@string/etc_s2"
+        android:textColor="@color/_444"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@id/iv_nfc"
+        app:layout_constraintTop_toTopOf="@id/iv_nfc"/>
+
+    <TextView
+        android:id="@+id/tv_nfc_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/etc_s3"
+        android:textColor="@color/_a5a5a5"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_nfc"
+        app:layout_constraintLeft_toLeftOf="@id/tv_nfc"
+        app:layout_constraintLeft_toRightOf="@id/iv_nfc"
+        app:layout_constraintTop_toBottomOf="@id/tv_nfc"/>
+
+    <TextView
+        android:id="@+id/tv_read_nfc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/recharge_arrow"
+        android:drawablePadding="12dp"
+        android:padding="28dp"
+        android:text="@string/go_read_card"
+        android:textColor="@color/_fb4a4a"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_0"
+        app:layout_constraintRight_toRightOf="@id/v_0"
+        app:layout_constraintTop_toTopOf="@id/v_0"/>
+
+    <View
+        android:id="@+id/v_1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_white"
+        app:layout_constraintTop_toBottomOf="@id/v_0"/>
+
+    <ImageView
+        android:id="@+id/iv_bluetooth"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:src="@drawable/recharge_bluetooth"
+        app:layout_constraintBottom_toBottomOf="@id/v_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_1"/>
+
+    <TextView
+        android:id="@+id/tv_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="@string/etc_s4"
+        android:textColor="@color/_444"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@id/iv_bluetooth"
+        app:layout_constraintTop_toTopOf="@id/iv_bluetooth"/>
+
+    <TextView
+        android:id="@+id/tv_bluetooth_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/etc_s5"
+        android:textColor="@color/_a5a5a5"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_bluetooth"
+        app:layout_constraintLeft_toLeftOf="@id/tv_bluetooth"
+        app:layout_constraintLeft_toRightOf="@id/iv_bluetooth"
+        app:layout_constraintTop_toBottomOf="@id/tv_bluetooth"/>
+
+    <TextView
+        android:id="@+id/tv_read_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/recharge_arrow"
+        android:drawablePadding="12dp"
+        android:padding="28dp"
+        android:text="@string/go_read_card"
+        android:textColor="@color/_fb4a4a"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_1"
+        app:layout_constraintRight_toRightOf="@id/v_1"
+        app:layout_constraintTop_toTopOf="@id/v_1"/>
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_blue_5"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="15dp"
+        android:text="@string/etc_s7"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/v_1"/>
+
+    <View
+        android:id="@+id/v_3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/bg_white"
+        app:layout_constraintTop_toBottomOf="@id/tv_1"/>
+
+    <ImageView
+        android:id="@+id/iv_pre_charge"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:src="@drawable/recharge_pre"
+        app:layout_constraintBottom_toBottomOf="@id/v_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_3"/>
+
+    <TextView
+        android:id="@+id/tv_pre_charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="@string/pre_recharge"
+        android:textColor="@color/_444"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_pre_charge_des"
+        app:layout_constraintLeft_toRightOf="@id/iv_pre_charge"
+        app:layout_constraintTop_toTopOf="@id/v_3"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/tv_pre_charge_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:maxEms="10"
+        android:text="@string/etc_s6"
+        android:textColor="@color/_a5a5a5"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_3"
+        app:layout_constraintLeft_toLeftOf="@id/tv_pre_charge"
+        app:layout_constraintLeft_toRightOf="@id/iv_pre_charge"
+        app:layout_constraintTop_toBottomOf="@id/tv_pre_charge"/>
+
+    <TextView
+        android:id="@+id/tv_charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/recharge_arrow"
+        android:drawablePadding="12dp"
+        android:padding="28dp"
+        android:text="@string/go_recharge"
+        android:textColor="@color/_fb4a4a"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_3"
+        app:layout_constraintRight_toRightOf="@id/v_3"
+        app:layout_constraintTop_toTopOf="@id/v_3"/>
+
+</android.support.constraint.ConstraintLayout>

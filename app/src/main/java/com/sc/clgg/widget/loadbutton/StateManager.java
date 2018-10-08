@@ -1,6 +1,6 @@
 package com.sc.clgg.widget.loadbutton;
 
-import tool.helper.LogHelper;
+import com.sc.clgg.tool.helper.LogHelper;
 
 class StateManager {
 

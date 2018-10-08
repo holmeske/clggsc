@@ -1,43 +1,42 @@
 package com.sc.clgg.activity.forgetpassword;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.sc.clgg.R;
+import com.sc.clgg.base.BaseImmersionActivity;
+import com.sc.clgg.bean.StatusBean;
 import com.sc.clgg.dialog.LoadingDialogHelper;
 import com.sc.clgg.http.HttpCallBack;
 import com.sc.clgg.http.HttpRequestHelper;
+import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.tool.widget.ShapeTextView;
 import com.sc.clgg.util.Tools;
-
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+/**
+ * @author lvke
+ */
+public class ForgetPasswordActivity extends BaseImmersionActivity {
 
     @BindView(R.id.et_account) EditText mEtAccount;
-    @BindView(R.id.iv_clear_acount) ImageView mIvClearAcount;
     @BindView(R.id.et_verification_code) EditText mEtVerificationCode;
-    @BindView(R.id.tv_get_verification_code) TextView mTvGetVerificationCode;
-    @BindView(R.id.tv_next) TextView mTvNext;
+    @BindView(R.id.et_password) EditText mEtPassWord;
+
+    @BindView(R.id.tv_get_verification_code) ShapeTextView mTvGetVerificationCode;
 
     private CountDownTimer mCountDownTimer = new CountDownTimer(60000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            mTvGetVerificationCode.setText(millisUntilFinished / 1000 + "s");
+            mTvGetVerificationCode.setText(String.format(getString(R.string.replace), millisUntilFinished / 1000));
         }
 
         @Override
@@ -47,16 +46,14 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         }
     };
     private LoadingDialogHelper mLoadingDialogHelper;
-
-    @OnClick(R.id.iv_clear_acount)
-    void a() {
-        mEtAccount.setText("");
-    }
+    private Call<StatusBean> http;
 
     @OnClick(R.id.tv_get_verification_code)
     void b() {
-        String phone=mEtAccount.getText().toString().trim();
-        if (phone.length()<6)return;
+        String phone = mEtAccount.getText().toString().trim();
+        if (phone.length() < 6) {
+            return;
+        }
         HttpRequestHelper.sendVerificationCode(phone, new HttpCallBack() {
             @Override
             public void onStart() {
@@ -69,6 +66,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 mCountDownTimer.start();
             }
 
+
             @Override
             public void onFinish() {
                 super.onFinish();
@@ -77,18 +75,126 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.tv_next)
+    @OnClick(R.id.tv_ok)
     void c() {
         mTvGetVerificationCode.setEnabled(false);
 
-        final String phone=mEtAccount.getText().toString().trim();
+        final String phone = mEtAccount.getText().toString().trim();
 
-        if (phone.length()<6)return;
+        if (phone.length() < 6) {
+            return;
+        }
 
         String code = mEtVerificationCode.getText().toString().trim();
 
-        if (code.length() != 6) return;
-        HttpRequestHelper.verificationCodeCheck(phone, code, new HttpCallBack() {
+        if (code.length() != 6) {
+            return;
+        }
+
+        mLoadingDialogHelper.show();
+        new RetrofitHelper().authCodeCheck(phone, code).enqueue(new Callback<StatusBean>() {
+            @Override
+            public void onResponse(Call<StatusBean> call, Response<StatusBean> response) {
+                mLoadingDialogHelper.dismiss();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        resetPwd(phone);
+                    } else {
+                        Tools.Toast(response.body().getMsg());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<StatusBean> call, Throwable t) {
+                mLoadingDialogHelper.dismiss();
+            }
+        });
+
+//        HttpRequestHelper.verificationCodeCheck(phone, code, new HttpCallBack() {
+//            @Override
+//            public void onStart() {
+//                super.onStart();
+//                mLoadingDialogHelper.show();
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                super.onFinish();
+//                super.onStart();
+//                mLoadingDialogHelper.dismiss();
+//            }
+//
+//            @Override
+//            public void onSuccess(String body) {
+//                StatusBean statusBean = new Gson().fromJson(body, StatusBean.class);
+//                if (statusBean.getStatus()) {
+//                    resetPwd(phone);
+//                } else {
+//                    Tools.Toast(statusBean.getMsg());
+//                }
+//            }
+//        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
+        if (http != null) {
+            http.cancel();
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_forget_pass);
+        unbinder = ButterKnife.bind(this);
+        initTitle("忘记密码");
+
+        mLoadingDialogHelper = new LoadingDialogHelper(this);
+
+    }
+
+    private void resetPwd(String phone) {
+        String newPassword = mEtPassWord.getText().toString().trim();
+        if (newPassword.length() < 6) {
+            Toast.makeText(this, "密码不能少于6位", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        http = new RetrofitHelper().resetPassword(phone, newPassword);
+        mLoadingDialogHelper.show();
+        http.enqueue(new Callback<StatusBean>() {
+            @Override
+            public void onResponse(Call<StatusBean> call, Response<StatusBean> response) {
+                mLoadingDialogHelper.dismiss();
+
+                StatusBean statusBean = response.body();
+                if (statusBean.getStatus()) {
+                    Toast.makeText(ForgetPasswordActivity.this, "密码重置成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Tools.Toast(statusBean.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatusBean> call, Throwable t) {
+                mLoadingDialogHelper.dismiss();
+
+                mCountDownTimer.cancel();
+                mTvGetVerificationCode.setText(getString(R.string.get_verification_code));
+                mTvGetVerificationCode.setEnabled(true);
+            }
+        });
+
+
+        /*HttpRequestHelper.resetPassword(phone, newPassword, new HttpCallBack() {
             @Override
             public void onStart() {
                 super.onStart();
@@ -104,70 +210,22 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(String body) {
-                Map<String, Object> map = (Map<String, Object>) JSON.parse(body);
-                if ((boolean) map.get("status")) {
-                    mCountDownTimer.cancel();
-                    startActivity(new Intent(ForgetPasswordActivity.this, InputNewPasswordActivity.class).putExtra("phone",phone));
+                StatusBean statusBean = new Gson().fromJson(body, StatusBean.class);
+                if (statusBean.getStatus()) {
+                    Toast.makeText(ForgetPasswordActivity.this, "密码重置成功", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Tools.Toast(String.valueOf(map.get("msg")));
+                    Tools.Toast(statusBean.getMsg());
                 }
             }
-        });
+
+            @Override
+            public void onError(String body) {
+                super.onError(body);
+                mCountDownTimer.cancel();
+                mTvGetVerificationCode.setText(getString(R.string.get_verification_code));
+                mTvGetVerificationCode.setEnabled(true);
+            }
+        });*/
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mCountDownTimer != null) mCountDownTimer.cancel();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_forget_password);
-        ButterKnife.bind(this);
-        setTitle("忘记密码");
-        super.onCreate(savedInstanceState);
-
-        mLoadingDialogHelper = new LoadingDialogHelper(this);
-
-        mEtAccount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-         if (!TextUtils.isEmpty(s)){
-             mIvClearAcount.setVisibility(View.VISIBLE);
-         }else {
-             mIvClearAcount.setVisibility(View.GONE);
-         }
-            }
-        });
-
-        mEtVerificationCode.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s) && !TextUtils.isEmpty(mEtAccount.getText().toString())) {
-                    mTvNext.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.round_angle_red_50));
-                }
-            }
-        });
-    }
-
 }

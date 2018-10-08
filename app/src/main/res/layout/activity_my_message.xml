@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MyMessageActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <View
+        android:id="@+id/v_1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/titlebar"/>
+
+    <View
+        android:id="@+id/v_2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/v_1"/>
+
+    <View
+        android:id="@+id/v_3"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/v_2"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#d7d7d7"
+        app:layout_constraintBottom_toBottomOf="@id/v_2"
+        app:layout_constraintTop_toTopOf="@id/v_1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#d7d7d7"
+        app:layout_constraintBottom_toBottomOf="@id/v_3"
+        app:layout_constraintTop_toTopOf="@id/v_2"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#d7d7d7"
+        app:layout_constraintBottom_toBottomOf="@id/v_3"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/ico_skip"
+        app:layout_constraintBottom_toBottomOf="@id/v_1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_1"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/ico_skip"
+        app:layout_constraintBottom_toBottomOf="@id/v_2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_2"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/ico_skip"
+        app:layout_constraintBottom_toBottomOf="@id/v_3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_3"/>
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:drawableLeft="@drawable/myinfo_ico_interact"
+        android:drawablePadding="15dp"
+        android:gravity="center_vertical"
+        android:text="卡友圈互动"
+        android:textColor="#444"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_1"/>
+
+    <View
+        android:id="@+id/v_point1"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:visibility="gone"
+        android:background="@drawable/point_red"
+        app:layout_constraintLeft_toRightOf="@id/tv_1"
+        app:layout_constraintTop_toTopOf="@id/tv_1"/>
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:drawableLeft="@drawable/myinfo_ico_news"
+        android:drawablePadding="15dp"
+        android:gravity="center_vertical"
+        android:text="新闻资讯"
+        android:textColor="#444"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_2"/>
+
+    <View
+        android:id="@+id/v_point2"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:visibility="gone"
+        android:background="@drawable/point_red"
+        app:layout_constraintLeft_toRightOf="@id/tv_2"
+        app:layout_constraintTop_toTopOf="@id/tv_2"/>
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:drawableLeft="@drawable/myinfo_ico_notice"
+        android:drawablePadding="15dp"
+        android:gravity="center_vertical"
+        android:text="活动公告"
+        android:textColor="#444"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_3"/>
+
+    <View
+        android:id="@+id/v_point3"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:visibility="gone"
+        android:background="@drawable/point_red"
+        app:layout_constraintLeft_toRightOf="@id/tv_3"
+        app:layout_constraintTop_toTopOf="@id/tv_3"/>
+</android.support.constraint.ConstraintLayout>

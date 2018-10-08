@@ -7,5 +7,5 @@ package com.sc.clgg.activity.contact;
  */
 
 public interface CallbackListener {
-    void callback();
+    void callback(int position);
 }

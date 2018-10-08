@@ -1,226 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             style="@style/width_m_height_m"
-                                             android:background="@color/bg_app">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/width_m_height_m"
+    android:orientation="vertical">
 
-    <include
-        android:id="@+id/head"
-        layout="@layout/view_titlebar"/>
+    <include layout="@layout/view_titlebar_blue"/>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_app"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3"/>
-
-    <TextView
-        android:id="@+id/tv_truck_number"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:paddingRight="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical|end"
-        android:text="@string/truck_add_truck_num"
-        android:textColor="@color/black_333"
-        android:textSize="@dimen/txt40"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/head"/>
-
-    <EditText
-        android:id="@+id/et_truck_number"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:paddingRight="10dp"
-        android:background="@color/white"
-        android:digits="京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔贵云滇藏陕甘青宁新港澳台QWERTYUIOPASDFGHJKLZXCVBNM0123456789"
-        android:hint="@string/truck_add_truck_hint_0"
-        android:inputType="textFilter"
-        android:maxLength="7"
-        android:textColor="@color/color_text_grey"
-        android:textColorHint="@color/font_grey"
-        android:textSize="@dimen/text_size_16"
-        app:layout_constraintLeft_toLeftOf="@id/guideline"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tv_truck_number"
-        app:layout_constraintTop_toTopOf="@id/tv_truck_number"
-        tools:ignore="TextFields"/>
-
-    <TextView
-        android:id="@+id/tv_truck_freamNumber"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/divider_line"
-        android:layout_gravity="center_vertical"
-        android:background="@color/white"
-        android:gravity="center_vertical|end"
-        android:paddingRight="10dp"
-        android:text="@string/truck_add_truck_fream_num"
-        android:textColor="@color/black_333"
-        android:textSize="@dimen/txt40"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/et_truck_freamNumber"
-        app:layout_constraintTop_toBottomOf="@id/et_truck_number"/>
-
-    <EditText
-        android:id="@+id/et_truck_freamNumber"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:digits="ABCDEFGHJKLMNPRSTUVWXYZ0123456789"
-        android:hint="@string/truck_add_truck_fream_hint_0"
-        android:inputType="textFilter"
-        android:maxLength="8"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_truck_freamNumber"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textColor="@color/color_text_grey"
-        android:textColorHint="@color/font_grey"
-        android:textSize="@dimen/text_size_16"
-        android:paddingRight="10dp"
-        app:layout_constraintLeft_toRightOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="@id/tv_truck_freamNumber"
-        tools:ignore="TextFields"/>
-
-
-    <TextView
-        android:id="@+id/tv_truck_type_hint"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:paddingRight="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical|end"
-        android:text="@string/truck_add_truck_type"
-        android:textColor="@color/black_333"
-        android:textSize="@dimen/txt40"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_truck_type"
-        app:layout_constraintRight_toLeftOf="@id/guideline"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_truck_type"/>
-
-    <TextView
-        android:id="@+id/tv_truck_type"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:gravity="center|left"
-        android:layout_marginTop="@dimen/divider_line"
-        android:background="@color/white"
-        android:drawableEnd="@drawable/jiankong_arrow"
-        android:drawablePadding="6dp"
-        android:drawableRight="@drawable/jiankong_arrow"
-        android:hint="@string/truck_add_truck_hint_1"
-        android:onClick="onBtnClick"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingRight="10dp"
-        android:textColor="@color/color_text_grey"
-        android:textColorHint="@color/font_grey"
-        android:textSize="@dimen/text_size_16"
-        app:layout_constraintLeft_toRightOf="@id/guideline"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_truck_freamNumber"/>
-
-    <TextView
-        android:id="@+id/tv_truck_length_hint"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:paddingRight="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical|end"
-        android:text="@string/truck_add_truck_length"
-        android:textColor="@color/black_333"
-        android:textSize="@dimen/txt40"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_truck_length"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tv_truck_type_hint"
-        app:layout_constraintTop_toTopOf="@+id/tv_truck_length"/>
-
-    <TextView
-        android:id="@+id/tv_truck_length"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:gravity="center|left"
-        android:layout_marginTop="@dimen/divider_line"
-        android:background="@color/white"
-        android:drawableEnd="@drawable/jiankong_arrow"
-        android:drawablePadding="6dp"
-        android:drawableRight="@drawable/jiankong_arrow"
-        android:hint="@string/truck_add_truck_hint_2"
-        android:onClick="onBtnClick"
-        android:clickable="true"
-        android:paddingRight="10dp"
-        android:focusable="true"
-        android:textColor="@color/color_text_grey"
-        android:textColorHint="@color/font_grey"
-        android:textSize="@dimen/text_size_16"
-        app:layout_constraintLeft_toRightOf="@+id/guideline"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_truck_type"/>
-
-    <TextView
-        android:id="@+id/tv_truck_weight"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:paddingRight="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical|end"
-        android:text="@string/truck_add_truck_weight"
-        android:textColor="@color/black_333"
-        android:textSize="@dimen/txt40"
-        app:layout_constraintBottom_toBottomOf="@+id/et_truck_weight"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/et_truck_weight"/>
-
-    <EditText
-        android:id="@+id/et_truck_weight"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/divider_line"
-        android:background="@color/white"
-        android:digits="0123456789."
-        android:hint="@string/truck_add_truck_hint_3"
-        android:inputType="number"
-        android:maxLines="1"
-        android:textColor="@color/color_text_grey"
-        android:textColorHint="@color/font_grey"
-        android:textSize="@dimen/text_size_16"
-        app:layout_constraintHorizontal_weight="0.6"
-        app:layout_constraintRight_toLeftOf="@+id/textView"
-        app:layout_constraintLeft_toRightOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tv_truck_length"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="@string/ton"
-
-        android:textColor="@color/black_333"
-        android:textSize="@dimen/txt40"
-        app:layout_constraintBottom_toBottomOf="@+id/et_truck_weight"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_weight="0.1"
-        app:layout_constraintLeft_toRightOf="@id/et_truck_weight"
-        app:layout_constraintTop_toTopOf="@+id/et_truck_weight"/>
-
-    <Button
-        android:id="@+id/btn_submit"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dim90"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/btn_blue"
-        android:onClick="onBtnClick"
-        android:text="@string/truck_push_my_truck"
-        android:textColor="@color/white"
-        android:textSize="@dimen/txt40"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <View
+                android:id="@+id/v"
+                android:layout_width="match_parent"
+                android:layout_height="195dp"/>
+
+            <ImageView
+                android:id="@+id/iv_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mine_addcar_scan"
+                app:layout_constraintBottom_toBottomOf="@id/v"
+                app:layout_constraintLeft_toLeftOf="@id/v"
+                app:layout_constraintRight_toRightOf="@id/v"
+                app:layout_constraintTop_toTopOf="@id/v"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="识别行驶证免输入添加"
+                android:textColor="#444"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="@id/iv_scan"
+                app:layout_constraintRight_toRightOf="@id/iv_scan"
+                app:layout_constraintTop_toBottomOf="@id/iv_scan"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/v">
+
+                <EditText
+                    android:id="@+id/et_car_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape_stroke"
+                    android:hint="请输入车牌号"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColorHint="#aaa"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <EditText
+                    android:id="@+id/et_car_vin"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape_stroke"
+                    android:hint="请输入VIN码"
+                    android:maxLength="17"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColorHint="#aaa"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/et_car_no"/>
+
+                <TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="300dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/bg_orange"
+                    android:gravity="center"
+                    android:text="添加"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_car_vin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="如果行驶证不在身边，可以选择输入信息手动添加"
+                    android:textColor="#aaa"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toLeftOf="@id/et_car_vin"
+                    app:layout_constraintTop_toBottomOf="@id/et_car_vin"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>
+

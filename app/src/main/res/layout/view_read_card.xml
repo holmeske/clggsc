@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_read_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <View
+        android:id="@+id/v"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/_4285f4"
+        app:layout_constraintTop_toBottomOf="@id/titlebar"/>
+
+    <ImageView
+        android:id="@+id/iv_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@color/_4285f4"
+        android:scaleType="centerCrop"
+        android:src="@drawable/recharge_nav_step"
+        app:layout_constraintBottom_toTopOf="@id/tv_0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/tv_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:text="读卡"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/v"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_1"
+        app:layout_constraintTop_toBottomOf="@id/iv_nav"/>
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="充值/写卡"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/tv_0"
+        app:layout_constraintRight_toLeftOf="@id/tv_2"
+        app:layout_constraintTop_toTopOf="@id/tv_0"/>
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/tv_1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_0"/>
+</android.support.constraint.ConstraintLayout>

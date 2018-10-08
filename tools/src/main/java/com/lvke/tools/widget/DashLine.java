@@ -30,9 +30,13 @@ public class DashLine extends View {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.DashLine);
 
-        int color = array.getColor(R.styleable.DashLine_color, Color.BLACK);
+        try {
+            int color = array.getColor(R.styleable.DashLine_color, Color.BLACK);
+            paint.setColor(color);
+        } finally {
+            array.recycle();
+        }
 
-        paint.setColor(color);
     }
 
     public DashLine(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {

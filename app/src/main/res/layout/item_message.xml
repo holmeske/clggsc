@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#888"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="00:00"/>
+
+    <LinearLayout
+        android:id="@+id/ll_type"
+        android:layout_width="match_parent"
+        android:layout_height="14dp"
+        android:layout_marginLeft="12dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_time">
+
+        <TextView
+            android:id="@+id/tv_hot"
+            android:layout_width="25dp"
+            android:layout_height="14dp"
+            android:background="#ff5757"
+            android:gravity="center"
+            android:text="热门"
+            android:textColor="@color/white"
+            android:textSize="10sp"/>
+
+        <TextView
+            android:id="@+id/tv_top"
+            android:layout_width="25dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="5dp"
+            android:background="#ff9540"
+            android:gravity="center"
+            android:text="置顶"
+            android:textColor="@color/white"
+            android:textSize="10sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="12dp"
+        android:textColor="#444"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/ll_type"
+        tools:text="天行健最美罗氏芬女神出炉，快点点击查看！！！"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:padding="12dp"
+        android:textColor="#888"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text=""/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:background="@color/divider_line"
+        app:layout_constraintTop_toTopOf="@id/tv_content"/>
+
+    <com.sc.clgg.tool.widget.ShapeTextView
+        android:id="@+id/tv_type"
+        android:layout_width="50dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_green"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:corners="2dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        tools:text="平台动态"/>
+
+    <TextView
+        android:id="@+id/tv_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="查看详情"
+        android:textColor="#5277df"
+        android:textSize="14sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"/>
+
+    <View
+        android:id="@+id/v_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginTop="20dp"
+        android:background="#f5f5f5"
+        app:layout_constraintTop_toBottomOf="@+id/tv_type"/>
+
+    <TextView
+        android:id="@+id/tv_loadmore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_bg_divider"
+        android:gravity="center"
+        android:padding="10dp"
+        android:paddingBottom="@dimen/length_15"
+        android:paddingTop="@dimen/length_15"
+        android:text="@string/load_more"
+        android:textColor="#666666"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_type"/>
+
+</android.support.constraint.ConstraintLayout>

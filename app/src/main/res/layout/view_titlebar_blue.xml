@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/titlebar"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_title"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titlebar_top"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/titlebar_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/navigation_top_icon_bg_day"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:paddingEnd="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingStart="12dp"
+            android:src="@drawable/arrow_left_white"
+            android:textColor="@color/white"
+            tools:text="取消"/>
+
+        <ImageButton
+            android:id="@+id/titlebar_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/navigation_top_icon_bg_day"
+            android:contentDescription="@null"
+            android:paddingEnd="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingStart="12dp"
+            android:src="@drawable/arrow_left_white"/>
+
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            tools:text="标题"/>
+
+        <TextView
+            android:id="@+id/titlebar_right"
+            style="@style/width_w_height_m"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_btn_trans"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:visibility="visible"
+            tools:text="+ 添加车辆"/>
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <declare-styleable name="GeneralItem">
+        <attr name="item_icon" format="reference"/>
+        <attr name="item_text" format="string"/>
+        <attr name="item_arrow" format="reference"/>
+        <attr name="item_divider_top" format="boolean"/>
+        <attr name="item_divider_bottom" format="boolean"/>
+    </declare-styleable>
+
     <!--WilliamChart-->
     <declare-styleable name="ChartAttrs">
 

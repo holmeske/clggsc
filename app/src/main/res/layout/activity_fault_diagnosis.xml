@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FaultDiagnosisActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <FrameLayout
+        android:id="@+id/fl"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gif_bg"/>
+
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/scan"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:maxLines="5"
+        android:ellipsize="end"
+        app:layout_constraintRight_toRightOf="@id/fl"
+        android:text="请先选择您要诊断的车辆"
+        android:textColor="#ff3434"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/fl"
+        app:layout_constraintTop_toBottomOf="@id/fl"/>
+
+    <TextView
+        android:id="@+id/diagnosis"
+        android:layout_width="300dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/bg_orange"
+        android:gravity="center"
+        android:text="开始诊断"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/way_content2"/>
+
+    <include layout="@layout/dialog_select_vehicle"/>
+
+</android.support.constraint.ConstraintLayout>

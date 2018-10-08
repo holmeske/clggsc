@@ -21,6 +21,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
+
         return fragments == null ? 0 : fragments.size();
     }
 

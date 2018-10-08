@@ -8,16 +8,7 @@ import kotlinx.android.parcel.Parcelize
  * @author：lvke
  * @date：2018/2/9 16:14
  */
-@SuppressLint("ParcelCreator")
-data class ServiceSiteBean(var page: StoreInfoListBean? = null) : BaseBean()
 
-@SuppressLint("ParcelCreator")
-@Parcelize
-data class StoreInfoListBean(var pageNo: Int = 0,
-                             var pageSize: Int = 0,
-                             var totalPage: Int = 0,
-                             var totalRow: Int = 0,
-                             var list: List<StoreInfoBean>? = null) : Parcelable
 
 @SuppressLint("ParcelCreator")
 @Parcelize

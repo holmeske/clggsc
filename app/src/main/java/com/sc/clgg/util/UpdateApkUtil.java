@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 
 import com.sc.clgg.R;
 import com.sc.clgg.application.App;
+import com.sc.clgg.tool.helper.ApkUtils;
+import com.sc.clgg.tool.helper.LogHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,23 +29,30 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import tool.helper.ApkUtils;
-import tool.helper.LogHelper;
-
+/**
+ * @author lvke
+ */
 public class UpdateApkUtil {
 
     private final static int DOWN_UPDATE = 1;
     private final static int DOWN_OVER = 2;
     private Context context;
-    private int type; // 更新类型 1：手动更新 2：强制自动更新
     private String apkUrl;
     private ProgressBar progressBar;
     private int progress;
-    private boolean isCountinue = true;
     private AlertDialog mDownLoadDialog;
     private String parentPath = Environment.getExternalStorageDirectory().getPath() + "/clggsc/apk/";
     private String saveFilePath = Environment.getExternalStorageDirectory().getPath() + "/clggsc/apk/" + "clgg" + ".apk";
+    /**
+     * 更新类型 1：手动更新 2：强制自动更新
+     */
+    private int type;
+    /**
+     * 是否继续下载
+     */
+    private boolean isCountinue = true;
     private Handler mHandler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case DOWN_UPDATE:
@@ -58,7 +67,9 @@ public class UpdateApkUtil {
     };
 
     public UpdateApkUtil() {
+
     }
+
 
     public void checkUpdateInfo(Context context, String versionCode, int type, String url, boolean showToast) {
         this.context = context;
@@ -121,25 +132,25 @@ public class UpdateApkUtil {
                 progress = (int) (((float) count / length) * 100);
                 // 更新进度
                 mHandler.sendEmptyMessage(DOWN_UPDATE);
+                LogHelper.e("numRead = " + numRead);
                 if (numRead <= 0) {
                     // 下载完成通知安装
                     mHandler.sendEmptyMessage(DOWN_OVER);
                     break;
                 }
                 fos.write(buf, 0, numRead);
-            } while (isCountinue);// 点击取消就停止下载.
+            } while (isCountinue);
 
             fos.close();
             is.close();
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            LogHelper.e(e);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LogHelper.e(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogHelper.e(e);
         } finally {
-            LogHelper.e("下载出错啦");
         }
     }
 
@@ -174,10 +185,11 @@ public class UpdateApkUtil {
         builder.setTitle("正在下载安装包...");
 
         View v = View.inflate(context, R.layout.view_update_progress, null);
-        progressBar = (ProgressBar) v.findViewById(R.id.progress);
+        progressBar = v.findViewById(R.id.progress);
         builder.setView(v);
         mDownLoadDialog = builder.create();
         mDownLoadDialog.show();
+
         downloadApk();
     }
 
@@ -195,7 +207,7 @@ public class UpdateApkUtil {
         });
 
         if (type == 1) {
-            builder.setNegativeButton("以后再说", new OnClickListener() {
+            builder.setNegativeButton("取消", new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();

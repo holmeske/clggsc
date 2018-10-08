@@ -1,16 +1,7 @@
 <resources>
 
     <!-- 字体大小 -->
-    <dimen name="txt28">14.0sp</dimen>
-    <dimen name="txt36">18.0sp</dimen>
-    <dimen name="txt40">20.0sp</dimen>
 
     <!-- dp大小 -->
-    <dimen name="dim3">1.5dp</dimen>
-    <dimen name="dim10">5.0dp</dimen>
-    <dimen name="dim20">10.0dp</dimen>
-    <dimen name="dim90">45.0dp</dimen>
-    <dimen name="dim170">85.0dp</dimen>
-    <dimen name="dim440">220.0dp</dimen>
 
 </resources>

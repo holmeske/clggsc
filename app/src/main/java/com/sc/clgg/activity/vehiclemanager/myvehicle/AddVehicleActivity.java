@@ -1,254 +1,210 @@
 package com.sc.clgg.activity.vehiclemanager.myvehicle;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.method.ReplacementTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.lzy.imagepicker.view.CropImageView;
 import com.sc.clgg.R;
-import com.sc.clgg.base.BaseAppCompatActivity;
-import com.sc.clgg.bean.BaseBean;
-import com.sc.clgg.dialog.AddVehicleDialog;
-import com.sc.clgg.dialog.VehicleAttributeDialog;
-import com.sc.clgg.http.HttpCallBack;
-import com.sc.clgg.http.HttpRequestHelper;
-import com.sc.clgg.util.Tools;
+import com.sc.clgg.activity.GlideImageLoader;
+import com.sc.clgg.base.BaseImmersionActivity;
+import com.sc.clgg.bean.Check;
+import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.tool.helper.LogHelper;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import tool.helper.ActivityHelper;
-import tool.helper.LogHelper;
+import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
- * 车辆发布
- *
  * @author lvke
  */
-public class AddVehicleActivity extends BaseAppCompatActivity {
-    @BindView(R.id.et_truck_number) EditText et_truck_number;
-    @BindView(R.id.et_truck_weight) EditText et_truck_weight;
-    @BindView(R.id.et_truck_freamNumber) EditText et_truck_freamNumber;
-    @BindView(R.id.tv_truck_type) TextView tv_truck_type;
-    @BindView(R.id.tv_truck_length) TextView tv_truck_length;
-    private Unbinder unbinder;
-    private String mTruckTypeCode;
-    private String mTruckLengthCode;
-
-    /**
-     * 选择车辆长度的对话框
-     */
-    private VehicleAttributeDialog mVehicleAttributeDialog;
-
-    private VehicleAttributeDialog.ChooseListener mChooseListener = new VehicleAttributeDialog.ChooseListener() {
-
-        @Override
-        public void getDate(int type, String name, String code) {
-            if (type == 1) {
-                tv_truck_type.setText(name);
-                mTruckTypeCode = code;
-            } else {
-                tv_truck_length.setText(name);
-                mTruckLengthCode = code;
-            }
-        }
-    };
-    /**
-     * 添加车辆确认框
-     */
-    private AddVehicleDialog mAddVehicleDialog;
-    /**
-     * 车牌号
-     */
-    private String vehicleno;
-    /**
-     * 载重
-     */
-    private String loadcapacity;
-    /**
-     * 车架号
-     */
-    private String freamNumber;
-
-    private TextWatcher mTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (s.toString().startsWith("0")) {
-                et_truck_weight.setText(null);
-            }
-
-            if (s.toString().startsWith(".")) {
-                et_truck_weight.setText(null);
-            }
-
-            if (s.toString().contains(".")) {
-                if (s.toString().indexOf(".") > 4) {
-                        /* 显示小数点前的位数 */
-                    et_truck_weight.setText(s.toString().substring(0, 4));
-                    et_truck_weight.setSelection(s.length() - 3);
-                }
-
-					/* 限制小数点后的位数 */
-                if (s.length() - 1 - s.toString().indexOf(".") > 1) {
-                    s = s.toString().subSequence(0, s.toString().indexOf(".") + 2);
-                    et_truck_weight.setText(s);
-                    et_truck_weight.setSelection(s.length());
-                }
-            } else if (s.toString().length() > 4) {
-                et_truck_weight.setText(s.toString().substring(0, 4));
-                et_truck_weight.setSelection(s.length() - 1);
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-        }
-    };
+public class AddVehicleActivity extends BaseImmersionActivity {
+    @BindView(R.id.et_car_no) EditText et_car_no;
+    @BindView(R.id.et_car_vin) EditText et_car_vin;
+    @BindView(R.id.tv_add) TextView tv_add;
+    private Call<Check> mCall;
+    private ArrayList<ImageItem> images;
+    private Call<Map<String, Object>> call;
+    private String scan = "0";
+    private String carno = "";
+    private String vin = "";
+    private String carType = "";
+    private String carOwner = "";
+    private String address = "";
+    private String engineNumber = "";
+    private String registrationDate = "";
+    private String carLicenceDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTitle(getString(R.string.truck_add_truck));
-        setContentView(R.layout.activity_add_vehicle);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_vehicle);
         unbinder = ButterKnife.bind(this);
+        initTitle("添加车辆");
+//        SoftHideKeyBoardUtil.assistActivity(this);
+        et_car_no.setTransformationMethod(new AllCapTransformationMethod());
+        et_car_vin.setTransformationMethod(new AllCapTransformationMethod());
 
-        et_truck_number.setTransformationMethod(new AllCapTransformationMethod());
-        et_truck_weight.addTextChangedListener(mTextWatcher);
+        findViewById(R.id.iv_scan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImagePicker imagePicker = ImagePicker.getInstance();
+                imagePicker.setImageLoader(new GlideImageLoader());
+                imagePicker.setShowCamera(true);
+                imagePicker.setCrop(false);
+                imagePicker.setSaveRectangle(true);
+                imagePicker.setSelectLimit(1);
+                imagePicker.setMultiMode(false);
+                imagePicker.setStyle(CropImageView.Style.RECTANGLE);
+                imagePicker.setFocusWidth(280);//裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+                imagePicker.setFocusHeight(280);//裁剪框的高度。单位像素（圆形自动取宽高最小值）
+                imagePicker.setOutPutX(800);//保存文件的宽度。单位像素
+                imagePicker.setOutPutY(800);//保存文件的高度。单位像素
 
-
+                Intent intent = new Intent(AddVehicleActivity.this, ImageGridActivity.class);
+                intent.putExtra(ImageGridActivity.EXTRAS_IMAGES, images);
+                startActivityForResult(intent, 100);
+            }
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            try {
+                if (data != null && requestCode == 100) {
+                    images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                    LogHelper.e("" + images.get(0).path);
+
+                    showProgressDialog();
+                    compressImage(images.get(0).path);
+                }
+            } catch (Exception e) {
+                LogHelper.e(e);
+            }
+        }
+    }
+
+    private void compressImage(String path) {
+        Luban.with(this).load(path).ignoreBy(100).setCompressListener(new OnCompressListener() {
+            @Override
+            public void onStart() {
+                LogHelper.e("onStart()");
+            }
+
+            @Override
+            public void onSuccess(File file) {
+                LogHelper.e("onSuccess()");
+                call = new RetrofitHelper().scan(file);
+                call.enqueue(new Callback<Map<String, Object>>() {
+                    @Override
+                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                        hideProgressDialog();
+                        Map<String, Object> allMap = response.body();
+                        if (allMap.containsKey("success") && (boolean) allMap.get("success")) {
+                            Map<String, Object> identifyMap = (Map<String, Object>) allMap.get("identify");
+
+                            if (identifyMap.containsKey("words_result")) {
+                                Map<String, Object> resultMap = (Map<String, Object>) identifyMap.get("words_result");
+
+                                et_car_no.setText(((Map<String, String>) resultMap.get("号牌号码")).get("words"));
+                                et_car_vin.setText(((Map<String, String>) resultMap.get("车辆识别代号")).get("words"));
+
+                                scan = "1";
+                                carType = ((Map<String, String>) resultMap.get("车辆类型")).get("words");
+                                carOwner = ((Map<String, String>) resultMap.get("所有人")).get("words");
+                                address = ((Map<String, String>) resultMap.get("住址")).get("words");
+                                engineNumber = ((Map<String, String>) resultMap.get("发动机号码")).get("words");
+                                registrationDate = ((Map<String, String>) resultMap.get("注册日期")).get("words");
+                                carLicenceDate = ((Map<String, String>) resultMap.get("发证日期")).get("words");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                        hideProgressDialog();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogHelper.e("onError()");
+            }
+        }).launch();
+    }
+
+    @OnClick(R.id.tv_add)
+    void add() {
+        carno = et_car_no.getText().toString();
+        vin = et_car_vin.getText().toString();
+
+        if (TextUtils.isEmpty(carno)) {
+            Toast.makeText(this, "请输入车牌号", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(vin)) {
+            Toast.makeText(this, "请输入VIN码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (vin.length() != 17) {
+            Toast.makeText(this, "请输入17位VIN码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mCall = new RetrofitHelper().vehicleAdd(carno, vin, scan, carType, carOwner, address, engineNumber, registrationDate, carLicenceDate);
+        mCall.enqueue(new Callback<Check>() {
+
+            @Override
+            public void onResponse(Call<Check> call, Response<Check> response) {
+                if (response.body().getSuccess()) {
+                    Toast.makeText(AddVehicleActivity.this, "添加车辆成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(AddVehicleActivity.this, String.valueOf(response.body().getMsg()), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Check> call, Throwable t) {
+                Toast.makeText(AddVehicleActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (unbinder != Unbinder.EMPTY) {
-            unbinder.unbind();
+        if (mCall != null) {
+            mCall.cancel();
+        }
+        if (call != null) {
+            call.cancel();
         }
     }
-
-    private void addTruck() {
-        vehicleno = et_truck_number.getText().toString().trim();
-        loadcapacity = et_truck_weight.getText().toString();
-        if (Tools.isNull(loadcapacity)) {
-            Tools.Toast(getString(R.string.truck_add_truck_hint_3));
-            return;
-        }
-
-        freamNumber = et_truck_freamNumber.getText().toString();
-        if (Tools.isNull(freamNumber)) {
-            Tools.Toast(getString(R.string.truck_add_truck_hint_7));
-            return;
-        }
-        if (freamNumber.length() != 8) {
-            Tools.Toast(getString(R.string.truck_add_truck_fream_hint_0));
-            return;
-        }
-        mAddVehicleDialog = new AddVehicleDialog(this, v -> {
-            mAddVehicleDialog.dismiss();
-            if (R.id.btn_yes == v.getId()) {
-                releaseVehicle();
-            }
-        });
-        mAddVehicleDialog.show();
-    }
-
-    private void releaseVehicle() {
-        LogHelper.e("freamNumber = " + freamNumber);
-        LogHelper.e("vehicleno = " + vehicleno);
-        LogHelper.e("mTruckTypeCode = " + mTruckTypeCode);
-        LogHelper.e("mTruckLengthCode = " + mTruckLengthCode);
-        LogHelper.e("loadcapacity = " + loadcapacity);
-
-        HttpRequestHelper.releaseVehicle(freamNumber, vehicleno, mTruckTypeCode, mTruckLengthCode, loadcapacity, new HttpCallBack() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                showProgressDialog();
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                hideProgressDialog();
-            }
-
-            @Override
-            public void onSuccess(String body) {
-                if (TextUtils.isEmpty(body)) {
-                    return;
-                }
-
-                BaseBean bean = new Gson().fromJson(body, BaseBean.class);
-
-                if (null != bean) {
-                    if (!Tools.isNull(bean.getErrorCode())) {
-                        switch (bean.getErrorCode()) {
-                            case "TRUCK1008":
-                                Tools.Toast("发布车辆失败");
-                                break;
-                            case "TRUCK1009":
-                                Tools.Toast("保存路线信息失败");
-                                break;
-                            case "TRUCK1013":
-                                Tools.Toast("保存认证信息失败");
-                                break;
-                            default:
-                                Tools.Toast("同步D-TMS时失败");
-                                break;
-                        }
-                    } else {
-                        Tools.Toast(getString(R.string.succ_add_truck));
-                        setResult(0);
-                        ActivityHelper.finishAcMove(AddVehicleActivity.this);
-                    }
-                } else {
-                    Tools.Toast(getString(R.string.err_add_truck));
-                }
-            }
-
-            @Override
-            public void onError(String body) {
-                super.onError(body);
-                Tools.Toast("发布车辆失败");
-            }
-        });
-    }
-
-    public void onBtnClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_truck_type:
-                if (null == mVehicleAttributeDialog) {
-                    mVehicleAttributeDialog = new VehicleAttributeDialog(this, mChooseListener);
-                }
-                mVehicleAttributeDialog.show(1);
-                break;
-
-            case R.id.tv_truck_length:
-                if (null == mVehicleAttributeDialog) {
-                    mVehicleAttributeDialog = new VehicleAttributeDialog(this, mChooseListener);
-                }
-                mVehicleAttributeDialog.show(2);
-                break;
-
-            case R.id.btn_submit:
-                addTruck();
-                break;
-
-            default:
-                break;
-        }
-    }
-
 
     //小写字母自动转换为大写
     private class AllCapTransformationMethod extends ReplacementTransformationMethod {

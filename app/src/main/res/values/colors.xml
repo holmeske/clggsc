@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="normal_day">#ff999999</color>
-    <color name="selected_day_background">#E75F49</color>
-    <color name="selected_day_text">#fff2f2f2</color>
+    <color name="blue">#3b5ed6</color>
+    <color name="dark_grey">#444444</color>
+    <color name="tab_selected">#3b5ed6</color>
+    <color name="tab_unselected">#989fb4</color>
+    <color name="orange">#ee8031</color>
+    <color name="bg">#f5f5f5</color>
+
+    <color name="speed">#1a9a1f</color>
+    <color name="park">#ea6c19</color>
+    <color name="offline">#666666</color>
+
 
     <color name="split_line">#ffd9d9d9</color>
 
     <color name="text_color">#ff313131</color>
 
-    <color name="chose_car_status">#FF999A</color>
 
     <color name="red">#E40010</color>
-    <color name="green">#01bb5d</color>
 
     <color name="grey_e4">#E4E4E4</color><!--主背景色-->
     <color name="color_btn_press">#40000000</color>
     <color name="bg_app">#EBEBEB</color>
-    <color name="color_text_grey">#555555</color>
-    <color name="color_title2">#35ADEC</color>
-    <color name="color_text_hint_0">#BABABA</color>
     <color name="color_text_0">#515B5F</color>
-    <color name="color_bg_1">#E7E7E7</color>
-    <color name="yellow">#ffeb29</color>
 
     <!-- 急修救援页面背景颜色 -->
     <color name="color_first_help_press">#FF794C</color>
@@ -31,13 +32,14 @@
     <color name="font_black_7f">#7f000000</color>
 
     <color name="black">#000000</color>
-    <color name="color_home_bottom_menu_n">#717171</color>
 
     <color name="top_icon_bg_press">#33000000</color>
     <color name="transparent">#00000000</color>
 
-    <color name="divider_line">#cccccc</color>
-    <color name="grey_ccc">#cccccc</color>
+    <color name="divider_line">#d7d7d7</color>
+
+    <color name="_ee8031">#ee8031</color>
+
 
     <color name="white">#ffffff</color>
     <color name="state_pressed">#f5f5f5</color>
@@ -45,5 +47,14 @@
     <color name="gray_bg">#F1F1F1</color>
     <color name="gray_aaa">#aaaaaa</color>
 
+    <color name="_6978ab">#6978ab</color>
+    <color name="_444">#444</color>
+    <color name="_a5a5a5">#a5a5a5</color>
+    <color name="_fb4a4a">#fb4a4a</color>
+    <color name="_4285f4">#4285f4</color>
+    <color name="_ff0000">#ff0000</color>
+    <color name="_6b6b6b">#6b6b6b</color>
+    <color name="_ffc428">#ffc428</color>
+    <color name="_f1f1f1">#f1f1f1</color>
 
 </resources>

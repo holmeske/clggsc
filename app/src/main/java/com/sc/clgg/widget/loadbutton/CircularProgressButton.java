@@ -17,8 +17,8 @@ import android.util.AttributeSet;
 import android.util.StateSet;
 
 import com.sc.clgg.R;
+import com.sc.clgg.tool.helper.LogHelper;
 
-import tool.helper.LogHelper;
 
 public class CircularProgressButton extends AppCompatButton {
 

@@ -1,21 +1,25 @@
 package com.sc.clgg.activity.basic;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
+import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.sc.clgg.R;
-import tool.helper.LogHelper;
+import com.sc.clgg.base.BaseImmersionActivity;
+import com.sc.clgg.tool.helper.LogHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +28,12 @@ import butterknife.Unbinder;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class WebActivity extends AppCompatActivity {
+public class WebActivity extends BaseImmersionActivity {
+
+    public static void start(Context context, String title, String url) {
+        context.startActivity(new Intent(context, WebActivity.class).putExtra("name", title).putExtra("url", url));
+    }
+
     private Unbinder mUnbinder;
 
     @BindView(R.id.wv_contents)
@@ -40,37 +49,63 @@ public class WebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web);
         setTitle(getIntent().getStringExtra("name"));
         super.onCreate(savedInstanceState);
+
+
         mUnbinder = ButterKnife.bind(this);
+        LogHelper.e("name = " + getIntent().getStringExtra("name"));
+        LogHelper.e("url = " + getIntent().getStringExtra("url"));
         init();
     }
 
     private void init() {
         mWebSettings = mWebView.getSettings();
 
+        mWebSettings.setJavaScriptEnabled(true);
         //设置自适应屏幕，两者合用
         mWebSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         mWebSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
-        //缩放操作
         mWebSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
         mWebSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
         mWebSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
-
-        //其他细节操作
         mWebSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         mWebSettings.setAllowFileAccess(true); //设置可以访问文件
         mWebSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         mWebSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         mWebSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
-
-        mWebView.loadUrl(getIntent().getStringExtra("url"));
-//        mWebView.loadUrl("http://app.speiyou.com/");https://hao.360.cn/
+        mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        mWebSettings.setBlockNetworkImage(true);
+        mWebSettings.setSupportMultipleWindows(true);
+        mWebSettings.setDomStorageEnabled(true);
 
         mWebView.setWebViewClient(new WebViewClient() {
+
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
                 return true;
             }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                super.onLoadResource(view, url);
+            }
+
         });
 
         mWebView.setWebChromeClient(new WebChromeClient() {
@@ -80,11 +115,17 @@ public class WebActivity extends AppCompatActivity {
                 if (i == 100) {
                     mProgressBar.setVisibility(GONE);
                 } else {
-                    if (mProgressBar.getVisibility() == GONE)
+                    if (mProgressBar.getVisibility() == GONE) {
                         mProgressBar.setVisibility(VISIBLE);
+                    }
                     mProgressBar.setProgress(i);
                 }
                 super.onProgressChanged(webView, i);
+            }
+
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
             }
         });
 
@@ -106,19 +147,24 @@ public class WebActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mWebView.loadUrl(getIntent().getStringExtra("url"));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mWebSettings.setJavaScriptEnabled(true);
+        mWebView.resumeTimers();
         mWebView.onResume();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mWebView.onPause();
+        mWebView.pauseTimers();
     }
 
     @Override
@@ -140,7 +186,9 @@ public class WebActivity extends AppCompatActivity {
             mWebView = null;
         }
         super.onDestroy();
-        if (mUnbinder != null) mUnbinder.unbind();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
     }
 
     @Override

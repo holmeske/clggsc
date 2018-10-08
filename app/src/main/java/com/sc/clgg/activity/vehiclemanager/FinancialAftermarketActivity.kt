@@ -2,18 +2,18 @@ package com.sc.clgg.activity.vehiclemanager
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.sc.clgg.R
 import com.sc.clgg.activity.basic.WebActivity
+import com.sc.clgg.base.BaseImmersionActivity
+import com.sc.clgg.tool.helper.ActivityHelper
 import kotlinx.android.synthetic.main.activity_financial_aftermarket.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
-import tool.helper.ActivityHelper
 
 /**
  * @author：lvke
  * @date：2018/2/26 15:57
  */
-class FinancialAftermarketActivity : AppCompatActivity() {
+class FinancialAftermarketActivity : BaseImmersionActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         title = getString(R.string.financial_aftermarket)
         setContentView(R.layout.activity_financial_aftermarket)

@@ -1,6 +1,7 @@
 package com.sc.clgg.bean
 
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -9,4 +10,11 @@ import kotlinx.android.parcel.Parcelize
  */
 @SuppressLint("ParcelCreator")
 data class MyVehicleBean(var list: List<VehicleLocationBean>? = null) : BaseBean()
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class Vehicle(var code: Int = 0, var success: Boolean? = false, var vehicleInfoList: List<Bean>? = null) : Parcelable {
+    @Parcelize
+    data class Bean(var vinNumber: String? = "", var carNumber: String? = "", var isChecked: Boolean = false) : Parcelable
+}
 

@@ -39,8 +39,8 @@ public class MapInfoAdapter extends BaseAdNet<ServiceBean> {
             convertView = mInflater.inflate(R.layout.item_map, null);
 
             // 初始化子控件
-            holder.tv_mapImg = (ImageView) convertView.findViewById(R.id.tv_mapImg);
-            holder.tv_mapName = (TextView) convertView.findViewById(R.id.tv_mapName);
+            holder.tv_mapImg = convertView.findViewById(R.id.tv_mapImg);
+            holder.tv_mapName = convertView.findViewById(R.id.tv_mapName);
 
             convertView.setTag(holder);
 

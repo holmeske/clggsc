@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ModifyAccountActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <EditText
+        android:id="@+id/et_old_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_stroke"
+        android:hint="请输入当前密码"
+        android:inputType="textPassword"
+        android:maxLength="11"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:textColorHint="#aaa"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"/>
+
+    <EditText
+        android:id="@+id/et_new_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_stroke"
+        android:hint="请输入新密码"
+        android:inputType="textPassword"
+        android:maxEms="8"
+        android:maxLength="8"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:textColorHint="#aaa"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/et_old_password"/>
+
+    <EditText
+        android:id="@+id/et_again_new_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_stroke"
+        android:hint="@string/resetpassword2"
+        android:maxLength="20"
+        android:padding="10dp"
+        android:inputType="textPassword"
+        android:textColorHint="#aaa"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/et_new_password"/>
+
+    <ImageButton
+        android:id="@+id/iv_delete_old_password"
+        style="@style/width_w_height_w"
+        android:contentDescription="@null"
+        android:padding="10dp"
+        android:src="@drawable/delete"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/et_old_password"
+        app:layout_constraintRight_toRightOf="@id/et_old_password"
+        app:layout_constraintTop_toTopOf="@id/et_old_password"/>
+
+    <ImageButton
+        android:id="@+id/iv_delete_new_password"
+        style="@style/width_w_height_w"
+        android:contentDescription="@null"
+        android:padding="10dp"
+        android:src="@drawable/delete"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/et_new_password"
+        app:layout_constraintRight_toRightOf="@id/et_new_password"
+        app:layout_constraintTop_toTopOf="@id/et_new_password"/>
+
+    <ImageButton
+        android:id="@+id/iv_delete_again_new_password"
+        style="@style/width_w_height_w"
+        android:contentDescription="@null"
+        android:padding="10dp"
+        android:src="@drawable/delete"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/et_again_new_password"
+        app:layout_constraintRight_toRightOf="@id/et_again_new_password"
+        app:layout_constraintTop_toTopOf="@id/et_again_new_password"/>
+
+
+    <TextView
+        android:id="@+id/confirm_btn"
+        android:layout_width="300dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/bg_orange"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_again_new_password"/>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sc.clgg.tool.widget.ShapeTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_area"
+    android:layout_width="80dp"
+    android:layout_height="44dp"
+    android:gravity="center"
+    android:textColor="#444"
+    android:layout_margin="5dp"
+    android:textSize="18sp"
+    app:stroke_color="#bbb"
+    app:stroke_width="@dimen/divider_line"
+    tools:text="北京"/>

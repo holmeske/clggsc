@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation("com.android.support:appcompat-v7:$rootProject.supportLibraryVersion") {
+        force = true
+    }
+    implementation("com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion") {
+        force = true
+    }
+    implementation("com.github.chrisbanes.photoview:library:1.2.4") {
+        transitive = false
+        exclude group: 'com.android.support:support-v4'
+    }
+}

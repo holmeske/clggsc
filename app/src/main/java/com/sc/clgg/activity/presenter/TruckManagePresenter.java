@@ -2,15 +2,17 @@ package com.sc.clgg.activity.presenter;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
 import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.TruckManageContact;
 import com.sc.clgg.bean.VersionInfoBean;
 import com.sc.clgg.config.ConstantValue;
-import com.sc.clgg.http.HttpCallBack;
-import com.sc.clgg.http.HttpRequestHelper;
+import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.tool.helper.LogHelper;
 
-import tool.helper.LogHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * 作者：lvke
@@ -25,19 +27,20 @@ public class TruckManagePresenter {
     }
 
     public void checkUpdate() {
-        HttpRequestHelper.checkUpdate(new HttpCallBack() {
+        new RetrofitHelper().getVersionInfo().enqueue(new Callback<VersionInfoBean>() {
             @Override
-            public void onSuccess(String body) {
-
+            public void onResponse(Call<VersionInfoBean> call, Response<VersionInfoBean> response) {
                 try {
-                    VersionInfoBean bean = new Gson().fromJson(body, VersionInfoBean.class);
+                    VersionInfoBean bean = response.body();
                     mTruckManageContact.getVersionInfo(bean);
                 } catch (Exception e) {
                     LogHelper.e(e);
                 }
-
             }
 
+            @Override
+            public void onFailure(Call<VersionInfoBean> call, Throwable t) {
+            }
         });
     }
 

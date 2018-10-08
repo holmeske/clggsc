@@ -1,115 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/width_m_height_m"
-                android:orientation="vertical"
-                android:paddingBottom="15dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="15dp">
-
-    <TextView
-        android:id="@+id/tv_fleet_place"
-        style="@style/width_w_height_w"
-        android:background="@drawable/fleet_item_1"
-        android:gravity="center"
-        android:text="@string/one"
-        android:textColor="@color/white"/>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tv_car_no"
-        style="@style/width_w_height_w"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="-3dp"
-        android:layout_toEndOf="@+id/tv_fleet_place"
-        android:layout_toRightOf="@+id/tv_fleet_place"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_14"/>
+        tools:text="车牌号:沪A123456"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_car_vin"/>
 
     <TextView
-        android:id="@+id/tv_car_postion"
-        style="@style/width_w_height_w"
-        android:layout_below="@+id/tv_car_no"
-        android:layout_marginEnd="80dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_toEndOf="@+id/tv_fleet_place"
-        android:layout_toRightOf="@+id/tv_fleet_place"
-        android:lines="2"
-        android:textColor="#CCCCCC"
-        android:textSize="@dimen/text_size_12"/>
-
+        android:id="@+id/tv_car_vin"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        tools:text="VIN码:JX000001"
+        app:layout_constraintLeft_toRightOf="@+id/tv_car_no"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_car_mile"
-        style="@style/width_w_height_w"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="-3dp"
+        android:id="@+id/tv_car_position"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
         android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_12"/>
+        android:text="车辆定位"
+        android:textColor="#5277df"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_car_delete"
+        app:layout_constraintTop_toBottomOf="@id/tv_car_no"/>
 
     <TextView
-        android:id="@+id/tv_car_status_1"
-        style="@style/width_w_height_w"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_car_mile"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/monitor_detail_status_1"
+        android:id="@+id/tv_car_delete"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
         android:gravity="center"
-        android:padding="4dp"
-        android:text="@string/on_the_road"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_10"
-        android:visibility="gone"/>
+        android:text="删除车辆"
+        android:textColor="#ff4949"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_car_position"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_car_no"/>
 
-    <ImageView
-        android:id="@+id/img_car_status_2"
-        style="@style/width_w_height_w"
-        android:layout_alignTop="@+id/tv_car_status_2"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="2dp"
-        android:layout_toLeftOf="@+id/tv_car_status_2"
-        android:layout_toStartOf="@+id/tv_car_status_2"
-        android:contentDescription="@null"
-        android:src="@drawable/monitor_detail_status_4"
-        android:visibility="gone"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:background="#d7d7d7"
+        app:layout_constraintTop_toTopOf="@id/tv_car_position"/>
 
-    <TextView
-        android:id="@+id/tv_car_status_2"
-        style="@style/width_w_height_w"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_car_mile"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/monitor_detail_status_3"
-        android:gravity="center"
-        android:padding="2dp"
-        android:text="@string/disconnect"
-        android:textColor="@color/color_text_grey"
-        android:textSize="@dimen/text_size_10"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/tv_car_status_3"
-        style="@style/width_w_height_w"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_car_mile"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/monitor_detail_status_2"
-        android:gravity="center"
-        android:padding="2dp"
-        android:text="@string/in_the_static"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_10"
-        android:visibility="gone"/>
-</RelativeLayout>
+    <View
+        android:layout_width="@dimen/divider_line"
+        android:layout_height="45dp"
+        android:background="#d7d7d7"
+        app:layout_constraintLeft_toRightOf="@id/tv_car_position"
+        app:layout_constraintTop_toTopOf="@id/tv_car_position"/>
+</android.support.constraint.ConstraintLayout>

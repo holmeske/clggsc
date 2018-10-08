@@ -24,3 +24,4 @@ data class SingleBean(var code: String? = null,
                       var type: Int = 0,
                       var url: String? = null,
                       var username: String? = null) : Parcelable
+

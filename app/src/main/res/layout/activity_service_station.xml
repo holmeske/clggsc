@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/view_titlebar_blue"/>
+
+    <TextView
+        android:id="@+id/tv_query_by_position"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/query_by_position"
+        android:textColor="@color/selector_0"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/v0"
+        app:layout_constraintTop_toBottomOf="@+id/title"/>
+
+    <View
+        android:id="@+id/v2"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@drawable/selector_1"
+        app:layout_constraintBottom_toBottomOf="@id/tv_query_by_position"
+        app:layout_constraintLeft_toLeftOf="@id/tv_query_by_position"
+        app:layout_constraintRight_toRightOf="@id/tv_query_by_position"/>
+
+    <View
+        android:id="@+id/v0"
+        android:layout_width="@dimen/divider_line"
+        android:layout_height="44dp"
+        android:background="#d7d77d"
+        app:layout_constraintBottom_toBottomOf="@id/tv_query_by_position"
+        app:layout_constraintLeft_toRightOf="@id/tv_query_by_position"
+        app:layout_constraintRight_toLeftOf="@id/tv_query_by_regional"
+        app:layout_constraintTop_toTopOf="@id/tv_query_by_position"/>
+
+    <TextView
+        android:id="@+id/tv_query_by_regional"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/query_by_regional"
+        android:textColor="@color/selector_0"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/v0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"/>
+
+    <View
+        android:id="@+id/v3"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@drawable/selector_1"
+        app:layout_constraintBottom_toBottomOf="@id/tv_query_by_regional"
+        app:layout_constraintLeft_toLeftOf="@id/tv_query_by_regional"
+        app:layout_constraintRight_toRightOf="@id/tv_query_by_regional"/>
+
+    <LinearLayout
+        android:id="@+id/ll_choose"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_query_by_position">
+
+        <TextView
+            android:id="@+id/service_station_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text=" - -"
+            android:textColor="#666"
+            android:textSize="15sp"/>
+
+        <View
+            android:layout_width="@dimen/divider_line"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#686868"/>
+
+        <TextView
+            android:id="@+id/again_choose_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="重新选择区域"
+            android:textColor="#5277df"/>
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_choose">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingTop="12dp"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.constraint.ConstraintLayout>

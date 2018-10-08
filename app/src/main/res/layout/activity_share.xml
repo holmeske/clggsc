@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@color/transparent"
+    android:orientation="vertical"
+    tools:context=".activity.ShareActivity">
+
+    <View
+        android:id="@+id/v"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="位置分享"
+        android:textColor="#444"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_wechat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="15sp"
+            android:drawableTop="@drawable/share_pic_wechat"
+            android:gravity="center"
+            android:text="微信好友"
+            android:textColor="#666"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="15sp"
+            android:drawableTop="@drawable/share_pic_fricircle"
+            android:gravity="center"
+            android:text="朋友圈"
+            android:textColor="#666"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="15sp"
+            android:drawableTop="@drawable/share_pic_qq"
+            android:gravity="center"
+            android:text="QQ好友"
+            android:textColor="#666"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="#444"
+        android:textSize="16sp"/>
+</LinearLayout>

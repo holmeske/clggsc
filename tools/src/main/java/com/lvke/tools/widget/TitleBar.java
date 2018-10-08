@@ -66,9 +66,9 @@ public class TitleBar extends LinearLayout {
 
     private void init(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.titlebar, this, false);
-        mTvLeft = (TextView) view.findViewById(R.id.tv_left);
-        mTvTitle = (TextView) view.findViewById(R.id.tv_center);
-        mTvRight = (TextView) view.findViewById(R.id.tv_right);
+        mTvLeft = view.findViewById(R.id.tv_left);
+        mTvTitle = view.findViewById(R.id.tv_center);
+        mTvRight = view.findViewById(R.id.tv_right);
         addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 }

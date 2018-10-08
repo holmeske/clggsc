@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    tools:context=".activity.SetActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
+
+        <TextView
+            android:id="@+id/tv_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableEnd="@drawable/ico_skip"
+            android:drawablePadding="@dimen/length_8"
+            android:drawableRight="@drawable/ico_skip"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:text="修改密码"
+            android:textColor="#444"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#d7d7d7"/>
+
+        <TextView
+            android:id="@+id/tv_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableEnd="@drawable/ico_skip"
+            android:drawablePadding="@dimen/length_8"
+            android:drawableRight="@drawable/ico_skip"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:text="意见反馈"
+            android:textColor="#444"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#d7d7d7"/>
+
+        <TextView
+            android:id="@+id/tv_about"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableEnd="@drawable/ico_skip"
+            android:drawablePadding="@dimen/length_8"
+            android:drawableRight="@drawable/ico_skip"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:text="关于我们"
+            android:textColor="#444"
+            android:textSize="16sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#d7d7d7"/>
+
+        <TextView
+            android:id="@+id/tv_check_apk_update"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableEnd="@drawable/ico_skip"
+            android:drawablePadding="@dimen/length_8"
+            android:drawableRight="@drawable/ico_skip"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:text="版本更新"
+            android:textColor="#444"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_custom_service"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableEnd="@drawable/ico_skip"
+            android:drawablePadding="@dimen/length_8"
+            android:drawableRight="@drawable/ico_skip"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:text="@string/custom_service"
+            android:textColor="#444"
+            android:textSize="16sp"/>
+
+        <View
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#d7d7d7"/>
+
+        <TextView
+            android:id="@+id/exitTxt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="退出账号"
+            android:textColor="#ff3434"
+            android:textSize="16sp"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5"
+    tools:context=".activity.NickNameActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="36dp"
+        android:paddingTop="12dp"
+        android:textColor="#222"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"/>
+
+    <ImageView
+        android:id="@+id/iv_deleteall"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:padding="12dp"
+        android:scaleType="center"
+        android:src="@drawable/mine_ico_deleteall"
+        app:layout_constraintBottom_toBottomOf="@id/et"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et"/>
+
+</android.support.constraint.ConstraintLayout>

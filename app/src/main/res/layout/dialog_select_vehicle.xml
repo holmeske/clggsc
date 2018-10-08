@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/select_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#70000000"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <EditText
+            android:id="@+id/et_select_vehicle"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_et"
+            android:hint="请选择车辆"
+            android:textColorHint="#aaa"
+            android:textSize="15sp"/>
+
+        <View
+            android:id="@+id/divider0"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:layout_marginTop="10dp"
+            android:background="#bbb"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="12dp"
+            android:visibility="gone"
+            android:id="@+id/clt_all_select"
+            android:paddingRight="12dp">
+
+            <ImageView
+                android:id="@+id/clt_all_select_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:visibility="visible"
+                android:src="@drawable/checkbox_vain"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/clt_all_select_no"
+                android:layout_width="wrap_content"
+
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:textColor="#444"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toRightOf="@id/clt_all_select_check"
+                android:text="全选"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:background="#d7d7d7"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_line"
+            android:background="#bbb"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_sure"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="#f5f5f5"
+            android:gravity="center"
+            android:text="确定"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

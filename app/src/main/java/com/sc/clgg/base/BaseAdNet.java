@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.sc.clgg.util.Tools;
-
 import java.util.List;
 
 /**
@@ -27,7 +25,7 @@ public abstract class BaseAdNet<T> extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return Tools.isEmptyList(mDatas) ? 0 : mDatas.size();
+        return mDatas == null ? 0 : mDatas.size();
     }
 
     @Override

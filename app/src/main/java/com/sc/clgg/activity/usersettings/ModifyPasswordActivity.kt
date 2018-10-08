@@ -2,29 +2,30 @@ package com.sc.clgg.activity.usersettings
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.google.gson.Gson
 import com.sc.clgg.R
-import com.sc.clgg.activity.basic.LoginActivity
+import com.sc.clgg.activity.LoginRegisterActivity
+import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.dialog.LoadingDialogHelper
-import com.sc.clgg.http.HttpCallBack
-import com.sc.clgg.http.HttpRequestHelper
+import com.sc.clgg.http.retrofit.RetrofitHelper
 import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.Tools
 import com.sc.clgg.util.setTextChangeListener
-import kotlinx.android.synthetic.main.activity_modify_password.*
+import kotlinx.android.synthetic.main.activity_modify_pass.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ModifyPasswordActivity : AppCompatActivity() {
+class ModifyPasswordActivity : BaseImmersionActivity() {
     private var mLoadingDialogHelper: LoadingDialogHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.activity_modify_password)
-        title = getString(R.string.modify_password)
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_modify_pass)
+        initTitle("修改密码")
 
         mLoadingDialogHelper = LoadingDialogHelper(this)
         initListener()
@@ -82,28 +83,31 @@ class ModifyPasswordActivity : AppCompatActivity() {
             return
         }
 
-        HttpRequestHelper.modifyPassword(ConfigUtil().username, oldPassword, newPassword, object : HttpCallBack() {
-            override fun onStart() {
-                super.onStart()
-                mLoadingDialogHelper!!.show()
-            }
-
-            override fun onFinish() {
-                super.onFinish()
-                super.onStart()
-                mLoadingDialogHelper!!.dismiss()
-            }
-
-            override fun onSuccess(body: String) {
-                val statusBean = Gson().fromJson(body, StatusBean::class.java)
-                if (statusBean.status) {
-                    toast("密码修改成功")
-                    startActivity(Intent(this@ModifyPasswordActivity, LoginActivity::class.java))
-                    finish()
-                } else {
-                    toast(statusBean.msg!!)
+        http = RetrofitHelper().modifyPassword(ConfigUtil().username, oldPassword, newPassword).apply {
+            mLoadingDialogHelper!!.show()
+            enqueue(object : Callback<StatusBean> {
+                override fun onFailure(call: Call<StatusBean>, t: Throwable) {
+                    mLoadingDialogHelper!!.dismiss()
                 }
-            }
-        })
+
+                override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
+                    mLoadingDialogHelper!!.dismiss()
+
+                    if (response.body()?.status!!) {
+                        toast("密码修改成功")
+                        startActivity(Intent(this@ModifyPasswordActivity, LoginRegisterActivity::class.java))
+                        finish()
+                    } else {
+                        toast(response.body()?.msg!!)
+                    }
+                }
+            })
+        }
+    }
+
+    private var http: Call<StatusBean>? = null
+    override fun onDestroy() {
+        super.onDestroy()
+        http?.cancel()
     }
 }

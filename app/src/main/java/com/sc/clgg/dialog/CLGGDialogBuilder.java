@@ -62,7 +62,7 @@ public class CLGGDialogBuilder {
      * @return This Builder object to allow for chaining of calls to set methods
      */
     public CLGGDialogBuilder setTitle(int titleId) {
-        TextView view = (TextView) v.findViewById(R.id.title);
+        TextView view = v.findViewById(R.id.title);
         view.setText(titleId);
         view.setVisibility(View.VISIBLE);
         return this;
@@ -74,7 +74,7 @@ public class CLGGDialogBuilder {
      * @return This Builder object to allow for chaining of calls to set methods
      */
     public CLGGDialogBuilder setTitle(CharSequence title) {
-        TextView view = (TextView) v.findViewById(R.id.title);
+        TextView view = v.findViewById(R.id.title);
         if (view != null) {
             view.setText(title);
             view.setVisibility(View.VISIBLE);
@@ -88,7 +88,7 @@ public class CLGGDialogBuilder {
      * @return This Builder object to allow for chaining of calls to set methods
      */
     public CLGGDialogBuilder setMessage(int messageId) {
-        TextView view = (TextView) v.findViewById(R.id.desc);
+        TextView view = v.findViewById(R.id.desc);
         view.setMovementMethod(new ScrollingMovementMethod());
         view.setText(messageId);
         view.setVisibility(View.VISIBLE);
@@ -101,7 +101,7 @@ public class CLGGDialogBuilder {
      * @return This Builder object to allow for chaining of calls to set methods
      */
     public CLGGDialogBuilder setMessage(CharSequence message) {
-        TextView view = (TextView) v.findViewById(R.id.desc);
+        TextView view = v.findViewById(R.id.desc);
         view.setMovementMethod(new ScrollingMovementMethod());
         view.setText(message);
         view.setVisibility(View.VISIBLE);
@@ -147,7 +147,7 @@ public class CLGGDialogBuilder {
     public CLGGDialogBuilder setPositiveButton(int textId, final OnClickListener listener) {
         View line = v.findViewById(R.id.line);
         line.setVisibility(View.VISIBLE);
-        TextView view = (TextView) v.findViewById(R.id.sure);
+        TextView view = v.findViewById(R.id.sure);
         view.setText(textId);
         view.setVisibility(View.VISIBLE);
         view.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +171,7 @@ public class CLGGDialogBuilder {
      * @param bg
      */
     public CLGGDialogBuilder setPositiveButtonBG(int bg, int textColor) {
-        TextView view = (TextView) v.findViewById(R.id.sure);
+        TextView view = v.findViewById(R.id.sure);
         view.setTextColor(textColor);
         view.setBackgroundResource(bg);
         return this;
@@ -183,7 +183,7 @@ public class CLGGDialogBuilder {
      * @param bg
      */
     public CLGGDialogBuilder setPositiveButtonBG(Drawable bg, int textColor) {
-        TextView view = (TextView) v.findViewById(R.id.sure);
+        TextView view = v.findViewById(R.id.sure);
         view.setTextColor(textColor);
         view.setBackgroundDrawable(bg);
         return this;
@@ -200,7 +200,7 @@ public class CLGGDialogBuilder {
     public CLGGDialogBuilder setPositiveButton(CharSequence text, final OnClickListener listener) {
         View line = v.findViewById(R.id.line);
         line.setVisibility(View.VISIBLE);
-        TextView view = (TextView) v.findViewById(R.id.sure);
+        TextView view = v.findViewById(R.id.sure);
         view.setText(text);
         view.setVisibility(View.VISIBLE);
         view.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +229,7 @@ public class CLGGDialogBuilder {
     public CLGGDialogBuilder setNegativeButton(int textId, final OnClickListener listener) {
         View line = v.findViewById(R.id.line);
         line.setVisibility(View.VISIBLE);
-        TextView view = (TextView) v.findViewById(R.id.cancel);
+        TextView view = v.findViewById(R.id.cancel);
         view.setText(textId);
         view.setVisibility(View.VISIBLE);
         view.setOnClickListener(new View.OnClickListener() {
@@ -258,7 +258,7 @@ public class CLGGDialogBuilder {
     public CLGGDialogBuilder setNegativeButton(CharSequence text, final OnClickListener listener) {
         View line = v.findViewById(R.id.line);
         line.setVisibility(View.VISIBLE);
-        TextView view = (TextView) v.findViewById(R.id.cancel);
+        TextView view = v.findViewById(R.id.cancel);
         view.setText(text);
         view.setVisibility(View.VISIBLE);
         view.setOnClickListener(new View.OnClickListener() {
@@ -287,7 +287,7 @@ public class CLGGDialogBuilder {
     public CLGGDialogBuilder setNeutralButton(int textId, final OnClickListener listener) {
         View line = v.findViewById(R.id.line);
         line.setVisibility(View.VISIBLE);
-        TextView view = (TextView) v.findViewById(R.id.Neutral);
+        TextView view = v.findViewById(R.id.Neutral);
         view.setText(textId);
         view.setVisibility(View.VISIBLE);
         view.setOnClickListener(new View.OnClickListener() {
@@ -316,7 +316,7 @@ public class CLGGDialogBuilder {
     public CLGGDialogBuilder setNeutralButton(CharSequence text, final OnClickListener listener) {
         View line = v.findViewById(R.id.line);
         line.setVisibility(View.VISIBLE);
-        TextView view = (TextView) v.findViewById(R.id.Neutral);
+        TextView view = v.findViewById(R.id.Neutral);
         view.setText(text);
         view.setVisibility(View.VISIBLE);
         view.setOnClickListener(new View.OnClickListener() {
@@ -388,7 +388,7 @@ public class CLGGDialogBuilder {
         adapter.checkedPosition = -1;
         adapter.items = items;
         adapter.showCheckbox = false;
-        ListView lv = (ListView) v.findViewById(R.id.listview);
+        ListView lv = v.findViewById(R.id.listview);
         if (items.length > 5) {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lv.getLayoutParams();
             lp.height = dip2px(mContext, 45) * 5 + 10;
@@ -411,7 +411,7 @@ public class CLGGDialogBuilder {
         adapter.checkedPosition = -1;
         adapter.items = items;
         adapter.showCheckbox = false;
-        ListView lv = (ListView) v.findViewById(R.id.listview);
+        ListView lv = v.findViewById(R.id.listview);
         if (items.length > 5) {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lv.getLayoutParams();
             lp.height = dip2px(mContext, 45) * 5 + 10;
@@ -545,7 +545,7 @@ public class CLGGDialogBuilder {
         adapter.checkedPosition = checkedItem;
         adapter.items = items;
         adapter.showCheckbox = true;
-        ListView lv = (ListView) v.findViewById(R.id.listview);
+        ListView lv = v.findViewById(R.id.listview);
         if (items.length > 5) {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lv.getLayoutParams();
             lp.height = dip2px(mContext, 45) * 5 + 10;
@@ -605,7 +605,7 @@ public class CLGGDialogBuilder {
         adapter.checkedPosition = checkedItem;
         adapter.items = items;
         adapter.showCheckbox = true;
-        ListView lv = (ListView) v.findViewById(R.id.listview);
+        ListView lv = v.findViewById(R.id.listview);
         if (items.length > 5) {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lv.getLayoutParams();
             lp.height = dip2px(mContext, 45) * 5 + 10;
@@ -683,7 +683,7 @@ public class CLGGDialogBuilder {
     }
 
     public CLGGDialogBuilder setView(View view, int left, int right) {
-        ViewGroup viewG = (ViewGroup) v.findViewById(R.id.custom_view);
+        ViewGroup viewG = v.findViewById(R.id.custom_view);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.leftMargin = left;
         lp.rightMargin = right;
@@ -712,7 +712,7 @@ public class CLGGDialogBuilder {
      * @hide
      */
     public CLGGDialogBuilder setView(View view, int viewSpacingLeft, int viewSpacingTop, int viewSpacingRight, int viewSpacingBottom) {
-        RelativeLayout viewG = (RelativeLayout) v.findViewById(R.id.layoutContainer);
+        RelativeLayout viewG = v.findViewById(R.id.layoutContainer);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         viewG.addView(view, lp);
         viewG.setVisibility(View.VISIBLE);
@@ -739,8 +739,8 @@ public class CLGGDialogBuilder {
      * and {@link Dialog#show()}'s the dialog.
      */
     public CLGGDialogBuilder show() {
-        TextView view1 = (TextView) v.findViewById(R.id.desc);
-        TextView view2 = (TextView) v.findViewById(R.id.title);
+        TextView view1 = v.findViewById(R.id.desc);
+        TextView view2 = v.findViewById(R.id.title);
         if (view1.getVisibility() == View.VISIBLE && view2.getVisibility() == View.GONE) {
             View topmargin = v.findViewById(R.id.topmargin);
             topmargin.setVisibility(View.VISIBLE);
@@ -776,8 +776,8 @@ public class CLGGDialogBuilder {
             if (convertView == null) {
                 holder = new Holder();
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item_listview, null);
-                holder.title = (TextView) convertView.findViewById(R.id.title);
-                holder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
+                holder.title = convertView.findViewById(R.id.title);
+                holder.checkBox = convertView.findViewById(R.id.checkBox);
                 holder.checkBox.setClickable(false);
                 convertView.setTag(holder);
             } else {

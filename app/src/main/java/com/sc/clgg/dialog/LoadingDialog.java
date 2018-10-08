@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.sc.clgg.R;
 
@@ -14,6 +15,7 @@ import com.sc.clgg.R;
  */
 
 public class LoadingDialog extends Dialog {
+    private TextView mTvConten;
 
     public LoadingDialog(@NonNull Context context) {
         super(context, R.style.Theme_AppCompat_Dialog);
@@ -31,6 +33,13 @@ public class LoadingDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_loading);
+        mTvConten = findViewById(R.id.tv);
+    }
+
+    public void setContent(String msg) {
+        if (msg != null && mTvConten != null) {
+            mTvConten.setText(msg);
+        }
     }
 
 }

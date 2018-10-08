@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/white"
               android:orientation="vertical">
 
-    <com.lvke.tools.widget.TitleBar
-        style="@style/match_wrap"
-        app:title="@string/about_sc"/>
+    <include layout="@layout/view_titlebar_blue"/>
 
     <TextView
-        style="@style/width_m_height_w"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:lineSpacingExtra="3dp"
         android:lineSpacingMultiplier="1.2"
         android:padding="15dp"
@@ -21,8 +19,9 @@
         android:textSize="@dimen/textsize_14"/>
 
     <TextView
-        android:id="@+id/tv_version" 
-        style="@style/width_m_height_w"
+        android:id="@+id/tv_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="end"
         android:lineSpacingExtra="3dp"
         android:lineSpacingMultiplier="1.2"

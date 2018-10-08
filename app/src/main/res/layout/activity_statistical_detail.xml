@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:minWidth="55dp"
+        android:textColor="#444"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:text="2018-05"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginRight="12dp"
+        android:gravity="center"
+        android:text="单位: km"
+        android:textColor="#666"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_date"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_date"/>
+
+    <View
+        android:id="@+id/line0"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#bbb"
+        app:layout_constraintTop_toBottomOf="@id/tv_date"/>
+
+    <TextView
+        android:id="@+id/tv_carno"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:gravity="center"
+        android:textColor="#444444"
+        android:textSize="15sp"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/space"
+        app:layout_constraintTop_toBottomOf="@id/line0"
+        tools:text="陕A47756"/>
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintLeft_toRightOf="@id/tv_carno"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_carno"
+        tools:text="2368.5"/>
+
+    <View
+        android:id="@+id/v0"
+        android:layout_width="@dimen/divider_line"
+        android:layout_height="40dp"
+        android:background="#d7d7d7"
+        app:layout_constraintBottom_toBottomOf="@+id/line1"
+        app:layout_constraintLeft_toRightOf="@id/tv_carno"
+        app:layout_constraintTop_toTopOf="@+id/line0"/>
+
+    <TextView
+        android:id="@+id/mileage_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:gravity="center|start"
+        android:paddingLeft="30dp"
+        android:text="里程统计:"
+        android:textColor="#666666"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/v0"
+        app:layout_constraintTop_toTopOf="@id/tv_carno"/>
+
+    <TextView
+        android:id="@+id/tv_mileage"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center|start"
+        android:textColor="#ee8031"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/mileage_prefix"
+        app:layout_constraintTop_toTopOf="@id/tv_carno"
+        tools:text="2368.5"/>
+
+    <View
+        android:id="@+id/v2"
+        android:layout_width="@dimen/divider_line"
+        android:layout_height="50dp"
+        android:background="#d7d7d7"/>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#bbb"
+        app:layout_constraintTop_toBottomOf="@id/tv_carno"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="198dp"
+        app:layout_constraintTop_toBottomOf="@id/line1"/>
+
+    <TextView
+        android:id="@+id/tv0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:text="1日"
+        android:textColor="#444"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/chart"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv1"/>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8日"
+        android:textColor="#444"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/chart"
+        app:layout_constraintLeft_toRightOf="@id/tv0"
+        app:layout_constraintRight_toLeftOf="@+id/tv2"/>
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15日"
+        android:textColor="#444"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/chart"
+        app:layout_constraintLeft_toRightOf="@id/tv1"
+        app:layout_constraintRight_toLeftOf="@+id/tv3"/>
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22日"
+        android:textColor="#444"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/chart"
+        app:layout_constraintLeft_toRightOf="@id/tv2"
+        app:layout_constraintRight_toLeftOf="@+id/tv4"/>
+
+    <TextView
+        android:id="@+id/tv4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:text="31日"
+        android:textColor="#444"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/chart"
+        app:layout_constraintLeft_toRightOf="@id/tv3"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <com.lvke.tools.widget.DashLine
+        android:id="@+id/dashline0"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        app:color="#eeeeee"
+        app:layout_constraintTop_toTopOf="@id/chart"/>
+
+    <com.lvke.tools.widget.DashLine
+        android:id="@+id/dashline1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        app:color="#eeeeee"
+        app:layout_constraintTop_toTopOf="@id/dashline0"/>
+
+    <com.lvke.tools.widget.DashLine
+        android:id="@+id/dashline2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        app:color="#eeeeee"
+        app:layout_constraintTop_toTopOf="@id/dashline1"/>
+
+    <com.lvke.tools.widget.DashLine
+        android:id="@+id/dashline3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        app:color="#eeeeee"
+        app:layout_constraintTop_toTopOf="@id/dashline2"/>
+
+    <com.lvke.tools.widget.DashLine
+        android:id="@+id/dashline4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        app:color="#eeeeee"
+        app:layout_constraintTop_toTopOf="@id/dashline3"/>
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:background="#d7d7d7"
+        app:layout_constraintTop_toTopOf="@id/dashline4"/>
+
+    <View
+        android:id="@+id/v4"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tv0"/>
+
+    <View
+        android:id="@+id/v5"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="@color/divider_line"
+        app:layout_constraintTop_toBottomOf="@id/v4"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v5"/>
+
+</android.support.constraint.ConstraintLayout>

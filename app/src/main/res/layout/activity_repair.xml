@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RepairActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="5dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="20dp"
+        android:background="#5277df"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titlebar"/>
+
+    <TextView
+        android:id="@+id/policy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="三包政策"
+        android:textColor="#444"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/v1"
+        app:layout_constraintLeft_toRightOf="@id/v1"
+        app:layout_constraintTop_toTopOf="@id/v1"/>
+
+    <TextView
+        android:id="@+id/policy_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/policy"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v1"/>
+
+    <TextView
+        android:id="@+id/policy_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="10dp"
+        android:text="@string/rules"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/policy_content"/>
+
+    <View
+        android:id="@+id/v2"
+        android:layout_width="5dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:background="#5277df"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/policy_2"/>
+
+    <TextView
+        android:id="@+id/way"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="三包方式"
+        android:textColor="#444"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/v2"
+        app:layout_constraintLeft_toRightOf="@id/v2"
+        app:layout_constraintTop_toTopOf="@id/v2"/>
+
+    <TextView
+        android:id="@+id/way_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="10dp"
+        android:text="@string/way1"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v2"/>
+
+    <TextView
+        android:id="@+id/way_content2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="12dp"
+        android:lineSpacingExtra="10dp"
+        android:text="@string/way2"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/way_content"/>
+
+
+    <TextView
+        android:id="@+id/call_hotline"
+        android:layout_width="300dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_orange"
+        android:gravity="center"
+        android:text="@string/call_after_sales_hotline"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/way_content2"/>
+</android.support.constraint.ConstraintLayout>

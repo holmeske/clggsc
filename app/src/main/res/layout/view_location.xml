@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/v_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:background="#bbbbbb"/>
+
+    <TextView
+        android:id="@+id/truck_name"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginLeft="12dp"
+        android:gravity="center"
+        android:textColor="#444"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="- -"/>
+
+    <TextView
+        android:id="@+id/truck_state"
+        android:layout_width="30dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="15dp"
+        tools:background="@drawable/bg_green"
+        android:gravity="center"
+        tools:text="行驶"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/truck_name"
+        app:layout_constraintLeft_toRightOf="@id/truck_name"
+        app:layout_constraintTop_toTopOf="@id/truck_name"/>
+
+    <TextView
+        android:id="@+id/truck_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:text="- -"
+        android:textColor="@color/offline"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/truck_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/truck_name"/>
+
+    <View
+        android:id="@+id/v_center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:background="#d7d7d7"
+        app:layout_constraintTop_toBottomOf="@id/truck_name"/>
+
+    <ImageView
+        android:id="@+id/ico_locate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ico_locate_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_center"/>
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="13dp"
+        android:textColor="#444"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@id/ico_locate"
+        app:layout_constraintTop_toBottomOf="@id/v_center"
+        android:text="- -"/>
+
+
+    <ImageView
+        android:id="@+id/ico_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/ico_time_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:textColor="#444"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@id/ico_time"
+        app:layout_constraintTop_toBottomOf="@id/address"
+        android:text="- -"/>
+
+    <View
+        android:id="@+id/v_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginTop="15dp"
+        android:background="#d7d7d7"
+        app:layout_constraintTop_toBottomOf="@id/ico_time"/>
+
+    <TextView
+        android:id="@+id/trajectory_playback"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="轨迹回放"
+        android:textColor="#5277df"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/v_last"
+        app:layout_constraintTop_toBottomOf="@id/v_bottom"/>
+
+    <View
+        android:id="@+id/v_last"
+        android:layout_width="@dimen/divider_line"
+        android:layout_height="40dp"
+        android:background="#d7d7d7"
+        app:layout_constraintLeft_toRightOf="@id/trajectory_playback"
+        app:layout_constraintRight_toLeftOf="@+id/location_share"
+        app:layout_constraintTop_toTopOf="@id/trajectory_playback"/>
+
+    <TextView
+        android:id="@+id/location_share"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="位置分享"
+        android:textColor="#5277df"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@id/v_last"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_bottom"/>
+
+</android.support.constraint.ConstraintLayout>

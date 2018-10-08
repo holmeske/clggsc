@@ -2,7 +2,7 @@ package com.sc.clgg.http;
 
 import android.app.Application;
 
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -15,13 +15,13 @@ import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.sc.clgg.tool.helper.LogHelper;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import okhttp3.OkHttpClient;
-import tool.helper.LogHelper;
 
 
 /**
@@ -30,10 +30,6 @@ import tool.helper.LogHelper;
  */
 
 public class HttpManager {
-
-    public static void init(Application application, String s) {
-        OkGo.getInstance().init(application);
-    }
 
     public static void init(Application application) {
 
@@ -87,24 +83,22 @@ public class HttpManager {
                 .setRetryCount(0)                               //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
                 .addCommonHeaders(headers)                      //全局公共头
                 .addCommonParams(params);                       //全局公共参数
-
     }
 
-    public void post(final String tag, final String url, final Map<String, String> params, final HttpCallBack callback) {
+    public void post(final String url, final Map<String, String> params, final HttpCallBack callback) {
 
-        //JSONObject jsonObject = new JSONObject(params);
         OkGo.<String>post(url)     // 请求方式和请求url
-                .tag(tag)                       // 请求的 tag, 主要用于取消对应的请求
+                .tag("okgo")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.NO_CACHE)    // 缓存模式，详细请看缓存介绍
-                .upJson(JSON.toJSONString(params))
+                .upJson(new Gson().toJson(params))
                 .params(params)
                 .execute(new StringCallback() {
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         super.onStart(request);
 
-                        LogHelper.v("http...onStart()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
+                        LogHelper.v("http...onStart()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
 
                         if (callback != null) {
                             callback.onStart();
@@ -114,8 +108,8 @@ public class HttpManager {
                     @Override
                     public void onSuccess(Response<String> response) {
 
-                        LogHelper.v("http...onSuccess()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                        LogHelper.e("onSuccess()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
+                        LogHelper.v("http...onSuccess()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
+                        LogHelper.e("onSuccess()\t\t" + "url = " + url + "\t\tparams = " + new Gson().toJson(params) + "\nbody = " + response.body());
 
                         try {
                             if (callback != null) {
@@ -130,8 +124,8 @@ public class HttpManager {
                     public void onCacheSuccess(Response<String> response) {
                         super.onCacheSuccess(response);
 
-                        LogHelper.v("http...onCacheSuccess()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                        LogHelper.e("onCacheSuccess()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
+                        LogHelper.v("http...onCacheSuccess()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
+                        LogHelper.e("onCacheSuccess()\t\t" + "url = " + url + "\t\tparams = " + new Gson().toJson(params) + "\nbody = " + response.body());
 
                         if (callback != null) {
                             callback.onCacheSuccess(response.body());
@@ -142,8 +136,8 @@ public class HttpManager {
                     public void onError(Response<String> response) {
                         super.onError(response);
                         try {
-                            LogHelper.v("http...onError()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                            LogHelper.e("onError()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
+                            LogHelper.v("http...onError()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
+                            LogHelper.e("onError()\t\t" + "url = " + url + "\t\tparams = " + new Gson().toJson(params) + "\nbody = " + response.body());
 
                             if (callback != null) {
                                 callback.onError(response.body());
@@ -157,7 +151,7 @@ public class HttpManager {
                     public void onFinish() {
                         super.onFinish();
 
-                        LogHelper.v("http...onFinish()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
+                        LogHelper.v("http...onFinish()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
 
                         if (callback != null) {
                             callback.onFinish();
@@ -165,74 +159,9 @@ public class HttpManager {
                     }
 
                 });
+
+
     }
-
-    public void post(final String url, final Map<String, String> params, final HttpCallBack callback) {
-
-        OkGo.<String>post(url)     // 请求方式和请求url
-                .tag("okgo")                       // 请求的 tag, 主要用于取消对应的请求
-                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
-                .cacheMode(CacheMode.NO_CACHE)    // 缓存模式，详细请看缓存介绍
-                .upJson(JSON.toJSONString(params))
-                .params(params)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        super.onStart(request);
-
-                        LogHelper.v("http...onStart()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-
-                        if (callback != null) callback.onStart();
-                    }
-
-                    @Override
-                    public void onSuccess(Response<String> response) {
-
-                        LogHelper.v("http...onSuccess()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                        LogHelper.e("onSuccess()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
-
-                        try {
-                            if (callback != null) callback.onSuccess(response.body());
-                        } catch (Exception e) {
-                            LogHelper.e(e);
-                        }
-                    }
-
-                    @Override
-                    public void onCacheSuccess(Response<String> response) {
-                        super.onCacheSuccess(response);
-
-                        LogHelper.v("http...onCacheSuccess()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                        LogHelper.e("onCacheSuccess()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
-
-                        if (callback != null) callback.onCacheSuccess(response.body());
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        try {
-                            LogHelper.v("http...onError()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                            LogHelper.e("onError()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
-
-                            if (callback != null) callback.onError(response.body());
-                        } catch (Exception e) {
-                            LogHelper.e(e);
-                        }
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-
-                        LogHelper.v("http...onFinish()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-
-                        if (callback != null) callback.onFinish();
-                    }
-
-                });
-    }
-
 
     public void get(final String url, final Map<String, String> params, final HttpCallBack callback) {
 
@@ -245,7 +174,7 @@ public class HttpManager {
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         super.onStart(request);
-                        LogHelper.v("http...onStart()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
+                        LogHelper.v("http...onStart()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
                         if (callback != null) {
                             callback.onStart();
                         }
@@ -254,8 +183,8 @@ public class HttpManager {
                     @Override
                     public void onSuccess(Response<String> response) {
                         try {
-                            LogHelper.v("http...onSuccess()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                            LogHelper.e("onSuccess()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
+                            LogHelper.v("http...onSuccess()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
+                            LogHelper.e("onSuccess()\t\t" + "url = " + url + "\t\tparams = " + new Gson().toJson(params) + "\nbody = " + response.body());
 
                             if (callback != null) {
                                 callback.onSuccess(response.body());
@@ -269,8 +198,8 @@ public class HttpManager {
                     public void onCacheSuccess(Response<String> response) {
                         super.onCacheSuccess(response);
 
-                        LogHelper.v("http...onCacheSuccess()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                        LogHelper.e("onCacheSuccess()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
+                        LogHelper.v("http...onCacheSuccess()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
+                        LogHelper.e("onCacheSuccess()\t\t" + "url = " + url + "\t\tparams = " + new Gson().toJson(params) + "\nbody = " + response.body());
 
                         if (callback != null) {
                             callback.onCacheSuccess(response.body());
@@ -281,8 +210,8 @@ public class HttpManager {
                     public void onError(Response<String> response) {
                         super.onError(response);
                         try {
-                            LogHelper.v("http...onError()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
-                            LogHelper.e("onError()\t\t" + "url = " + url + "\t\tparams = " + JSON.toJSON(params) + "\nbody = " + response.body());
+                            LogHelper.v("http...onError()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
+                            LogHelper.e("onError()\t\t" + "url = " + url + "\t\tparams = " + new Gson().toJson(params) + "\nbody = " + response.body());
 
                             if (callback != null) {
                                 callback.onError(response.body());
@@ -296,7 +225,7 @@ public class HttpManager {
                     public void onFinish() {
                         super.onFinish();
 
-                        LogHelper.v("http...onFinish()" + "\t\t" + url + "\t\t" + JSON.toJSON(params));
+                        LogHelper.v("http...onFinish()" + "\t\t" + url + "\t\t" + new Gson().toJson(params));
 
                         if (callback != null) {
                             callback.onFinish();

@@ -9,11 +9,7 @@ import android.support.v7.app.AlertDialog;
  * @date：2017/11/15 11:38
  */
 
-public enum AlertDialogHelper {
-    /**
-     * 单例
-     */
-    instance;
+public class AlertDialogHelper {
 
     public void show(Activity activity, String message,
                      DialogInterface.OnClickListener ok,

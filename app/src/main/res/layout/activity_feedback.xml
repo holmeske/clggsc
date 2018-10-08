@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FeedbackActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_stroke"
+        android:gravity="top"
+        android:hint="留下您宝贵的建议..."
+        android:maxLength="500"
+        android:padding="10dp"
+        android:textColor="#444"
+        android:textColorHint="#aaa"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/et"
+        app:layout_constraintLeft_toLeftOf="@id/et"/>
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/mine_suggest_addpi"
+        app:layout_constraintBottom_toBottomOf="@id/et"
+        app:layout_constraintLeft_toLeftOf="@id/et"/>
+
+    <TextView
+        android:id="@+id/tv_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:text="/500"
+        android:textColor="#aaa"
+        app:layout_constraintBottom_toBottomOf="@id/et"
+        app:layout_constraintRight_toRightOf="@id/et"/>
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="#444"
+        app:layout_constraintBottom_toBottomOf="@id/tv_0"
+        app:layout_constraintRight_toLeftOf="@id/tv_0"/>
+
+    <TextView
+        android:id="@+id/tv_commit"
+        android:layout_width="300dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_orange"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et"/>
+</android.support.constraint.ConstraintLayout>

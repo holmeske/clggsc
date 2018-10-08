@@ -1,24 +1,23 @@
 package com.sc.clgg.activity.presenter;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.LoginContact;
 import com.sc.clgg.application.App;
+import com.sc.clgg.bean.Check;
+import com.sc.clgg.bean.User;
 import com.sc.clgg.bean.UserInfoBean;
-import com.sc.clgg.config.Method;
-import com.sc.clgg.config.NetField;
-import com.sc.clgg.http.HttpCallBack;
-import com.sc.clgg.http.HttpRequestHelper;
+import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.tool.helper.LogHelper;
+import com.sc.clgg.tool.helper.SharedPreferencesHelper;
 import com.sc.clgg.util.ConfigUtil;
 
-import org.json.JSONObject;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import tool.helper.LogHelper;
-import tool.helper.SharedPreferencesHelper;
 
 /**
  * 创建时间：2017/7/11 10:22
@@ -39,87 +38,84 @@ public class LoginPresenter {
 
     private void getUserInfo(final String username, String password) {
         mLoginContact.onStartLoading();
-        HttpRequestHelper.getUserInfo(username, password, new HttpCallBack() {
+        new RetrofitHelper().login(username, password).enqueue(new Callback<User>() {
             @Override
-            public void onSuccess(String body) {
-                UserInfoBean bean = null;
-
-                try {
-                    bean = new Gson().fromJson(new JSONObject(body).getString("data"), new TypeToken<UserInfoBean>() {
-                    }.getType());
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onResponse(Call<User> call, Response<User> response) {
+                User user = response.body();
+                if (!user.getSuccess()) {
+                    mLoginContact.onToast(user.getMsg());
+                    mLoginContact.setButtonSuccess();
+                    return;
                 }
 
-                Bundle bundle = new Bundle();
+                UserInfoBean bean = new UserInfoBean();
+                bean.setUserCode(user.getUserCode());
+                bean.setUserName(user.getUserName());
+                bean.setPersonalPhone(user.getPhone());
+                bean.setPassword(user.getPassword());
+                bean.setAccount(user.getUserName());
+
                 if (null != bean) {
-                    bundle.putParcelable(NetField.RES, bean);
-                    bundle.putString(NetField.MSG, bean.getMessage());
 
-                    if (!TextUtils.equals(username, SharedPreferencesHelper.SharedPreferences(App.getInstance()).getString("account", ""))) {
-                        SharedPreferencesHelper.SharedPreferencesEditor(App.getInstance(), "sp").putString("account", username).commit();
-                    }
-
-                    String history_account = SharedPreferencesHelper.SharedPreferences(App.getInstance()).getString("history_account", "");
+                    String historyAccount = SharedPreferencesHelper.SharedPreferences(App.instance).getString("history_account", "");
 
                     StringBuilder sb = new StringBuilder();
-                    if (history_account.length() != 0) {
-                        sb.append(history_account).append(",").append(username);
+                    if (historyAccount.length() != 0 && sb.indexOf(username) == -1) {
+                        sb.append(historyAccount).append(",").append(username);
                     } else {
                         sb.append(username);
                     }
 
-                    SharedPreferencesHelper.SharedPreferencesEditor(App.getInstance(), "sp").putString("history_account", sb.toString()).apply();
+                    SharedPreferencesHelper.editor("sp").putString("history_account", sb.toString()).apply();
 
-                    LogHelper.e("history_account = " + SharedPreferencesHelper.SharedPreferences(App.getInstance()).getString("history_account", ""));
+                    LogHelper.e("history_account = " + SharedPreferencesHelper.SharedPreferences(App.instance).getString("history_account", ""));
 
-                    requestSuccess(Method.USER_LOGIN_METHOD, bundle);
+                    requestSuccess(bean);
                 } else {
-                    bundle.putString(NetField.MSG, "网络异常，请稍后再试");
-
-                    requestFail(Method.USER_LOGIN_METHOD);
+                    requestFail(user.getMsg());
                 }
-
             }
 
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                mLoginContact.onError(t.getMessage());
+            }
         });
     }
 
-    protected void requestFail(String sign) {
-        mLoginContact.setButtonSuccess();
-        if (Method.USER_LOGIN_METHOD.equals(sign)) {
-            mLoginContact.onToast("用户名或密码错误");
-            mLoginContact.setButtonSuccess();
-        } else if (Method.USER_ADD_METHOD.equals(sign)) {
-            /* 注册失败 */
-            mLoginContact.onToast("登录失败");
+    private void requestFail(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            mLoginContact.onToast(s);
         }
+        mLoginContact.setButtonSuccess();
     }
 
-    protected void requestSuccess(final String sign, final Bundle bundle) {
-        if (Method.USER_LOGIN_METHOD.equals(sign) || Method.USER_ADD_METHOD.equals(sign)) {
-            mLoginContact.setButtonSuccess();
+    private void requestSuccess(UserInfoBean bean) {
+        mLoginContact.setButtonSuccess();
+
+        if (bean != null) {
+            new ConfigUtil().setUserInfo(bean);
+            new RetrofitHelper().checkUser(bean.getUserCode()).enqueue(new Callback<Check>() {
+                @Override
+                public void onResponse(Call<Check> call, Response<Check> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<Check> call, Throwable t) {
+
+                }
+            });
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    UserInfoBean bean;
-                    try {
-                        bean = (UserInfoBean) bundle.getParcelable(NetField.RES);
-                    } catch (ClassCastException e) {
-                        e.printStackTrace();
-                        bean = null;
-                    }
-                    if (bean != null) {
-                        new ConfigUtil().setUserInfo(bean);
-                        mLoginContact.jumpOtherActivity();
-                    } else if (bean != null && !bean.getSuccess() && bean.getErrorCode().equals("user.0020")) {
-                        mLoginContact.onToast("用户名或密码错误，请重新输入");
-                    } else {
-                        mLoginContact.onToast(bundle.getString(NetField.MSG));
-                    }
+                    mLoginContact.jumpOtherActivity();
                 }
-            }, 300);
+            }, 400);
+
+        } else {
+            mLoginContact.onToast(App.instance.getString(R.string.network_anomaly));
         }
     }
 

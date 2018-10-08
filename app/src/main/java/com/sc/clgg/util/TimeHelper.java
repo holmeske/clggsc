@@ -5,9 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
- * @类描述：时间辅助类
+ * @author lvke
  */
 public class TimeHelper {
     /**
@@ -141,7 +142,7 @@ public class TimeHelper {
      * @param date        时间
      */
     public static String date2str(String formaterStr, Date date) {
-        DateFormat tf = new SimpleDateFormat(formaterStr);
+        DateFormat tf = new SimpleDateFormat(formaterStr, Locale.getDefault());
         return tf.format(date);
     }
 
@@ -152,28 +153,10 @@ public class TimeHelper {
         return Calendar.getInstance().getTime();
     }
 
-    /**
-     * 按格式字符串得到当前时间有一秒的延时
-     *
-     * @param formater 格式字符串
-     */
-    public static synchronized String getCurrentDateHasDelay(String formaterStr) {
-        try {
-            Thread.currentThread().sleep(1000);// 防止多线程时产生两个相同的时间
-        } catch (InterruptedException e) {
-            for (int i = 0; i < 1000; i++) {// 出现异常时用程序延时计算一千万次
-
-                for (int j = 0; j < 10000; j++)
-                    ;
-            }
-        }
-        return getCurrentDateNotHasDelay(formaterStr);
-    }
 
     /**
      * 按格式字符串得到当前时间没有延时
      *
-     * @param formater 格式字符串
      */
     public static String getCurrentDateNotHasDelay(String formaterStr) {
         return date2str(formaterStr, getCurrentDate());
@@ -182,7 +165,6 @@ public class TimeHelper {
     /**
      * 按格式字符串得到当前时间没有延时
      *
-     * @param formater 格式字符串值 : yyyy-MM-dd HH:mm:ss
      */
     public static String getCurrentDateNotHasDelay() {
         return getCurrentDateNotHasDelay(JAVA_TIME_FORAMTER_2);
@@ -191,10 +173,9 @@ public class TimeHelper {
     /**
      * 按格式字符串得到时间
      *
-     * @param formater 格式字符串
      */
     public static Date str2date(String formaterStr, String param) {
-        DateFormat tf = new SimpleDateFormat(formaterStr);
+        DateFormat tf = new SimpleDateFormat(formaterStr, Locale.getDefault());
         Date date = null;
         try {
             date = tf.parse(param);
@@ -207,11 +188,10 @@ public class TimeHelper {
     /**
      * 按格式字符串得到时间的Long
      *
-     * @param formater 格式字符串
      * @param time     时间
      */
     public static long time2long(String formaterStr, String time) {
-        DateFormat tf = new SimpleDateFormat(formaterStr);
+        DateFormat tf = new SimpleDateFormat(formaterStr, Locale.getDefault());
         long var = 0;
         try {
             var = tf.parse(time).getTime();
@@ -224,18 +204,15 @@ public class TimeHelper {
     /**
      * 已Long长度得到按格式字符串时间
      *
-     * @param formater 格式字符串
-     * @param time     时间
      */
     public static String long2time(String formaterStr, long timeLong) {
-        DateFormat tf = new SimpleDateFormat(formaterStr);
+        DateFormat tf = new SimpleDateFormat(formaterStr, Locale.getDefault());
         return tf.format(new Date(timeLong));
     }
 
     /**
      * 得到在一个时间之后的days天的时间
      *
-     * @param formater 格式字符串
      * @param time     时间
      * @param days     天数
      */
@@ -246,9 +223,6 @@ public class TimeHelper {
     /**
      * 得到在一个时间之后的days天的时间
      *
-     * @param formater 格式字符串
-     * @param time     时间
-     * @param days     天数
      */
     public static String timeAfterHours(String formaterStr, String time,
                                         int hours) {
@@ -258,9 +232,6 @@ public class TimeHelper {
     /**
      * 得到在一个时间之后的days天的时间
      *
-     * @param formater 格式字符串
-     * @param time     时间
-     * @param days     天数
      */
     public static String timeAfterMinute(String formaterStr, String time,
                                          int minute) {
@@ -322,7 +293,7 @@ public class TimeHelper {
      * 判断是否时间timeStr1小于时间timeStr2
      */
     public static boolean time1LTTime2(String formaterStr, String timeStr1,
-                                       String timeStr2) throws ParseException {
+                                       String timeStr2) {
         return time1LTTime2(formaterStr, timeStr1, formaterStr, timeStr2);
     }
 
@@ -353,8 +324,7 @@ public class TimeHelper {
      * @param time 2009-8-1@23:1
      * @return 2009-08-01@23:01
      */
-    public static String formaterTime(String formaterStr, String time)
-            throws ParseException {
+    public static String formaterTime(String formaterStr, String time) {
         return formaterTime(formaterStr, time, formaterStr);
     }
 

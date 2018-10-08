@@ -1,66 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <FrameLayout
-        android:id="@+id/fl_date_quantity"
+    <TextView
+        android:id="@+id/tv_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="29dp"
+        android:background="#d7d7d7"
+        android:gravity="center_vertical"
         android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:visibility="gone">
+        android:textColor="#888"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:text="208-05-15"/>
 
-        <TextView
-            android:id="@+id/tv_current_day_week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            tools:text="8号-星期天"/>
-
-        <TextView
-            android:id="@+id/tv_waybill_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textSize="14sp"
-            tools:text="收入:0元 支出:0元"/>
-    </FrameLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_line"
-        android:background="@color/bg_app"/>
-
-    <FrameLayout
+    <com.mcxtzhang.swipemenulib.SwipeMenuLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeMenuLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="10dp">
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@id/tv_date">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/divider_line"
-            android:gravity="center_vertical"
-            android:textColor="@color/black_333"
-            tools:text="运单：郑州-上海"/>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
 
-        <TextView
-            android:id="@+id/tv_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:gravity="center_vertical"
-            android:textColor="@color/black_333"
-            tools:text="+1300"/>
-    </FrameLayout>
-
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/account_bg_income"
+                android:gravity="center"
+                android:text="收"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
+            <TextView
+                android:id="@+id/tv_bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:textColor="#444"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_describe"
+                app:layout_constraintLeft_toRightOf="@id/tv_type"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="运费收入500.00元"/>
+
+            <TextView
+                android:id="@+id/tv_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#888"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/tv_bill"
+                app:layout_constraintTop_toBottomOf="@id/tv_bill"
+                tools:text="今天天气格外好呀今天天气格外好呀今天天气格外好呀"/>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/divider_line"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btnTop"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="#d9dee4"
+            android:text="置顶"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btnUnRead"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:background="#ecd50a"
+            android:clickable="true"
+            android:text="标记未读"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:text="删除"
+            android:textColor="@android:color/white"/>
+    </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
+
+</android.support.constraint.ConstraintLayout>

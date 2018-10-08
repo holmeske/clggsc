@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.GenderActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        android:id="@+id/tv_male"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:text="男"
+        android:textColor="#222"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_female"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:text="女"
+        android:textColor="#222"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_male"/>
+
+    <ImageView
+        android:id="@+id/iv_male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/mine_ico_check"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/tv_male"
+        app:layout_constraintRight_toRightOf="@id/tv_male"
+        app:layout_constraintTop_toTopOf="@id/tv_male"/>
+
+    <ImageView
+        android:id="@+id/iv_female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/mine_ico_check"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/tv_female"
+        app:layout_constraintRight_toRightOf="@id/tv_female"
+        app:layout_constraintTop_toTopOf="@id/tv_female"/>
+
+</android.support.constraint.ConstraintLayout>

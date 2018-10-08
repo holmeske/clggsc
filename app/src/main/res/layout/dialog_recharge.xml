@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingTop="12dp">
+
+    <TextView
+        android:id="@+id/tv_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/recharge_amount"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/_100_2000_100"
+        android:textColor="@color/_6b6b6b"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_0"
+        app:layout_constraintLeft_toRightOf="@id/tv_0"
+        app:layout_constraintTop_toTopOf="@id/tv_0"/>
+
+    <RadioButton
+        android:id="@+id/rb_1"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/select_yellow"
+        android:button="@null"
+        android:gravity="center"
+        android:text="100元"
+        android:textColor="@color/selecter_white_black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/rb_2"
+        app:layout_constraintTop_toBottomOf="@id/tv_0"/>
+
+    <RadioButton
+        android:id="@+id/rb_2"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:background="@drawable/select_yellow"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center"
+        android:text="500元"
+        android:textColor="@color/selecter_white_black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/rb_1"
+        app:layout_constraintRight_toLeftOf="@id/rb_3"
+        app:layout_constraintTop_toTopOf="@id/rb_1"/>
+
+    <RadioButton
+        android:id="@+id/rb_3"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:background="@drawable/select_yellow"
+        android:button="@null"
+        android:gravity="center"
+        android:text="1000元"
+        android:textColor="@color/selecter_white_black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/rb_2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rb_1"/>
+
+
+    <RadioButton
+        android:id="@+id/rb_4"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/select_yellow"
+        android:button="@null"
+        android:gravity="center"
+        android:text="2000元"
+        android:textColor="@color/selecter_white_black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/rb_5"
+        app:layout_constraintTop_toBottomOf="@id/rb_1"/>
+
+    <RadioButton
+        android:id="@+id/rb_5"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:background="@drawable/select_yellow"
+        android:button="@null"
+        android:gravity="center"
+        android:text="3000元"
+        android:textColor="@color/selecter_white_black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/rb_4"
+        app:layout_constraintRight_toLeftOf="@id/rb_6"
+        app:layout_constraintTop_toTopOf="@id/rb_4"/>
+
+    <RadioButton
+        android:id="@+id/rb_6"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:background="@drawable/select_yellow"
+        android:button="@null"
+        android:gravity="center"
+        android:text="5000元"
+        android:textColor="@color/selecter_white_black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/rb_5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rb_4"/>
+
+    <EditText
+        android:id="@+id/et_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/bg_yellow_stroke"
+        android:hint="您输入的最低充值金额≥100"
+        android:paddingStart="100dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="15dp"
+        android:textColorHint="@color/_a5a5a5"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@id/rb_4"
+        app:layout_constraintRight_toRightOf="@id/rb_6"
+        app:layout_constraintTop_toBottomOf="@id/rb_4"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/other_amount"
+        android:textColor="@color/_6b6b6b"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/et_amount"
+        app:layout_constraintLeft_toLeftOf="@id/et_amount"
+        app:layout_constraintTop_toTopOf="@id/et_amount"/>
+
+    <TextView
+        android:id="@+id/tv_pay_way"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="17dp"
+        android:text="选择支付方式"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_amount"/>
+
+    <View
+        android:id="@+id/v_alipay"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_alipay"
+        app:layout_constraintLeft_toLeftOf="@id/iv_alipay"
+        app:layout_constraintRight_toRightOf="@id/iv_alipay_state"
+        app:layout_constraintTop_toTopOf="@id/iv_alipay"/>
+
+    <ImageView
+        android:id="@+id/iv_alipay"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/pay_alipay"
+        app:layout_constraintLeft_toLeftOf="@id/tv_pay_way"
+        app:layout_constraintTop_toBottomOf="@id/tv_pay_way"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="支付宝支付"
+        android:textColor="@color/_444"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_alipay"
+        app:layout_constraintLeft_toRightOf="@id/iv_alipay"
+        app:layout_constraintTop_toTopOf="@id/iv_alipay"/>
+
+    <ImageView
+        android:id="@+id/iv_alipay_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pay_money_btn_selected"
+        app:layout_constraintBottom_toBottomOf="@id/iv_alipay"
+        app:layout_constraintRight_toRightOf="@id/et_amount"
+        app:layout_constraintTop_toTopOf="@id/iv_alipay"/>
+
+    <ImageView
+        android:id="@+id/iv_wechat"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/pay_wechat"
+        app:layout_constraintLeft_toLeftOf="@id/tv_pay_way"
+        app:layout_constraintTop_toBottomOf="@id/iv_alipay"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="微信支付"
+        android:textColor="@color/_444"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_wechat"
+        app:layout_constraintLeft_toRightOf="@id/iv_wechat"
+        app:layout_constraintTop_toTopOf="@id/iv_wechat"/>
+
+    <ImageView
+        android:id="@+id/iv_wechat_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pay_money_btn_normal"
+        app:layout_constraintBottom_toBottomOf="@id/iv_wechat"
+        app:layout_constraintRight_toRightOf="@id/et_amount"
+        app:layout_constraintTop_toTopOf="@id/iv_wechat"/>
+
+    <View
+        android:id="@+id/v_wechat"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_wechat"
+        app:layout_constraintLeft_toLeftOf="@id/iv_wechat"
+        app:layout_constraintRight_toRightOf="@id/iv_wechat_state"
+        app:layout_constraintTop_toTopOf="@id/iv_wechat"/>
+
+    <View
+        android:id="@+id/v_bottom"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="22dp"
+        android:background="@color/_f1f1f1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/v_instant_recharge"
+        app:layout_constraintTop_toBottomOf="@id/iv_wechat"/>
+
+    <View
+        android:id="@+id/v_instant_recharge"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="22dp"
+        android:background="@color/_ffc428"
+        app:layout_constraintLeft_toRightOf="@id/v_bottom"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_wechat"/>
+
+    <TextView
+        android:id="@+id/tv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="充值:"
+        android:textColor="@color/_444"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_bottom"/>
+
+    <TextView
+        android:id="@+id/tv_recharge_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="500.00"
+        android:textColor="@color/_ff0000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_4"
+        app:layout_constraintLeft_toRightOf="@id/tv_4"
+        app:layout_constraintTop_toTopOf="@id/tv_4"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="立即充值"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_instant_recharge"
+        app:layout_constraintLeft_toLeftOf="@id/v_instant_recharge"
+        app:layout_constraintRight_toRightOf="@id/v_instant_recharge"
+        app:layout_constraintTop_toTopOf="@id/v_instant_recharge"/>
+</android.support.constraint.ConstraintLayout>

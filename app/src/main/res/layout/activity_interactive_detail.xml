@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titlebar"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingRight="12dp"
+                android:textColor="#6978ab"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_describe"
+                app:layout_constraintLeft_toRightOf="@id/iv_head"
+                app:layout_constraintTop_toTopOf="@id/iv_head"
+                tools:text="万事屋老班来一打"/>
+
+            <com.sc.clgg.tool.widget.ShapeTextView
+                android:id="@+id/tv_official"
+                android:layout_width="30dp"
+                android:layout_height="16dp"
+                android:background="#f7ab17"
+                android:gravity="center"
+                android:text="官方"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:corners="2dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
+                app:layout_constraintLeft_toRightOf="@id/tv_nickname"
+                app:layout_constraintTop_toTopOf="@id/tv_nickname"/>
+
+            <TextView
+                android:id="@+id/tv_describe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingRight="12dp"
+                android:textColor="#666"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/iv_head"
+                app:layout_constraintLeft_toLeftOf="@id/tv_nickname"
+                app:layout_constraintLeft_toRightOf="@id/iv_head"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nickname"
+                tools:text="少壮不努力，长大玩手机"/>
+
+            <LinearLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/iv_head">
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#222"
+                    android:textSize="15sp"
+                    tools:text="消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息"/>
+
+                <TextView
+                    android:id="@+id/tv_all_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="全文"
+                    android:textColor="#6978ab"
+                    android:visibility="gone"/>
+
+                <com.lzy.ninegrid.NineGridView
+                    android:id="@+id/nineGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_laud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll"
+                tools:src="@drawable/ico_like_yes"/>
+
+            <TextView
+                android:id="@+id/tv_laud_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="10dp"
+                android:textColor="#ff3434"
+                android:textSize="9sp"
+                app:layout_constraintCircle="@id/iv_laud"
+                app:layout_constraintCircleAngle="40"
+                app:layout_constraintCircleRadius="15dp"
+                tools:text="99+"/>
+
+            <ImageView
+                android:id="@+id/iv_commen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ico_comment_n"
+                app:layout_constraintRight_toLeftOf="@id/iv_laud"
+                app:layout_constraintTop_toBottomOf="@id/ll"
+                app:layout_constraintTop_toTopOf="@id/iv_laud"/>
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="10dp"
+                android:textColor="#ff3434"
+                android:textSize="9sp"
+                app:layout_constraintCircle="@id/iv_commen"
+                app:layout_constraintCircleAngle="40"
+                app:layout_constraintCircleRadius="15dp"
+                tools:text="99+"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_laud"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:text="13:14"/>
+
+            <View
+                android:id="@+id/v_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginTop="10dp"
+                android:background="@color/divider_line"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/iv_laud"/>
+
+            <ImageView
+                android:id="@+id/iv_lauds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ico_like_24"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_line"/>
+
+            <TextView
+                android:id="@+id/tv_lauds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="10dp"
+                android:maxLines="4"
+                android:textColor="#6978ab"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/iv_lauds"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_line"
+                tools:text="- -"/>
+
+            <TextView
+                android:id="@+id/tv_all_show_commen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="15dp"
+                android:text="显示全部"
+                android:textColor="#6978ab"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_lauds"/>
+
+            <LinearLayout
+                android:id="@+id/ll_commen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_all_show_commen"/>
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/circle_ico_close"
+                android:textSize="18sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_head"/>
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cs_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/ll_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <EditText
+                android:id="@+id/et_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="#f5f5f5"
+                android:gravity="center_vertical"
+                android:hint="我来说两句..."
+                android:maxLength="140"
+                android:padding="10dp"
+                android:textColor="#aaa"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:padding="10dp"
+                android:text="发送"
+                android:textColor="#5277df"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
