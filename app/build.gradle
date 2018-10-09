@@ -217,7 +217,6 @@ dependencies {
     implementation project(':imagepicker')
     implementation project(':library')
     //implementation 'org.apache.commons:commons-lang3:3.8.1'
-
 }
 /*configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
