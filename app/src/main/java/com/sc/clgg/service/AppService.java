@@ -2,16 +2,15 @@ package com.sc.clgg.service;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.JobIntentService;
 
 import com.sc.clgg.bean.Area;
-import com.sc.clgg.http.HttpManager;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.util.UmengHelper;
 import com.sc.clgg.widget.AreaPopHelper;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,7 +64,6 @@ public class AppService extends JobIntentService {
         LogHelper.e("AppService 名称 :" + this.getApplication().getClass().getSimpleName());
 
         new UmengHelper().init(this.getApplication());
-        HttpManager.init(this.getApplication());
 
         loadAreaData();
     }

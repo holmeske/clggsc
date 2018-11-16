@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_white">
+
+    <TextView
+        android:id="@+id/tv_card_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:drawableStart="@drawable/cardreading_card_icon"
+        android:drawablePadding="10dp"
+        android:textColor="#0f192f"
+        android:textSize="18sp"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/tv_card_str"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/lutong_b"/>
+
+    <TextView
+        android:id="@+id/tv_card_str"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/car_no_str"
+        android:textColor="#a2a785"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/tv_carno_str"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_card_type"/>
+
+    <TextView
+        android:id="@+id/tv_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:maxLines="1"
+        android:textColor="#397be6"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="@id/tv_card_str"
+        app:layout_constraintLeft_toRightOf="@id/tv_card_str"
+        tools:text="6217 6677 1118 999"/>
+
+    <TextView
+        android:id="@+id/tv_carno_str"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/car_number_str"
+        android:textColor="#a2a785"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_card_str"/>
+
+    <TextView
+        android:id="@+id/tv_carno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:maxLines="1"
+        android:textColor="#397be6"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="@id/tv_carno_str"
+        app:layout_constraintLeft_toRightOf="@id/tv_carno_str"
+        tools:text="陕A123456"/>
+
+
+    <View
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_half_circle"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <View
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_blue_card_5"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/precharge_home_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

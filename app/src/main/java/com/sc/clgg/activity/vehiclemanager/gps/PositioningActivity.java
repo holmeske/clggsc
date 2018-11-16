@@ -3,9 +3,6 @@ package com.sc.clgg.activity.vehiclemanager.gps;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +22,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.sc.clgg.R;
 import com.sc.clgg.base.BaseImmersionActivity;
 import com.sc.clgg.bean.Location;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.tool.helper.MeasureHelper;
 
@@ -35,8 +32,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,13 +44,14 @@ import retrofit2.Response;
  */
 public class PositioningActivity extends BaseImmersionActivity implements AMap.OnMarkerClickListener, AMap.OnMapLoadedListener {
 
-    @BindView(R.id.map) MapView map;
+    private MapView map;
+    private ProgressBar mProgressBar;
 
     private boolean isVisible = true;
     private AMap aMap;
     private ScheduledExecutorService mScheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private Call<Location> call;
-    private ProgressBar mProgressBar;
+
     private Location mLocation;
     private ArrayList<Location.Data> array;
 
@@ -60,11 +59,13 @@ public class PositioningActivity extends BaseImmersionActivity implements AMap.O
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_positioning);
-        unbinder = ButterKnife.bind(this);
-        map.onCreate(savedInstanceState);
-        init();
 
         mProgressBar = findViewById(R.id.progressBar);
+        map = findViewById(R.id.map);
+
+        map.onCreate(savedInstanceState);
+
+        init();
     }
 
     @Override

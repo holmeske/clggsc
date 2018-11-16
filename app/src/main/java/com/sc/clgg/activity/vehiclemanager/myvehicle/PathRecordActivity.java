@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -27,7 +26,7 @@ import com.google.gson.Gson;
 import com.sc.clgg.R;
 import com.sc.clgg.base.BaseImmersionActivity;
 import com.sc.clgg.bean.PathRecord;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.DecimalFormatHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 
@@ -35,8 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import androidx.annotation.Nullable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,19 +44,19 @@ import retrofit2.Response;
  * 轨迹回放
  */
 public class PathRecordActivity extends BaseImmersionActivity implements OnMarkerClickListener, AMap.InfoWindowAdapter {
-    @BindView(R.id.car_num) TextView car_num;
-    @BindView(R.id.current_mileage) TextView current_mileage;
-    @BindView(R.id.total_mileage) TextView total_mileage;
-    @BindView(R.id.time_second) TextView time_second;
-    @BindView(R.id.time_date) TextView time_date;
-    @BindView(R.id.seekbar) SeekBar mSeekBar;
-    @BindView(R.id.start) ImageView start;
-    @BindView(R.id.day_before) TextView day_before;
-    @BindView(R.id.day_after) TextView day_after;
-    @BindView(R.id.playback_time) TextView playback_time;
-    @BindView(R.id.day_before_seven) TextView day_before_seven;
-    @BindView(R.id.day_before_three) TextView day_before_three;
-    @BindView(R.id.day_custom) TextView day_custom;
+    private TextView car_num;
+    private TextView current_mileage;
+    private TextView total_mileage;
+    private TextView time_second;
+    private TextView time_date;
+    private SeekBar mSeekBar;
+    private ImageView start;
+    private TextView day_before;
+    private TextView day_after;
+    private TextView playback_time;
+    private TextView day_before_seven;
+    private TextView day_before_three;
+    private TextView day_custom;
     // 地图对象
     private AMap aMap;
 
@@ -81,13 +79,32 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
     private double firstPoint, distance;
     private Call mCall;
 
+    private void initView() {
+
+        car_num = findViewById(R.id.car_num);
+        current_mileage = findViewById(R.id.current_mileage);
+        total_mileage = findViewById(R.id.total_mileage);
+        time_second = findViewById(R.id.time_second);
+        time_date = findViewById(R.id.time_date);
+        mSeekBar = findViewById(R.id.seekbar);
+        start = findViewById(R.id.start);
+        day_before = findViewById(R.id.day_before);
+        day_after = findViewById(R.id.day_after);
+        playback_time = findViewById(R.id.playback_time);
+        day_before_seven = findViewById(R.id.day_before_seven);
+        day_before_three = findViewById(R.id.day_before_three);
+        day_custom = findViewById(R.id.day_custom);
+        mapView = findViewById(R.id.map);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_path_record);
-        unbinder = ButterKnife.bind(this);
-        mapView = findViewById(R.id.map);
+
+        initView();
         mapView.onCreate(savedInstanceState);
+
         initTitle("轨迹回放");
         carno = getIntent().getStringExtra("carno");
         vin = getIntent().getStringExtra("vin");
@@ -110,7 +127,7 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
                         mSmoothMoveMarker.setVisible(true);
 
                         removeMessages(2);
-                        current_mileage.setText(distance + "km");
+                        current_mileage.setText(DecimalFormatHelper.formatTwo(distance) + "km");
                         LogHelper.e("message = 0    " + current_mileage.getText().toString());
                         break;
                     case 1:
@@ -179,11 +196,6 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
 
         };
 
-        initListener();
-    }
-
-    private void updateTimeSpeedMile(){
-
     }
 
     private void loadData() {
@@ -233,68 +245,6 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
             }
         });
 
-        /*HttpRequestHelper.pathRecord(vin, startDate, endDate,
-
-                new HttpCallBack() {
-                    @Override
-                    public void onStart() {
-                        showProgressDialog();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                    }
-
-                    @Override
-                    public void onSuccess(String body) {
-                        mPathRecord = new Gson().fromJson(body, PathRecord.class);
-
-                        if (!mPathRecord.getSuccess()) {
-                            Toast.makeText(PathRecordActivity.this, mPathRecord.getMsg(), Toast.LENGTH_SHORT).show();
-                            finish();
-                            return;
-                        } else {
-                            if (mPathRecord.getData() == null || mPathRecord.getData().size() == 0) {
-                                Toast.makeText(PathRecordActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
-                                finish();
-                                return;
-                            }
-                        }
-
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (mPathRecord != null && mPathRecord.getData() != null && mPathRecord.getData().size() > 0) {
-                                    LogHelper.e("原始点数 = " + mPathRecord.getData().size());
-
-                                    newList = mPathRecord.getData();
-                                    Collections.reverse(newList);
-
-                                    *//*for (PathRecord.Path path : mPathRecord.getData()) {
-                                        if (!newList.contains(path)) {
-                                            newList.add(path);
-                                        }
-                                    }*//*
-                                    // LogHelper.e("contains去重后点数 = " + newList.size());
-                                    if (PathRecordActivity.this != null) {
-                                        LogHelper.e("sendEmptyMessage 1 ");
-                                        mHandler.sendEmptyMessage(1);
-                                    }
-                                }
-                            }
-                        }).start();
-
-
-                    }
-
-                    @Override
-                    public void onError(String body) {
-                        super.onError(body);
-                        hideProgressDialog();
-                        Toast.makeText(PathRecordActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });*/
     }
 
     @Override
@@ -315,8 +265,6 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
         if (mCall != null) {
             mCall.cancel();
         }
-        LogHelper.e("isExecuted =  " + mCall.isExecuted());
-        LogHelper.e("isCanceled =  " + mCall.isCanceled());
         mHandler.removeCallbacksAndMessages(null);
         mapView.onDestroy();
         if (mSmoothMoveMarker != null) {
@@ -492,52 +440,6 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
         currentPoints = currentPoints.subList(pair.first, currentPoints.size());
         mSmoothMoveMarker.setPoints(currentPoints);
         mSmoothMoveMarker.startSmoothMove();
-    }
-
-    private void initListener() {
-        /*mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-            private float p;
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                p = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                currentProgress = (int) p;
-                LogHelper.e("progress = " + p);
-                int index = (int) (p / (float) 100 * (float) newList.size());
-                LogHelper.e("Seekbar的位置对应 轨迹总数的下标" + index);
-                int time = totalDuration - (int) (p / (float) 100 * totalDuration);
-                LogHelper.e("剩余播放时间 = " + time + "秒");
-
-                LogHelper.e("Seekbar选中的比例" + index);
-                String lat = newList.get(index).getLat();
-                String lng = newList.get(index).getLng();
-//                LogHelper.e(lat + "," + lng);
-//                marker.setPosition(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
-//                marker.setVisible(true);
-//                marker.setRotateAngle(Float.parseFloat(newList.get(index).getDir()));
-
-                aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
-
-                mSmoothMoveMarker.setRotate(Float.parseFloat(newList.get(index).getDir()));
-                mSmoothMoveMarker.setPosition(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
-                mSmoothMoveMarker.setVisible(true);
-                currentDuration = time;
-                mSmoothMoveMarker.setTotalDuration(time);
-                currentPoints = allPoints.subList(index, allPoints.size());
-//                currentList = newList.subList(index, newList.size());
-                LogHelper.e("SeekBar取点后的轨迹数量 = " + currentPoints.size());
-
-                removeStartSignal();
-            }
-        });*/
     }
 
     @Override

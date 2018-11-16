@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -191,7 +191,7 @@
         android:id="@+id/iv_alipay_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/pay_money_btn_selected"
+        android:src="@drawable/select_pay_way"
         app:layout_constraintBottom_toBottomOf="@id/iv_alipay"
         app:layout_constraintRight_toRightOf="@id/et_amount"
         app:layout_constraintTop_toTopOf="@id/iv_alipay"/>
@@ -220,7 +220,7 @@
         android:id="@+id/iv_wechat_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/pay_money_btn_normal"
+        android:src="@drawable/select_pay_way"
         app:layout_constraintBottom_toBottomOf="@id/iv_wechat"
         app:layout_constraintRight_toRightOf="@id/et_amount"
         app:layout_constraintTop_toTopOf="@id/iv_wechat"/>
@@ -289,4 +289,4 @@
         app:layout_constraintLeft_toLeftOf="@id/v_instant_recharge"
         app:layout_constraintRight_toRightOf="@id/v_instant_recharge"
         app:layout_constraintTop_toTopOf="@id/v_instant_recharge"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

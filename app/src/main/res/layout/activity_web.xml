@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
 
     <include layout="@layout/view_titlebar_blue" />
 
     <ProgressBar
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
         android:id="@+id/progressbar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
@@ -15,8 +16,10 @@
         android:visibility="gone" />
 
     <WebView
+        android:layout_height="0dp"
         android:id="@+id/wv_contents"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        app:layout_constraintTop_toBottomOf="@id/progressbar"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

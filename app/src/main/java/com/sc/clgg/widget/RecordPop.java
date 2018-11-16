@@ -3,9 +3,6 @@ package com.sc.clgg.widget;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.DrawableRes;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -16,6 +13,10 @@ import com.sc.clgg.bean.Record;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author：lvke
@@ -87,7 +88,7 @@ public class RecordPop {
 
         View view = View.inflate(context, R.layout.pop_record, null);
         RecyclerView mRecyclerView = view.findViewById(R.id.rv_area);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 4, RecyclerView.VERTICAL, false));
 
         mRecordAdapter = new RecordAdapter(incomeList);
 
@@ -98,7 +99,7 @@ public class RecordPop {
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         mPopupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
-        mPopupWindow.setHeight(LinearLayout.LayoutParams.MATCH_PARENT);
+        mPopupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         return mPopupWindow;
     }
 
@@ -117,7 +118,7 @@ public class RecordPop {
 
         View view = View.inflate(context, R.layout.pop_record, null);
         RecyclerView mRecyclerView = view.findViewById(R.id.rv_area);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 4, RecyclerView.VERTICAL, false));
 
         mRecordAdapter = new RecordAdapter(spendingList);
 

@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".activity.fragment.MallFragment">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/view_titlebar_blue"/>
 
     <WebView
+        app:layout_constraintTop_toBottomOf="@id/titlebar"
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp">
     </WebView>
 
     <View
         android:id="@+id/v_reload"
+        app:layout_constraintTop_toTopOf="@id/webView"
+        app:layout_constraintBottom_toBottomOf="@id/webView"
         android:layout_width="match_parent"
         android:visibility="gone"
-        android:layout_height="match_parent"/>
-</FrameLayout>
+        android:layout_height="0dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

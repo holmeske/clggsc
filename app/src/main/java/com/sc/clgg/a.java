@@ -1,5 +1,8 @@
 package com.sc.clgg;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author：lvke
  * @date：2018/9/14 14:55
@@ -7,14 +10,16 @@ package com.sc.clgg;
 public class a {
 
     public static void main(String[] args) {
-        int s = 720;
-        int price = 720;
-        for (int i = 0; i < 35; i++) {
-            price = price - 21;
 
-            s = s + price;
-            System.out.print(price + "  ");
+        List<Float> data = new ArrayList<>();
+        data.add(115.5f);
+
+        StringBuilder sb=new StringBuilder(",123456");
+        if (sb.substring(0).equals(",")){
         }
-        System.out.print("\ns = " + s);
+
+        System.out.print(sb.substring(1,sb.length()) );
     }
+
+
 }

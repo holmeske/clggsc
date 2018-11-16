@@ -2,7 +2,6 @@ package com.sc.clgg.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 import com.sc.clgg.R;
 import com.sc.clgg.application.App;
-import com.sc.clgg.bean.ServiceBean;
+import com.sc.clgg.bean.Service;
 import com.sc.clgg.bean.ServiceStation;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.tool.helper.MeasureHelper;
@@ -23,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -41,10 +42,15 @@ public class ServiceStationAdapter extends RecyclerView.Adapter<ServiceStationAd
         @Override
         public void onClick(View view) {
             ServiceStation.Page.Station sb = (ServiceStation.Page.Station) view.getTag();
-            ArrayList<ServiceBean> list = MapUtil.getMapApp((Activity) mContext);
+            ArrayList<Service> list = MapUtil.getMapApp((Activity) mContext);
             if (!list.isEmpty()) {
                 // 显示导航对话框
-                DialogUtil.showCustomDialog((Activity) mContext, sb, MeasureHelper.getScreenWidth(App.getInstance()), ViewGroup.LayoutParams.WRAP_CONTENT, R.style.Theme_dialog, list);
+                DialogUtil.showCustomDialog((Activity) mContext,
+                        sb,
+                        MeasureHelper.getScreenWidth(App.getInstance()),
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        R.style.Theme_dialog,
+                        list);
             }
         }
     };

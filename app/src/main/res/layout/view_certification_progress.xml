@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_certification_progress"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <ImageView
+        android:id="@+id/iv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:src="@drawable/apply_card_step_id"
+        app:layout_constraintBottom_toTopOf="@id/tv_1"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_2"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/s_car_certification"
+        app:layout_constraintBottom_toBottomOf="@id/iv_1"
+        app:layout_constraintLeft_toRightOf="@id/iv_1"
+        app:layout_constraintRight_toLeftOf="@id/iv_3"
+        app:layout_constraintTop_toTopOf="@id/iv_1"/>
+
+    <ImageView
+        android:id="@+id/iv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/s_info_certification"
+        app:layout_constraintBottom_toBottomOf="@id/iv_1"
+        app:layout_constraintLeft_toRightOf="@id/iv_2"
+        app:layout_constraintRight_toLeftOf="@id/iv_4"
+        app:layout_constraintTop_toTopOf="@id/iv_1"/>
+
+    <ImageView
+        android:id="@+id/iv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/s_online_reviews"
+        app:layout_constraintBottom_toBottomOf="@id/iv_1"
+        app:layout_constraintLeft_toRightOf="@id/iv_3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_1"/>
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/identity_certification"
+        android:textColor="@color/_4285f4"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/iv_1"
+        app:layout_constraintRight_toRightOf="@id/iv_1"
+        app:layout_constraintTop_toBottomOf="@id/iv_1"/>
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vehicle_certification"
+        android:textColor="@color/s_certification_progress"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_1"
+        app:layout_constraintLeft_toLeftOf="@id/iv_2"
+        app:layout_constraintRight_toRightOf="@id/iv_2"
+        app:layout_constraintTop_toTopOf="@id/tv_1"/>
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/info_certification"
+        android:textColor="@color/s_certification_progress"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_1"
+        app:layout_constraintLeft_toLeftOf="@id/iv_3"
+        app:layout_constraintRight_toRightOf="@id/iv_3"
+        app:layout_constraintTop_toTopOf="@id/tv_1"/>
+
+    <TextView
+        android:id="@+id/tv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/online_reviews"
+        android:textColor="@color/s_certification_progress"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_1"
+        app:layout_constraintLeft_toLeftOf="@id/iv_4"
+        app:layout_constraintRight_toRightOf="@id/iv_4"
+        app:layout_constraintTop_toTopOf="@id/tv_1"/>
+
+    <View
+        android:id="@+id/line_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/_ccc"
+        app:layout_constraintBottom_toBottomOf="@id/iv_1"
+        app:layout_constraintLeft_toRightOf="@id/iv_1"
+        app:layout_constraintRight_toLeftOf="@id/iv_2"
+        app:layout_constraintTop_toTopOf="@id/iv_1"/>
+
+
+    <View
+        android:id="@+id/line_2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/_ccc"
+        app:layout_constraintLeft_toRightOf="@id/iv_2"
+        app:layout_constraintRight_toLeftOf="@id/iv_3"
+        app:layout_constraintTop_toTopOf="@id/line_1"/>
+
+    <View
+        android:id="@+id/line_3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_line"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/_ccc"
+        app:layout_constraintLeft_toRightOf="@id/iv_3"
+        app:layout_constraintRight_toLeftOf="@id/iv_4"
+        app:layout_constraintTop_toTopOf="@id/line_1"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

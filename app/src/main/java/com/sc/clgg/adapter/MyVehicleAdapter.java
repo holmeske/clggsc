@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +16,14 @@ import com.sc.clgg.bean.Check;
 import com.sc.clgg.bean.Location;
 import com.sc.clgg.bean.Vehicle;
 import com.sc.clgg.dialog.AlertDialogHelper;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.util.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +32,7 @@ import retrofit2.Response;
  * @author lvke
  */
 public class MyVehicleAdapter extends RecyclerView.Adapter<MyVehicleAdapter.MyHolder> {
-    private List<Vehicle.Bean> dataList = new ArrayList<>();
+    public List<Vehicle.Bean> dataList = new ArrayList<>();
     private ArrayList<Location.Data> mCarList = new ArrayList<>();
     private Context mContext;
     private CallbackListener mCallbackListener;
@@ -92,7 +92,9 @@ public class MyVehicleAdapter extends RecyclerView.Adapter<MyVehicleAdapter.MyHo
                                     Tools.Toast("删除车辆成功");
                                     dataList.remove(holder.getAdapterPosition());
                                     notifyItemRemoved(holder.getAdapterPosition());
-
+                                    if (mCallbackListener != null) {
+                                        mCallbackListener.callback(position);
+                                    }
                                 } else {
                                     Tools.Toast("删除车辆失败");
                                 }

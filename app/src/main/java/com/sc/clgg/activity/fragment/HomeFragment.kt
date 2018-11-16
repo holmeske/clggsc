@@ -1,168 +1,107 @@
 package com.sc.clgg.activity.fragment
 
-import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment.*
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
+import androidx.fragment.app.Fragment
 import com.sc.clgg.R
-import com.sc.clgg.activity.*
+import com.sc.clgg.activity.ConsumptionStatisticalActivity
+import com.sc.clgg.activity.ETCActivity
+import com.sc.clgg.activity.LoginRegisterActivity
+import com.sc.clgg.activity.TallyBookActivity
+import com.sc.clgg.activity.basic.MainActivity
 import com.sc.clgg.activity.basic.WebActivity
-import com.sc.clgg.activity.contact.TruckManageContact
-import com.sc.clgg.activity.presenter.TruckManagePresenter
 import com.sc.clgg.activity.vehiclemanager.gps.PositioningActivity
-import com.sc.clgg.application.App
 import com.sc.clgg.bean.Banner
-import com.sc.clgg.bean.VersionInfoBean
-import com.sc.clgg.http.retrofit.RetrofitHelper
-import com.sc.clgg.tool.helper.ActivityHelper
+import com.sc.clgg.config.ConstantValue
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.MeasureHelper
-import com.sc.clgg.util.ConfigUtil
-import com.sc.clgg.util.Tools
-import com.sc.clgg.util.UpdateApkUtil
-import com.sc.clgg.util.statusBarHeight
-import com.youth.banner.loader.ImageLoader
+import com.sc.clgg.util.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File.separator
-import java.util.*
 
 /**
  * @author：lvke
- * @date：2018/2/27 17:02
+ * @date：2018/10/12 14:37
  */
-class HomeFragment : Fragment(), TruckManageContact {
-    private var viewCreated: Boolean = false
+class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(activity).inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewCreated = true
 
-        Tools.getScreenInfo(App.instance)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             title.setPadding(0, 0, 0, 0)
             title.layoutParams.height = MeasureHelper.dp2px(activity, 64f) - activity!!.statusBarHeight()
         }
+        tv_more_car.setOnClickListener { WebActivity.start(activity, "整车", ConstantValue.MORE_CAR) }
+        tv_car_heavy.setOnClickListener { WebActivity.start(activity, "重型卡车", ConstantValue.CAR_HEAVY) }
+        tv_car_medium.setOnClickListener { WebActivity.start(activity, "中型卡车", ConstantValue.CAR_MEDIUM) }
+        tv_car_new.setOnClickListener { WebActivity.start(activity, "纯电动轻卡", ConstantValue.CAR_NEW) }
 
-        TruckManagePresenter(this).checkUpdate()
+        tv_more_truck_goods.setOnClickListener { (activity as MainActivity).checked(2) }
+        tv_tire.setOnClickListener { WebActivity.start(activity, "轮胎", ConstantValue.TIRE) }
+        tv_lube.setOnClickListener { WebActivity.start(activity, "润滑油", ConstantValue.LUBE) }
+        tv_etc_card.setOnClickListener { activity?.startActivity(ETCActivity::class.java) }
+
+        tv_more_financial.setOnClickListener { (activity as MainActivity).checked(2) }
+        tv_lease.setOnClickListener { WebActivity.start(activity, "融资租赁", ConstantValue.LEASE) }
+        tv_factoring.setOnClickListener { WebActivity.start(activity, "商业保理", ConstantValue.FACTORING) }
+        tv_insurance.setOnClickListener { WebActivity.start(activity, "保险经纪", ConstantValue.INSURANCE) }
+
+        tv_vehicle_positioning.setOnClickListener { activity!!.startActivity(PositioningActivity::class.java) }
+        tv_consumption_statistical.setOnClickListener { activity!!.startActivity(ConsumptionStatisticalActivity::class.java) }
+        tv_tally_book.setOnClickListener { activity!!.startActivity(if (ConfigUtil().userid.isEmpty()) LoginRegisterActivity::class.java else TallyBookActivity::class.java) }
+        tv_more.setOnClickListener { (activity as MainActivity).checked(1) }
 
         getBannerList()
 
-        service_station.onClick {
-            activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                    .putExtra("stationType", "0").putExtra("title", "陕汽服务站"))
-        }
-
-        operator.onClick {
-            activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                    .putExtra("stationType", "1").putExtra("title", "营运证服务商"))
-        }
-        accessory_dealer.onClick {
-            activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                    .putExtra("stationType", "2").putExtra("title", "配件经销商"))
-        }
-
-        hb_vehicle_monitor.setHomeButtonOnClickListener {
-            ActivityHelper.startAcScale(activity, PositioningActivity::class.java)
-        }
-        hb_my_vehicle.setHomeButtonOnClickListener {
-            ActivityHelper.startAcScale(activity, MileageStatisticalActivity::class.java)
-        }
-        hb_driving_score.setHomeButtonOnClickListener {
-            //            startActivity(Intent(activity, PathRecordActivity::class.java)
-//                    .putExtra("carno", "晋C64989").putExtra("vin", "HX114675")
-//                    .putExtra("startDate", "20180716000000")
-//                    .putExtra("endDate", "20180716235959") )
-            ActivityHelper.startAcScale(activity, ConsumptionStatisticalActivity::class.java)
-        }
-        hb_maintenance_home.setHomeButtonOnClickListener {
-            ActivityHelper.startAcScale(activity, RepairActivity::class.java)
-        }
-        hb_my_tallybook.setHomeButtonOnClickListener {
-            ActivityHelper.startAcScale(activity, FaultDiagnosisActivity::class.java)
-        }
-        hb_financial_after_market.setHomeButtonOnClickListener {
-            if (ConfigUtil().userid.isEmpty()) {
-                startActivity(Intent(activity, LoginRegisterActivity::class.java))
-            } else {
-                ActivityHelper.startAcScale(activity, TallyBookActivity::class.java)
-            }
-        }
-        //RechargeDialog(activity!!).show()
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (viewCreated) {
-            when {
-                isVisibleToUser -> banner?.startAutoPlay()
-                else -> banner?.stopAutoPlay()
-            }
+        swipeRefreshLayout?.setOnRefreshListener {
+            getBannerList()
         }
     }
 
-    override fun getVersionInfo(bean: VersionInfoBean?) {
-        val path = """${getExternalStorageDirectory().path}${getDataDirectory()}$separator${activity?.packageName}${getDownloadCacheDirectory()}${separator}clggsc.apk"""
-        //LogHelper.e(path)
-        bean?.single?.type?.let { UpdateApkUtil().checkUpdateInfo(activity, bean.single?.code, it, bean.single?.url, false) }
-    }
-
-    private inner class GlideImageLoader : ImageLoader() {
-        override fun displayImage(context: Context, path: Any, imageView: ImageView) {
-            /*注意：
-             1.图片加载器由自己选择，这里不限制，只是提供几种使用方法
-             2.返回的图片路径为Object类型，由于不能确定你到底使用的那种图片加载器，
-             传输的到的是什么格式，那么这种就使用Object接收和返回，你只需要强转成你传输的类型就行，
-             切记不要胡乱强转！*/
-
-            Glide.with(context).load(path).apply(RequestOptions().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)).into(imageView)
-        }
-    }
-
-    private lateinit var bannerHttp: Call<Banner>
     private fun getBannerList() {
-        bannerHttp = RetrofitHelper().bannerList.apply {
+        RetrofitHelper().bannerList.apply {
             enqueue(object : Callback<Banner> {
                 override fun onFailure(call: Call<Banner>, t: Throwable) {
+                    activity?.toast(R.string.network_anomaly)
+                    swipeRefreshLayout?.isRefreshing = false
                 }
 
                 override fun onResponse(call: Call<Banner>, response: Response<Banner>) {
+                    swipeRefreshLayout?.isRefreshing = false
                     response.body()?.data?.let {
-                        banner?.setImages(
-                                ArrayList<String>().apply {
-                                    for (bean in it) {
-                                        add(bean.img!!)
-                                    }
-                                }
-                        )?.setImageLoader(GlideImageLoader())?.setOnBannerListener { position ->
+                        banner_top.setData(activity, it.banner, false)
+                        banner_hot.setData(activity, it.hot, false)
+                        banner_select.setData(activity, it.wellChosen, false)
 
-                            it[position].takeIf { !(it.name.isNullOrEmpty() || it.url.isNullOrEmpty()) }?.apply {
-                                startActivity(Intent(activity, WebActivity::class.java).putExtra("name", name).putExtra("url", url))
-                            }
+                        it.rushLeft?.get(0)?.run {
+                            iv_shell.setImage(img)
+                            tv_shell_name.text = name
+                            tv_shell_des.text = details
+                            iv_shell.setOnClickListener { WebActivity.start(activity, name, url, false) }
+                        }
 
-                        }?.start()
+                        it.rushRight?.get(0)?.run {
+                            iv_yuanxing_tire.setImage(img)
+                            tv_yuanxing_tire_name.text = name
+                            tv_yuanxing_tire_des.text = details
+                            iv_yuanxing_tire.setOnClickListener { WebActivity.start(activity, name, url, false) }
+                        }
+
+                        (activity as MainActivity).bannerData = it.banner
                     }
                 }
             })
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        bannerHttp.cancel()
-    }
 }

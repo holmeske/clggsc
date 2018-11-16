@@ -15,7 +15,7 @@ import com.sc.clgg.R;
 import com.sc.clgg.adapter.MapInfoAdapter;
 import com.sc.clgg.adapter.TelAdapter;
 import com.sc.clgg.application.App;
-import com.sc.clgg.bean.ServiceBean;
+import com.sc.clgg.bean.Service;
 import com.sc.clgg.bean.ServiceStation;
 import com.sc.clgg.tool.helper.MeasureHelper;
 import com.sc.clgg.view.AppDialog;
@@ -25,15 +25,15 @@ import java.util.List;
 
 
 public final class DialogUtil {
-    public static void showCustomDialog(final Activity mActivity, final ServiceStation.Page.Station bean, int width, int height, int style, final ArrayList<ServiceBean> list) {
+    public static void showCustomDialog(final Activity mActivity, final ServiceStation.Page.Station bean,
+                                        int width, int height, int style, final ArrayList<Service> list) {
         final AppDialog dialog = new AppDialog(mActivity, width, height, R.layout.view_map_list, style);
-        // 获取window中的子控件
+
         LinearLayout line_cancle = dialog.findViewById(R.id.line_cancle);
         line_cancle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Dialog消失
-                if (dialog != null && dialog.isShowing()) {
+                if (dialog.isShowing()) {
                     dialog.dismiss();
                     dialog.cancel();
                 }
@@ -97,12 +97,15 @@ public final class DialogUtil {
             }
         });
 
-        // 显示CustomDialog
         dialog.show();
     }
 
     public static void showTelDialog(final Activity mActivity, List<String> list) {
-        final AppDialog dialog = new AppDialog(mActivity, MeasureHelper.getScreenWidth(App.instance), ViewGroup.LayoutParams.WRAP_CONTENT, R.layout.view_tel_list, R.style.Theme_dialog);
+        AppDialog dialog = new AppDialog(mActivity,
+                MeasureHelper.getScreenWidth(App.instance),
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                R.layout.view_tel_list,
+                R.style.Theme_dialog);
         dialog.setCanceledOnTouchOutside(true);
 
         // 导航地图列表
@@ -115,8 +118,7 @@ public final class DialogUtil {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // Dialog消失
-                if (dialog != null && dialog.isShowing()) {
+                if (dialog.isShowing()) {
                     dialog.dismiss();
                     dialog.cancel();
                 }
@@ -125,7 +127,6 @@ public final class DialogUtil {
             }
         });
 
-        // 显示CustomDialog
         dialog.show();
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:layout_height="wrap_content">
+
+    <ImageView
+        android:padding="15dp"
+        android:src="@drawable/apply_card_popup_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/_444"
+        android:typeface="sans"
+        android:textSize="24sp"
+        android:text="车辆类型分为"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/_ee8031"
+        android:typeface="sans"
+        android:textSize="13sp"
+        android:text="五型货车、四型货车、三型货车、二型货车、一型货车"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

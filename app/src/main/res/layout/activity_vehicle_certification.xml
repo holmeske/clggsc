@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.sc.clgg.widget.CertificationProgressView
+                android:id="@+id/certificationProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_vehicle_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <com.sc.clgg.widget.VehicleInfoView
+                android:id="@+id/vehicle_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_add_vehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:drawableTop="@drawable/apply_card_car_add_icon"
+                android:drawablePadding="5dp"
+                android:text="添加车辆"
+                android:textColor="@color/_4285f4"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:layout_width="300dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="100dp"
+                android:background="@drawable/bg_orange"
+                android:gravity="center"
+                android:text="@string/next_step"
+                android:textColor="@color/white"
+                android:textSize="19sp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

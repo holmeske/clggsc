@@ -6,7 +6,6 @@ import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import kotlinx.android.synthetic.main.activity_gender.*
 import kotlinx.android.synthetic.main.view_titlebar_blue.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class GenderActivity : BaseImmersionActivity() {
     private var g: String? = "-1"
@@ -19,10 +18,10 @@ class GenderActivity : BaseImmersionActivity() {
         titlebar_left_text.text = "取消"
         titlebar_right.text = "完成"
 
-        titlebar_left_text.onClick {
+        titlebar_left_text.setOnClickListener {
             finish()
         }
-        titlebar_right.onClick {
+        titlebar_right.setOnClickListener {
             PersonalDataActivity.DATA?.gender = g!!
             finish()
         }
@@ -37,12 +36,12 @@ class GenderActivity : BaseImmersionActivity() {
         }
 
 
-        tv_male.onClick {
+        tv_male.setOnClickListener {
             iv_female.visibility = View.GONE
             iv_male.visibility = View.VISIBLE
             g = "1"
         }
-        tv_female.onClick {
+        tv_female.setOnClickListener {
             iv_male.visibility = View.GONE
             iv_female.visibility = View.VISIBLE
             g = "0"

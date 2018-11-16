@@ -7,7 +7,6 @@ import com.sc.clgg.activity.basic.WebActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.tool.helper.ActivityHelper
 import kotlinx.android.synthetic.main.activity_financial_aftermarket.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 
 /**
  * @author：lvke
@@ -19,25 +18,25 @@ class FinancialAftermarketActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_financial_aftermarket)
         super.onCreate(savedInstanceState)
 
-        relat_bft.onClick {
+        relat_bft.setOnClickListener {
             ActivityHelper.startActivityScale(this@FinancialAftermarketActivity,
                     Intent(this@FinancialAftermarketActivity, WebActivity::class.java)
                             .putExtra("name", "保险分期付款")
                             .putExtra("url", "http://www.clgg.com/truckApp/bft.html"))
         }
-        relat_kczl.onClick {
+        relat_kczl.setOnClickListener {
             ActivityHelper.startActivityScale(this@FinancialAftermarketActivity,
                     Intent(this@FinancialAftermarketActivity, WebActivity::class.java)
                             .putExtra("name", "卡车租赁")
                             .putExtra("url", "http://wxsp.kachego.com:3000/#/productList"))
         }
-        relat_yp.onClick {
+        relat_yp.setOnClickListener {
             ActivityHelper.startActivityScale(this@FinancialAftermarketActivity,
                     Intent(this@FinancialAftermarketActivity, WebActivity::class.java)
                             .putExtra("name", "油品")
                             .putExtra("url", "http://www.clgg.com/truckApp/rhy.html"))
         }
-        relat_luntai.onClick {
+        relat_luntai.setOnClickListener {
             ActivityHelper.startActivityScale(this@FinancialAftermarketActivity,
                     Intent(this@FinancialAftermarketActivity, WebActivity::class.java)
                             .putExtra("name", "轮胎")

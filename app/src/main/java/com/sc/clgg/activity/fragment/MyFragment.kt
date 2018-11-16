@@ -3,6 +3,7 @@ package com.sc.clgg.activity.fragment
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import com.sc.clgg.activity.vehiclemanager.myvehicle.MyVehicleActivity
 import com.sc.clgg.bean.IsNotReadInfo
 import com.sc.clgg.bean.PersonalData
 import com.sc.clgg.config.ConstantValue
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.ConfigUtil
@@ -23,8 +24,7 @@ import com.sc.clgg.util.setDefaultRoundedCornerPicture
 import com.sc.clgg.util.setRoundedCornerPicture
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_my.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,23 +49,20 @@ class MyFragment : BaseFragment() {
             title.setPadding(0, 0, 0, 0)
             title.layoutParams.height = MeasureHelper.dp2px(activity, 64f) - activity!!.statusBarHeight()
         }
-        v_1.onClick {
-            startActivity(Intent(activity, MyMessageActivity::class.java)
+        v_0.setOnClickListener { ConfigUtil().isLogined(activity!!) }
+        v_1.setOnClickListener {
+            if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, MyMessageActivity::class.java)
                     .putExtra("DriverCircleType", DriverCircleType)
                     .putExtra("News", News)
                     .putExtra("Activities", Activities))
         }
-        item_my_car.onClick { startActivity(Intent(activity, MyVehicleActivity::class.java)) }
-        item_real_name.onClick { WebActivity.start(activity, "实名认证", ConstantValue.REAL_NAME_AUTHENTICATION) }
-        item_wallet.onClick { WebActivity.start(activity, "我的钱包", ConstantValue.WALLET_ENTRANCE) }
-        tv_operation.onClick { WebActivity.start(activity, "运营", ConstantValue.OPERATING) }
-        tv_member_info.onClick { WebActivity.start(activity, "会员信息", ConstantValue.MEMBER_INFORMATION) }
-        item_personal_data.onClick {
-            startActivity(Intent(activity, PersonalDataActivity::class.java))
-        }
-        item_set.onClick {
-            startActivity(Intent(activity, SetActivity::class.java))
-        }
+        item_my_car.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, MyVehicleActivity::class.java)) }
+        item_real_name.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "实名认证", ConstantValue.REAL_NAME_AUTHENTICATION) }
+        item_wallet.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "我的钱包", ConstantValue.WALLET_ENTRANCE) }
+        tv_operation.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "运营", ConstantValue.OPERATING) }
+        tv_member_info.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "会员信息", ConstantValue.MEMBER_INFORMATION) }
+        item_personal_data.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, PersonalDataActivity::class.java)) }
+        item_set.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, SetActivity::class.java)) }
     }
 
 
@@ -86,6 +83,10 @@ class MyFragment : BaseFragment() {
         super.onResume()
         if (!ConfigUtil().userid.isEmpty()) {
             getUserInfo()
+        } else {
+            iv_head.setImageResource(R.drawable.ic_launcher)
+            tv_nickname.text = "请登录"
+            tv_describe.text = ""
         }
         if (userVisibleHint) {
             isNotReadInfo()
@@ -95,16 +96,19 @@ class MyFragment : BaseFragment() {
     private var call: Call<PersonalData>? = null
 
     private fun getUserInfo() {
+        if (TextUtils.isEmpty(ConfigUtil().userid)){
+            return
+        }
         call = RetrofitHelper().personalData()
         call?.enqueue(object : Callback<PersonalData> {
             override fun onFailure(call: Call<PersonalData>?, t: Throwable?) {
-                toast(R.string.network_anomaly)
+                activity?.toast(R.string.network_anomaly)
                 iv_head.setDefaultRoundedCornerPicture(activity!!, R.drawable.ic_launcher)
             }
 
             override fun onResponse(call: Call<PersonalData>?, response: Response<PersonalData>?) {
                 if (!response?.body()?.success!!) {
-                    toast(R.string.network_anomaly)
+                    activity?.toast(R.string.network_anomaly)
                     return
                 }
                 response.body()?.data?.let {
@@ -137,11 +141,14 @@ class MyFragment : BaseFragment() {
 
     private var callIsNotReadInfo: Call<IsNotReadInfo>? = null
     private fun isNotReadInfo() {
+        if (TextUtils.isEmpty(ConfigUtil().userid)){
+            return
+        }
         callIsNotReadInfo = RetrofitHelper().isNotReadInfo
         callIsNotReadInfo?.enqueue(object : Callback<IsNotReadInfo> {
             override fun onFailure(call: Call<IsNotReadInfo>?, t: Throwable?) {
                 v_point.visibility = View.GONE
-                toast(R.string.network_anomaly)
+                activity?.toast(R.string.network_anomaly)
 
             }
 

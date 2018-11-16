@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
@@ -16,255 +16,512 @@
         android:textColor="@color/white"
         android:textSize="19sp"/>
 
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        app:layout_constraintTop_toBottomOf="@id/title"/>
+        android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/divider0"
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:background="#f5f5f5"
-        app:layout_constraintTop_toBottomOf="@id/banner"/>
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/divider0">
-
-        <View
-            android:id="@+id/v0"
-            android:layout_width="5dp"
-            android:layout_height="16dp"
-            android:layout_marginLeft="12dp"
-            android:background="@drawable/bg_title"
-            app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="@string/site_query"
-            android:textColor="@color/dark_grey"
-            app:layout_constraintLeft_toRightOf="@+id/v0"/>
-
-        <TextView
-            android:id="@+id/service_station"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@mipmap/home_btn_pg_serstation"
-            android:gravity="center"
-            android:text="@string/shanqi_service_station"
-            android:textColor="@color/white"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/operator"
-            app:layout_constraintTop_toBottomOf="@+id/v0"/>
-
-        <TextView
-            android:id="@+id/operator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/home_btn_bg_cerfication"
-            android:gravity="center"
-            android:text="@string/operator"
-            android:textColor="@color/white"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/service_station"
-            app:layout_constraintRight_toLeftOf="@+id/accessory_dealer"
-            app:layout_constraintTop_toTopOf="@id/service_station"/>
-
-        <TextView
-            android:id="@+id/accessory_dealer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/home_btn_bg_parts"
-            android:gravity="center"
-            android:text="@string/accessory_dealer"
-            android:textColor="@color/white"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/operator"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/service_station"/>
-
-        <View
-            android:id="@+id/divider1"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:layout_marginTop="20dp"
-            android:background="#f5f5f5"
-            app:layout_constraintTop_toBottomOf="@id/service_station"/>
-
-        <View
-            android:id="@+id/v1"
-            android:layout_width="5dp"
-            android:layout_height="16dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider1"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="@string/tube_car"
-            android:textColor="@color/dark_grey"
-            app:layout_constraintLeft_toRightOf="@id/v1"
-            app:layout_constraintTop_toTopOf="@id/v1"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_one"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/ll_two"
-        app:layout_constraintTop_toBottomOf="@+id/cl">
-
-        <com.sc.clgg.widget.HomeButton
-            android:id="@+id/hb_vehicle_monitor"
-            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="0.5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center">
+            android:scrollbars="none">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/length_6"
-                android:drawableTop="@mipmap/home_ico_locat"
-                android:gravity="center"
-                android:text="@string/gps_positioning"
-                android:textColor="@color/black_333"
-                android:textSize="@dimen/textsize_12_"/>
-        </com.sc.clgg.widget.HomeButton>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg"
+                android:orientation="vertical">
 
-        <com.sc.clgg.widget.HomeButton
-            android:id="@+id/hb_my_vehicle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="0.5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center">
+                <com.youth.banner.Banner
+                    android:id="@+id/banner_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/length_6"
-                android:drawableTop="@mipmap/home_ico_milage"
-                android:gravity="center"
-                android:text="@string/mileage_statistics"
-                android:textColor="#333333"
-                android:textSize="@dimen/textsize_12_"/>
-        </com.sc.clgg.widget.HomeButton>
+                <View
+                    android:id="@+id/v_bg_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/banner_top"/>
 
-        <com.sc.clgg.widget.HomeButton
-            android:id="@+id/hb_driving_score"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="0.5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:clickable="true"
-            android:gravity="center"
-            android:visibility="visible">
+                <TextView
+                    android:id="@+id/tv_vehicle_positioning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@mipmap/home_ico_locat"
+                    android:drawablePadding="@dimen/length_6"
+                    android:gravity="center"
+                    android:text="@string/gps_positioning"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/v_bg_0"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/tv_consumption_statistical"
+                    app:layout_constraintTop_toTopOf="@id/v_bg_0"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/length_6"
-                android:drawableTop="@mipmap/home_ico_oil"
-                android:gravity="center"
-                android:text="@string/fuel_consumption_statistics"
-                android:textColor="#333333"
-                android:textSize="@dimen/textsize_12_"/>
-        </com.sc.clgg.widget.HomeButton>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_consumption_statistical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@mipmap/home_ico_oil"
+                    android:drawablePadding="@dimen/length_6"
+                    android:gravity="center"
+                    android:text="@string/fuel_consumption_statistics"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_vehicle_positioning"
+                    app:layout_constraintLeft_toRightOf="@id/tv_vehicle_positioning"
+                    app:layout_constraintRight_toLeftOf="@id/tv_tally_book"
+                    app:layout_constraintTop_toTopOf="@id/tv_vehicle_positioning"/>
 
-    <LinearLayout
+                <TextView
+                    android:id="@+id/tv_tally_book"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@mipmap/home_ico_monbook"
+                    android:drawablePadding="@dimen/length_6"
+                    android:gravity="center"
+                    android:text="@string/tally_book"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_vehicle_positioning"
+                    app:layout_constraintLeft_toRightOf="@id/tv_consumption_statistical"
+                    app:layout_constraintRight_toLeftOf="@id/tv_more"
+                    app:layout_constraintTop_toTopOf="@id/tv_vehicle_positioning"/>
 
-        android:id="@+id/ll_two"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_one">
+                <TextView
+                    android:id="@+id/tv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@mipmap/home_ico_more"
+                    android:drawablePadding="@dimen/length_6"
+                    android:gravity="center"
+                    android:text="@string/more"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_vehicle_positioning"
+                    app:layout_constraintLeft_toRightOf="@id/tv_tally_book"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_vehicle_positioning"/>
 
-        <com.sc.clgg.widget.HomeButton
-            android:id="@+id/hb_maintenance_home"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="0.5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:clickable="true"
-            android:gravity="center">
+                <TextView
+                    android:id="@+id/tv_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/bg_blue_top"
+                    android:gravity="center"
+                    android:text="整车"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/v_bg_0"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/length_6"
-                android:drawableTop="@mipmap/home_ico_fix"
-                android:gravity="center"
-                android:text="@string/a_key_repair_service"
-                android:textColor="#333333"
-                android:textSize="@dimen/textsize_12_"/>
-        </com.sc.clgg.widget.HomeButton>
+                <TextView
+                    android:id="@+id/tv_more_car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/more"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_0"
+                    app:layout_constraintRight_toRightOf="@id/tv_0"
+                    app:layout_constraintTop_toTopOf="@id/tv_0"/>
 
-        <com.sc.clgg.widget.HomeButton
-            android:id="@+id/hb_my_tallybook"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="0.5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center">
+                <View
+                    android:id="@+id/v_line_0"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/divider_line"
+                    android:background="@color/white"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_0"
+                    app:layout_constraintRight_toRightOf="@id/tv_0"
+                    app:layout_constraintTop_toBottomOf="@id/tv_0"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/length_6"
-                android:drawableTop="@mipmap/home_ico_diagnose"
-                android:gravity="center"
-                android:text="@string/fault_diagnosis"
-                android:textColor="#333333"
-                android:textSize="@dimen/textsize_12_"/>
-        </com.sc.clgg.widget.HomeButton>
+                <TextView
+                    android:id="@+id/tv_car_heavy"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_4285f4"
+                    android:gravity="center"
+                    android:text="重型卡车"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_0"
+                    app:layout_constraintRight_toLeftOf="@id/tv_car_medium"
+                    app:layout_constraintTop_toBottomOf="@id/v_line_0"/>
 
-        <com.sc.clgg.widget.HomeButton
-            android:id="@+id/hb_financial_after_market"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="0.5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center">
+                <TextView
+                    android:id="@+id/tv_car_medium"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_4285f4"
+                    android:gravity="center"
+                    android:text="中型卡车"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_car_heavy"
+                    app:layout_constraintRight_toLeftOf="@id/tv_car_new"
+                    app:layout_constraintTop_toBottomOf="@id/v_line_0"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/length_6"
-                android:drawableTop="@mipmap/home_ico_monbook"
-                android:gravity="center"
-                android:text="@string/tally_book"
-                android:textColor="#333333"
-                android:textSize="@dimen/textsize_12_"/>
-        </com.sc.clgg.widget.HomeButton>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_car_new"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_4285f4"
+                    android:gravity="center"
+                    android:text="纯电动轻卡"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_car_medium"
+                    app:layout_constraintRight_toRightOf="@id/tv_0"
+                    app:layout_constraintTop_toBottomOf="@id/v_line_0"/>
 
-</android.support.constraint.ConstraintLayout>
+                <View
+                    android:layout_width="@dimen/divider_line"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_car_heavy"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_car_heavy"
+                    app:layout_constraintRight_toRightOf="@id/tv_car_medium"
+                    app:layout_constraintTop_toTopOf="@id/tv_car_heavy"/>
+
+                <View
+                    android:layout_width="@dimen/divider_line"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_car_heavy"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_car_medium"
+                    app:layout_constraintRight_toRightOf="@id/tv_car_new"
+                    app:layout_constraintTop_toTopOf="@id/tv_car_heavy"/>
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/_02a474"
+                    android:gravity="center"
+                    android:text="卡车商品"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_car_heavy"/>
+
+                <TextView
+                    android:id="@+id/tv_more_truck_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/more"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_1"
+                    app:layout_constraintRight_toRightOf="@id/tv_1"
+                    app:layout_constraintTop_toTopOf="@id/tv_1"/>
+
+                <TextView
+                    android:id="@+id/tv_tire"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_02a474"
+                    android:gravity="center"
+                    android:text="轮胎"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_0"
+                    app:layout_constraintRight_toLeftOf="@id/tv_lube"
+                    app:layout_constraintTop_toBottomOf="@id/tv_1"/>
+
+                <TextView
+                    android:id="@+id/tv_lube"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_02a474"
+                    android:gravity="center"
+                    android:text="润滑油"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_tire"
+                    app:layout_constraintRight_toLeftOf="@id/tv_etc_card"
+                    app:layout_constraintTop_toTopOf="@id/tv_tire"/>
+
+                <TextView
+                    android:id="@+id/tv_etc_card"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_02a474"
+                    android:gravity="center"
+                    android:text="ETC卡"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lube"
+                    app:layout_constraintRight_toRightOf="@id/tv_0"
+                    app:layout_constraintTop_toTopOf="@id/tv_tire"/>
+
+                <View
+                    android:layout_width="@dimen/divider_line"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_tire"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_tire"
+                    app:layout_constraintRight_toRightOf="@id/tv_lube"
+                    app:layout_constraintTop_toTopOf="@id/tv_tire"/>
+
+                <View
+                    android:layout_width="@dimen/divider_line"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_tire"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_lube"
+                    app:layout_constraintRight_toRightOf="@id/tv_etc_card"
+                    app:layout_constraintTop_toTopOf="@id/tv_tire"/>
+
+                <View
+                    android:id="@+id/v_line_1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/divider_line"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_1"/>
+
+                <TextView
+                    android:id="@+id/tv_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/_f17828"
+                    android:gravity="center"
+                    android:text="金融"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_tire"/>
+
+                <TextView
+                    android:id="@+id/tv_more_financial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/more"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_2"
+                    app:layout_constraintRight_toRightOf="@id/tv_2"
+                    app:layout_constraintTop_toTopOf="@id/tv_2"/>
+
+                <TextView
+                    android:id="@+id/tv_lease"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_f17828"
+                    android:gravity="center"
+                    android:text="融资租赁"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_2"
+                    app:layout_constraintRight_toLeftOf="@id/tv_factoring"
+                    app:layout_constraintTop_toBottomOf="@id/tv_2"/>
+
+                <TextView
+                    android:id="@+id/tv_factoring"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_f17828"
+                    android:gravity="center"
+                    android:text="商业保理"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lease"
+                    app:layout_constraintRight_toLeftOf="@id/tv_insurance"
+                    app:layout_constraintTop_toTopOf="@id/tv_lease"/>
+
+                <TextView
+                    android:id="@+id/tv_insurance"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@color/_f17828"
+                    android:gravity="center"
+                    android:text="保险经纪"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_factoring"
+                    app:layout_constraintRight_toRightOf="@id/tv_2"
+                    app:layout_constraintTop_toBottomOf="@id/v_line_0"
+                    app:layout_constraintTop_toTopOf="@id/tv_lease"/>
+
+                <View
+                    android:layout_width="@dimen/divider_line"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_lease"
+                    app:layout_constraintLeft_toRightOf="@id/tv_lease"
+                    app:layout_constraintTop_toTopOf="@id/tv_lease"/>
+
+                <View
+                    android:layout_width="@dimen/divider_line"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_lease"
+                    app:layout_constraintLeft_toRightOf="@id/tv_factoring"
+                    app:layout_constraintTop_toTopOf="@id/tv_lease"/>
+
+                <View
+                    android:id="@+id/v_line_2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/divider_line"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tv_2"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_hot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lease">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="热卖"
+                        android:textColor="@color/_444"
+                        android:textSize="15sp"/>
+
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner_hot"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:layout_marginTop="12dp"
+                        android:scaleType="centerCrop"/>
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_rob_buy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/white"
+                    android:padding="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/ll_hot">
+
+                    <TextView
+                        android:id="@+id/tv_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="限时抢购"
+                        android:textColor="#fe1111"
+                        android:textSize="15sp"
+                        android:textStyle="bold|italic"
+                        android:typeface="monospace"/>
+
+                    <ImageView
+                        android:id="@+id/iv_shell"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_5"
+                        app:layout_constraintRight_toLeftOf="@id/iv_yuanxing_tire"
+                        app:layout_constraintTop_toBottomOf="@id/tv_5"/>
+
+                    <ImageView
+                        android:id="@+id/iv_yuanxing_tire"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintLeft_toRightOf="@id/iv_shell"
+                        app:layout_constraintRight_toRightOf="@id/tv_5"
+                        app:layout_constraintTop_toBottomOf="@id/tv_5"
+                        app:layout_constraintTop_toTopOf="@id/iv_shell"/>
+
+                    <TextView
+                        android:id="@+id/tv_shell_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="- -"
+                        android:textColor="@color/black_333"
+                        android:textSize="15sp"
+                        app:layout_constraintLeft_toLeftOf="@id/iv_shell"
+                        app:layout_constraintTop_toBottomOf="@id/iv_shell"/>
+
+                    <TextView
+                        android:id="@+id/tv_shell_des"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="- -"
+                        android:textColor="@color/_666"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="@id/iv_shell"
+                        app:layout_constraintTop_toBottomOf="@id/tv_shell_name"/>
+
+                    <TextView
+                        android:id="@+id/tv_yuanxing_tire_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="- -"
+                        android:textColor="@color/black_333"
+                        android:textSize="15sp"
+                        app:layout_constraintLeft_toLeftOf="@id/iv_yuanxing_tire"
+                        app:layout_constraintTop_toBottomOf="@id/iv_yuanxing_tire"
+                        app:layout_constraintTop_toTopOf="@id/tv_shell_name"/>
+
+                    <TextView
+                        android:id="@+id/tv_yuanxing_tire_des"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="- -"
+                        android:textColor="@color/_666"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="@id/iv_yuanxing_tire"
+                        app:layout_constraintTop_toBottomOf="@id/tv_yuanxing_tire_name"
+                        app:layout_constraintTop_toTopOf="@id/tv_shell_des"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/white"
+                    android:padding="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/cl_rob_buy">
+
+                    <TextView
+                        android:id="@+id/tv_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="精选"
+                        android:textColor="#fe1111"
+                        android:textSize="15sp"/>
+
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:layout_marginTop="12dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toBottomOf="@id/tv_select"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

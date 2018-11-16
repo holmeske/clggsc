@@ -1,12 +1,8 @@
 package com.sc.clgg.activity.presenter;
 
-import android.content.Context;
-
-import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.TruckManageContact;
 import com.sc.clgg.bean.VersionInfoBean;
-import com.sc.clgg.config.ConstantValue;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 
 import retrofit2.Call;
@@ -44,17 +40,4 @@ public class TruckManagePresenter {
         });
     }
 
-    public void addressArrange(final Context context) {
-        String[] regions = context.getResources().getStringArray(R.array.regions);
-        for (String s : regions) {
-            String[] codeRegion = s.split(",");
-            ConstantValue.REGIONS.put(codeRegion[0].trim(), codeRegion[1].trim());
-        }
-
-        String[] citis = context.getResources().getStringArray(R.array.cities);
-        for (String s : citis) {
-            String[] codeCity = s.split(",");
-            ConstantValue.CITIES.put(codeCity[0].trim(), codeCity[1].trim());
-        }
-    }
 }

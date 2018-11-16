@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.sc.clgg.R;
 import com.sc.clgg.base.BaseAdNet;
-import com.sc.clgg.bean.ServiceBean;
+import com.sc.clgg.bean.Service;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @Author作者:lip
  * @Date日期:2014-11-20 上午10:31:29
  */
-public class MapInfoAdapter extends BaseAdNet<ServiceBean> {
+public class MapInfoAdapter extends BaseAdNet<Service> {
 
     public MapInfoAdapter(Activity activity) {
         super(activity);
@@ -50,7 +50,7 @@ public class MapInfoAdapter extends BaseAdNet<ServiceBean> {
 
         // 集合数据不为空
         if (mDatas != null && !mDatas.isEmpty()) {
-            final ServiceBean sb = mDatas.get(position);
+            final Service sb = mDatas.get(position);
             holder.tv_mapImg.setImageResource(sb.getID());
             holder.tv_mapName.setText(sb.getNAME());
         }
@@ -61,7 +61,7 @@ public class MapInfoAdapter extends BaseAdNet<ServiceBean> {
     /**
      * 设置数据的方法
      */
-    public void setmDatas(ArrayList<ServiceBean> mDatas) {
+    public void setmDatas(ArrayList<Service> mDatas) {
         this.mDatas = mDatas;
     }
 

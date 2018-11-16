@@ -2,22 +2,19 @@ package com.sc.clgg.activity.forgetpassword;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sc.clgg.R;
 import com.sc.clgg.base.BaseImmersionActivity;
 import com.sc.clgg.bean.StatusBean;
 import com.sc.clgg.dialog.LoadingDialogHelper;
-import com.sc.clgg.http.HttpCallBack;
-import com.sc.clgg.http.HttpRequestHelper;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.widget.ShapeTextView;
 import com.sc.clgg.util.Tools;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,11 +24,11 @@ import retrofit2.Response;
  */
 public class ForgetPasswordActivity extends BaseImmersionActivity {
 
-    @BindView(R.id.et_account) EditText mEtAccount;
-    @BindView(R.id.et_verification_code) EditText mEtVerificationCode;
-    @BindView(R.id.et_password) EditText mEtPassWord;
-
-    @BindView(R.id.tv_get_verification_code) ShapeTextView mTvGetVerificationCode;
+    private EditText mEtAccount;
+    private EditText mEtVerificationCode;
+    private EditText mEtPassWord;
+    private ShapeTextView mTvGetVerificationCode;
+    private TextView tv_ok;
 
     private CountDownTimer mCountDownTimer = new CountDownTimer(60000, 1000) {
         @Override
@@ -48,34 +45,26 @@ public class ForgetPasswordActivity extends BaseImmersionActivity {
     private LoadingDialogHelper mLoadingDialogHelper;
     private Call<StatusBean> http;
 
-    @OnClick(R.id.tv_get_verification_code)
     void b() {
         String phone = mEtAccount.getText().toString().trim();
         if (phone.length() < 6) {
             return;
         }
-        HttpRequestHelper.sendVerificationCode(phone, new HttpCallBack() {
+        mLoadingDialogHelper.show();
+        new RetrofitHelper().sendVerificationCode(phone).enqueue(new Callback<StatusBean>() {
             @Override
-            public void onStart() {
-                super.onStart();
-                mLoadingDialogHelper.show();
-            }
-
-            @Override
-            public void onSuccess(String body) {
+            public void onResponse(Call<StatusBean> call, Response<StatusBean> response) {
+                mLoadingDialogHelper.dismiss();
                 mCountDownTimer.start();
             }
 
-
             @Override
-            public void onFinish() {
-                super.onFinish();
+            public void onFailure(Call<StatusBean> call, Throwable t) {
                 mLoadingDialogHelper.dismiss();
             }
         });
     }
 
-    @OnClick(R.id.tv_ok)
     void c() {
         mTvGetVerificationCode.setEnabled(false);
 
@@ -113,30 +102,34 @@ public class ForgetPasswordActivity extends BaseImmersionActivity {
             }
         });
 
-//        HttpRequestHelper.verificationCodeCheck(phone, code, new HttpCallBack() {
-//            @Override
-//            public void onStart() {
-//                super.onStart();
-//                mLoadingDialogHelper.show();
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                super.onFinish();
-//                super.onStart();
-//                mLoadingDialogHelper.dismiss();
-//            }
-//
-//            @Override
-//            public void onSuccess(String body) {
-//                StatusBean statusBean = new Gson().fromJson(body, StatusBean.class);
-//                if (statusBean.getStatus()) {
-//                    resetPwd(phone);
-//                } else {
-//                    Tools.Toast(statusBean.getMsg());
-//                }
-//            }
-//        });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_forget_pass);
+        initTitle("忘记密码");
+
+        mLoadingDialogHelper = new LoadingDialogHelper(this);
+
+        mEtAccount = findViewById(R.id.et_account);
+        mEtVerificationCode = findViewById(R.id.et_verification_code);
+        mEtPassWord = findViewById(R.id.et_password);
+        mTvGetVerificationCode = findViewById(R.id.tv_get_verification_code);
+        tv_ok = findViewById(R.id.tv_ok);
+
+        mTvGetVerificationCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                b();
+            }
+        });
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                c();
+            }
+        });
     }
 
     @Override
@@ -149,18 +142,6 @@ public class ForgetPasswordActivity extends BaseImmersionActivity {
             http.cancel();
         }
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_pass);
-        unbinder = ButterKnife.bind(this);
-        initTitle("忘记密码");
-
-        mLoadingDialogHelper = new LoadingDialogHelper(this);
-
-    }
-
     private void resetPwd(String phone) {
         String newPassword = mEtPassWord.getText().toString().trim();
         if (newPassword.length() < 6) {

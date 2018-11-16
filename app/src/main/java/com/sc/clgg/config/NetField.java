@@ -7,9 +7,10 @@ public class NetField {
     public static final String VERSION = "1";
     public static final String MERCHANTID = "3";
 
-//        public static String SITE = "http://back.clgg.com:9838/api/";
+//    public static String SITE = "http://back.clgg.com:9838/api/";
 //    public static String SITE = "http://10.1.200.74:8080/api/";
     public static String SITE = "http://10.1.12.51:8080/api/";
+//    public static String SITE = "http://10.1.12.16:8080/api/";
 
     public static String CLGG_SITE = "http://api.clgg.com:9000/api/";
     public static String SSO_SITE = "http://sso.clgg.com/";
@@ -23,6 +24,7 @@ public class NetField {
      */
     public static String OPERATION_CERTIFICATE = SITE + "serviceStation/certIntroduce";
     /**
+     * C
      * 配件经销商 - 业务介绍
      */
     public static String PARTS_DISTRIBUTOR = SITE + "serviceStation/accessories";

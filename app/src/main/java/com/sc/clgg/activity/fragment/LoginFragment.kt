@@ -2,20 +2,19 @@ package com.sc.clgg.activity.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.sc.clgg.R
 import com.sc.clgg.activity.contact.LoginContact
 import com.sc.clgg.activity.forgetpassword.ForgetPasswordActivity
 import com.sc.clgg.activity.presenter.LoginPresenter
 import com.sc.clgg.dialog.LoadingDialogHelper
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 
 /**
  * @author：lvke
@@ -44,7 +43,7 @@ class LoginFragment : Fragment(), LoginContact {
     }
 
     override fun jumpOtherActivity() {
-        toast("登录成功")
+        activity?.toast("登录成功")
         activity?.finish()
     }
 
@@ -58,21 +57,21 @@ class LoginFragment : Fragment(), LoginContact {
         mLoginPresenter = LoginPresenter(this)
         mLoadingDialogHelper = LoadingDialogHelper(activity)
 
-        btn_login.onClick {
+        btn_login.setOnClickListener {
             val userName = et_account?.text.toString().trim()
             val password = et_pwd?.text.toString().trim()
             if (TextUtils.isEmpty(userName)) {
-                toast("请输入手机号")
-                return@onClick
+                activity?.toast("请输入手机号")
+                return@setOnClickListener
             }
             if (TextUtils.isEmpty(password)) {
-                toast("请输入密码")
-                return@onClick
+                activity?.toast("请输入密码")
+                return@setOnClickListener
             }
             mLoginPresenter?.loginToTXJ(userName, password)
         }
 
-        tv_forget_password.onClick {
+        tv_forget_password.setOnClickListener {
             startActivity(Intent(activity, ForgetPasswordActivity::class.java))
         }
 

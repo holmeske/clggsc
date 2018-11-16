@@ -2,8 +2,7 @@ package com.sc.clgg.activity
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -15,7 +14,7 @@ import com.sc.clgg.R
 import com.sc.clgg.adapter.ConsumptionDetailAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.ConsumptionDetail
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.DecimalFormatHelper
 import com.sc.clgg.tool.helper.LogHelper
 import kotlinx.android.synthetic.main.activity_consumption_detail.*
@@ -27,10 +26,11 @@ import kotlin.collections.ArrayList
 
 class ConsumptionDetailActivity : BaseImmersionActivity() {
     var adpter: ConsumptionDetailAdapter? = null
-    var dateStr: String? = null
+    private var dateStr: String? = null
 
     var vin: String? = ""
     var carno: String? = ""
+    var maximum: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consumption_detail)
@@ -43,17 +43,18 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
         tv_month_mileage?.text = carno
 
         adpter = ConsumptionDetailAdapter()
-        recyclerview?.layoutManager = LinearLayoutManager(this)
+        recyclerview?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerview?.adapter = adpter
 
 
         tv_date?.text = dateStr
         loadData(dateStr)
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         LogHelper.e(""+intent.getIntExtra("year",0)+"\t\t"+intent.getIntExtra("month",0))
         calendar.set(intent.getIntExtra("year",0), intent.getIntExtra("month",0), 0)
-        tv4.text = "${calendar.getActualMaximum(Calendar.DATE)}日"
+        maximum=  calendar.getActualMaximum(Calendar.DATE)
+        tv4.text = "${maximum}日"
     }
 
     private var call: Call<ConsumptionDetail>? = null
@@ -88,9 +89,9 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
                         indexs.add(clctDate?.substring(6, 8)!!.toInt())
                     }
 
-                    for (i in 1..31) {
+                    for (i in 1..maximum) {
                         if (i in indexs) {
-                            data.add(it.dayDetails!!.get(indexs.indexOf(i)).totalFuel?.toFloat()!!)
+                            data.add(it.dayDetails?.get(indexs.indexOf(i))?.totalFuel?.toFloat()!!)
                         } else {
                             data.add(0f)
                         }
@@ -114,7 +115,7 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
 
 //        chart.layoutParams.width = App.screenWidth * data?.size / 5 - MeasureUtils.dp2px(this, 24f)
         chart.setNoDataText("暂无数据")
-        val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
+        //val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
 
         chart.setDrawGridBackground(false)
 
@@ -184,7 +185,7 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
         val sets = chart.data.dataSets
         for (iSet in sets) {
             val set = iSet as LineDataSet
-            set.setValueFormatter { value, c, dataSetIndex, viewPortHandler ->
+            set.setValueFormatter { value, _, _, _ ->
                 value.toString()
             }
         }
@@ -201,9 +202,9 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
     }
 
     private fun setData(datas: List<Float>) {
-        var values = ArrayList<Entry>()
+        val values = ArrayList<Entry>()
 
-        var colorList = ArrayList<Int>()
+        val colorList = ArrayList<Int>()
 
 
         for (i in datas.indices) {

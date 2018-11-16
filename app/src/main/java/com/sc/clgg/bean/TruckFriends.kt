@@ -47,7 +47,7 @@ data class TruckFriend(var code: Int = 0,
                  var images: String? = "",
                  var isShowFront: String? = "",
                  var type: Int = 0,
-                 var driverCircleCommentList: List<Commen>? = null,
+                 var driverCircleCommentList: ArrayList<Commen>? = null,
                  var driverCircleLaudList: List<Laud>? = null,
                  var driverCircleImagesList: List<Image>? = null,
                  var isLike:Boolean=false) : Parcelable
@@ -79,7 +79,6 @@ data class TruckFriend(var code: Int = 0,
                      var circleMessageId: Int = 0,
                      var imgUrl: String? = "") : Parcelable
 }
-
 
 @SuppressLint("ParcelCreator")
 @Parcelize

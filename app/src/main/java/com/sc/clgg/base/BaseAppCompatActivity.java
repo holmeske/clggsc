@@ -1,9 +1,9 @@
 package com.sc.clgg.base;
 
-import android.support.v7.app.AppCompatActivity;
-
 import com.sc.clgg.dialog.LoadingDialog;
 import com.sc.clgg.tool.helper.LogHelper;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 /**

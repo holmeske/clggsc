@@ -2,13 +2,13 @@ package com.sc.clgg.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.View
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.util.setTextChangeListener
 import kotlinx.android.synthetic.main.activity_nick_name.*
 import kotlinx.android.synthetic.main.view_titlebar_blue.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.textColor
 
 class NickNameActivity : BaseImmersionActivity() {
@@ -18,36 +18,44 @@ class NickNameActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nick_name)
 
+        et.filters = arrayOf(InputFilter.LengthFilter(intent.getIntExtra("maxLength", 20)))
+
         type = intent.getStringExtra("type")
 
-        if (type.equals("name")) {
-            initTitle("设置姓名")
-
-            et.setText(intent.getStringExtra("name"))
-
-        } else if (type.equals("nickname")) {
-            initTitle("设置昵称")
-            et.setText(intent.getStringExtra("nickname"))
-        } else if (type.equals("signature")) {
-            initTitle("设置签名")
-            et.setText(intent.getStringExtra("signature"))
+        when {
+            type.equals("name") -> {
+                initTitle("设置姓名")
+                et.setText(intent.getStringExtra("name"))
+            }
+            type.equals("nickname") -> {
+                initTitle("设置昵称")
+                et.setText(intent.getStringExtra("nickname"))
+            }
+            type.equals("signature") -> {
+                initTitle("设置签名")
+                et.setText(intent.getStringExtra("signature"))
+            }
+            type.equals("invite") -> {
+                initTitle("设置邀请码")
+                et.setText(intent.getStringExtra("invite"))
+            }
         }
+
         titlebar_left.visibility = View.GONE
         titlebar_left_text.text = "取消"
         titlebar_right.text = "完成"
 
         titlebar_right.textColor = Color.parseColor("#93afff")
 
-        titlebar_left_text.onClick {
+        titlebar_left_text.setOnClickListener {
             finish()
         }
-        titlebar_right.onClick {
-            if (type.equals("name")) {
-                PersonalDataActivity.DATA?.realName = et.text.toString()
-            } else if (type.equals("nickname")) {
-                PersonalDataActivity.DATA?.nickName = et.text.toString()
-            } else if (type.equals("signature")) {
-                PersonalDataActivity.DATA?.clientSign = et.text.toString()
+        titlebar_right.setOnClickListener {
+            when {
+                type.equals("name") -> PersonalDataActivity.DATA?.realName = et.text.toString()
+                type.equals("nickname") -> PersonalDataActivity.DATA?.nickName = et.text.toString()
+                type.equals("signature") -> PersonalDataActivity.DATA?.clientSign = et.text.toString()
+                type.equals("invite") -> PersonalDataActivity.DATA?.inviteCode = et.text.toString()
             }
             finish()
         }
@@ -56,7 +64,7 @@ class NickNameActivity : BaseImmersionActivity() {
             titlebar_right.textColor = Color.parseColor("#ffffff")
         }
 
-        iv_deleteall.onClick { et.setText("") }
+        iv_deleteall.setOnClickListener { et.setText("") }
     }
 
 }

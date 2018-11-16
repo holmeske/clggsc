@@ -10,7 +10,6 @@ import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.activity_share.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 
 
@@ -27,21 +26,19 @@ class ShareActivity : Activity() {
         content = intent.getStringExtra("content")
         url = intent.getStringExtra("url")
 
-        LogHelper.e("分享url  = " + url)
-        LogHelper.e("分享地址  = " + content)
+        LogHelper.e("分享url  = $url")
+        LogHelper.e("分享地址  = $content")
         init()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
-        }
+        UMShareAPI.get(this)?.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun init() {
-        v.onClick { finish() }
-        tv_wechat.onClick {
+        v?.setOnClickListener { finish() }
+        tv_wechat?.setOnClickListener {
             UmengHelper().share(this@ShareActivity, SHARE_MEDIA.WEIXIN,
                     url,
                     title,
@@ -49,7 +46,7 @@ class ShareActivity : Activity() {
                     mUMShareListener)
         }
 
-        tv_circle.onClick {
+        tv_circle?.setOnClickListener {
             UmengHelper().share(this@ShareActivity, SHARE_MEDIA.WEIXIN_CIRCLE,
                     url,
                     title,
@@ -57,7 +54,7 @@ class ShareActivity : Activity() {
                     mUMShareListener)
         }
 
-        tv_qq.onClick {
+        tv_qq?.setOnClickListener {
             UmengHelper().share(this@ShareActivity, SHARE_MEDIA.QQ,
                     url,
                     title,
@@ -65,7 +62,7 @@ class ShareActivity : Activity() {
                     mUMShareListener)
         }
 
-        tv_cancel.onClick {
+        tv_cancel?.setOnClickListener {
             finish()
         }
     }
@@ -75,7 +72,7 @@ class ShareActivity : Activity() {
         UmengHelper().destroy(this)
     }
 
-    internal var mUMShareListener: UMShareListener = object : UMShareListener {
+    private var mUMShareListener: UMShareListener = object : UMShareListener {
         override fun onStart(share_media: SHARE_MEDIA) {
             LogHelper.e("onStart")
         }
@@ -95,31 +92,6 @@ class ShareActivity : Activity() {
             LogHelper.e("onCancel")
             toast("分享取消")
         }
-    }
-
-
-    private fun share(activity: Activity, var1: SHARE_MEDIA, url: String, title: String, description: String, listener: UMShareListener) {
-        UmengHelper().share(activity, var1,
-                url,
-                title,
-                "abcd....................",
-                object : UMShareListener {
-                    override fun onResult(p0: SHARE_MEDIA?) {
-                        LogHelper.e("onResult")
-                    }
-
-                    override fun onCancel(p0: SHARE_MEDIA?) {
-                        LogHelper.e("onCancel")
-                    }
-
-                    override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
-                        LogHelper.e("onError" + p1.toString())
-                    }
-
-                    override fun onStart(p0: SHARE_MEDIA?) {
-                        LogHelper.e("onStart")
-                    }
-                })
     }
 
 }

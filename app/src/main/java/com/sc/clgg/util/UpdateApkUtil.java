@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -28,6 +27,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import androidx.core.content.FileProvider;
 
 /**
  * @author lvke

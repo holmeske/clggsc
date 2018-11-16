@@ -2,8 +2,7 @@ package com.sc.clgg.activity
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -15,7 +14,7 @@ import com.sc.clgg.R
 import com.sc.clgg.adapter.StatisticalDetailAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.MileageDetail
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import kotlinx.android.synthetic.main.activity_statistical_detail.*
 import retrofit2.Call
@@ -27,6 +26,7 @@ class StatisticalDetailActivity : BaseImmersionActivity() {
     var adpter: StatisticalDetailAdapter? = null
     var year: String? = ""
     var month: Int = 0
+    var maximum: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistical_detail)
@@ -38,16 +38,17 @@ class StatisticalDetailActivity : BaseImmersionActivity() {
 
 
         adpter = StatisticalDetailAdapter(year!!.toInt(), month, intent.getStringExtra("carno"), intent.getStringExtra("vin"))
-        recyclerview?.layoutManager = LinearLayoutManager(this)
+        recyclerview?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerview?.adapter = adpter
 
         tv_date.text = date
         tv_carno.text = intent.getStringExtra("carno")
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         LogHelper.e("" + year + "\t\t" + month)
         calendar.set(year!!.toInt(), month, 0)
-        tv4.text = "${calendar.getActualMaximum(Calendar.DATE)}日"
+        maximum=  calendar.getActualMaximum(Calendar.DATE)
+        tv4.text = "${maximum}日"
 
         loadData(date, intent.getStringExtra("vin"))
     }
@@ -70,13 +71,13 @@ class StatisticalDetailActivity : BaseImmersionActivity() {
                         val data = ArrayList<Float>()
 
                         this.data?.detailDataList?.let {
-                            for ((date, dayMileage) in it) {
+                            it.forEach { (date, _) ->
                                 indexs.add(date?.toInt()!!)
                             }
 
-                            for (i in 1..31) {
+                            for (i in 1..maximum) {
                                 if (i in indexs) {
-                                    data.add(it.get(indexs.indexOf(i)).dayMileage?.toFloat()!!)
+                                    data.add(it[indexs.indexOf(i)].dayMileage?.toFloat()!!)
                                 } else {
                                     data.add(0f)
                                 }
@@ -102,7 +103,7 @@ class StatisticalDetailActivity : BaseImmersionActivity() {
 
 //        chart.layoutParams.width = App.screenWidth * data?.size / 5 - MeasureUtils.dp2px(this, 24f)
 
-        val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
+       // val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
 
         chart.setDrawGridBackground(false)
 
@@ -172,7 +173,7 @@ class StatisticalDetailActivity : BaseImmersionActivity() {
         val sets = chart.data.dataSets
         for (iSet in sets) {
             val set = iSet as LineDataSet
-            set.setValueFormatter { value, c, dataSetIndex, viewPortHandler ->
+            set.setValueFormatter { value, _, _, _ ->
                 value.toString()
             }
         }
@@ -189,10 +190,9 @@ class StatisticalDetailActivity : BaseImmersionActivity() {
     }
 
     private fun setData(datas: List<Float>) {
-        var values = ArrayList<Entry>()
+        val values = ArrayList<Entry>()
 
-        var colorList = ArrayList<Int>()
-
+        val colorList = ArrayList<Int>()
 
         for (i in datas.indices) {
             if (i in listOf(0, 7, 14, 21, 30)) {

@@ -1,40 +1,61 @@
 package com.sc.clgg.activity
 
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
-import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.lzy.imagepicker.ImagePicker
-import com.lzy.imagepicker.bean.ImageItem
-import com.lzy.imagepicker.ui.ImageGridActivity
-import com.lzy.imagepicker.view.CropImageView
+import androidx.core.content.ContextCompat
 import com.sc.clgg.R
-import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Check
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.setTextChangeListener
+import com.sc.clgg.util.showTakePhoto
 import kotlinx.android.synthetic.main.activity_feedback.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.devio.takephoto.model.TResult
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Response
-import top.zibin.luban.Luban
-import top.zibin.luban.OnCompressListener
 import java.io.File
-import java.util.*
 
 
-class FeedbackActivity : BaseImmersionActivity() {
-    var imagePicker: ImagePicker? = null
-    private var handler: Handler? = null
-    private var compressedFiles = arrayListOf<String>()
-    private var paths = arrayListOf<String>()
+class FeedbackActivity : TakePhotoActivity() {
+    private var pathList = arrayListOf<String>()
+
+    override fun takeSuccess(result: TResult?) {
+        super.takeSuccess(result)
+        iv.visibility = View.GONE
+        result?.images?.forEach { c ->
+            LogHelper.e("image = " + c.compressPath + "     " + File(c.compressPath).length())
+            addImageView(c.compressPath)
+            pathList.add(c.compressPath)
+        }
+    }
+
+
+
+    private fun addImageView(path: String) {
+        val imageView = ImageView(this@FeedbackActivity)
+        imageView.setImageBitmap(BitmapFactory.decodeFile(path))
+        imageView.scaleType = ImageView.ScaleType.FIT_CENTER
+        imageView.setBackgroundColor(ContextCompat.getColor(application, R.color.gray_aaa))
+
+        val layoutParams = LinearLayout.LayoutParams(
+                MeasureHelper.dp2px(this@FeedbackActivity, 60f),
+                MeasureHelper.dp2px(this@FeedbackActivity, 60f))
+        layoutParams.setMargins(0, 0, 4, 0)
+        imageView.layoutParams = layoutParams
+
+        imageView.setOnClickListener {
+            ll_images.removeView(imageView);if (ll_images.childCount == 0) {
+            iv.visibility = View.VISIBLE
+        }
+        }
+
+        ll_images.addView(imageView)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,123 +66,30 @@ class FeedbackActivity : BaseImmersionActivity() {
             tv_number.text = it.length.toString()
         }
 
-        tv_commit.onClick {
-//            if (ll_images?.childCount == images?.size) {
-                feedBack(compressedFiles)
-//            }
+        tv_commit.setOnClickListener {
+            feedBack(pathList)
         }
 
-        imagePicker = ImagePicker.getInstance()
-        imagePicker?.imageLoader = PersonalDataActivity.GlideImageLoader()   //设置图片加载器
-        imagePicker?.isShowCamera = false  //显示拍照按钮
-        imagePicker?.isCrop = false        //允许裁剪（单选才有效）
-        imagePicker?.isSaveRectangle = true //是否按矩形区域保存
-        imagePicker?.selectLimit = 5    //选中数量限制
-        imagePicker?.isMultiMode = true
-        imagePicker?.style = CropImageView.Style.RECTANGLE  //裁剪框的形状
-        imagePicker?.focusWidth = 280   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
-        imagePicker?.focusHeight = 280  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
-        imagePicker?.outPutX = 800//保存文件的宽度。单位像素
-        imagePicker?.outPutY = 800//保存文件的高度。单位像素
-
-        iv.onClick {
-            val intent = Intent(this@FeedbackActivity, ImageGridActivity::class.java)
-            intent.putExtra(ImageGridActivity.EXTRAS_IMAGES, images)
-            startActivityForResult(intent, 100)
-        }
-
-
-        handler = object : Handler() {
-
-            override fun handleMessage(msg: Message) {
-                when (msg.what) {
-                    0 -> {
-
-                        iv.alpha = 0f
-                        images?.forEach {
-                            LogHelper.e("" + it.path)
-                            paths.add(it.path)
-                        }
-
-                        Luban.with(this@FeedbackActivity).load(paths)
-                                .ignoreBy(100)
-                                .setCompressListener(object : OnCompressListener {
-                                    override fun onStart() {
-                                        Log.e("tag", "onStart ")
-                                    }
-
-                                    override fun onSuccess(file: File) {
-                                        Log.e("tag", "file " + file.name + " " + file.length() / 1024)
-
-                                        compressedFiles.add(file.absolutePath)
-
-                                        var imageView = ImageView(this@FeedbackActivity)
-                                        imageView.setImageBitmap(BitmapFactory.decodeFile(file.absolutePath))
-                                        imageView.scaleType = ImageView.ScaleType.FIT_CENTER
-                                        imageView.setBackgroundColor(resources.getColor(R.color.gray_aaa))
-
-                                        val layoutParams = LinearLayout.LayoutParams(
-                                                MeasureHelper.dp2px(this@FeedbackActivity, 60f),
-                                                MeasureHelper.dp2px(this@FeedbackActivity, 60f))
-                                        layoutParams.setMargins(0, 0, 4, 0)
-                                        imageView.layoutParams = layoutParams
-
-                                        ll_images.addView(imageView)
-
-                                        hideProgressDialog()
-                                    }
-
-                                    override fun onError(e: Throwable) {
-                                        Log.e("tag", "onError ")
-                                        hideProgressDialog()
-                                    }
-                                }).launch()
-
-
-                    }
-                }
-            }
-        }
-    }
-
-    internal var images: ArrayList<ImageItem>? = null
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
-            try {
-                if (data != null && requestCode == 100) {
-                    images = data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS) as ArrayList<ImageItem>
-
-                    LogHelper.e("cacheDir = " + cacheDir)
-
-                    paths.clear()
-                    compressedFiles.clear()
-                    ll_images.removeAllViews()
-                    showProgressDialog("正在压缩...")
-                    handler?.sendEmptyMessage(0)
-                }
-            } catch (e: Exception) {
-                LogHelper.e(e)
-            }
-
+        iv.setOnClickListener {
+            showTakePhoto(takePhoto,5)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        handler?.removeCallbacksAndMessages(null)
+        http?.cancel()
     }
 
+    private var http: Call<Check>? = null
     private fun feedBack(files: List<String>) {
         if (files.isEmpty() && et?.text?.toString()?.isBlank()!!) {
             toast("请留下您宝贵的建议")
             return
         }
-        val call = RetrofitHelper().feedBack(files, et?.text?.toString())
+        http = RetrofitHelper().feedBack(files, et?.text?.toString())
 
         showProgressDialog()
-        call.enqueue(object : retrofit2.Callback<Check> {
+        http?.enqueue(object : retrofit2.Callback<Check> {
             override fun onResponse(call: Call<Check>?, response: Response<Check>?) {
                 response?.body().let {
                     if (it?.success!!) {

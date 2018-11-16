@@ -1,27 +1,20 @@
 package com.sc.clgg.activity.basic
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.gyf.barlibrary.ImmersionBar
 import com.sc.clgg.R
-import com.sc.clgg.activity.LoginRegisterActivity
-import com.sc.clgg.activity.fragment.ETCFragment
-import com.sc.clgg.activity.fragment.HomeFragment
-import com.sc.clgg.activity.fragment.MyFragment
-import com.sc.clgg.activity.fragment.TruckFriendsFragment
+import com.sc.clgg.activity.fragment.*
 import com.sc.clgg.adapter.FragmentAdapter
+import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.dialog.ExitDialog
-import com.sc.clgg.tool.helper.LogHelper
-import com.sc.clgg.util.ConfigUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.sdk25.coroutines.onClick
 
 
 /**
@@ -35,35 +28,36 @@ class MainActivity : AppCompatActivity() {
     /**
      * 标记当前底部的index
      */
-    var currenMainTabIndex: Int = 0
+    private var currenMainTabIndex: Int = 0
+
+    companion object {
+        var truckFriendsFragment: TruckFriendsFragment? = null
+
+        var mallFragment: MallFragment? = null
+    }
+
+    var bannerData: ArrayList<Banner.Bean>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewpager?.offscreenPageLimit = 4
-        viewpager?.adapter = FragmentAdapter(supportFragmentManager, listOf(HomeFragment(), ETCFragment(), TruckFriendsFragment(), MyFragment()))
+        viewpager?.offscreenPageLimit = 5
+        truckFriendsFragment = TruckFriendsFragment()
+        mallFragment = MallFragment()
+        viewpager?.adapter = FragmentAdapter(supportFragmentManager, listOf(HomeFragment(), CarNetFragment(), mallFragment, truckFriendsFragment, MyFragment()))
 
-        textViews = listOf(tv_truck_manage, tv_transport_manage, tv_user_setttings, tv_my)
+        textViews = listOf(tv_home, tv_car_net, tv_mall, tv_truck_circle, tv_my)
 
-        tv_truck_manage.onClick { checked(0) }
-        tv_transport_manage.onClick { checked(1) }
-        tv_user_setttings.onClick { checked(2) }
-        tv_my.onClick {
-            if (ConfigUtil().userid.isEmpty()) startActivity(Intent(this@MainActivity, LoginRegisterActivity::class.java))
-            else checked(3)
-        }
+        tv_home.setOnClickListener { checked(0) }
+        tv_car_net.setOnClickListener { checked(1) }
+        tv_mall.setOnClickListener { checked(2) }
+        tv_truck_circle.setOnClickListener { checked(3) }
+        tv_my.setOnClickListener { checked(4) }
         ImmersionBar.with(this).init()
 
-        tv_truck_manage.isSelected = true
-
-        /*val nfc = packageManager.hasSystemFeature(PackageManager.FEATURE_NFC)
-
-        Toast.makeText(this@MainActivity,
-                String.format("NFC支持%s", nfc), Toast.LENGTH_SHORT)
-                .show()*/
-
-
+        checked(0)
+        tv_home.isSelected = true
     }
 
     override fun onDestroy() {
@@ -75,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         for (tv in textViews) tv.isSelected = textViews.indexOf(tv) == showIndex
     }
 
-    private fun checked(i: Int) {
+    fun checked(i: Int) {
         viewpager?.setCurrentItem(i, false)
         currenMainTabIndex = i
         showTab(i, textViews)
@@ -91,21 +85,17 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
-    override fun onResume() {
-        LogHelper.e("onResume() --->首页")
-        super.onResume()
-        if (currenMainTabIndex == 3 && ConfigUtil().userid.isEmpty()) {
-            checked(0)
-        }
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: MessageEvent) {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            ExitDialog(this).show("退出提示", "确定退出车轮滚滚？") { _, _ -> System.exit(0) }
+            if (currenMainTabIndex == 2 && mallFragment?.canGoBack()!!) {
+                mallFragment?.goBack()
+            } else {
+                ExitDialog(this).show("退出提示", "确定退出车轮滚滚？") { _, _ -> System.exit(0) }
+            }
             return true
         }
         return super.onKeyDown(keyCode, event)

@@ -3,8 +3,6 @@ package com.sc.clgg.widget;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -14,6 +12,9 @@ import com.sc.clgg.activity.contact.ItemClickListener;
 import com.sc.clgg.adapter.AreaAdapter;
 
 import java.util.Arrays;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author：lvke

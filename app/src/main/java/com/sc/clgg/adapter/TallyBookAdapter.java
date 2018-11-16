@@ -1,7 +1,5 @@
 package com.sc.clgg.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +11,16 @@ import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 import com.sc.clgg.R;
 import com.sc.clgg.bean.TallyBook;
 import com.sc.clgg.tool.helper.DateHelper;
+import com.sc.clgg.tool.helper.DecimalFormatHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author：lvke
@@ -86,7 +88,7 @@ public class TallyBookAdapter extends RecyclerView.Adapter<TallyBookAdapter.MyHo
             holder.tv_type.setBackgroundResource(R.drawable.account_bg_expand);
         }
 
-        holder.tv_bill.setText(map.get(bean.getCostType()) + bean.getAmount() + "元");
+        holder.tv_bill.setText(map.get(bean.getCostType()) + DecimalFormatHelper.formatTwo(bean.getAmount()) + "元");
 
         if (!TextUtils.isEmpty(bean.getRemark())) {
             holder.tv_describe.setText(bean.getRemark());

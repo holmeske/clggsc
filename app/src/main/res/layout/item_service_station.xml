@@ -20,7 +20,7 @@
             android:layout_height="25dip"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="12dp">
+            android:paddingStart="12dp">
 
             <TextView
                 android:id="@+id/short_company_name"
@@ -29,6 +29,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textColor="@color/black_333"
+                android:textIsSelectable="true"
                 android:textSize="@dimen/textsize_15"
                 tools:text="陕西宇顺"/>
 
@@ -49,19 +50,19 @@
 
         <LinearLayout
             android:id="@+id/ll_one"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="12dp">
+            android:paddingStart="12dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="全称："
                 android:textColor="#666"
-                android:textSize="15dp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/company_name"
@@ -93,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#444"
+                android:textIsSelectable="true"
                 android:textSize="15sp"
                 tools:text="西安市未央区三桥镇阿房一路39号"/>
         </LinearLayout>
@@ -192,8 +194,8 @@
             <TextView
                 android:id="@+id/tv_tel"
                 style="@style/width_w_height_m"
-                android:layout_marginLeft="10dip"
                 android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dip"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@mipmap/ico_tel"
                 android:drawablePadding="5dp"
@@ -206,8 +208,8 @@
         <View
             android:layout_width="0.5dip"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="@dimen/length_8"
             android:layout_marginTop="@dimen/length_8"
+            android:layout_marginBottom="@dimen/length_8"
             android:background="#dcdcdc"/>
 
         <LinearLayout
@@ -220,8 +222,8 @@
             <TextView
                 android:id="@+id/tv_map"
                 style="@style/width_w_height_m"
-                android:layout_marginLeft="10dip"
                 android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dip"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@mipmap/ico_nav"
                 android:drawablePadding="5dp"
@@ -250,8 +252,8 @@
         android:background="@drawable/selector_bg_divider"
         android:gravity="center"
         android:padding="10dp"
-        android:paddingBottom="@dimen/length_15"
         android:paddingTop="@dimen/length_15"
+        android:paddingBottom="@dimen/length_15"
         android:text="@string/load_more"
         android:textColor="#666666"
         android:visibility="gone"/>

@@ -6,9 +6,8 @@ import android.view.View
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.IsNotReadInfo
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import kotlinx.android.synthetic.main.activity_my_message.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,12 +21,12 @@ class MyMessageActivity : BaseImmersionActivity() {
 
         initTitle("我的消息")
 
-        v_1.onClick { startActivity(Intent(this@MyMessageActivity, TruckCircleMessageActivity::class.java)) }
-        v_2.onClick {
+        v_1.setOnClickListener { startActivity(Intent(this@MyMessageActivity, TruckCircleMessageActivity::class.java)) }
+        v_2.setOnClickListener {
             startActivity(Intent(this@MyMessageActivity, MessageActivity::class.java)
                     .putExtra("title", "新闻资讯").putExtra("position", "1"))
         }
-        v_3.onClick {
+        v_3.setOnClickListener {
             startActivity(Intent(this@MyMessageActivity, MessageActivity::class.java)
                     .putExtra("title", "活动公告").putExtra("position", "11"))
         }

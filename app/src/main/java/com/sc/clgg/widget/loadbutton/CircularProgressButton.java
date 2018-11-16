@@ -10,14 +10,15 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.StateSet;
 
 import com.sc.clgg.R;
 import com.sc.clgg.tool.helper.LogHelper;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 
 
 public class CircularProgressButton extends AppCompatButton {

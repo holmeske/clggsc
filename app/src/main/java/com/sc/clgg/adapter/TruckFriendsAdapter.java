@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,7 +24,7 @@ import com.sc.clgg.activity.PictureActivity;
 import com.sc.clgg.bean.Check;
 import com.sc.clgg.bean.TruckFriend;
 import com.sc.clgg.dialog.AlertDialogHelper;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.tool.helper.MeasureHelper;
 import com.sc.clgg.tool.helper.TextHelper;
@@ -35,8 +33,11 @@ import com.sc.clgg.util.PotatoKt;
 import com.sc.clgg.util.Tools;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +51,7 @@ import static android.graphics.Typeface.NORMAL;
  */
 public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapter.MyHolder> {
 
-    private List<TruckFriend.A> listAll = new ArrayList<>();
+    public List<TruckFriend.A> listAll = new ArrayList<>();
     private Context mContext;
     private View.OnClickListener listener;
     private boolean noMore;
@@ -80,8 +81,18 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
         } else {
             // payloads 不为空，这只更新需要更新的 View 即可。
             LogHelper.e("局部刷新");
+
             if ((int) payloads.get(0) == 1) {
                 holder.tv_loadmore.setVisibility(View.GONE);
+            } else if ((int) payloads.get(0) == 2) {
+                LogHelper.e("刷新局部");
+                TruckFriend.A bean = listAll.get(CommentActivity.Companion.getPosition());
+
+                setCommens(bean, holder);
+
+                updateCommentNumber(holder, bean);
+
+                CommentActivity.Companion.initValue();
             } else {
                 holder.tv_loadmore.setVisibility(View.VISIBLE);
                 holder.tv_loadmore.setText(R.string.load_more);
@@ -174,24 +185,11 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
 
         setLauds(bean, holder.tv_lauds);
 
-        if (bean.getDriverCircleCommentList() != null) {
+        setCommens(bean, holder);
 
-            setCommens(bean, holder.ll_commen);
+        updateCommentNumber(holder, bean);
 
-            if (bean.getDriverCircleCommentList().size() > 99) {
-                holder.tv_comment_count.setText("99+");
-            } else {
-                holder.tv_comment_count.setText(String.valueOf(bean.getDriverCircleCommentList().size()));
-            }
-        }
-
-        if (bean.getDriverCircleLaudList() != null) {
-            if (bean.getDriverCircleLaudList().size() > 99) {
-                holder.tv_laud_count.setText("99+");
-            } else {
-                holder.tv_laud_count.setText(String.valueOf(bean.getDriverCircleLaudList().size()));
-            }
-        }
+        updateGiveLikeNumber(holder, bean);
 
         if (isLike(bean)) {
             bean.setLike(true);
@@ -217,11 +215,10 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                 if (TextUtils.isEmpty(new ConfigUtil().getUserid())) {
                     mContext.startActivity(new Intent(mContext, LoginRegisterActivity.class));
                 } else {
-
                     if (bean.isLike()) {
                         removeLike(bean, holder.tv_laud_count, holder.iv_laud, holder.tv_lauds);
                     } else {
-                        like(bean, holder.tv_laud_count, holder.iv_laud, holder.tv_lauds);
+                        like(bean, holder.tv_laud_count, holder.iv_laud, holder.tv_lauds, holder.getAdapterPosition());
                     }
                 }
             }
@@ -235,7 +232,8 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                 } else {
                     mContext.startActivity(new Intent(mContext, CommentActivity.class)
                             .putExtra("circleMessageId", bean.getId())
-                            .putExtra("commentUserId", bean.getUserId()));
+                            .putExtra("commentUserId", bean.getUserId())
+                            .putExtra("position", position));
                 }
             }
         });
@@ -293,6 +291,35 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
         return listAll == null ? 0 : listAll.size();
     }
 
+    /**
+     * 更新点赞数
+     *
+     * @param holder
+     * @param bean
+     */
+    private void updateGiveLikeNumber(MyHolder holder, TruckFriend.A bean) {
+        if (bean.getDriverCircleLaudList() != null) {
+            if (bean.getDriverCircleLaudList().size() > 99) {
+                holder.tv_laud_count.setText("99+");
+            } else {
+                holder.tv_laud_count.setText(String.valueOf(bean.getDriverCircleLaudList().size()));
+            }
+        }
+    }
+
+    /**
+     * 更新评论数
+     *
+     * @param holder
+     * @param bean
+     */
+    private void updateCommentNumber(MyHolder holder, TruckFriend.A bean) {
+        if (bean.getDriverCircleCommentList().size() > 99) {
+            holder.tv_comment_count.setText("99+");
+        } else {
+            holder.tv_comment_count.setText(String.valueOf(bean.getDriverCircleCommentList().size()));
+        }
+    }
 
     private void setLauds(TruckFriend.A bean, TextView tv) {
         if (bean.getDriverCircleLaudList() != null && bean.getDriverCircleLaudList().size() > 0) {
@@ -308,24 +335,53 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
         }
     }
 
-    private void setLaudsFilte(TruckFriend.A bean, TextView tv_lauds) {
-        StringBuilder sb = new StringBuilder();
-        for (TruckFriend.Laud laud : bean.getDriverCircleLaudList()) {
-            if (!String.valueOf(laud.getUserId()).equals(new ConfigUtil().getUserid())) {
-                sb.append(",").append(laud.getNickName() == null ? "" : laud.getNickName());
-            }
-            if (sb.length() > 0) {
-                tv_lauds.setVisibility(View.VISIBLE);
-            } else {
-                tv_lauds.setVisibility(View.GONE);
-            }
+    /**
+     * 删除第一个字符
+     *
+     * @param str
+     * @return
+     */
+    public String deleteFirstLetter(String str) {
+
+        if (str == null || str.isEmpty()) {
+            return "";
         }
-        tv_lauds.setText(TextUtils.isEmpty(sb) ? "" : sb.substring(1, sb.length()));
+        return str.substring(1, str.length());
     }
 
-    private void showAllCommens(TruckFriend.A bean, LinearLayout ll) {
+    /**
+     * 取消点赞逻辑
+     *
+     * @param bean
+     * @param tv_lauds
+     */
+    private void setLaudsFilte(TruckFriend.A bean, TextView tv_lauds) {
+        StringBuilder sb = new StringBuilder();
 
-        ll.removeAllViews();
+        List<TruckFriend.Laud> laudList = bean.getDriverCircleLaudList();
+
+        Iterator<TruckFriend.Laud> iterator = laudList.iterator();
+        while (iterator.hasNext()) {
+            TruckFriend.Laud laud = iterator.next();
+            if (laudList.contains(laud)) {
+                if (String.valueOf(laud.getUserId()).equals(new ConfigUtil().getUserid())) {
+                    iterator.remove();
+                } else {
+                    sb.append(",").append(laud.getNickName() == null ? "" : laud.getNickName());
+                }
+            }
+        }
+        if (sb.length() > 0) {
+            tv_lauds.setVisibility(View.VISIBLE);
+            tv_lauds.setText(deleteFirstLetter(sb.toString()));
+        } else {
+            tv_lauds.setVisibility(View.GONE);
+        }
+    }
+
+    private void showAllCommens(TruckFriend.A bean, MyHolder holder) {
+
+        holder.ll_commen.removeAllViews();
         if (bean.getDriverCircleCommentList() != null) {
             for (TruckFriend.Commen commen : bean.getDriverCircleCommentList()) {
 
@@ -337,7 +393,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                         new int[]{15, 15},
                         new int[]{BOLD, NORMAL});
                 textView.setText(spannable);
-                ll.addView(textView);
+                holder.ll_commen.addView(textView);
                 if (new ConfigUtil().getUserid().equals(String.valueOf(commen.getUserId()))) {
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -351,7 +407,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                                         public void onResponse(Call<Check> call, Response<Check> response) {
                                             if (response.body().getSuccess()) {
                                                 Tools.Toast("删除成功");
-                                                ll.removeView(textView);
+                                                holder.ll_commen.removeView(textView);
                                             } else {
                                                 Tools.Toast("删除失败");
                                             }
@@ -380,18 +436,21 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setCommens(bean, ll);
+                setCommens(bean, holder);
             }
         });
-        ll.addView(textView);
+        holder.ll_commen.addView(textView);
     }
 
-    private void setCommens(TruckFriend.A bean, LinearLayout ll) {
+    private void setCommens(TruckFriend.A bean, MyHolder holder) {
+        if (bean == null) {
+            return;
+        }
 
-        ll.removeAllViews();
+        holder.ll_commen.removeAllViews();
         if (bean.getDriverCircleCommentList() != null) {
             for (TruckFriend.Commen commen : bean.getDriverCircleCommentList()) {
-                if (ll.getChildCount() == 3) {
+                if (holder.ll_commen.getChildCount() == 3) {
                     TextView textView = new TextView(mContext);
                     textView.setPadding(0, 0, 0, MeasureHelper.dp2px(mContext, 10));
                     Spannable spannable = TextHelper.instance.setSpannable(mContext,
@@ -400,11 +459,11 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                             new int[]{15},
                             new int[]{NORMAL});
                     textView.setText(spannable);
-                    ll.addView(textView);
+                    holder.ll_commen.addView(textView);
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            showAllCommens(bean, ll);
+                            showAllCommens(bean, holder);
                         }
                     });
                     break;
@@ -418,7 +477,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                         new int[]{15, 15},
                         new int[]{BOLD, NORMAL});
                 textView.setText(spannable);
-                ll.addView(textView);
+                holder.ll_commen.addView(textView);
                 if (new ConfigUtil().getUserid().equals(String.valueOf(commen.getUserId()))) {
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -432,7 +491,10 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                                         public void onResponse(Call<Check> call, Response<Check> response) {
                                             if (response.body().getSuccess()) {
                                                 Tools.Toast("删除成功");
-                                                ll.removeView(textView);
+                                                bean.getDriverCircleCommentList().remove(commen);
+                                                holder.ll_commen.removeView(textView);
+
+                                                updateCommentNumber(holder, bean);
                                             } else {
                                                 Tools.Toast("删除失败");
                                             }
@@ -452,7 +514,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
         }
     }
 
-    private void like(TruckFriend.A bean, TextView tv, ImageView iv, TextView tv_lauds) {
+    private void like(TruckFriend.A bean, TextView tv, ImageView iv, TextView tv_lauds, int position) {
         iv.setEnabled(false);
         new RetrofitHelper().like(bean.getId(), bean.getUserId()).enqueue(new Callback<Check>() {
             @Override
@@ -462,7 +524,25 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                     bean.setLike(true);
                     Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
 
-                    tv_lauds.setText(new StringBuilder().append(tv_lauds.getText()).append(",").append(new ConfigUtil().getNickName()));
+                    StringBuilder sb = new StringBuilder();
+                    if (bean.getDriverCircleLaudList().size() == 0) {
+                        sb.append(new ConfigUtil().getNickName() == null ? "" : new ConfigUtil().getNickName());
+                    } else {
+                        for (TruckFriend.Laud laud : bean.getDriverCircleLaudList()) {
+                            sb.append(",").append(laud.getNickName() == null ? "" : laud.getNickName());
+                        }
+                        sb.append(",").append(new ConfigUtil().getNickName() == null ? "" : new ConfigUtil().getNickName());
+
+                    }
+                    String text = sb.toString();
+
+                    if (text.startsWith(",")) {
+                        tv_lauds.setText(text.substring(1, sb.length()));
+                    } else {
+                        tv_lauds.setText(text);
+                    }
+
+                    tv_lauds.setVisibility(View.VISIBLE);
 
                     iv.setImageResource(R.drawable.ico_like_yes);
                     if (!tv.getText().equals("99+")) {
@@ -567,7 +647,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                 urls.add(info.getBigImageUrl());
             }
             mContext.startActivity(new Intent(mContext, PictureActivity.class)
-                    .putExtra("url", imageInfo.get(index).getBigImageUrl())
+                    .putExtra("index", index)
                     .putStringArrayListExtra("urls", (ArrayList<String>) urls)
             );
         }

@@ -3,7 +3,6 @@ package com.sc.clgg.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder> {
     private List<Message.Data.Row> listAll = new ArrayList<>();
@@ -167,6 +168,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder
                 tv.setText("行业政策");
                 tv.setBackgroundColor(Color.parseColor("#8d54c6"));
                 break;
+            case "7":
+                tv.setText("陕汽新闻");
+                tv.setBackgroundColor(Color.parseColor("#26c410"));
+                break;
             case "12":
                 tv.setText("版本发布");
                 tv.setBackgroundColor(Color.parseColor("#8d54c6"));
@@ -178,6 +183,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder
             case "14":
                 tv.setText("推广活动");
                 tv.setBackgroundColor(Color.parseColor("#767994"));
+                break;
+            default:
+                tv.setText("德银新闻");
+                tv.setBackgroundColor(Color.parseColor("#26c410"));
                 break;
         }
     }

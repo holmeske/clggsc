@@ -78,7 +78,7 @@
         android:theme="@style/AppTheme"
         tools:replace="allowBackup">
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -232,6 +232,12 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/noStyle"/>
+        <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
@@ -284,6 +290,29 @@
         <activity android:name=".activity.WriteCardActivity">
         </activity>
         <activity android:name=".activity.RechargeSuccessActivity">
+        </activity>
+        <activity android:name=".activity.ResultNoticeActivity">
+        </activity>
+        <activity android:name=".activity.MyCardActivity">
+        </activity>
+        <activity android:name=".activity.ETCActivity">
+        </activity>
+        <activity android:name=".activity.PreRechargeActivity">
+        </activity>
+        <activity android:name=".activity.IdentityCertificationActivity">
+        </activity>
+        <activity android:name=".activity.QueryActivity">
+        </activity>
+        <activity android:name=".activity.VehicleCertificationActivity">
+        </activity>
+        <activity android:name=".activity.InfoCertificationActivity">
+        </activity>
+        <activity
+            android:name=".activity.AuditActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".activity.SubmitApplicationActivity">
         </activity>
     </application>
 

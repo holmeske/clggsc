@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg">
+
+            <com.sc.clgg.widget.CertificationProgressView
+                android:id="@+id/certificationProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_mail_info"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="18dp"
+                android:gravity="center_vertical"
+                android:text="邮寄信息"
+                android:textColor="@color/black_333"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/certificationProgressView"/>
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingStart="18dp"
+                android:paddingTop="13dp"
+                android:text="收货人姓名"
+                android:textColor="@color/_4285f4"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_mail_info"/>
+
+            <EditText
+                android:id="@+id/et_consignee_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:hint="请输入收货人姓名"
+                android:paddingStart="18dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="13dp"
+                android:textColorHint="@color/_ccc"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_1"/>
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingStart="18dp"
+                android:paddingTop="13dp"
+                android:text="收货人手机号"
+                android:textColor="@color/_4285f4"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/et_consignee_name"/>
+
+            <EditText
+                android:id="@+id/et_consignee_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:hint="请输入收货人手机号"
+                android:paddingStart="18dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="13dp"
+                android:textColorHint="@color/_ccc"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_2"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line"
+                app:layout_constraintTop_toBottomOf="@id/et_consignee_name"/>
+
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:paddingStart="18dp"
+                android:paddingTop="13dp"
+                android:text="收货地址"
+                android:textColor="@color/_4285f4"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/et_consignee_phone"/>
+
+            <TextView
+                android:id="@+id/tv_region"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="请选择所在地区"
+                android:paddingStart="18dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="13dp"
+                android:textColor="@color/_ccc"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_3"/>
+
+            <ImageView
+                android:id="@+id/iv_select_vehicle_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:src="@drawable/precharg_home_skip"
+                app:layout_constraintBottom_toBottomOf="@id/tv_region"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_3"/>
+
+            <EditText
+                android:id="@+id/et_detailed_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLength="30"
+                android:background="@color/white"
+                android:hint="详细地址:如街道、小区、楼栋号、单元室等"
+                android:paddingStart="18dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="13dp"
+                android:textColorHint="@color/_ccc"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_region"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line"
+                app:layout_constraintTop_toBottomOf="@id/tv_region"/>
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:layout_width="300dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/bg_orange"
+                android:gravity="center"
+                android:text="@string/next_step"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_detailed_address"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/bg"
+                app:layout_constraintTop_toBottomOf="@id/tv_next"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>
+
+
+

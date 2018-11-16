@@ -1,14 +1,19 @@
 package com.sc.clgg.activity.basic;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -16,31 +21,37 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.sc.clgg.R;
 import com.sc.clgg.base.BaseImmersionActivity;
 import com.sc.clgg.tool.helper.LogHelper;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import com.sc.clgg.util.ConfigUtil;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+/**
+ * @author lvke
+ */
 public class WebActivity extends BaseImmersionActivity {
 
+    private WebView mWebView;
+    private ProgressBar mProgressBar;
+
     public static void start(Context context, String title, String url) {
+        if (null == url || url.isEmpty()) {
+            return;
+        }
         context.startActivity(new Intent(context, WebActivity.class).putExtra("name", title).putExtra("url", url));
     }
 
-    private Unbinder mUnbinder;
-
-    @BindView(R.id.wv_contents)
-    WebView mWebView;
-
-    @BindView(R.id.progressbar)
-    ProgressBar mProgressBar;
+    public static void start(Context context, String title, String url, Boolean hideTitle) {
+        if (null == url || url.isEmpty()) {
+            return;
+        }
+        context.startActivity(new Intent(context, WebActivity.class).putExtra("name", title).putExtra("url", url).putExtra("hideTitle", hideTitle));
+    }
 
     private WebSettings mWebSettings;
 
@@ -50,11 +61,20 @@ public class WebActivity extends BaseImmersionActivity {
         setTitle(getIntent().getStringExtra("name"));
         super.onCreate(savedInstanceState);
 
-
-        mUnbinder = ButterKnife.bind(this);
         LogHelper.e("name = " + getIntent().getStringExtra("name"));
         LogHelper.e("url = " + getIntent().getStringExtra("url"));
+
+        mWebView = findViewById(R.id.wv_contents);
+        mProgressBar = findViewById(R.id.progressbar);
+
         init();
+        hideTitlebar();
+    }
+
+    private void hideTitlebar() {
+        if (getIntent().getBooleanExtra("hideTitle", false)) {
+            findViewById(R.id.titlebar).setVisibility(View.GONE);
+        }
     }
 
     private void init() {
@@ -73,11 +93,13 @@ public class WebActivity extends BaseImmersionActivity {
         mWebSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         mWebSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         mWebSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
+
         mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-        mWebSettings.setBlockNetworkImage(true);
+        mWebSettings.setBlockNetworkImage(false);//是否阻止网络数据
         mWebSettings.setSupportMultipleWindows(true);
         mWebSettings.setDomStorageEnabled(true);
 
+        mWebView.addJavascriptInterface(new JsInterface(), "Android");
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -87,6 +109,18 @@ public class WebActivity extends BaseImmersionActivity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                LogHelper.e("WebView Url = " + url);
+                if (url != null && url.startsWith("mailto:") || url.startsWith("geo:") || url.startsWith("tel:")) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(url)));
+                        } else {
+                            Toast.makeText(WebActivity.this, "电话权限被禁止，请打开设置-应用权限页面开通", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    return true;
+                }
+
                 view.loadUrl(url);
                 return true;
             }
@@ -157,7 +191,6 @@ public class WebActivity extends BaseImmersionActivity {
         mWebSettings.setJavaScriptEnabled(true);
         mWebView.resumeTimers();
         mWebView.onResume();
-
     }
 
     @Override
@@ -186,9 +219,6 @@ public class WebActivity extends BaseImmersionActivity {
             mWebView = null;
         }
         super.onDestroy();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
     }
 
     @Override
@@ -204,4 +234,12 @@ public class WebActivity extends BaseImmersionActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    private class JsInterface {
+        @JavascriptInterface
+        public String getInfo() {
+            ConfigUtil conf = new ConfigUtil();
+            return conf.getUserid() + "," + conf.getRealName() + "," + conf.getMobile();
+        }
+    }
 }

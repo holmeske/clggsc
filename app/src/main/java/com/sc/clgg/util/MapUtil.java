@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo;
 
 import com.sc.clgg.R;
 import com.sc.clgg.bean.AllAppInfo;
-import com.sc.clgg.bean.ServiceBean;
+import com.sc.clgg.bean.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,9 +39,9 @@ public final class MapUtil {
     }
 
     // 判断手机安装了哪些地图
-    public static ArrayList<ServiceBean> getMapApp(Activity mActivity) {
+    public static ArrayList<Service> getMapApp(Activity mActivity) {
 
-        ArrayList<ServiceBean> list = new ArrayList<>();
+        ArrayList<Service> list = new ArrayList<>();
 
         // 手机安装的地图
         for (Iterator<AllAppInfo> iterator = getAllAppInfos(mActivity.getApplicationContext()).iterator(); iterator.hasNext(); ) {
@@ -50,11 +50,11 @@ public final class MapUtil {
 
             // 添加百度地图
             if ("百度地图".equals(info.getAppname()) && "com.baidu.BaiduMap".equals(info.getPackagename())) {
-                list.add(new ServiceBean("百度地图", R.drawable.baidu_map));
+                list.add(new Service("百度地图", R.drawable.baidu_map));
             }
             // 添加高德地图  18 9 499 2 4 7 14
             if ("高德地图".equals(info.getAppname()) && "com.autonavi.minimap".equals(info.getPackagename())) {
-                list.add(new ServiceBean("高德地图", R.drawable.gaode_map));
+                list.add(new Service("高德地图", R.drawable.gaode_map));
             }
 
         }

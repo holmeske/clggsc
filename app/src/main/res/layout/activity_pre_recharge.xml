@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    tools:context=".activity.PreRechargeActivity">
+
+    <include layout="@layout/view_titlebar_blue"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/_4285f4"
+        app:layout_constraintTop_toBottomOf="@id/titlebar"/>
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/my_etc_card"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titlebar"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/v_panel"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_white"
+        app:layout_constraintTop_toBottomOf="@id/tv_1">
+
+        <TextView
+            android:id="@+id/tv_card_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="15dp"
+            android:drawableStart="@drawable/cardreading_card_icon"
+            android:drawablePadding="10dp"
+            android:text="鲁通B卡"
+            android:textColor="#0f192f"
+            android:textSize="18sp"
+            android:typeface="sans"
+            app:layout_constraintLeft_toLeftOf="@id/v_panel"
+            app:layout_constraintTop_toTopOf="@id/v_panel"/>
+
+        <TextView
+            android:id="@+id/tv_card_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="15dp"
+            android:text="卡号:"
+            android:textColor="@color/_ccc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintLeft_toLeftOf="@id/v_panel"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_type"/>
+
+        <TextView
+            android:id="@+id/tv_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:maxLines="1"
+            android:text="- -"
+            android:textColor="#397be6"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintBottom_toBottomOf="@id/tv_card_str"
+            app:layout_constraintLeft_toRightOf="@id/tv_card_str"/>
+
+
+        <TextView
+            android:id="@+id/tv_carno_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="15dp"
+            android:text="车牌:"
+            android:textColor="@color/_ccc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintLeft_toLeftOf="@id/v_panel"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_str"/>
+
+        <TextView
+            android:id="@+id/tv_carno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:maxLines="1"
+            android:text="- -"
+            android:textColor="#397be6"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintBottom_toBottomOf="@id/tv_carno_str"
+            app:layout_constraintLeft_toRightOf="@id/tv_carno_str"/>
+
+
+        <View
+            android:id="@+id/v_balance"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="18dp"
+            android:background="#f7f9fc"
+            app:layout_constraintLeft_toLeftOf="@id/v_panel"
+            app:layout_constraintRight_toRightOf="@id/v_panel"
+            app:layout_constraintTop_toBottomOf="@id/tv_carno_str"/>
+
+        <TextView
+            android:id="@+id/tv_balance_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="可圈存金额:"
+            android:textColor="#58677f"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/v_balance"
+            app:layout_constraintLeft_toLeftOf="@id/v_balance"
+            app:layout_constraintTop_toTopOf="@id/v_balance"/>
+
+        <TextView
+            android:id="@+id/tv_can_write_amount"
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:text="0.00元"
+            android:textColor="#ff0000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/v_balance"
+            app:layout_constraintLeft_toRightOf="@id/tv_balance_str"
+            app:layout_constraintTop_toTopOf="@id/v_balance"/>
+
+        <TextView
+            android:id="@+id/tv_in_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/precharg_home_skip"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:text="@string/in_card"
+            android:textColor="@color/_444"
+            android:textSize="12sp"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/v_1"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_blue_5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/v_2"
+        app:layout_constraintTop_toBottomOf="@id/v_panel"/>
+
+    <View
+        android:id="@+id/v_2"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/bg_orange"
+        app:layout_constraintLeft_toRightOf="@id/v_1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/v_1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/precharge_icon"
+        android:drawablePadding="25dp"
+        android:text="@string/pre_recharge"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_1"
+        app:layout_constraintLeft_toLeftOf="@id/v_1"
+        app:layout_constraintRight_toRightOf="@id/v_1"
+        app:layout_constraintTop_toTopOf="@id/v_1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/precharge_icon2"
+        android:drawablePadding="25dp"
+        android:text="@string/go_circle"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_2"
+        app:layout_constraintLeft_toLeftOf="@id/v_2"
+        app:layout_constraintRight_toRightOf="@id/v_2"
+        app:layout_constraintTop_toTopOf="@id/v_2"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

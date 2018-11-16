@@ -2,24 +2,27 @@ package com.sc.clgg.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.PopupWindow
 import android.widget.Toast
-import com.bigkoo.pickerview.TimePickerView
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.bigkoo.pickerview.listener.OnTimeSelectListener
+import com.bigkoo.pickerview.view.TimePickerView
 import com.sc.clgg.R
 import com.sc.clgg.adapter.RecordAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Record
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.CalendarHelper
-import com.sc.clgg.util.setTextChangeListener
 import com.sc.clgg.widget.RecordPop
 import kotlinx.android.synthetic.main.activity_record.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+
 
 class RecordActivity : BaseImmersionActivity() {
     private var call: Call<Map<String, Any>>? = null
@@ -31,12 +34,12 @@ class RecordActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_record)
 
         recordType = intent.getStringExtra("recordType")
-        var title = intent.getStringExtra("title")
+        val title = intent.getStringExtra("title")
 
-        if (title=="记录收入"){
-            costType="23"
+        costType = if (title == "记录收入") {
+            "23"
         }else{
-            costType="27"
+            "27"
         }
 
         account_name.text = intent.getStringExtra("str")
@@ -48,7 +51,7 @@ class RecordActivity : BaseImmersionActivity() {
         initListener()
 
         window.decorView.post {
-            var poper = RecordPop()
+            val poper = RecordPop()
             if (title == "记录收入") {
                 mPopupWindow = poper.initIncome(this@RecordActivity)
                 incomeList = poper.incomeList
@@ -59,23 +62,21 @@ class RecordActivity : BaseImmersionActivity() {
 
             adapter = poper.adapter
 
-            poper.setItemClickListener(object : RecordAdapter.OnItemClickListener {
-                override fun click(s1: String?, s2: String?, i: Int) {
-                    costType = s1
-                    account_name.text = s2
+            poper.setItemClickListener { s1, s2, i ->
+                costType = s1
+                account_name.text = s2
 
-                    (incomeList as MutableList<Record>?)!!.forEach {
-                        it.isChecked = false
-                    }
-                    (incomeList as MutableList<Record>?)!![i].isChecked = true
-
-                    mPopupWindow?.dismiss()
+                (incomeList as MutableList<Record>?)!!.forEach {
+                    it.isChecked = false
                 }
-            })
+                (incomeList as MutableList<Record>?)!![i].isChecked = true
+
+                mPopupWindow?.dismiss()
+            }
             mPopupWindow?.showAsDropDown(tv_year, 0, 0)
         }
 
-        tv_year.onClick {
+        tv_year.setOnClickListener {
             mTimePickerView?.show()
         }
         initTimePickerView()
@@ -86,22 +87,55 @@ class RecordActivity : BaseImmersionActivity() {
     private var adapter: RecordAdapter? = null
     private var incomeList: List<Record>? = null
 
-    private fun initListener() {
-        account_name.onClick {
-            adapter?.refresh(incomeList)
-            mPopupWindow?.showAsDropDown(tv_year, 0, 0)
-        }
-        account_num.setTextChangeListener {
-            if (!it.contains(".") && it.length > 6) {
-                account_num.setText(it.substring(0, 6))
+    private var textWatcher: TextWatcher = object : TextWatcher {
+        override fun onTextChanged(c: CharSequence, start: Int, before: Int,
+                                   count: Int) {
+            var s = c
+            if (s.toString().contains(".")) {
+                if (s.length - 1 - s.toString().indexOf(".") > 2) {
+                    s = s.toString().subSequence(0,
+                            s.toString().indexOf(".") + 3)
+                    account_num.setText(s)
+                    account_num.setSelection(s.length)
+                }
+            }
+            if (s.toString().trim { it <= ' ' }.substring(0) == ".") {
+                s = "0$s"
+                account_num.setText(s)
+                account_num.setSelection(2)
+            }
+            if (s.toString().startsWith("0") && s.toString().trim { it <= ' ' }.length > 1) {
+                if (s.toString().substring(1, 2) != ".") {
+                    account_num.setText(s.subSequence(0, 1))
+                    account_num.setSelection(1)
+                    return
+                }
             }
         }
 
-        sure.onClick {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int,
+                                       after: Int) {
+        }
+
+        override fun afterTextChanged(s: Editable) {}
+    }
+    private fun initListener() {
+        account_name.setOnClickListener {
+            adapter?.refresh(incomeList)
+            mPopupWindow?.showAsDropDown(tv_year, 0, 0)
+        }
+        /*account_num.setTextChangeListener {
+            if (!it.contains(".") && it.length > 6) {
+                account_num.setText(it.substring(0, 6))
+            }
+        }*/
+        account_num.addTextChangedListener(textWatcher)
+
+        sure.setOnClickListener {
             var s1 = account_num.text.toString()
             if (s1.isEmpty()) {
                 Toast.makeText(applicationContext, "请输入记账金额", Toast.LENGTH_SHORT).show()
-                return@onClick
+                return@setOnClickListener
             }
 
             val index = s1.indexOf(".")
@@ -111,10 +145,10 @@ class RecordActivity : BaseImmersionActivity() {
 
             if (costType!!.isEmpty()) {
                 toast("请选择收入类型")
-                return@onClick
+                return@setOnClickListener
             }
 
-            var s2 = et_thing.text.toString()
+            val s2 = et_thing.text.toString()
 
             showProgressDialog()
             call = RetrofitHelper().add(createTimeStamp, s1, recordType, costType, s2)
@@ -129,6 +163,8 @@ class RecordActivity : BaseImmersionActivity() {
                     if (map?.get("success") as Boolean) {
                         toast("记账成功")
                         finish()
+                    } else {
+                        toast("${map["msg"]}")
                     }
                 }
             })
@@ -145,7 +181,7 @@ class RecordActivity : BaseImmersionActivity() {
         startCalendar.set(CalendarHelper.getCurrentYear(), CalendarHelper.getCurrentMonth() - 1, CalendarHelper.getCurrentDay() - 7)
         endCalendar.set(CalendarHelper.getCurrentYear(), CalendarHelper.getCurrentMonth() - 1, CalendarHelper.getCurrentDay())
 
-        mTimePickerView = TimePickerView.Builder(this, TimePickerView.OnTimeSelectListener { date, v ->
+        mTimePickerView = TimePickerBuilder(this, OnTimeSelectListener { date, _ ->
             // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
             selectedCalendar.time = date
 
@@ -159,7 +195,7 @@ class RecordActivity : BaseImmersionActivity() {
                 .setLabel("", "", "", "", "", "")
                 .isCenterLabel(false)
                 .setDividerColor(Color.DKGRAY)
-                .setContentSize(21)
+                .setContentTextSize(21)
                 .setDate(selectedCalendar)
                 .setRangDate(startCalendar, endCalendar)
                 .setBackgroundId(R.color.white) //设置外部遮罩颜色

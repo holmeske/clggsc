@@ -1,8 +1,6 @@
 package com.sc.clgg.tool.helper;
 
 import android.content.Context;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -10,6 +8,9 @@ import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 
 public enum TextHelper {
     instance;

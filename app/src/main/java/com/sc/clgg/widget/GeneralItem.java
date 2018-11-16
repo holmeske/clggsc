@@ -3,7 +3,6 @@ package com.sc.clgg.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,8 @@ import android.widget.TextView;
 
 import com.sc.clgg.R;
 import com.sc.clgg.tool.helper.MeasureHelper;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 
 /**

@@ -4,9 +4,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import com.bigkoo.pickerview.TimePickerView
+import androidx.core.content.ContextCompat
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.bigkoo.pickerview.listener.OnTimeSelectListener
+import com.bigkoo.pickerview.view.TimePickerView
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -18,11 +19,10 @@ import com.sc.clgg.R
 import com.sc.clgg.adapter.ConsumptionStatisticalAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Consumption
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.*
 import com.sc.clgg.widget.MyMarkerView
 import kotlinx.android.synthetic.main.activity_consumption_statistical.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,10 +31,10 @@ import kotlin.collections.ArrayList
 
 class ConsumptionStatisticalActivity : BaseImmersionActivity() {
     var adpter: ConsumptionStatisticalAdapter? = null
-    var dateStr: String? = null
+    private var dateStr: String? = null
     var year: Int = 0
     var month: Int = 0
-    var maxDay: Int = 0
+    private var maxDay: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consumption_statistical)
@@ -52,7 +52,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
             )
         })
 
-        recyclerview?.layoutManager = LinearLayoutManager(this)
+        recyclerview?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerview?.adapter = adpter
 
         initTimePickerView()
@@ -62,7 +62,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
         dateStr = DateHelper.formatCurrentTime("yyyyMM")
         tv_date?.text = DateHelper.formatCurrentTime("yyyy-MM")
 
-        maxDay = selectedCalendar.getMaximum(Calendar.DAY_OF_MONTH)
+        maxDay = selectedCalendar.getActualMaximum(Calendar.DATE)
         tv4.text = "${maxDay}日"
 
         chart.setNoDataText("")
@@ -103,7 +103,11 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
                     }
                     adpter?.refresh(it.dataList)
 
-                    initChart(data, (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
+                    if (maxDay == 31) {
+                        tv2.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
+                        tv3.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
+                    }
+                    initChart(data, (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat(), maxDay)
                 }
             }
         })
@@ -118,7 +122,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
     private fun initTimePickerView() {
         startCalendar.set(CalendarHelper.getCurrentYear(), CalendarHelper.getCurrentMonth() - 1, 0)
 
-        mTimePickerView = TimePickerView.Builder(this, TimePickerView.OnTimeSelectListener { date, v ->
+        mTimePickerView = TimePickerBuilder(this, OnTimeSelectListener { date, _ ->
             // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
             selectedCalendar.time = date
 
@@ -135,7 +139,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
                 .setLabel("", "", "", "", "", "")
                 .isCenterLabel(false)
                 .setDividerColor(Color.DKGRAY)
-                .setContentSize(21)
+                .setContentTextSize(21)
                 .setDate(selectedCalendar)
                 .setRangDate(startCalendar, endCalendar)
                 .setBackgroundId(R.color.white) //设置外部遮罩颜色
@@ -145,11 +149,11 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
 
     private var change: Boolean = false
     private fun initListener() {
-        tv_date.onClick {
+        tv_date.setOnClickListener {
             mTimePickerView?.show()
         }
-        tv_mileage.onClick {
-            var drawable: Drawable? = null
+        tv_mileage.setOnClickListener {
+            var drawable: Drawable?
             if (!change) {
                 change = true
                 drawable = ContextCompat.getDrawable(application, R.drawable.energy_ico_up)
@@ -164,14 +168,21 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
         }
     }
 
-    private fun initChart(data: List<Float>, maximum: Float) {
-        LogHelper.e("图表数据 = " + data.size + "   maximum = " + maximum)
+    private fun initChart(data: List<Float>, maximum: Float, maxDay: Int? = 30) {
 
-        var params = chart.layoutParams
-        params.width = ((MeasureHelper.getScreenWidth(this) - MeasureHelper.dp2px(this, 10f)) / maxDay) * data.size + MeasureHelper.dp2px(this, 10f)
+        val params = chart.layoutParams
+        if (data.size == 1) {
+            params.width = (MeasureHelper.getScreenWidth(this)/ maxDay!!) * 3
+        } else {
+//            params.width =MeasureHelper.getScreenWidth(this)
+            params.width = ((MeasureHelper.getScreenWidth(this) - MeasureHelper.dp2px(this, 10f)) / maxDay!!) * data.size
+            +MeasureHelper.dp2px(this, 10f)
+        }
+
+        LogHelper.e("数组长度 = " + data.size + "   maximum = " + maximum + "   maxDay = " + maxDay+ "   width = " + params.width)
 
         chart.setNoDataText("")
-        val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
+        //val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
 
         chart.setDrawGridBackground(false)
 
@@ -233,7 +244,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
         //chart.getViewPortHandler().setMaximumScaleX(2f);
 
         // add data
-        setData(data)
+        setData(data, maxDay)
         //绘制时间
         chart.animateX(1000)
 
@@ -245,14 +256,14 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
         val sets = chart.data.dataSets
         for (iSet in sets) {
             val set = iSet as LineDataSet
-            set.setValueFormatter { value, c, dataSetIndex, viewPortHandler ->
+            set.setValueFormatter { value, _, _, _ ->
                 value.toString()
             }
         }
 
         val colorList = java.util.ArrayList<Int>()
         for (i in 0..data.size) {
-            if (i in listOf(0, 7, 14, 21, 30)) {
+            if (i in listOf(0, 7, 14, 21, maxDay)) {
                 colorList.add(Color.parseColor("#444444"))
             } else {
                 colorList.add(Color.TRANSPARENT)
@@ -261,14 +272,14 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
         chart.data.getDataSetByIndex(0).setValueTextColors(colorList)
     }
 
-    private fun setData(datas: List<Float>) {
-        var values = ArrayList<Entry>()
+    private fun setData(datas: List<Float>, maxDay: Int? = 30) {
+        val values = ArrayList<Entry>()
 
-        var colorList = ArrayList<Int>()
+        val colorList = ArrayList<Int>()
 
 
         for (i in datas.indices) {
-            if (i in listOf(0, 7, 14, 21, 30)) {
+            if (i in listOf(0, 7, 14, 21, maxDay)) {
                 values.add(Entry(i.toFloat(), datas[i], ContextCompat.getDrawable(this, R.drawable.bg_point_red)))
                 colorList.add(Color.parseColor("#444444"))
             } else {

@@ -1,7 +1,7 @@
 package com.sc.clgg.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.sc.clgg.R
 import com.sc.clgg.activity.fragment.LoginFragment
 import com.sc.clgg.activity.fragment.RegisterFragment
@@ -15,10 +15,9 @@ class LoginRegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_register)
 
+        iv_back.setOnClickListener { finish() }
         tabLayout.setupWithViewPager(viewPager)
         viewPager?.adapter = TabAdapter(supportFragmentManager, listOf(LoginFragment(), RegisterFragment()), listOf("登录", "注册"))
-
-    
     }
 
 }

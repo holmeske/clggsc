@@ -3,19 +3,19 @@ package com.sc.clgg.activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import com.bigkoo.pickerview.TimePickerView
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.bigkoo.pickerview.listener.OnTimeSelectListener
+import com.bigkoo.pickerview.view.TimePickerView
 import com.google.gson.Gson
 import com.sc.clgg.R
 import com.sc.clgg.adapter.TallyBookAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Check
 import com.sc.clgg.bean.TallyBook
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.CalendarHelper
 import com.sc.clgg.tool.helper.LogHelper
 import kotlinx.android.synthetic.main.activity_tally_book.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,7 +33,7 @@ class TallyBookActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_tally_book)
 
         initTitle("记账本")
-        rv.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         mTallyBookAdapter = TallyBookAdapter()
         mTallyBookAdapter?.setOnDelListener(object : TallyBookAdapter.onSwipeListener {
             override fun onDel(id: Int, pos: Int) {
@@ -66,15 +66,15 @@ class TallyBookActivity : BaseImmersionActivity() {
         tv_year?.text = year
         tv_month?.text = month
 
-        loadData(year, month)
+        //loadData(year, month)
 
-        tv_year.onClick { mTimePickerView?.show() }
+        tv_year.setOnClickListener { mTimePickerView?.show() }
 
-        record_income.onClick {
+        record_income.setOnClickListener {
             startActivity(Intent(this@TallyBookActivity, RecordActivity::class.java)
                     .putExtra("title", "记录收入").putExtra("str", "工资").putExtra("recordType", "0"))
         }
-        record_spending.onClick {
+        record_spending.setOnClickListener {
             startActivity(Intent(this@TallyBookActivity, RecordActivity::class.java)
                     .putExtra("title", "记录支出").putExtra("str", "高速费").putExtra("recordType", "1"))
         }
@@ -124,7 +124,7 @@ class TallyBookActivity : BaseImmersionActivity() {
     private val endCalendar = Calendar.getInstance()
     private fun initTimePickerView() {
         startCalendar.set(CalendarHelper.getCurrentYear(), CalendarHelper.getCurrentMonth() - 1, 0)
-        mTimePickerView = TimePickerView.Builder(this, TimePickerView.OnTimeSelectListener { date, v ->
+        mTimePickerView = TimePickerBuilder(this,  OnTimeSelectListener { date, _ ->
             // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
             selectedCalendar.time = date
 
@@ -138,7 +138,7 @@ class TallyBookActivity : BaseImmersionActivity() {
                 .setLabel("", "", "", "", "", "")
                 .isCenterLabel(false)
                 .setDividerColor(Color.DKGRAY)
-                .setContentSize(21)
+                .setContentTextSize(21)
                 .setDate(selectedCalendar)
                 .setRangDate(startCalendar, endCalendar)
                 .setBackgroundId(R.color.white) //设置外部遮罩颜色

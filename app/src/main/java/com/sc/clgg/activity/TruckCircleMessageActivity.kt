@@ -2,12 +2,13 @@ package com.sc.clgg.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sc.clgg.R
 import com.sc.clgg.adapter.TruckCircleMessageAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.NoReadInfo
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import kotlinx.android.synthetic.main.activity_truck_circle_message.*
 import retrofit2.Call
@@ -23,13 +24,13 @@ class TruckCircleMessageActivity : BaseImmersionActivity() {
         initTitle("卡友圈互动")
 
         adapter = TruckCircleMessageAdapter()
-        recyclerView.layoutManager=LinearLayoutManager(this)
+        recyclerView.layoutManager=  LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        LogHelper.e("requestCode=${requestCode}  resultCode=${resultCode}  data=${data}  ")
+        LogHelper.e("requestCode=$requestCode  resultCode=$resultCode  data=$data  ")
     }
 
     override fun onResume() {
@@ -46,8 +47,14 @@ class TruckCircleMessageActivity : BaseImmersionActivity() {
             }
 
             override fun onResponse(call: Call<NoReadInfo>?, response: Response<NoReadInfo>?) {
-                response?.body()?.allNotReadInfo?.let {
-                    adapter?.refresh(it)
+                response?.body()?.let {
+                    if (it.allNotReadInfo.isNullOrEmpty()||it.allNotReadInfo?.size==0) {
+                        tv_nomessage.visibility = View.VISIBLE
+                        return
+                    } else {
+                        tv_nomessage.visibility = View.GONE
+                    }
+                    adapter?.refresh(it.allNotReadInfo)
                 }
             }
         })

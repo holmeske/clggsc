@@ -1,6 +1,9 @@
 <resources>
+    <string name="app_name">车轮滚滚</string>
+
     <string name="confirm_circle">确认圈存%1$s元?</string>
     <string name="can_write_str">可写卡金额为%1$s元</string>
+    <string name="can_circle_amount">可圈存金额为%1$s元</string>
     <string name="replace">%ds</string>
     <string name="policy">公路车为12个月，非公路用车为6个月。</string>
     <string name="rules">保修期起算规则：后装车辆以安装完成日期起算;前装车以车辆交付用户日期起算。</string>
@@ -10,6 +13,7 @@
 
     <string name="call_after_sales_hotline">拨打售后热线</string>
     <string name="home">首页</string>
+    <string name="car_net">车联网</string>
     <string name="mall">商城</string>
     <string name="card_friends_circle">卡友圈</string>
     <string name="my">我的</string>
@@ -28,7 +32,6 @@
     <string name="query_by_regional">按区域查询</string>
 
     <string name="get_verification_code">获取验证码</string>
-    <string name="app_name">车轮滚滚</string>
     <string name="first_tel">电话</string>
     <string name="first_map">导航</string>
     <string name="confirm">确定</string>
@@ -78,8 +81,27 @@
     <string name="personal_data">个人资料</string>
     <string name="set">设置</string>
     <string name="recharge_amount">充值金额</string>
-    <string name="_100_2000_100">(100-2000元之间且满足100的整数倍)</string>
+    <string name="_100_2000_100">(100–2000元之间且满足100的整数倍)</string>
     <string name="other_amount">其他金额&#160;&#160;&#160;&#160;&#160;&#160;¥</string>
+    <string name="yuanxingtong">远行通</string>
+    <string name="vehicle_position">车辆定位</string>
+    <string name="more">更多</string>
+    <string name="car_number">车牌</string>
+    <string name="car_type">卡类型</string>
+    <string name="my_etc_card">我的ETC卡</string>
+    <string name="lutong_b">鲁通B卡</string>
 
-
+    <string name="lutong_a">鲁通A卡</string>
+    <string name="car_no_str">卡号:</string>
+    <string name="car_number_str">车牌:</string>
+    <string name="in_card">换卡</string>
+    <string name="identity_certification">身份认证</string>
+    <string name="vehicle_certification">车辆认证</string>
+    <string name="info_certification">信息认证</string>
+    <string name="online_reviews">提交审核</string>
+    <string name="submint_hint">提交申请表示您已经同意用户协议</string>
+    <string name="next_step">下一步</string>
+    <string name="back_home">返回首页</string>
+    <string name="audit_hint">1–2日内通过审核，请耐心等待。可在我的ETC卡中查看进度</string>
+    <string name="upload_hint">上传时确保行驶证主副页一起，字体清晰，亮度均匀:</string>
 </resources>

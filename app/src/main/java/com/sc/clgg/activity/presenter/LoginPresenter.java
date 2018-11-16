@@ -6,10 +6,9 @@ import android.text.TextUtils;
 import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.LoginContact;
 import com.sc.clgg.application.App;
-import com.sc.clgg.bean.Check;
 import com.sc.clgg.bean.User;
 import com.sc.clgg.bean.UserInfoBean;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.tool.helper.SharedPreferencesHelper;
 import com.sc.clgg.util.ConfigUtil;
@@ -95,7 +94,7 @@ public class LoginPresenter {
 
         if (bean != null) {
             new ConfigUtil().setUserInfo(bean);
-            new RetrofitHelper().checkUser(bean.getUserCode()).enqueue(new Callback<Check>() {
+            /*new RetrofitHelper().checkUser(bean.getUserCode()).enqueue(new Callback<Check>() {
                 @Override
                 public void onResponse(Call<Check> call, Response<Check> response) {
 
@@ -105,7 +104,7 @@ public class LoginPresenter {
                 public void onFailure(Call<Check> call, Throwable t) {
 
                 }
-            });
+            });*/
 
             new Handler().postDelayed(new Runnable() {
                 @Override

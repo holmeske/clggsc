@@ -1,16 +1,15 @@
 package com.sc.clgg.activity.vehiclemanager.myvehicle
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.sc.clgg.R
 import com.sc.clgg.adapter.MyVehicleAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Vehicle
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.ActivityHelper
 import kotlinx.android.synthetic.main.activity_my_vehicle.*
 import kotlinx.android.synthetic.main.view_titlebar_blue.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import retrofit2.Call
 import retrofit2.Response
 
@@ -27,12 +26,12 @@ class MyVehicleActivity : BaseImmersionActivity() {
 
         initTitle("我的车辆")
         titlebar_right.text = "添加车辆"
-        titlebar_right.onClick { ActivityHelper.startAcScale(this@MyVehicleActivity, AddVehicleActivity::class.java) }
+        titlebar_right.setOnClickListener { ActivityHelper.startAcScale(this@MyVehicleActivity, AddVehicleActivity::class.java) }
 
         adapter = MyVehicleAdapter()
-        rv.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         rv.adapter = adapter
-
+        adapter?.setCallbackListener { if (adapter?.dataList?.size == 0) tv_nocar.visibility = View.VISIBLE else tv_nocar.visibility = View.GONE }
     }
 
     override fun onResume() {
@@ -50,7 +49,14 @@ class MyVehicleActivity : BaseImmersionActivity() {
             }
 
             override fun onResponse(call: Call<Vehicle>?, response: Response<Vehicle>?) {
-                response?.body()?.vehicleInfoList?.let { adapter?.refresh(it) }
+                response?.body()?.let {
+                    if (it.vehicleInfoList?.isNullOrEmpty()!!) {
+                        tv_nocar.visibility = View.VISIBLE
+                    } else {
+                        tv_nocar.visibility = View.GONE
+                        adapter?.refresh(it.vehicleInfoList)
+                    }
+                }
             }
         })
 

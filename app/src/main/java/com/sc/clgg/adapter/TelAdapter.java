@@ -18,7 +18,7 @@ public class TelAdapter extends BaseAdNet<String> {
     @Override
     protected View setConvertView(View convertView, int position) {
 
-        ViewHolder holder = null;
+        ViewHolder holder;
 
         if (convertView == null) {
 
@@ -42,18 +42,10 @@ public class TelAdapter extends BaseAdNet<String> {
         return convertView;
     }
 
-    /**
-     * 设置数据的方法
-     */
     public void setData(List<String> list) {
         this.mDatas = list;
     }
 
-    /**
-     * @Description描述:静态缓存内部类
-     * @Author作者:lip
-     * @Date日期:2014-11-20 上午10:38:23
-     */
     final static class ViewHolder {
 
         TextView tv_mapName;// 名称

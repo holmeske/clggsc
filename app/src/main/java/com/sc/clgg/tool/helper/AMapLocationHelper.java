@@ -61,7 +61,7 @@ public class AMapLocationHelper {
                     if (mOnLocationListener!=null){
                         mOnLocationListener.onLocationChanged(mLocationBean);
                     }
-                    //LogHelper.e("(维度Latitude,经度Longitude)   =   " + "(" + mLocationBean.getLatitude() + "," + mLocationBean.getLongitude() + ")");
+                    LogHelper.e("(维度Latitude,经度Longitude) =  " + "(" + mLocationBean.getLatitude() + "," + mLocationBean.getLongitude() + ")");
                 } else {
                     //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                     LogHelper.e("location Error, ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());

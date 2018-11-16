@@ -6,10 +6,9 @@ import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Check
 import com.sc.clgg.dialog.LoadingDialogHelper
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.CheckHelper
 import kotlinx.android.synthetic.main.activity_modify_account.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,7 +35,7 @@ class ModifyAccountActivity : BaseImmersionActivity() {
 
         mLoadingDialogHelper = LoadingDialogHelper(this)
 
-        tv_send.onClick {
+        tv_send.setOnClickListener {
             tv_send.isEnabled = false
             call_verificationCode = RetrofitHelper().verificationCode(et_new_phone.text.toString())
             mLoadingDialogHelper?.show()
@@ -57,22 +56,22 @@ class ModifyAccountActivity : BaseImmersionActivity() {
             })
         }
 
-        tv_commit.onClick {
+        tv_commit.setOnClickListener {
             if (et_current_password.text.isEmpty()) {
                 toast("请输入密码")
-                return@onClick
+                return@setOnClickListener
             }
             if (et_new_phone.text.isEmpty()) {
                 toast("请输入新手机号")
-                return@onClick
+                return@setOnClickListener
             }
             if (!CheckHelper.isCorrectPhone(et_new_phone.text.toString())) {
                 toast("请输入正确的手机号")
-                return@onClick
+                return@setOnClickListener
             }
             if (et_verification_code.text.isEmpty()) {
                 toast("请输入验证码")
-                return@onClick
+                return@setOnClickListener
             }
 
             call_commit = RetrofitHelper().modifyAccount(

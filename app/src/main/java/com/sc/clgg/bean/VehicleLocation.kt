@@ -9,6 +9,21 @@ import java.util.*
  * @author：lvke
  * @date：2018/2/24 10:52
  */
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class LocationBean(var longitude: Double = 0.0,
+                        var latitude: Double = 0.0,
+                        var time: Long = 0,
+                        var location: String? = "",
+                        var province: String? = "",
+                        var city: String? = "",
+                        var district: String? = "",
+                        var flag: Boolean? = false,
+                        var position: Int = 0,
+                        var obj: String? = "",
+                        var list: String? = ""
+) : Parcelable
+
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -25,27 +40,6 @@ data class Location(var msg: String? = "", var code: Double? = 0.toDouble(), var
             var speed: String? = "",
             var time: String? = "") : Parcelable
 }
-
-
-@SuppressLint("ParcelCreator")
-@Parcelize
-data class VehicleLocationBean(var dayMileage: Double? = 0.toDouble(),
-                               var oilcost: Double? = 0.toDouble(),
-                               var oilcostphkm: Double = 0.toDouble(),
-                               var carno: String? = null,
-                               var direction: String? = null,
-                               var driverName: String? = null,
-                               var latitude: String? = null,
-                               var longitude: String? = null,
-                               var oilLevel: String? = null,
-                               var speed: String? = null,
-                               var status: String? = null,
-                               var terminalid: String? = null,
-                               var time: String? = null,
-                               var totalMileage: String? = null,
-                               var vincode: String? = null,
-                               var delFlag: String? = null/*1：可删除，0：不可删除*/) : Parcelable
-
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -77,7 +71,7 @@ data class PathRecord(var msg: String? = "", var code: Double? = 0.toDouble(), v
             var dir: String? = "") : Parcelable {
         override fun equals(other: Any?): Boolean {
             if (other is Path) {
-                var o: Path = other
+                val o: Path = other
                 return o.lat == this.lat && o.lng == this.lng
             }
             return super.equals(other)
@@ -88,7 +82,8 @@ data class PathRecord(var msg: String? = "", var code: Double? = 0.toDouble(), v
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Mileage(var code: Double? = 0.toDouble(),
+data class Mileage(var msg: String? = "",
+                   var code: Double? = 0.toDouble(),
                    var totalDays: String? = "",
                    var singleTotal: String? = "",
                    var totalMileages: String? = "",

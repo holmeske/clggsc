@@ -8,12 +8,11 @@ import com.sc.clgg.activity.LoginRegisterActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.dialog.LoadingDialogHelper
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.Tools
 import com.sc.clgg.util.setTextChangeListener
 import kotlinx.android.synthetic.main.activity_modify_pass.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,11 +43,11 @@ class ModifyPasswordActivity : BaseImmersionActivity() {
             iv_delete_again_new_password!!.visibility = if (it.isNotEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
-        iv_delete_old_password.onClick { et_old_password!!.setText("") }
-        iv_delete_new_password.onClick { et_new_password!!.setText("") }
-        iv_delete_again_new_password.onClick { et_again_new_password!!.setText("") }
+        iv_delete_old_password.setOnClickListener { et_old_password!!.setText("") }
+        iv_delete_new_password.setOnClickListener { et_new_password!!.setText("") }
+        iv_delete_again_new_password.setOnClickListener { et_again_new_password!!.setText("") }
 
-        confirm_btn.onClick {
+        confirm_btn.setOnClickListener {
             determine()
         }
     }

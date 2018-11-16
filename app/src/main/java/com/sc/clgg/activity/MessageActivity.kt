@@ -1,8 +1,6 @@
 package com.sc.clgg.activity
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -10,7 +8,7 @@ import com.sc.clgg.R
 import com.sc.clgg.adapter.MessageAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Message
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import kotlinx.android.synthetic.main.activity_message.*
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -31,17 +29,17 @@ class MessageActivity : BaseImmersionActivity() {
         position = intent.getStringExtra("position")
 
         adapter = MessageAdapter()
-        if (position.equals("1")) {
+        if (position == "1") {
             adapter?.webDetailTitle = "新闻资讯"
         }
-        if (position.equals("11")) {
+        if (position == "11") {
             adapter?.webDetailTitle = "活动公告"
         }
 
-        rv.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         rv.adapter = adapter
 
-        swipeRefreshLayout?.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+        swipeRefreshLayout?.setOnRefreshListener(androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener {
             noMore = false
             pageNo = 1
             loadData(position, pageNo, pageSize)
@@ -75,6 +73,13 @@ class MessageActivity : BaseImmersionActivity() {
                 swipeRefreshLayout?.isRefreshing = false
 
                 response?.body()?.let {
+                    if (it.data?.rows.isNullOrEmpty()||it.data?.rows?.size==0) {
+                        tv_nomessage.visibility = View.VISIBLE
+                        return
+                    } else {
+                        tv_nomessage.visibility = View.GONE
+                    }
+
                     if (it.success) {
                         if (pageNo == 1) {
                             adapter?.clear()

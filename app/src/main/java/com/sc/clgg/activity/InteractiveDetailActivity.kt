@@ -17,14 +17,13 @@ import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Check
 import com.sc.clgg.bean.InteractiveDetail
 import com.sc.clgg.dialog.AlertDialogHelper
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.setRoundedCornerPicture
 import kotlinx.android.synthetic.main.activity_interactive_detail.*
 import kotlinx.android.synthetic.main.item_interactive_detail.view.*
 import kotlinx.android.synthetic.main.view_titlebar_blue.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,11 +37,11 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_interactive_detail)
         titlebar_title.text = "详情"
-        titlebar_left.onClick { finish() }
+        titlebar_left.setOnClickListener { finish() }
         loadData()
 
-        iv_commen.onClick { cs_input.visibility = View.VISIBLE }
-        cs_input.onClick {
+        iv_commen.setOnClickListener { cs_input.visibility = View.VISIBLE }
+        cs_input.setOnClickListener {
             cs_input.visibility = View.GONE
             hideSoftInput(et_input)
         }
@@ -136,14 +135,14 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
     }
 
     private fun setMessageLimit(bean: InteractiveDetail.A) {
-        tv_message.post(Runnable {
+        tv_message.post {
             val lineCount = tv_message.lineCount//行数
-            val maxLineCount = tv_message.maxLines
-            //                LogHelper.e("消息行数：" + lineCount + "   最大行数：" + maxLineCount);
+            //val maxLineCount = tv_message.maxLines
+            //LogHelper.e("消息行数：" + lineCount + "   最大行数：" + maxLineCount);
 
             if (lineCount > 1) {
                 tv_all_show.visibility = View.VISIBLE
-                tv_all_show.setOnClickListener(View.OnClickListener {
+                tv_all_show.setOnClickListener({
                     if (tv_all_show.text == "全文") {
                         tv_message.maxLines = 10
                         tv_all_show.text = "收起"
@@ -156,7 +155,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
             } else {
                 tv_all_show.visibility = View.GONE
             }
-        })
+        }
     }
 
     private fun setTextViewMaxLinesEllipsize(context: String, tv_lauds: TextView) {
@@ -221,7 +220,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
                 ll.addView(itemView)
                 if (ConfigUtil().userid == userId.toString()) {
                     itemView.setOnClickListener {
-                        AlertDialogHelper().show(this, "确定删除?") { dialog, which ->
+                        AlertDialogHelper().show(this, "确定删除?") { _, _ ->
                             RetrofitHelper().removeOpinion(id.toString() + "").enqueue(object : Callback<Check> {
                                 override fun onResponse(call: Call<Check>, response: Response<Check>) {
                                     if (response.body()!!.success) {
@@ -300,8 +299,8 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
     private fun setDelete(userId: Int, id: Int) {
         if (ConfigUtil().userid == userId.toString()) {
             tv_delete.visibility = View.VISIBLE
-            tv_delete.setOnClickListener(View.OnClickListener {
-                AlertDialogHelper().show(this, "确定删除?") { dialog, which ->
+            tv_delete.setOnClickListener({
+                AlertDialogHelper().show(this, "确定删除?") { _, _ ->
                     RetrofitHelper().removeMessage(id).enqueue(object : Callback<Check> {
                         override fun onResponse(call: Call<Check>, response: Response<Check>) {
                             if (response.body()!!.success) {
@@ -339,11 +338,9 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
     }
 
     private fun isLike(bean: InteractiveDetail.A): Boolean {
-        if (bean != null) {
-            for ((_, _, _, userId) in bean.driverCircleLaudList!!) {
-                if (ConfigUtil().userid == userId.toString()) {
-                    return true
-                }
+        for ((_, _, _, userId) in bean.driverCircleLaudList!!) {
+            if (ConfigUtil().userid == userId.toString()) {
+                return true
             }
         }
         return false
@@ -371,7 +368,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
                 urls.add(info.getBigImageUrl())
             }
             startActivity(Intent(this@InteractiveDetailActivity, PictureActivity::class.java)
-                    .putExtra("url", imageInfo!![index].getBigImageUrl())
+                    .putExtra("url", imageInfo[index].getBigImageUrl())
                     .putStringArrayListExtra("urls", urls)
             )
         }
@@ -380,7 +377,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
 
     private var sendCall: Call<Check>? = null
     private fun send(circleMessageId: Int, commentUserId: Int) {
-        tv_send.onClick {
+        tv_send.setOnClickListener {
             var comment = et_input?.text?.toString()
 
             if (!comment.isNullOrEmpty())

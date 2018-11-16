@@ -32,6 +32,8 @@
 -dontwarn android.test.**
 -dontwarn org.junit.**
 
+-ignorewarnings
+
 #okhttp
 -dontwarn okhttp3.**
 -keep class okhttp3.**{*;}
@@ -40,40 +42,79 @@
 -dontwarn okio.**
 -keep class okio.**{*;}
 
-#okgo
--dontwarn com.lzy.okgo.**
--keep class com.lzy.okgo.**{*;}
+#消除Gradlew build提示
+-dontnote rx.**
+-dontnote com.github.mikephil.charting.**
+-dontnote kotlin.coroutines.**
+-dontnote com.umeng.**
+-dontnote org.jetbrains.anko.**
+-dontnote uk.co.senab.photoview.**
+-dontnote org.greenrobot.eventbus.**
+-dontnote javax.**
+-dontnote android.webkit.**
+-dontnote com.amap.api.**
+-dontnote com.bumptech.glide.**
+-dontnote com.contrarywind.view.**
+-dontnote com.google.android.material.**
+-dontnote com.loc.**
+-dontnote im.yixin.sdk.api.**
+-dontnote com.tencent.**
+-dontnote sun.**
+-dontnote com.android.**
+-dontnote android.**
+-dontnote kotlin.internal.**
+-dontnote dalvik.system.**
+-dontnote org.conscrypt.**
+-dontnote com.lzy.ninegrid.**
+-dontnote com.sc.clgg.widget.**
+-dontnote com.sc.clgg.widget.**
 
-#okrx
--dontwarn com.lzy.okrx.**
--keep class com.lzy.okrx.**{*;}
+-dontwarn kotlinx.coroutines.experimental.**
+-dontwarn sun.misc.**
+-dontwarn com.amap.api.maps2d.**
+-dontwarn android.telephony.**
+-dontwarn com.bumptech.glide.**
+-dontwarn android.os.**
+-dontwarn kotlin.internal.**
+-dontwarn kotlin.reflect.**
+-dontwarn com.android.**
 
-#okrx2
--dontwarn com.lzy.okrx2.**
--keep class com.lzy.okrx2.**{*;}
+# ServiceLoader support
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
 
-#okserver
--dontwarn com.lzy.okserver.**
--keep class com.lzy.okserver.**{*;}
+# Most of volatile fields are updated with AFU and should not be mangled
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
+}
+
+#--takephoto---
+-keep class org.devio.takephoto.** { *; }
+-dontwarn org.devio.takephoto.**
+
+-keep class com.darsh.multipleimageselect.** { *; }
+-dontwarn com.darsh.multipleimageselect.**
+
+-keep class com.soundcloud.android.crop.** { *; }
+-dontwarn com.soundcloud.android.crop.**
+#--takephoto---
 
 #Apache不混淆
 -dontwarn org.apache.**
+-dontnote org.apache.**
 -keep class org.apache.http.**{*;}
 
 -dontwarn com.sc.clgg.bean.**
+-dontnote com.sc.clgg.bean.**
 -keep class com.sc.clgg.bean.**{*;}
 
--dontwarn com.lvke.tools.widget.**
--keep class com.lvke.tools.widget.**{*;}
-
--dontwarn com.clgg.**
--keep class com.clgg.**{*;}
-
+-dontwarn com.clgg.api.**
+-keep class com.clgg.api.**{*;}
 
 #----------高德地图----------
--keep   class com.amap.api.maps.**{*;}
--keep   class com.autonavi.**{*;}
--keep   class com.amap.api.trace.**{*;}
+-keep class com.amap.api.maps.**{*;}
+-keep class com.autonavi.**{*;}
+-keep class com.amap.api.trace.**{*;}
 
 -keep class com.amap.api.location.**{*;}
 -keep class com.amap.api.fence.**{*;}
@@ -87,20 +128,6 @@
 -keep class com.amap.api.navi.**{*;}
 -keep class com.autonavi.**{*;}
 #----------高德地图----------
-
-
-#----------butterknife----------
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
-#----------butterknife----------
-
 
 #----------glide----------
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -153,6 +180,7 @@
 # Ignore annotation used for build tooling.
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 #----------retrofit----------
+
 
 
 #----------kotlinx----------

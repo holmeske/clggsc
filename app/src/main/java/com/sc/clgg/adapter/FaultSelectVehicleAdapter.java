@@ -1,7 +1,5 @@
 package com.sc.clgg.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,9 @@ import com.sc.clgg.bean.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author：lvke
@@ -42,6 +43,9 @@ public class FaultSelectVehicleAdapter extends RecyclerView.Adapter<FaultSelectV
     }
 
     public void refresh(List<Vehicle.Bean> dataList) {
+        if (dataList==null){
+            return;
+        }
         clearSelected();
         mDataList = dataList;
         for (Vehicle.Bean b : dataList) {

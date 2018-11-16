@@ -1,4 +1,23 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--充值取消闪屏问题-->
+    <style name="noStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/transparent</item>
+        <!--<item name="android:windowIsTranslucent">true</item>  8.0部分手机会和指定宽高的属性冲突-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+
     <style name="SplashTheme" parent="AppTheme">
         <!-- 欢迎页背景引用刚才写好的 -->
         <item name="android:windowBackground">@drawable/splash</item>

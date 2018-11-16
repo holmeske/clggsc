@@ -2,11 +2,6 @@ package com.sc.clgg.activity.vehiclemanager.gps;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -36,7 +31,7 @@ import com.sc.clgg.adapter.SelectVehicleAdapter;
 import com.sc.clgg.base.BaseImmersionActivity;
 import com.sc.clgg.bean.Location;
 import com.sc.clgg.bean.LocationDetail;
-import com.sc.clgg.http.retrofit.RetrofitHelper;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.DateHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.tool.helper.MeasureHelper;
@@ -56,8 +51,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -66,7 +64,7 @@ import retrofit2.Response;
  */
 public class PositioningDetailActivity extends BaseImmersionActivity implements AMap.InfoWindowAdapter, GeocodeSearch.OnGeocodeSearchListener {
 
-    @BindView(R.id.map) MapView map;
+    private MapView map;
     private AMap aMap;
 
     private ScheduledExecutorService mScheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
@@ -84,7 +82,7 @@ public class PositioningDetailActivity extends BaseImmersionActivity implements 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_positioning_detail);
-        unbinder = ButterKnife.bind(this);
+        map=findViewById(R.id.map);
         map.onCreate(savedInstanceState);
         init();
     }
@@ -228,7 +226,7 @@ public class PositioningDetailActivity extends BaseImmersionActivity implements 
         findViewById(R.id.location_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = null;
+                String url;
                 if (mData != null && !TextUtils.isEmpty(mData.getLongitude()) && !TextUtils.isEmpty(mData.getLatitude())) {
                     url = "http://m.amap.com/?q=" + mData.getLatitude() + "," + mData.getLongitude();
                     LogHelper.e("url = " + url);

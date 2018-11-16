@@ -3,4 +3,7 @@
     <root-path
         name="download"
         path=""/>
+    <root-path
+        name="camera_photos"
+        path=""/>
 </paths>

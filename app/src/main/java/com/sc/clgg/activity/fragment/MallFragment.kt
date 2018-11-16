@@ -1,22 +1,26 @@
 package com.sc.clgg.activity.fragment
 
 
-import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
+import android.net.http.SslError
+import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
+import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import com.sc.clgg.R
 import com.sc.clgg.config.NetField
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.ConfigUtil
+import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_mall.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.support.v4.toast
+import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import org.jetbrains.anko.toast
 
 class MallFragment : Fragment() {
     private var historyUrl: String? = ""
@@ -24,14 +28,47 @@ class MallFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_mall, container, false)
     }
 
+    fun canGoBack(): Boolean {
+        return webView.canGoBack()
+    }
+
+    fun goBack() {
+        webView?.goBack()
+    }
+
+
+    private var viewIsCreated: Boolean = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        LogHelper.e("onViewCreated() --->" + this.javaClass.simpleName)
         super.onViewCreated(view, savedInstanceState)
+        viewIsCreated = true
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            titlebar_top.setVisibility(View.GONE)
+        } else {
+            titlebar_top.setLayoutParams(LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, activity!!.statusBarHeight()))
+        }
+        titlebar_left.visibility = View.GONE
+        titlebar_left.setOnClickListener {
+            if (webView.canGoBack()) webView?.goBack()
+        }
+        titlebar_title.text = "商城"
 
         init("${NetField.SITE}shop/index")
 
-        v_reload?.onClick { webView.loadUrl(historyUrl) }
+        v_reload?.setOnClickListener { webView.loadUrl(historyUrl) }
     }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (viewIsCreated && isVisibleToUser) {
+            LogHelper.e("商城页面 setUserVisibleHint")
+
+            webView.resumeTimers()
+            webView.onResume()
+        }
+    }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -44,6 +81,7 @@ class MallFragment : Fragment() {
     private fun init(url: String) {
         mWebSettings = webView.settings
 
+        mWebSettings?.javaScriptEnabled = true
         //设置自适应屏幕，两者合用
         mWebSettings?.useWideViewPort = true //将图片调整到适合webview的大小
         mWebSettings?.loadWithOverviewMode = true // 缩放至屏幕的大小
@@ -59,15 +97,22 @@ class MallFragment : Fragment() {
         mWebSettings?.javaScriptCanOpenWindowsAutomatically = true //支持通过JS打开新窗口
         mWebSettings?.loadsImagesAutomatically = true //支持自动加载图片
         mWebSettings?.defaultTextEncodingName = "utf-8"//设置编码格式
-        mWebSettings?.javaScriptEnabled = true
-        webView?.addJavascriptInterface(JavaScriptinterface(activity!!), "Android")
-        mWebSettings?.textZoom = 100
+
+        mWebSettings?.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS)
+        mWebSettings?.setBlockNetworkImage(false)//是否阻止网络数据
+        mWebSettings?.setSupportMultipleWindows(true)
+        mWebSettings?.setDomStorageEnabled(true)
+
+        webView?.addJavascriptInterface(JsInterface(), "Android")
+        //mWebSettings?.textZoom = 100
 
         webView.loadUrl(url)
         webView.webViewClient = object : WebViewClient() {
-
+            override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {
+                handler.proceed()
+            }
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                if (url != null && url.startsWith("mailto:") || url.startsWith("geo:") || url.startsWith("tel:")) {
+                if ( url.startsWith("mailto:") || url.startsWith("geo:") || url.startsWith("tel:")) {
                     var intent = Intent(Intent.ACTION_CALL, Uri.parse(url))
                     startActivity(intent)
                     return true
@@ -80,14 +125,22 @@ class MallFragment : Fragment() {
                 super.onReceivedError(view, request, error)
                 LogHelper.e("onReceivedError   ")
                 v_reload?.visibility = View.VISIBLE
-                toast("检查网络后重试")
+                activity?.toast("检查网络后重试")
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                LogHelper.e("onPageStarted  $url")
+                historyUrl = url
+                if ("${NetField.SITE}shop/index" != url) {
+                    titlebar_left.visibility = View.VISIBLE
+                } else {
+                    titlebar_left.visibility = View.GONE
+                }
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                historyUrl = url
-                LogHelper.e("onPageFinished   " + historyUrl)
-
             }
 
         }
@@ -101,24 +154,9 @@ class MallFragment : Fragment() {
 
         }
 
-        webView.setDownloadListener(DownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
-            LogHelper.i("tag", "url=$url")
-
-            LogHelper.i("tag", "userAgent=$userAgent")
-
-            LogHelper.i("tag", "contentDisposition=$contentDisposition")
-
-            LogHelper.i("tag", "mimetype=$mimetype")
-
-            LogHelper.i("tag", "contentLength=$contentLength")
-
-            val uri = Uri.parse(url)
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(intent)
-        })
     }
 
-    inner class JavaScriptinterface(internal var context: Context) {
+    inner class JsInterface {
 
         /**
          * 与js交互时用到的方法，在js里直接调用的

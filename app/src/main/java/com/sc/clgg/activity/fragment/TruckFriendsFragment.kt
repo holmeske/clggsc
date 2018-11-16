@@ -3,28 +3,27 @@ package com.sc.clgg.activity.fragment
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.sc.clgg.R
+import com.sc.clgg.activity.CommentActivity
 import com.sc.clgg.activity.LoginRegisterActivity
 import com.sc.clgg.activity.PublishDynamicActivity
 import com.sc.clgg.adapter.TruckFriendsAdapter
 import com.sc.clgg.bean.TruckFriend
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.RecycleViewHelper
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_truck_friends.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,6 +55,15 @@ class TruckFriendsFragment : BaseFragment() {
         init()
     }
 
+    fun updateItem(){
+        LogHelper.e("开始更新")
+        if (CommentActivity.position!=-1&& CommentActivity.commen!=null&& !adapter?.listAll.isNullOrEmpty()){
+            adapter?.listAll!![CommentActivity.position]?.driverCircleCommentList?.add(CommentActivity.commen!!)
+            adapter?.notifyItemChanged(CommentActivity.position, 2)
+        }
+    }
+
+
     override fun onLazyFetchData() {
         super.onLazyFetchData()
         LogHelper.e("onLazyFetchData() --->卡友圈")
@@ -74,7 +82,7 @@ class TruckFriendsFragment : BaseFragment() {
 
     private fun init() {
         adapter = TruckFriendsAdapter()
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recyclerView.adapter = adapter
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         divider.setDrawable(ContextCompat.getDrawable(activity!!, R.drawable.divider)!!)
@@ -97,7 +105,7 @@ class TruckFriendsFragment : BaseFragment() {
     private var loadMoreView: TextView? = null
 
     private fun initListener() {
-        title_right?.onClick {
+        title_right?.setOnClickListener {
             if (ConfigUtil().userid.isEmpty()) {
                 startActivity(Intent(activity, LoginRegisterActivity::class.java))
             } else {
@@ -129,13 +137,13 @@ class TruckFriendsFragment : BaseFragment() {
                 swipeRefreshLayout?.isRefreshing = false
                 loadMoreView?.text = "加载更多"
                 adapter?.refreshLast()
-                toast(R.string.network_anomaly)
+                activity?.toast(R.string.network_anomaly)
             }
 
             override fun onResponse(call: Call<TruckFriend>?, response: Response<TruckFriend>?) {
                 swipeRefreshLayout?.isRefreshing = false
                 if (!response?.body()?.success!!) {
-                    toast(response.body()?.msg!!)
+                    activity?.toast(response.body()?.msg!!)
                 } else {
                     response.body()?.pageInfo?.list?.let {
                         if (pageNum == 1) {

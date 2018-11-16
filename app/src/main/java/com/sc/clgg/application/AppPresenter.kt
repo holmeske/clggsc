@@ -28,9 +28,12 @@ import java.io.IOException
  * @author：lvke
  * @date：2018/9/11 16:39
  */
+
 lateinit var CURRENT_LOCATION: LocationBean
 
 fun Application.start() {
+    CURRENT_LOCATION = LocationBean()
+
     LogHelper.e("初始化application")
     AppService.start(this@start)
 
@@ -46,7 +49,7 @@ fun Application.start() {
                     .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0));
         }*/
 
-//        initBugly();
+    initBugly();
 
     if (LeakCanary.isInAnalyzerProcess(this@start)) {
         // This process is dedicated to LeakCanary for heap analysis.
@@ -63,10 +66,10 @@ private fun Application.registerActivityLifecycleCallbacks() {
             LogHelper.d("activity", "onActivityCreated    " + activity?.localClassName)
 
             if (activity?.findViewById<View>(R.id.titlebar_title) != null) {
-                (activity?.findViewById<View>(R.id.titlebar_title) as TextView).text = activity?.title
+                (activity.findViewById<View>(R.id.titlebar_title) as TextView).text = activity.title
             }
             if (activity?.findViewById<View>(R.id.titlebar_left) != null) {
-                activity?.findViewById<View>(R.id.titlebar_left).setOnClickListener { activity?.finish() }
+                activity.findViewById<View>(R.id.titlebar_left).setOnClickListener { activity.finish() }
             }
         }
 

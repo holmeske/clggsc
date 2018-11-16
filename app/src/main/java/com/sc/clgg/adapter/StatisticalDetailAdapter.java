@@ -2,8 +2,6 @@ package com.sc.clgg.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +11,16 @@ import android.widget.TextView;
 import com.sc.clgg.R;
 import com.sc.clgg.activity.vehiclemanager.myvehicle.PathRecordActivity;
 import com.sc.clgg.bean.MileageDetail;
+import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.util.TimeHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author：lvke
@@ -55,23 +57,22 @@ public class StatisticalDetailAdapter extends RecyclerView.Adapter<StatisticalDe
         if (!TextUtils.isEmpty(bean.getDate())) {
             holder.tv_date.setText(month + "月" + bean.getDate() + "日");
         }
-
-        if (!TextUtils.isEmpty(bean.getDayMileage()) && Double.parseDouble(bean.getDayMileage()) > 0) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Calendar calendar = Calendar.getInstance(Locale.CHINA);
-                    calendar.set(year, month - 1, Integer.parseInt(bean.getDate()));
-
-                    mContext.startActivity(new Intent(mContext, PathRecordActivity.class)
-                            .putExtra("carno", carno)
-                            .putExtra("vin", vin)
-                            .putExtra("startDate", TimeHelper.long2time(TimeHelper.JAVA_DATE_FORAMTER_2, calendar.getTimeInMillis()) + "000000")
-                            .putExtra("endDate", TimeHelper.long2time(TimeHelper.JAVA_DATE_FORAMTER_2, calendar.getTimeInMillis()) + "235959"));
-                }
-            });
-        }
         holder.tv_mileage.setText(bean.getDayMileage() == null ? "" : bean.getDayMileage() + "km");
+
+        holder.itemView.setOnClickListener(v -> {
+            LogHelper.e("position = " + position);
+            if (!TextUtils.isEmpty(bean.getDayMileage()) && Double.parseDouble(bean.getDayMileage()) > 0) {
+                Calendar calendar = Calendar.getInstance(Locale.CHINA);
+                calendar.set(year, month - 1, Integer.parseInt(bean.getDate()));
+
+                mContext.startActivity(new Intent(mContext, PathRecordActivity.class)
+                        .putExtra("carno", carno)
+                        .putExtra("vin", vin)
+                        .putExtra("startDate", TimeHelper.long2time(TimeHelper.JAVA_DATE_FORAMTER_2, calendar.getTimeInMillis()) + "000000")
+                        .putExtra("endDate", TimeHelper.long2time(TimeHelper.JAVA_DATE_FORAMTER_2, calendar.getTimeInMillis()) + "235959"));
+            }
+        });
+
     }
 
     @Override

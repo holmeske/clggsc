@@ -21,10 +21,17 @@ public class LaunchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestPermission();
+    }
+
+    private void requestPermission() {
         AndPermission.with(this)
                 .runtime()
-                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.CALL_PHONE)
                 .onGranted(permissions -> {
                     LogHelper.e("权限同意");
                     init();
@@ -33,7 +40,7 @@ public class LaunchActivity extends Activity {
                     LogHelper.e("权限拒绝");
 
                     new AlertDialogHelper().show(this,
-                            "为了保证功能的正常使用，请前往设置-应用权限页面同意以下权限: \n\n\t\t存储\n\t\t读取位置信息\n\t\t读取本机识别码",
+                            "为了保证功能的正常使用，请前往设置-应用权限页面同意以下权限: \n\n\t\t存储\n\t\t定位\n\t\t电话\n\t\t读取本机识别码",
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -55,11 +62,6 @@ public class LaunchActivity extends Activity {
                             }, null);
                 })
                 .start();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     private void init() {

@@ -3,9 +3,10 @@ package com.sc.clgg.activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import com.bigkoo.pickerview.TimePickerView
+import androidx.core.content.ContextCompat
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.bigkoo.pickerview.listener.OnTimeSelectListener
+import com.bigkoo.pickerview.view.TimePickerView
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -17,13 +18,13 @@ import com.sc.clgg.R
 import com.sc.clgg.adapter.MileageStatisticalAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Mileage
-import com.sc.clgg.http.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.CalendarHelper
 import com.sc.clgg.tool.helper.DateHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.widget.MyMarkerView
 import kotlinx.android.synthetic.main.activity_mileage_statistical.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,10 +33,10 @@ import kotlin.collections.ArrayList
 
 class MileageStatisticalActivity : BaseImmersionActivity() {
     var adpter: MileageStatisticalAdapter? = null
-    var dateStr: String? = ""
+    private var dateStr: String? = ""
     var year: String? = ""
     var month: Int = 0
-    var maxDay: Int = 0
+    private var maxDay: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mileage_statistical)
@@ -53,7 +54,7 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
                     .putExtra("year", year)
             )
         })
-        recyclerview?.layoutManager = LinearLayoutManager(this)
+        recyclerview?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerview?.adapter = adpter
 
         initTimePickerView()
@@ -64,7 +65,7 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
         year = DateHelper.formatCurrentTime("yyyy")
         tv_date.text = dateStr
 
-        maxDay = selectedCalendar.getMaximum(Calendar.DAY_OF_MONTH)
+        maxDay = selectedCalendar.getActualMaximum(Calendar.DATE)
         tv4.text = "${maxDay}日"
         loadData(dateStr)
     }
@@ -81,13 +82,15 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
             enqueue(object : Callback<Mileage> {
                 override fun onResponse(call: Call<Mileage>, response: Response<Mileage>) {
                     hideProgressDialog()
-                    response.body().let {
-                        tv_month_mileage?.text = it?.totalMileages
-                        tv_day_mileage?.text = it?.totalDays
-                        one_vehice_month_mileage?.text = it?.singleTotal
+
+                    response.body()?.let {
+                        if (!it.success){ toast("${it.msg}");return@let}
+                        tv_month_mileage?.text = it.totalMileages
+                        tv_day_mileage?.text = it.totalDays
+                        one_vehice_month_mileage?.text = it.singleTotal
 
                         val data = ArrayList<Float>()
-                        for ((_, dayMileages) in it?.chartList!!) {
+                        for ((_, dayMileages) in it.chartList!!) {
                             data.add(dayMileages!!.toFloat())
                         }
                         adpter?.refresh(it.details)
@@ -112,12 +115,11 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
     private fun initTimePickerView() {
         startCalendar.set(CalendarHelper.getCurrentYear(), CalendarHelper.getCurrentMonth() - 1, 0)
 
-        mTimePickerView = TimePickerView.Builder(this, TimePickerView.OnTimeSelectListener { date, v ->
+        mTimePickerView = TimePickerBuilder(this,  OnTimeSelectListener { date, _ ->
             // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
             selectedCalendar.time = date
 
             selectedCalendar.time
-            val year = selectedCalendar.get(Calendar.YEAR)
             month = selectedCalendar.get(Calendar.MONTH) + 1
 
             maxDay = selectedCalendar.getActualMaximum(Calendar.DATE)
@@ -129,7 +131,7 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
                 .setLabel("", "", "", "", "", "")
                 .isCenterLabel(false)
                 .setDividerColor(Color.DKGRAY)
-                .setContentSize(21)
+                .setContentTextSize(21)
                 .setDate(selectedCalendar)
                 .setRangDate(startCalendar, endCalendar)
                 .setBackgroundId(R.color.white) //设置外部遮罩颜色
@@ -138,7 +140,7 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
     }
 
     private fun initListener() {
-        tv_date.onClick {
+        tv_date.setOnClickListener {
             mTimePickerView?.show()
         }
     }
@@ -150,7 +152,7 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
 //        params.width = ((MeasureHelper.getScreenWidth(this) - MeasureHelper.dp2px(this, 10f)) / maxDay) * data.size + MeasureHelper.dp2px(this, 10f)
 
         chart.setNoDataText("暂无数据")
-        val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
+        //val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
 
         chart.setDrawGridBackground(false)
 
@@ -224,7 +226,7 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
         val sets = chart.data.dataSets
         for (iSet in sets) {
             val set = iSet as LineDataSet
-            set.setValueFormatter { value, c, dataSetIndex, viewPortHandler ->
+            set.setValueFormatter { value, _, _, _ ->
                 value.toString()
             }
         }

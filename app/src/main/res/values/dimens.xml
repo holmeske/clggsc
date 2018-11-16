@@ -1,44 +1,19 @@
 <resources>
-    <!--williamchart-->
 
-
-
-
-    <!-- Text Labels size -->
-
-    <!-- Grid thickness-->
-
-
-    <!-- LineChartView -->
-    <!-- Dot region radius used on click -->
-
-
-    <!-- BarChartView -->
-<!--williamchart-->
     <dimen name="text_size_20">20sp</dimen>
     <dimen name="text_size_12">14sp</dimen>
 
-
-
-    <!-- dp -->
-
-
-    <!-- 项目整合过度期    ，后续会将重复的值合并 -->
-
-    <!-- 常规界面头、导航、标签字号 -->
     <dimen name="textsize_16">17sp</dimen>
 
     <dimen name="textsize_15">16sp</dimen>
-    <!-- 按钮、弹出菜单、头部菜单 -->
+
     <dimen name="textsize_14">15sp</dimen>
-    <!-- 常规界面作者、简介、底部导航字号 -->
+
     <dimen name="textsize_13">14sp</dimen>
     <dimen name="textsize_12">13sp</dimen>
     <dimen name="textsize_12_">12sp</dimen>
     <dimen name="textsize_10">11sp</dimen>
-    <!-- 常规小标识内动态文字在小，例更新时间、本地书格式 -->
 
-    <!-- 长度 -->
     <dimen name="length_1px">1px</dimen>
     <dimen name="length_1">1dp</dimen>
     <dimen name="length_4">4dp</dimen>
