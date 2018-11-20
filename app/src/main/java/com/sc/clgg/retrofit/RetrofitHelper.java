@@ -106,7 +106,7 @@ public class RetrofitHelper {
 
         List<MultipartBody.Part> parts = new ArrayList<>();
 
-        parts.add(MultipartBody.Part.createFormData("cardType", "3"));
+        parts.add(MultipartBody.Part.createFormData("cardType", info.getCardType()));
         parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
         parts.add(MultipartBody.Part.createFormData("userType", info.getUserType()));
         parts.add(MultipartBody.Part.createFormData("userName", info.getUserName()));

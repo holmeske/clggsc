@@ -8,7 +8,7 @@
     android:background="#f5f5f5"
     tools:context=".activity.NickNameActivity">
 
-    <include layout="@layout/view_titlebar_blue"/>
+    <include layout="@layout/view_titlebar"/>
 
     <EditText
         android:id="@+id/et"

@@ -20,7 +20,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_submit_application.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback

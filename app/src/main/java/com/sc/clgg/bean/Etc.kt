@@ -18,6 +18,7 @@ data class Card(var type: String? = "",
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class CertificationInfo(
+        var cardType: String? = "",
         var userType: String? = "",
         var userName: String? = "",
         var certSn: String? = "",
@@ -37,7 +38,7 @@ data class CertificationInfo(
 
     @Parcelize
     data class Car(
-            var imageId:String?="",
+            var imageId: String? = "",
             var carNo: String? = "",
             var vinCode: String? = "",
             var carOwner: String? = "",
@@ -69,3 +70,13 @@ data class VerificationCode(
         var success: Boolean? = false,
         var checkCode: String? = "") : Parcelable
 
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class ApplyState(
+        var time: String? = "",
+        var carNo: String? = "",
+        var etc: String? = "",
+        var type: String? = "",
+        var opinion: String? = "",
+        var state: Int? = 0) : Parcelable

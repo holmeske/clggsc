@@ -8,7 +8,7 @@
     android:background="@color/bg"
     tools:context=".activity.RechargeActivity">
 
-    <include layout="@layout/view_titlebar_blue"/>
+    <include layout="@layout/view_titlebar"/>
 
     <TextView
         android:id="@+id/tv_0"

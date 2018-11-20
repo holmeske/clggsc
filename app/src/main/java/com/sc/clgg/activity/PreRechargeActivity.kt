@@ -5,7 +5,7 @@ import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.dialog.PreRechargeHintDialog
 import kotlinx.android.synthetic.main.activity_pre_recharge.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 
 class PreRechargeActivity : BaseImmersionActivity() {
 

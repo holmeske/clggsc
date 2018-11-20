@@ -24,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PublishDynamicAdapter extends RecyclerView.Adapter<PublishDynamicAdapter.MyHolder> {
 
     private Context mContext;
-    private List<String> pathList = new ArrayList<>();
+    public List<String> pathList = new ArrayList<>();
     private CallbackListener mCallbackListener;
+
+
 
     public List<String> getPublishImageList() {
         if (pathList.contains("")){

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.MyMessageActivity">
 
-    <include layout="@layout/view_titlebar_blue"/>
+    <include layout="@layout/view_titlebar"/>
 
     <View
         android:id="@+id/v_1"

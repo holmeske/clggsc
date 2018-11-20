@@ -23,7 +23,7 @@ import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.setRoundedCornerPicture
 import kotlinx.android.synthetic.main.activity_interactive_detail.*
 import kotlinx.android.synthetic.main.item_interactive_detail.view.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback

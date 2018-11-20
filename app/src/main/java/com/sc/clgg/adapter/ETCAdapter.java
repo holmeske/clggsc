@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sc.clgg.R;
-import com.sc.clgg.activity.IdentityCertificationActivity;
+import com.sc.clgg.activity.CardIntroduceActivity;
 import com.sc.clgg.activity.MyCardActivity;
 import com.sc.clgg.activity.RechargeActivity;
 import com.sc.clgg.adapter.ETCAdapter.MyHolder;
@@ -29,9 +29,8 @@ public class ETCAdapter extends RecyclerView.Adapter<MyHolder> {
     private int[] drawables = new int[]{R.drawable.etc_icon1, R.drawable.etc_icon2, R.drawable.etc_icon3, R.drawable.etc_icon4,
             R.drawable.etc_icon5, R.drawable.etc_icon6, R.drawable.etc_icon7, R.drawable.etc_icon8,};
 
-    private Class[] activitys = new Class[]{IdentityCertificationActivity.class, RechargeActivity.class, RechargeActivity.class, RechargeActivity.class
+    private Class[] activitys = new Class[]{CardIntroduceActivity.class, RechargeActivity.class, RechargeActivity.class, RechargeActivity.class
             , RechargeActivity.class, MyCardActivity.class, RechargeActivity.class, RechargeActivity.class};
-
 
     @NonNull
     @Override

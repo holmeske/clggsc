@@ -19,7 +19,7 @@ import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_mall.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.toast
 
 class MallFragment : Fragment() {

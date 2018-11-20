@@ -7,7 +7,7 @@ import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.util.PickerViewHelper
 import kotlinx.android.synthetic.main.activity_info_certification.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.toast
 
 

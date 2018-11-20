@@ -5,7 +5,7 @@ import android.view.View
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import kotlinx.android.synthetic.main.activity_gender.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 
 class GenderActivity : BaseImmersionActivity() {
     private var g: String? = "-1"

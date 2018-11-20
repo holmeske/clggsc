@@ -8,7 +8,7 @@
     android:background="#eee"
     tools:context=".activity.RecordActivity">
 
-    <include layout="@layout/view_titlebar_blue"/>
+    <include layout="@layout/view_titlebar"/>
 
     <TextView
         android:id="@+id/tv_year"

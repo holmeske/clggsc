@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/width_m_height_m">
 
-    <include layout="@layout/view_titlebar_blue"/>
+    <include layout="@layout/view_titlebar"/>
 
     <com.amap.api.maps.MapView
         android:id="@+id/map"

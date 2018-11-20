@@ -9,7 +9,7 @@ import com.sc.clgg.bean.Check
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.util.showTakePhoto
 import kotlinx.android.synthetic.main.activity_publish_dynamic.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.devio.takephoto.model.TResult
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -27,11 +27,10 @@ class PublishDynamicActivity : TakePhotoActivity() {
         titlebar_right?.text = "发布"
 
         titlebar_right.setOnClickListener {
-            if (adapter?.publishImageList!!.size < 2 && et.text.toString() == "") {
-                toast("请添加图片或文字")
+            if (et.text.toString().isBlank() && adapter?.pathList!!.size < 2) {
+                toast("请添加文字或图片")
                 return@setOnClickListener
             }
-
             publishDynamic(adapter?.publishImageList!!)
         }
 
@@ -70,6 +69,9 @@ class PublishDynamicActivity : TakePhotoActivity() {
      */
     private fun publishDynamic(files: List<String>) {
         showProgressDialog()
+        if (files.isEmpty() && et?.text?.toString()!!.isBlank()) {
+            return
+        }
         http = RetrofitHelper().publishDynamic(files, et?.text?.toString()).apply {
             enqueue(object : retrofit2.Callback<Check> {
                 override fun onResponse(call: Call<Check>?, response: Response<Check>?) {

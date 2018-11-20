@@ -14,7 +14,7 @@ import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.showTakePhoto
 import com.sc.clgg.widget.PickerViewHelper
 import kotlinx.android.synthetic.main.activity_identity_certification.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.devio.takephoto.model.TResult
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -24,7 +24,7 @@ import java.io.File
 import java.util.*
 
 class IdentityCertificationActivity : TakePhotoActivity() {
-    private var certificationInfo = CertificationInfo()
+    private var certificationInfo: CertificationInfo? = null
     private var idcardImgFront: String = ""
     private var idcardImgBehind: String = ""
     private var businessLicenseImg: String = ""
@@ -81,6 +81,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identity_certification)
 
+        certificationInfo = intent.getParcelableExtra("info")
         init()
     }
 
@@ -93,10 +94,10 @@ class IdentityCertificationActivity : TakePhotoActivity() {
             data.add("个人")
             data.add("企业")
             PickerViewHelper().creat(this@IdentityCertificationActivity, data) { options1, _, _, _ ->
-                data[options1].let {
-                    tv_user_type.text = it
+                data[options1].run {
+                    tv_user_type.text = this
                     tv_info_hint.visibility = View.VISIBLE
-                    if (it == "个人") {
+                    if (this == "个人") {
                         ll_personal.visibility = View.VISIBLE
                         ll_enterprise.visibility = View.GONE
                     } else {
@@ -136,7 +137,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                 toast("请输入持卡人手机号")
                 return@setOnClickListener
             }
-            if (!Patterns.PHONE.matcher(et_mobile_phone.text.toString()).matches()){
+            if (!Patterns.PHONE.matcher(et_mobile_phone.text.toString()).matches()) {
                 toast("请输入正确的手机号")
                 return@setOnClickListener
             }
@@ -146,10 +147,6 @@ class IdentityCertificationActivity : TakePhotoActivity() {
             }
             if (checkCode != et_verification_code.text.toString().trim()) {
                 toast("请输入正确的验证码")
-                return@setOnClickListener
-            }
-            if (et_invite_code.text.isBlank()) {
-                toast("请输入推荐人邀请码")
                 return@setOnClickListener
             }
             when (tv_user_type.text) {
@@ -171,21 +168,21 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                 }
             }
 
-            certificationInfo.userType = if (tv_user_type.text.toString() == "个人") "1" else "2"
-            certificationInfo.userName = et_name.text.toString()
-            certificationInfo.certSn = et_id_number.text.toString()
-            certificationInfo.linkMobile = et_mobile_phone.text.toString()
-            certificationInfo.verificationCode = et_verification_code.text.toString()
-            certificationInfo.invitationCode = et_invite_code.text.toString()
+            certificationInfo?.userType = if (tv_user_type.text.toString() == "个人") "1" else "2"
+            certificationInfo?.userName = et_name.text.toString()
+            certificationInfo?.certSn = et_id_number.text.toString()
+            certificationInfo?.linkMobile = et_mobile_phone.text.toString()
+            certificationInfo?.verificationCode = et_verification_code.text.toString()
+            certificationInfo?.invitationCode = et_invite_code.text.toString()
 
             if (tv_user_type.text == "个人") {
-                certificationInfo.idcardImgFront = idcardImgFront
-                certificationInfo.idcardImgBehind = idcardImgBehind
+                certificationInfo?.idcardImgFront = idcardImgFront
+                certificationInfo?.idcardImgBehind = idcardImgBehind
             } else {
-                certificationInfo.businessLicenseImg = businessLicenseImg
+                certificationInfo?.businessLicenseImg = businessLicenseImg
             }
 
-            mCountDownTimer?.cancel()
+            mCountDownTimer.cancel()
             tv_get_verification_code.isEnabled = true
             startActivity(Intent(this@IdentityCertificationActivity, VehicleCertificationActivity::class.java)
                     .putExtra("info", certificationInfo))
@@ -194,7 +191,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mCountDownTimer?.cancel()
+        mCountDownTimer.cancel()
     }
 
     private val mCountDownTimer = object : CountDownTimer(60000, 1000) {
@@ -217,8 +214,8 @@ class IdentityCertificationActivity : TakePhotoActivity() {
             override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
                 response.body()?.let {
                     if (it.success) {
-                        checkCode = it.checkCode
                         mCountDownTimer.start()
+                        checkCode = it.checkCode
                     } else {
                         toast("${it.msg}")
                     }

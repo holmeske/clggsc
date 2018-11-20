@@ -17,7 +17,7 @@ import com.sc.clgg.activity.basic.MainActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_audit.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 
 class AuditActivity : BaseImmersionActivity() {
 

@@ -8,7 +8,7 @@ import com.sc.clgg.dialog.RechargeDialog
 import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_write_card.*
 import kotlinx.android.synthetic.main.view_read_card.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.toast
 
 class WriteCardActivity : BaseImmersionActivity() {

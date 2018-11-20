@@ -49,7 +49,7 @@ fun Application.start() {
                     .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0));
         }*/
 
-    initBugly();
+    initBugly()
 
     if (LeakCanary.isInAnalyzerProcess(this@start)) {
         // This process is dedicated to LeakCanary for heap analysis.
@@ -134,12 +134,17 @@ private fun getProcessName(pid: Int): String? {
 }
 
 private fun Application.initBugly() {
-    val packageName = getPackageName()
-    // 获取当前进程名
-    val processName = getProcessName(android.os.Process.myPid())
-    // 设置是否为上报进程
-    val strategy = CrashReport.UserStrategy(this)
-    strategy.isUploadProcess = processName == null || processName == packageName
-    // 初始化Bugly
-    CrashReport.initCrashReport(getApplicationContext(), "0edd50c749", !BuildConfig.LOG_DEBUG, strategy)
+    BuildConfig.LOG_DEBUG.let {
+        if (!it) {
+            val packageName = getPackageName()
+            // 获取当前进程名
+            val processName = getProcessName(android.os.Process.myPid())
+            // 设置是否为上报进程
+            val strategy = CrashReport.UserStrategy(this)
+            strategy.isUploadProcess = processName == null || processName == packageName
+            // 初始化Bugly
+            CrashReport.initCrashReport(getApplicationContext(), "0edd50c749", true, strategy)
+        }
+    }
+
 }

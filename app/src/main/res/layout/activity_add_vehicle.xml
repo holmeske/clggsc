@@ -5,7 +5,7 @@
     style="@style/width_m_height_m"
     android:orientation="vertical">
 
-    <include layout="@layout/view_titlebar_blue"/>
+    <include layout="@layout/view_titlebar"/>
 
     <ScrollView
         android:layout_width="match_parent"

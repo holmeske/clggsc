@@ -9,11 +9,12 @@ import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.showTakePhoto
 import com.sc.clgg.widget.VehicleInfoView
 import kotlinx.android.synthetic.main.activity_vehicle_certification.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.devio.takephoto.model.TResult
 
 class VehicleCertificationActivity : TakePhotoActivity() {
     private var certificationInfo : CertificationInfo?=null
+    private var currentVehicle:VehicleInfoView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +26,24 @@ class VehicleCertificationActivity : TakePhotoActivity() {
         LogHelper.e("身份认证 = ${Gson().toJson(certificationInfo)}")
     }
 
+    override fun takeCancel() {
+        super.takeCancel()
+        currentVehicle=null
+    }
+
+    override fun takeFail(result: TResult?, msg: String?) {
+        super.takeFail(result, msg)
+        currentVehicle=null
+    }
+
     override fun takeSuccess(result: TResult?) {
         super.takeSuccess(result)
-        vehicle_input?.car?.vehicleLicenseImg=result?.image?.compressPath
-        vehicle_input?.setVehicleLicense(result?.image?.compressPath)
+        currentVehicle?.let {
+            it.car?.vehicleLicenseImg=result?.image?.compressPath
+            it.setVehicleLicense(result?.image?.compressPath)
+        }
+//        vehicle_input?.car?.vehicleLicenseImg=result?.image?.compressPath
+//        vehicle_input?.setVehicleLicense(result?.image?.compressPath)
     }
 
     private fun init() {
@@ -46,11 +61,10 @@ class VehicleCertificationActivity : TakePhotoActivity() {
                         }
                     }
                 }
-
                 startActivity(Intent(this, InfoCertificationActivity::class.java).putExtra("info", certificationInfo))
             }
         }
-        vehicle_input.onUploadListener { showTakePhoto(takePhoto) }
+        vehicle_input.onUploadListener { currentVehicle=vehicle_input;showTakePhoto(takePhoto) }
 
         tv_add_vehicle.setOnClickListener {
             if (vehicle_input.canSubmit(this@VehicleCertificationActivity)) {
@@ -74,7 +88,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
                     }
                     vehicle_input.unFold()
                 }
-
+                vehicle.onUploadListener { currentVehicle=vehicle;showTakePhoto(takePhoto) }
                 ll_vehicle_container.addView(vehicle, 0)
             }
         }

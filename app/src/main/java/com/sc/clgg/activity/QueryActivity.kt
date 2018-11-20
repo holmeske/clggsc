@@ -3,7 +3,7 @@ package com.sc.clgg.activity
 import android.os.Bundle
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 
 class QueryActivity : BaseImmersionActivity() {
 

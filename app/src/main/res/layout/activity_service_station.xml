@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/title"
-        layout="@layout/view_titlebar_blue"/>
+        layout="@layout/view_titlebar"/>
 
     <TextView
         android:id="@+id/tv_query_by_position"

@@ -8,7 +8,7 @@ import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.util.setTextChangeListener
 import kotlinx.android.synthetic.main.activity_nick_name.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.textColor
 
 class NickNameActivity : BaseImmersionActivity() {

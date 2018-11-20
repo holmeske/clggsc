@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.OnPickListener;
 import com.sc.clgg.bean.CertificationInfo;
-import com.sc.clgg.dialog.CarTypeDialog;
+import com.sc.clgg.dialog.CarAttributeDialog;
 import com.sc.clgg.tool.helper.LogHelper;
 
 import java.io.File;
@@ -156,25 +156,9 @@ public class VehicleInfoView extends ConstraintLayout {
 
         LogHelper.e("car.getVehicleLicenseImg() = " + car.getVehicleLicenseImg());
         setVehicleLicense(car.getVehicleLicenseImg());
-//        iv_vehicle_license.setImageBitmap(BitmapFactory.decodeFile(car.getVehicleLicenseImg()));
         return this;
     }
 
-    public void cleanVehicleInfo() {
-//            tv_title.setText("输入车辆信息");
-//
-//            et_vehicle_no.setText(car.getCarNo());
-//            et_vehicle_vin.setText(car.getVinCode());
-//            et_vehicle_master.setText(car.getCarOwner());
-//            et_vehicle_load.setText(car.getCarWeight());
-//            tv_vehicle_type.setText(car.getCarType());
-//            tv_vehicle_use_type.setText(car.getFunction());
-//            et_vehicle_engine_no.setText(car.getEngineNumber());
-//            tv_vehicle_color.setText(car.getCarColor());
-//            tv_vehicle_brand_color.setText(car.getCarNoColor());
-//
-//            Glide.with(getContext()).load(new File(car.getVehicleLicenseImg())).into(iv_vehicle_license);
-    }
 
     public void setVehicleLicense(String filePath) {
         vehicleLicense = filePath;
@@ -247,8 +231,8 @@ public class VehicleInfoView extends ConstraintLayout {
 
 
     private void initListener(Context context) {
-        iv_vehicle_type_des.setOnClickListener(v -> {new CarTypeDialog(context).show(); });
-        iv_vehicle_use_type_des.setOnClickListener(v -> {new CarTypeDialog(context).show(); });
+        iv_vehicle_type_des.setOnClickListener(v -> {new CarAttributeDialog(context,"type").show(); });
+        iv_vehicle_use_type_des.setOnClickListener(v -> {new CarAttributeDialog(context,"function").show(); });
 
         iv_folding.setOnClickListener(new OnClickListener() {
             @Override

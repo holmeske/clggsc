@@ -8,7 +8,7 @@
     android:background="@color/bg"
     tools:context=".activity.MyCardActivity">
 
-    <include layout="@layout/view_titlebar_blue"/>
+    <include layout="@layout/view_titlebar"/>
 
     <View
         android:id="@+id/v_1"
@@ -29,9 +29,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:padding="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_2"/>
 
     <TextView
@@ -103,4 +102,27 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_car_type_str"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_car_type_str"/>
+
+    <TextView
+        android:id="@+id/tv_apply_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="我的ETC卡申请"
+        android:textColor="@color/_4285f4"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <View
+        android:id="@+id/v_point"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/point_red"
+        app:layout_constraintLeft_toRightOf="@id/tv_apply_state"
+        app:layout_constraintTop_toTopOf="@id/tv_apply_state"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

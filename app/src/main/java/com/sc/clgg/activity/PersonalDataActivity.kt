@@ -11,7 +11,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.util.setRoundedCornerPicture
 import com.sc.clgg.util.showTakePhotoWithCrop
 import kotlinx.android.synthetic.main.activity_personal_data.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.devio.takephoto.model.TResult
 import org.jetbrains.anko.toast
 import retrofit2.Call

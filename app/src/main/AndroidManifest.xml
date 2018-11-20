@@ -263,7 +263,6 @@
         </activity>
         <activity
             android:name=".activity.CommentActivity"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateVisible|adjustResize">
         </activity>
@@ -313,6 +312,12 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".activity.SubmitApplicationActivity">
+        </activity>
+        <activity android:name=".activity.CardIntroduceActivity">
+        </activity>
+        <activity android:name=".activity.ApplyStateActivity">
+        </activity>
+        <activity android:name=".activity.CardDetailActivity">
         </activity>
     </application>
 

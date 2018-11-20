@@ -4,7 +4,7 @@
                                                    android:layout_height="match_parent"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/view_titlebar_blue"/>
+    <include layout="@layout/view_titlebar"/>
 
     <WebView
         app:layout_constraintTop_toBottomOf="@id/titlebar"

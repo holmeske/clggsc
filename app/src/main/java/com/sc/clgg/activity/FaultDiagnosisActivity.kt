@@ -19,7 +19,7 @@ import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.setTextChangeListener
 import kotlinx.android.synthetic.main.activity_fault_diagnosis.*
 import kotlinx.android.synthetic.main.dialog_select_vehicle.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.toast
 import retrofit2.Call

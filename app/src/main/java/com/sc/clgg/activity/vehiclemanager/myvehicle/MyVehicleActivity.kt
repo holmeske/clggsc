@@ -9,7 +9,7 @@ import com.sc.clgg.bean.Vehicle
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.ActivityHelper
 import kotlinx.android.synthetic.main.activity_my_vehicle.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import retrofit2.Call
 import retrofit2.Response
 

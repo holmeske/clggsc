@@ -1,6 +1,8 @@
 package com.sc.clgg.activity.vehiclemanager.myvehicle;
 
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.text.TextUtils;
 import android.text.method.ReplacementTransformationMethod;
 import android.widget.EditText;
@@ -10,6 +12,7 @@ import com.sc.clgg.R;
 import com.sc.clgg.activity.TakePhotoActivity;
 import com.sc.clgg.bean.Check;
 import com.sc.clgg.retrofit.RetrofitHelper;
+import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.util.PotatoKt;
 
 import org.devio.takephoto.model.TResult;
@@ -65,6 +68,12 @@ public class AddVehicleActivity extends TakePhotoActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     /**
      * 识别行驶证
      */
@@ -78,24 +87,31 @@ public class AddVehicleActivity extends TakePhotoActivity {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 hideProgressDialog();
-                Map<String, Object> allMap = response.body();
-                if (allMap.containsKey("success") && (boolean) allMap.get("success")) {
-                    Map<String, Object> identifyMap = (Map<String, Object>) allMap.get("identify");
+                try {
+                    Map<String, Object> allMap = response.body();
+                    if (allMap.containsKey("success") && (boolean) allMap.get("success")) {
+                        Map<String, Object> identifyMap = (Map<String, Object>) allMap.get("identify");
 
-                    if (identifyMap.containsKey("words_result")) {
-                        Map<String, Object> resultMap = (Map<String, Object>) identifyMap.get("words_result");
 
-                        et_car_no.setText(((Map<String, String>) resultMap.get("号牌号码")).get("words"));
-                        et_car_vin.setText(((Map<String, String>) resultMap.get("车辆识别代号")).get("words"));
+                        if (identifyMap.containsKey("words_result")) {
 
-                        scan = "1";
-                        carType = ((Map<String, String>) resultMap.get("车辆类型")).get("words");
-                        carOwner = ((Map<String, String>) resultMap.get("所有人")).get("words");
-                        address = ((Map<String, String>) resultMap.get("住址")).get("words");
-                        engineNumber = ((Map<String, String>) resultMap.get("发动机号码")).get("words");
-                        registrationDate = ((Map<String, String>) resultMap.get("注册日期")).get("words");
-                        carLicenceDate = ((Map<String, String>) resultMap.get("发证日期")).get("words");
+                            Map<String, Object> resultMap = (Map<String, Object>) identifyMap.get("words_result");
+
+                            et_car_no.setText(((Map<String, String>) resultMap.get("号牌号码")).get("words"));
+                            et_car_vin.setText(((Map<String, String>) resultMap.get("车辆识别代号")).get("words"));
+
+                            scan = "1";
+                            carType = ((Map<String, String>) resultMap.get("车辆类型")).get("words");
+                            carOwner = ((Map<String, String>) resultMap.get("所有人")).get("words");
+                            address = ((Map<String, String>) resultMap.get("住址")).get("words");
+                            engineNumber = ((Map<String, String>) resultMap.get("发动机号码")).get("words");
+                            registrationDate = ((Map<String, String>) resultMap.get("注册日期")).get("words");
+                            carLicenceDate = ((Map<String, String>) resultMap.get("发证日期")).get("words");
+                        }
+
                     }
+                } catch (Exception e) {
+                    LogHelper.e(e);
                 }
             }
 

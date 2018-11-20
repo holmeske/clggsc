@@ -21,7 +21,7 @@ import com.sc.clgg.util.RecycleViewHelper
 import com.sc.clgg.util.statusBarHeight
 import com.sc.clgg.widget.AreaPopHelper
 import kotlinx.android.synthetic.main.activity_service_station.*
-import kotlinx.android.synthetic.main.view_titlebar_blue.*
+import kotlinx.android.synthetic.main.view_titlebar.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
