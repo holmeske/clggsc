@@ -8,11 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sc.clgg.R
-import com.sc.clgg.activity.my.MyMessageActivity
-import com.sc.clgg.activity.my.userinfo.PersonalDataActivity
-import com.sc.clgg.activity.my.SetActivity
+import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.activity.WebActivity
+import com.sc.clgg.activity.my.MyMessageActivity
 import com.sc.clgg.activity.my.MyVehicleActivity
+import com.sc.clgg.activity.my.SetActivity
+import com.sc.clgg.activity.my.userinfo.PersonalDataActivity
 import com.sc.clgg.bean.IsNotReadInfo
 import com.sc.clgg.bean.PersonalData
 import com.sc.clgg.config.ConstantValue
@@ -35,9 +36,7 @@ import retrofit2.Response
  * @date：2018/5/29 11:51
  */
 class MyFragment : BaseFragment() {
-    private var DriverCircleType: Boolean = false
-    private var News: Boolean = false
-    private var Activities: Boolean = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my, container, false)
     }
@@ -49,13 +48,9 @@ class MyFragment : BaseFragment() {
             title.setPadding(0, 0, 0, 0)
             title.layoutParams.height = MeasureHelper.dp2px(activity, 64f) - activity!!.statusBarHeight()
         }
+
         v_0.setOnClickListener { ConfigUtil().isLogined(activity!!) }
-        v_1.setOnClickListener {
-            if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, MyMessageActivity::class.java)
-                    .putExtra("DriverCircleType", DriverCircleType)
-                    .putExtra("News", News)
-                    .putExtra("Activities", Activities))
-        }
+        v_1.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, MyMessageActivity::class.java)) }
         item_my_car.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, MyVehicleActivity::class.java)) }
         item_real_name.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "实名认证", ConstantValue.REAL_NAME_AUTHENTICATION) }
         item_wallet.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "我的钱包", ConstantValue.WALLET_ENTRANCE) }
@@ -82,7 +77,12 @@ class MyFragment : BaseFragment() {
         LogHelper.e("onResume() --->我的")
         super.onResume()
         if (!ConfigUtil().userid.isEmpty()) {
-            getUserInfo()
+            activity.apply {
+                this as MainActivity
+                if (currenMainTabIndex == 4) {
+                    getUserInfo()
+                }
+            }
         } else {
             iv_head.setImageResource(R.drawable.ic_launcher)
             tv_nickname.text = "请登录"
@@ -155,22 +155,16 @@ class MyFragment : BaseFragment() {
             override fun onFailure(call: Call<IsNotReadInfo>?, t: Throwable?) {
                 v_point.visibility = View.GONE
                 activity?.toast(R.string.network_anomaly)
-
             }
 
             override fun onResponse(call: Call<IsNotReadInfo>?, response: Response<IsNotReadInfo>?) {
                 response?.body()?.let {
-                    DriverCircleType = it.DriverCircleType
-                    News = it.News
-                    Activities = it.Activities
-
                     if (it.DriverCircleType || it.News || it.Activities) {
                         v_point.visibility = View.VISIBLE
                     } else {
                         v_point.visibility = View.GONE
                     }
                 }
-
             }
         })
     }

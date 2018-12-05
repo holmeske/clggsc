@@ -16,7 +16,6 @@
 
     <dimen name="length_1px">1px</dimen>
     <dimen name="length_1">1dp</dimen>
-    <dimen name="length_4">4dp</dimen>
     <dimen name="length_6">6dp</dimen>
     <dimen name="length_8">8dp</dimen>
     <dimen name="length_10">10dp</dimen>

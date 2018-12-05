@@ -10,18 +10,9 @@
     <color name="speed">#1a9a1f</color>
     <color name="park">#ea6c19</color>
     <color name="offline">#666666</color>
-
-
-    <color name="split_line">#ffd9d9d9</color>
-
-    <color name="text_color">#ff313131</color>
-
-
     <color name="red">#E40010</color>
-
     <color name="grey_e4">#E4E4E4</color><!--主背景色-->
     <color name="color_btn_press">#40000000</color>
-    <color name="bg_app">#EBEBEB</color>
     <color name="color_text_0">#515B5F</color>
 
     <color name="color_first_help_press">#FF794C</color>

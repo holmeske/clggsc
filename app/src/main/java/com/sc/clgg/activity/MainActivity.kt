@@ -24,7 +24,7 @@ class MainActivity : BaseAppCompatActivity() {
     /**
      * 标记当前底部的index
      */
-    private var currenMainTabIndex: Int = 0
+    public var currenMainTabIndex: Int = 0
 
     private var mallFragment: MallFragment? = null
 

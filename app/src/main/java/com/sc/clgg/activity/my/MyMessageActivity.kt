@@ -31,7 +31,6 @@ class MyMessageActivity : BaseImmersionActivity() {
                     .putExtra("title", "活动公告").putExtra("position", "11"))
         }
 
-
     }
 
     override fun onResume() {

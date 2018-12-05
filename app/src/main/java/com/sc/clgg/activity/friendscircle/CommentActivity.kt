@@ -36,8 +36,8 @@ class CommentActivity : AppCompatActivity(), View.OnLayoutChangeListener {
     }
 
     override fun onLayoutChange(v: View?, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
-        LogHelper.e("left = " + left + "  top = " + top + "  right = " + right + "  bottom = " + bottom + "\n"
-                + "oldLeft = " + oldLeft + "  oldTop = " + oldTop + "  oldRight = " + oldRight + "  oldBottom = " + oldBottom)
+//        LogHelper.e("left = " + left + "  top = " + top + "  right = " + right + "  bottom = " + bottom + "\n"
+//                + "oldLeft = " + oldLeft + "  oldTop = " + oldTop + "  oldRight = " + oldRight + "  oldBottom = " + oldBottom)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

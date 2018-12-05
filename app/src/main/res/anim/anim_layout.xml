@@ -3,5 +3,4 @@
                  android:animation="@anim/anim_item"
                  android:animationOrder="normal"
                  android:delay="0.5">
-
 </layoutAnimation>

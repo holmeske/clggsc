@@ -7,11 +7,13 @@ import com.sc.clgg.R
 import com.sc.clgg.activity.TakePhotoActivity
 import com.sc.clgg.adapter.PublishDynamicAdapter
 import com.sc.clgg.bean.Check
+import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.util.showTakePhoto
 import kotlinx.android.synthetic.main.activity_publish_dynamic.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 import org.devio.takephoto.model.TResult
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Response
@@ -79,6 +81,7 @@ class PublishDynamicActivity : TakePhotoActivity() {
                     hideProgressDialog()
                     response?.body()?.let {
                         if (it.success) {
+                            EventBus.getDefault().postSticky(MessageEvent(1))
                             toast("发布动态成功")
                         } else {
                             toast("${it.msg}")

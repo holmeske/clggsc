@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 import com.sc.clgg.R
 import com.sc.clgg.adapter.ViewPagerAdapter
 import com.sc.clgg.base.BaseImmersionActivity
@@ -24,7 +23,6 @@ class PictureActivity : BaseImmersionActivity() {
         iv_back.setOnClickListener { finish() }
 
         val  urls=intent.getStringArrayListExtra("urls")
-        LogHelper.e("urls = "+Gson().toJson(urls))
         val viewList = ArrayList<View>()
         urls?.forEach {
             LogHelper.e(it)

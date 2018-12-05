@@ -40,24 +40,11 @@
 
 
     <string name="custom_service">联系客服</string>
-    <string name="financial_services">金融服务</string>
-    <string name="truck_aftermarket">卡车后市场</string>
-    <string name="financial_aftermarket">金融、后市场产品</string>
-    <string name="oils">油品</string>
     <string name="network_anomaly">服务器开小差了，请稍后重试</string>
     <string name="about_us">    车轮滚滚平台，以车辆运行数据为基础，深度整合后市场金融服务及商品、陕汽集团及产业链合作伙伴的优质资源，线上线下全方位服务广大卡车车主和司机，为其提供一站式综合解决方案。致力于构建与用户、合作伙伴共存共荣、互联互通的卡车物流生态圈。</string>
     <string name="no_more">没有更多啦</string>
     <string name="load_more">加载更多</string>
     <string name="loading">加载中&#8230;</string>
-    <string name="tyre">轮胎</string>
-    <string name="truck_leasing">卡车租赁</string>
-    <string name="etc">ETC</string>
-    <string name="coming_soon">即将上线</string>
-    <string name="fuel_card">加油卡</string>
-    <string name="truck_parts">卡车配件</string>
-    <string name="insurance_installment">保险分期付款</string>
-    <string name="payment_of_freight">运费垫付</string>
-    <string name="etc_road_bridge_fee_payment">ETC路桥费垫付</string>
     Confirm adding the car to your vehicle list?
     <string name="resetpassword2">请再次输入新密码</string>
     <string name="etc_s1">请选择读卡设备类</string>
@@ -90,7 +77,6 @@
     <string name="my_etc_card">我的ETC卡</string>
     <string name="lutong_b">鲁通B卡</string>
 
-    <string name="lutong_a">鲁通A卡</string>
     <string name="car_no_str">卡号:</string>
     <string name="car_number_str">车牌:</string>
     <string name="in_card">换卡</string>

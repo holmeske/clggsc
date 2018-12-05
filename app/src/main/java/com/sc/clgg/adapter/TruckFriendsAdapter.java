@@ -19,8 +19,8 @@ import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.NineGridViewAdapter;
 import com.sc.clgg.R;
 import com.sc.clgg.activity.friendscircle.CommentActivity;
-import com.sc.clgg.activity.login.LoginRegisterActivity;
 import com.sc.clgg.activity.friendscircle.PictureActivity;
+import com.sc.clgg.activity.login.LoginRegisterActivity;
 import com.sc.clgg.bean.Check;
 import com.sc.clgg.bean.TruckFriend;
 import com.sc.clgg.dialog.AlertDialogHelper;
@@ -72,7 +72,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyHolder holder, int position, List<Object> payloads) {
+    public void onBindViewHolder(@NonNull MyHolder holder, int position, List<Object> payloads) {
         super.onBindViewHolder(holder, position, payloads);
 
         if (payloads.isEmpty()) {
@@ -157,24 +157,22 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
         holder.tv_message.post(new Runnable() {
             @Override
             public void run() {
-                int lineCount = holder.tv_message.getLineCount();//行数
+                //行数
+                int lineCount = holder.tv_message.getLineCount();
                 int maxLineCount = holder.tv_message.getMaxLines();
-                LogHelper.e("消息行数：" + lineCount + "   最大行数：" + maxLineCount);
+                //LogHelper.e("消息行数：" + lineCount + "   最大行数：" + maxLineCount);
 
                 if (lineCount > 6) {
                     holder.tv_all_show.setVisibility(View.VISIBLE);
-                    holder.tv_all_show.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (holder.tv_all_show.getText().equals("全文")) {
-                                holder.tv_message.setMaxLines(10);
-                                holder.tv_all_show.setText("收起");
-                            } else {
-                                holder.tv_message.setMaxLines(6);
-                                holder.tv_all_show.setText("全文");
-                            }
-                            holder.tv_message.setText(bean.getMessage() == null ? "" : bean.getMessage());
+                    holder.tv_all_show.setOnClickListener(v -> {
+                        if (holder.tv_all_show.getText().equals("全文")) {
+                            holder.tv_message.setMaxLines(10);
+                            holder.tv_all_show.setText("收起");
+                        } else {
+                            holder.tv_message.setMaxLines(6);
+                            holder.tv_all_show.setText("全文");
                         }
+                        holder.tv_message.setText(bean.getMessage() == null ? "" : bean.getMessage());
                     });
                 } else {
                     holder.tv_all_show.setVisibility(View.GONE);

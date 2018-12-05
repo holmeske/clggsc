@@ -12,8 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.sc.clgg.R
 import com.sc.clgg.activity.friendscircle.CommentActivity
-import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.activity.friendscircle.PublishDynamicActivity
+import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.adapter.TruckFriendsAdapter
 import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.bean.TruckFriend
@@ -31,8 +31,6 @@ import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-
 
 
 /**
@@ -73,17 +71,28 @@ class TruckFriendsFragment : BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: MessageEvent) {
-        updateItem()
+        when (event.value) {
+            0 -> {
+                LogHelper.e("更新单条")
+                updateItem()
+            }
+            1 -> {
+                LogHelper.e("更新全部")
+                noMore = false
+                pageNum = 1
+                loadData()
+            }
+            else -> {
+            }
+        }
     }
 
-    fun updateItem(){
-        LogHelper.e("开始更新")
-        if (CommentActivity.position!=-1&& CommentActivity.commen!=null&& !adapter?.listAll.isNullOrEmpty()){
+    private fun updateItem() {
+        if (CommentActivity.position != -1 && CommentActivity.commen != null && !adapter?.listAll.isNullOrEmpty()) {
             adapter?.listAll!![CommentActivity.position]?.driverCircleCommentList?.add(CommentActivity.commen!!)
             adapter?.notifyItemChanged(CommentActivity.position, 2)
         }
     }
-
 
     override fun onLazyFetchData() {
         super.onLazyFetchData()
@@ -94,11 +103,8 @@ class TruckFriendsFragment : BaseFragment() {
     }
 
     override fun onResume() {
-        LogHelper.e("onResume() --->卡友圈")
         super.onResume()
-        if (userVisibleHint) {
-            loadData()
-        }
+        LogHelper.e("onResume() --->卡友圈")
     }
 
     private fun init() {
@@ -111,16 +117,14 @@ class TruckFriendsFragment : BaseFragment() {
 
         initListener()
 
-        RecycleViewHelper().addListener(recyclerView, object : RecycleViewHelper.OnScrollBottomListener {
-            override fun onBottom() {
-                if (!noMore) {
-                    pageNum++
-                    loadData()
-                } else {
-                    Toast.makeText(activity, getString(R.string.no_more), Toast.LENGTH_SHORT).show()
-                }
+        RecycleViewHelper().addListener(recyclerView) {
+            if (!noMore) {
+                pageNum++
+                loadData()
+            } else {
+                Toast.makeText(activity, getString(R.string.no_more), Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
     private var loadMoreView: TextView? = null
