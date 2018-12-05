@@ -53,6 +53,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/shape_stroke"
         android:hint="请输入密码"
+        android:inputType="textPassword"
         android:maxLength="14"
         android:padding="10dp"
         android:textColorHint="#aaa"

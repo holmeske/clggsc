@@ -1,23 +1,26 @@
 package com.sc.clgg.activity
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import com.sc.clgg.R
-import com.sc.clgg.activity.basic.MainActivity
 import com.sc.clgg.bean.Check
+import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.bean.TruckFriend
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.ConfigUtil
 import kotlinx.android.synthetic.main.activity_comment.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Response
 
-class CommentActivity : Activity(), View.OnLayoutChangeListener {
+
+
+class CommentActivity : AppCompatActivity(), View.OnLayoutChangeListener {
     private var circleMessageId: Int = 0
     private var commentUserId: Int = 0
 
@@ -74,7 +77,8 @@ class CommentActivity : Activity(), View.OnLayoutChangeListener {
                                                 0,
                                                 comment,
                                                 0, ConfigUtil().nickName)
-                                        MainActivity.truckFriendsFragment?.updateItem()
+                                        //MainActivity().truckFriendsFragment?.updateItem()
+                                        EventBus.getDefault().post(MessageEvent(0))
                                     } else {
                                         toast("${it.msg}")
                                     }

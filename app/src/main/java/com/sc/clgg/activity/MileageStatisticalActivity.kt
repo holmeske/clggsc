@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.Utils
 import com.sc.clgg.R
+import com.sc.clgg.R.id.*
 import com.sc.clgg.adapter.MileageStatisticalAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Mileage

@@ -17,9 +17,15 @@ import androidx.core.content.ContextCompat;
  * @date：2018/10/16 15:24
  */
 public class PickerViewHelper {
-    public OptionsPickerView creat(Activity context,List<String> data, OnOptionsSelectListener listener) {
 
-        //条件选择器
+    /**
+     * 条件选择器
+     * @param context 上下文
+     * @param data 数组
+     * @param listener
+     * @return
+     */
+    public OptionsPickerView creat(Activity context,List<String> data, OnOptionsSelectListener listener) {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(context, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {

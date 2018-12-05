@@ -5,9 +5,13 @@ import com.clgg.api.contract.ClggConstants;
 import com.clgg.api.signature.ClggSignature;
 import com.google.gson.Gson;
 import com.sc.clgg.BuildConfig;
+import com.sc.clgg.application.App;
 import com.sc.clgg.application.AppPresenterKt;
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
+import com.sc.clgg.bean.CarNumberList;
+import com.sc.clgg.bean.CardInfo;
+import com.sc.clgg.bean.CardList;
 import com.sc.clgg.bean.CertificationInfo;
 import com.sc.clgg.bean.Check;
 import com.sc.clgg.bean.Consumption;
@@ -30,12 +34,16 @@ import com.sc.clgg.bean.TruckFriend;
 import com.sc.clgg.bean.User;
 import com.sc.clgg.bean.Vehicle;
 import com.sc.clgg.bean.VersionInfoBean;
+import com.sc.clgg.bean.WeChatOrder;
 import com.sc.clgg.config.ConstantValue;
 import com.sc.clgg.config.NetField;
 import com.sc.clgg.tool.helper.LogHelper;
+import com.sc.clgg.tool.helper.RandomHelper;
 import com.sc.clgg.util.ConfigUtil;
+import com.sc.clgg.util.Tools;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +59,8 @@ import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.sc.clgg.config.NetField.PUBLIC_SITE;
 
 /**
  * @author：lvke
@@ -97,7 +107,18 @@ public class RetrofitHelper {
                 .build();
     }
 
+    /**
+     * 微信支付
+     */
+    public retrofit2.Call<WeChatOrder> wxPay(String card_no, String total_fee) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("card_no", card_no);
+        params.put("total_fee", total_fee);
+        params.put("spbill_create_ip", Tools.getIpAddress(App.getInstance().getApplicationContext()));
 
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+        return Retrofit(PUBLIC_SITE).create(RetrofitApi.class).wxPay(json);
+    }
 
     /**
      * 开卡申请
@@ -155,6 +176,7 @@ public class RetrofitHelper {
                 requestFile);
         return part;
     }
+
     /**
      * 身份验证码
      */
@@ -162,12 +184,86 @@ public class RetrofitHelper {
         return Retrofit().create(RetrofitApi.class).identityCertification(phone);
     }
 
-
     /**
      * 我的车辆
      */
     public retrofit2.Call<Vehicle> myVehicle() {
         return Retrofit().create(RetrofitApi.class).myVehicle(getDefaultUserId());
+    }
+
+    /**
+     * 车牌列表
+     */
+    public retrofit2.Call<CarNumberList> getCarNumberList() {
+        return Retrofit().create(RetrofitApi.class).getCarNumberList("35");
+//        return Retrofit().create(RetrofitApi.class).getCarNumberList(new ConfigUtil().getUserid());
+    }
+
+    /**
+     * ETC卡列表
+     */
+    public retrofit2.Call<CardList> getCardList(String cardType, String carNo) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("cardType", cardType);
+        params.put("carNo", carNo);
+        params.put("userCode", "35");
+        //params.put("userCode", new ConfigUtil().getUserid());
+
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+        return Retrofit().create(RetrofitApi.class).getCardList(json);
+    }
+
+    /**
+     * 获取卡信息
+     *
+     * @param storeMoney 卡内余额
+     * @return
+     */
+    public retrofit2.Call<CardInfo> getCardInfo(String cardNo, String storeMoney) {
+        return Retrofit().create(RetrofitApi.class).getCardInfo(cardNo, storeMoney);
+    }
+
+    /**
+     * 齐鲁交通充值
+     */
+    public retrofit2.Call<StatusBean> payMoney(String cardNo, String money) {
+
+        String yyyymmddhhmmss = new SimpleDateFormat("yyyymmddhhmmss", Locale.getDefault()).format(System.currentTimeMillis());
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("cardNo", cardNo);
+        params.put("payTime", yyyymmddhhmmss);
+        params.put("money", money);
+        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("wasteSn", yyyymmddhhmmss + cardNo.substring(cardNo.length() - 4) + RandomHelper.two());
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+
+        return Retrofit().create(RetrofitApi.class).payMoney(json);
+    }
+
+    /**
+     * 齐鲁交通充值确认
+     */
+    public retrofit2.Call<StatusBean> surePayMoney(String cardNo, String money) {
+
+        long time = System.currentTimeMillis();
+
+        String yyyymmddhhmmss = new SimpleDateFormat("yyyymmddhhmmss", Locale.getDefault()).format(time);
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("cardNo", cardNo);
+        params.put("payTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(time));
+        params.put("money", money);
+        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("payType", "18");
+        params.put("payFlag", "0");
+        params.put("tradeno", time + "");
+
+        params.put("wasteSn", yyyymmddhhmmss + cardNo.substring(cardNo.length() - 4) + RandomHelper.two());
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+
+        return Retrofit().create(RetrofitApi.class).surePayMoney(json);
     }
 
     /**

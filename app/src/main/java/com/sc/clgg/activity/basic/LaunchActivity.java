@@ -1,31 +1,26 @@
 package com.sc.clgg.activity.basic;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 
 import com.sc.clgg.R;
-import com.sc.clgg.dialog.AlertDialogHelper;
-import com.sc.clgg.tool.helper.LogHelper;
-import com.yanzhenjie.permission.AndPermission;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * @author lvke
  */
-public class LaunchActivity extends Activity {
+public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestPermission();
+        //requestPermission();
+        init();
     }
 
-    private void requestPermission() {
+    /*private void requestPermission() {
         AndPermission.with(this)
                 .runtime()
                 .permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -62,7 +57,7 @@ public class LaunchActivity extends Activity {
                             }, null);
                 })
                 .start();
-    }
+    }*/
 
     private void init() {
         startActivity(new Intent(this, MainActivity.class));

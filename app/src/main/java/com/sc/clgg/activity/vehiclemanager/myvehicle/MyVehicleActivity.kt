@@ -39,11 +39,11 @@ class MyVehicleActivity : BaseImmersionActivity() {
         loadData()
     }
 
-    private var call: Call<Vehicle>? = null
+    private var http: Call<Vehicle>? = null
 
     private fun loadData() {
-        call = RetrofitHelper().myVehicle()
-        call?.enqueue(object : retrofit2.Callback<Vehicle> {
+        http = RetrofitHelper().myVehicle()
+        http?.enqueue(object : retrofit2.Callback<Vehicle> {
             override fun onFailure(call: Call<Vehicle>?, t: Throwable?) {
 
             }
@@ -64,7 +64,7 @@ class MyVehicleActivity : BaseImmersionActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        call?.cancel()
+        http?.cancel()
     }
 
 }

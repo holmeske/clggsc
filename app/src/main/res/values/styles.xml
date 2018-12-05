@@ -1,4 +1,22 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--全屏加透明-->
+    <style name="TranslucentFullScreenTheme" parent="FullScreenTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!--全屏-->
+    <style name="FullScreenTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <!--透明，有任务栏电量时间等-->
+    <style name="NoTitleTranslucentTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <!--充值取消闪屏问题-->
     <style name="noStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@color/transparent</item>
@@ -24,8 +42,13 @@
         <item name="android:windowFullscreen">true</item>
         <!-- <item name="android:windowIsTranslucent">true</item> --> <!-- 透明背景不要了 -->
     </style>
+
     <style name="bg_transparent">
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="cardDetailAppearance">
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="MyTabLayoutTextAppearance">

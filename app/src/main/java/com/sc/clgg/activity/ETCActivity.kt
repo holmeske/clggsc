@@ -1,37 +1,31 @@
 package com.sc.clgg.activity
 
 import android.os.Bundle
-import android.os.Looper
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sc.clgg.R
 import com.sc.clgg.adapter.ETCAdapter
-import com.sc.clgg.dialog.UndevelopedHintDialog
+import com.sc.clgg.base.BaseImmersionActivity
 import kotlinx.android.synthetic.main.activity_etc.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 
-class ETCActivity : AppCompatActivity() {
+class ETCActivity : BaseImmersionActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_etc)
 
-//        init()
-        val dialog = UndevelopedHintDialog(this@ETCActivity)
+        /*val dialog = UndevelopedHintDialog(this@ETCActivity)
         dialog.show()
         dialog.findViewById<View>(R.id.iv_2).setOnClickListener { dialog.dismiss() }
-        dialog.setOnDismissListener { finish() }
+        dialog.setOnDismissListener { finish() }*/
+        init()
     }
 
     override fun onResume() {
         super.onResume()
-        Looper.myQueue().addIdleHandler {
-            init()
-            false
-        }
     }
 
     private fun init() {

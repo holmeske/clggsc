@@ -50,11 +50,11 @@ public final class MapUtil {
 
             // 添加百度地图
             if ("百度地图".equals(info.getAppname()) && "com.baidu.BaiduMap".equals(info.getPackagename())) {
-                list.add(new Service("百度地图", R.drawable.baidu_map));
+                list.add(new Service(mActivity.getString(R.string.baidu_map), R.drawable.baidu_map));
             }
             // 添加高德地图  18 9 499 2 4 7 14
             if ("高德地图".equals(info.getAppname()) && "com.autonavi.minimap".equals(info.getPackagename())) {
-                list.add(new Service("高德地图", R.drawable.gaode_map));
+                list.add(new Service(mActivity.getString(R.string.amap), R.drawable.gaode_map));
             }
 
         }

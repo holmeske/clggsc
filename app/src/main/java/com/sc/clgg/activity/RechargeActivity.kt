@@ -8,6 +8,7 @@ import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_recharge.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 
+/*ETC 充值圈存*/
 class RechargeActivity : BaseImmersionActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

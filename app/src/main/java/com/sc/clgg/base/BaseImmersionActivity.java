@@ -1,6 +1,7 @@
 package com.sc.clgg.base;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -42,10 +43,16 @@ public class BaseImmersionActivity extends BaseAppCompatActivity {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                 findViewById(R.id.titlebar_top).setVisibility(View.GONE);
             } else {
-                findViewById(R.id.titlebar_top)
-                        .setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, statusBarHeight(this)));
+                findViewById(R.id.titlebar_top).setLayoutParams(
+                        new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, statusBarHeight(this)));
             }
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        ImmersionBar.with(this).init();
     }
 
     @Override

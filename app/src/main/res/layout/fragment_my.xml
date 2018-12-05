@@ -139,7 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:item_divider_top="true"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:item_icon="@drawable/mine_icon_wallet"
                 app:item_text="我的钱包"
                 app:layout_constraintTop_toBottomOf="@id/item_real_name"/>
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:item_divider_bottom="true"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:item_icon="@drawable/mine_icon_nocar"
                 app:item_text="无车承运人"
                 app:layout_constraintTop_toBottomOf="@id/item_wallet"/>
@@ -159,13 +159,13 @@
                 android:id="@+id/v_nocar_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@id/item_nocar"/>
 
             <View
                 android:id="@+id/v_nocar_divider"
                 android:layout_width="@dimen/divider_line"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_height="0dp"
                 android:background="@color/divider_line"
                 app:layout_constraintBottom_toBottomOf="@id/v_nocar_bottom"
@@ -181,7 +181,7 @@
                 android:drawablePadding="10dp"
                 android:gravity="center"
                 android:paddingStart="50dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:paddingEnd="50dp"
                 android:text="运营"
                 android:textColor="@color/_444"
@@ -210,7 +210,6 @@
                 android:id="@+id/item_personal_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 app:item_divider_bottom="true"
                 app:item_icon="@drawable/mine_ico_perdata"
                 app:item_text="@string/personal_data"

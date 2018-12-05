@@ -3,18 +3,14 @@ package com.sc.clgg.activity.basic
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.gyf.barlibrary.ImmersionBar
 import com.sc.clgg.R
 import com.sc.clgg.activity.fragment.*
 import com.sc.clgg.adapter.FragmentAdapter
+import com.sc.clgg.base.BaseAppCompatActivity
 import com.sc.clgg.bean.Banner
-import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.dialog.ExitDialog
 import kotlinx.android.synthetic.main.activity_main.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -22,7 +18,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @date：2018/2/27 11:08
  */
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseAppCompatActivity() {
     private lateinit var textViews: List<TextView>
 
     /**
@@ -30,11 +26,7 @@ class MainActivity : AppCompatActivity() {
      */
     private var currenMainTabIndex: Int = 0
 
-    companion object {
-        var truckFriendsFragment: TruckFriendsFragment? = null
-
-        var mallFragment: MallFragment? = null
-    }
+    private var mallFragment: MallFragment? = null
 
     var bannerData: ArrayList<Banner.Bean>? = null
 
@@ -43,9 +35,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewpager?.offscreenPageLimit = 5
-        truckFriendsFragment = TruckFriendsFragment()
         mallFragment = MallFragment()
-        viewpager?.adapter = FragmentAdapter(supportFragmentManager, listOf(HomeFragment(), CarNetFragment(), mallFragment, truckFriendsFragment, MyFragment()))
+        viewpager?.adapter = FragmentAdapter(supportFragmentManager, listOf(HomeFragment(), CarNetFragment(), mallFragment, TruckFriendsFragment(), MyFragment()))
 
         textViews = listOf(tv_home, tv_car_net, tv_mall, tv_truck_circle, tv_my)
 
@@ -73,20 +64,6 @@ class MainActivity : AppCompatActivity() {
         viewpager?.setCurrentItem(i, false)
         currenMainTabIndex = i
         showTab(i, textViews)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onStop() {
-        EventBus.getDefault().unregister(this)
-        super.onStop()
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: MessageEvent) {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

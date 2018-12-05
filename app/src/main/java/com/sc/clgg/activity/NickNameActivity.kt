@@ -3,6 +3,7 @@ package com.sc.clgg.activity
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputFilter
+import android.text.method.DigitsKeyListener
 import android.view.View
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
@@ -37,6 +38,7 @@ class NickNameActivity : BaseImmersionActivity() {
             }
             type.equals("invite") -> {
                 initTitle("设置邀请码")
+                et.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
                 et.setText(intent.getStringExtra("invite"))
             }
         }

@@ -11,32 +11,41 @@
 
     <View
         android:id="@+id/v"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:background="@color/divider_line"/>
 
     <TextView
-        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white"
         android:gravity="center"
         android:text="位置分享"
-        android:textColor="#444"
+        android:textColor="@color/_444"
         android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:background="@color/divider_line"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/tv_wechat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="15sp"
             android:drawableTop="@drawable/share_pic_wechat"
             android:gravity="center"
             android:text="微信好友"
@@ -48,7 +57,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="15sp"
             android:drawableTop="@drawable/share_pic_fricircle"
             android:gravity="center"
             android:text="朋友圈"
@@ -60,13 +68,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="15sp"
             android:drawableTop="@drawable/share_pic_qq"
             android:gravity="center"
             android:text="QQ好友"
             android:textColor="#666"
             android:textSize="15sp"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line"
+        android:background="@color/divider_line"/>
 
     <TextView
         android:id="@+id/tv_cancel"

@@ -2,6 +2,9 @@ package com.sc.clgg.retrofit;
 
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
+import com.sc.clgg.bean.CarNumberList;
+import com.sc.clgg.bean.CardInfo;
+import com.sc.clgg.bean.CardList;
 import com.sc.clgg.bean.Check;
 import com.sc.clgg.bean.Consumption;
 import com.sc.clgg.bean.ConsumptionDetail;
@@ -23,6 +26,7 @@ import com.sc.clgg.bean.TruckFriend;
 import com.sc.clgg.bean.User;
 import com.sc.clgg.bean.Vehicle;
 import com.sc.clgg.bean.VersionInfoBean;
+import com.sc.clgg.bean.WeChatOrder;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +48,37 @@ import retrofit2.http.Query;
  */
 
 public interface RetrofitApi {
+
+//    @POST("etc/cardApply/loadMoney")
+//    Call<CardList> getCardList(@Body RequestBody json);
+//
+//    @POST("etc/cardApply/sureLoadMoney")
+//    Call<CardList> getCardList(@Body RequestBody json);
+
+    @POST("etc/cardApply/cardList")
+    Call<CardList> getCardList(@Body RequestBody json);
+
+    @GET("etc/cardApply/getCarNoByUserCode")
+    Call<CarNumberList> getCarNumberList(@Query("userCode") String userCode);
+
+    @POST("etc/cardApply/payMoney")
+    Call<StatusBean> payMoney(@Body RequestBody json);
+
+    @POST("etc/cardApply/surePayMoney")
+    Call<StatusBean> surePayMoney(@Body RequestBody json);
+
+    @GET("etc/cardApply/getCardInfoByQL")
+    Call<CardInfo> getCardInfo(@Query("cardNo") String cardNo, @Query("storeMoney") String storeMoney);
+
+    @GET("etc/cardApply/getVerificationCode")
+    Call<StatusBean> identityCertification(@Query("phone") String phone);
+
+    @Multipart
+    @POST("etc/cardApply/apply")
+    Call<Check> apply(@Part List<MultipartBody.Part> parts);
+
+    @POST("wxpay/preOrder")
+    Call<WeChatOrder> wxPay(@Body RequestBody json);
 
     @GET("vehicleInfo/list")
     Call<Vehicle> myVehicle(@Query("userCode") String userCode);
@@ -180,12 +215,5 @@ public interface RetrofitApi {
 
     @POST(".")
     Call<VersionInfoBean> versionInfo(@Body RequestBody json);
-
-    @GET("etc/cardApply/getVerificationCode")
-    Call<StatusBean> identityCertification(@Query("phone") String phone);
-
-    @Multipart
-    @POST("etc/cardApply/apply")
-    Call<Check> apply(@Part List<MultipartBody.Part> parts);
 
 }

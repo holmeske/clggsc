@@ -8,6 +8,73 @@ import kotlinx.android.parcel.Parcelize
  * @author：lvke
  * @date：2018/10/16 17:22
  */
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class CarNumberList(var code: Int = 0,
+                         var success: Boolean = false,
+                         var msg: String? = "",
+                         var etcCardApplyList: ArrayList<String>?
+) : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class CardInfo(var code: Int = 0,
+                    var success: Boolean = false,
+                    var msg: String? = "",
+                    var RQcMoney: String? = "",
+                    var RVLP: String? = "",
+                    var RAdjust: String? = ""
+) : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class CardList(var code: Int = 0,
+                    var success: Boolean = false,
+                    var msg: String? = "",
+                    var etcCardApplyList: ArrayList<Card>? = ArrayList()
+) : Parcelable {
+    @Parcelize
+    data class Card(
+            //1：集团A卡；2：个人A卡；3：记名B卡；4：不记名B卡
+            var cardType: String? = "",
+            var vlp: String? = "",
+            var cardId: String? = ""
+    ) : Parcelable
+}
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class WeChatOrder(var code: Int = 0,
+                       var success: Boolean = false,
+                       var msg: String? = "",
+                       var data: Data? = null
+) : Parcelable {
+    @Parcelize
+    data class Data(
+            var nonce_str: String? = "",
+            var appid: String? = "",
+            var sign: String? = "",
+            var trade_type: String? = "",
+            var return_msg: String? = "",
+            var result_code: String? = "",
+            var mch_id: String? = "",
+            var return_code: String? = "",
+            var prepay_id: String? = ""
+    ) : Parcelable
+}
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class TrafficDetail(var consumeTime: String? = "",
+                         var consumeAmount: String? = "",
+                         var cardBalance: String? = "",
+                         var trafficInterval: String? = "",
+                         var entranceTrafficTime: String? = "",
+                         var exportTrafficTime: String? = "",
+                         var settlementProvince: String? = ""
+) : Parcelable
+
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class Card(var type: String? = "",

@@ -1,14 +1,16 @@
 package com.sc.clgg.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sc.clgg.R;
+import com.sc.clgg.activity.PreRechargeActivity;
 import com.sc.clgg.adapter.MyCardAdapter.MyHolder;
-import com.sc.clgg.bean.Card;
+import com.sc.clgg.bean.CardList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +23,28 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date：2018/10/16 16:56
  */
 public class MyCardAdapter extends RecyclerView.Adapter<MyHolder> {
-    List<Card> data = new ArrayList<>();
+    private List<CardList.Card> data = new ArrayList<>();
     private Context mContext;
+    private boolean click;
 
-    public void refresh(List<Card> data) {
-        this.data = data;
+    public void notifyItemRangeChanged(List<CardList.Card> list) {
+        data.addAll(list);
+        notifyItemRangeChanged(data.size(), list.size());
+    }
+
+    public void setItemEnable(boolean click) {
+        this.click = click;
+    }
+
+    public void refresh(List<CardList.Card> list) {
+        if (list != null) {
+            this.data = list;
+            notifyDataSetChanged();
+        }
+    }
+
+    public void clean() {
+        data.clear();
         notifyDataSetChanged();
     }
 
@@ -38,9 +57,21 @@ public class MyCardAdapter extends RecyclerView.Adapter<MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        holder.tv_card_type.setText(data.get(position).getType());
-        holder.tv_card.setText(data.get(position).getNo());
-        holder.tv_carno.setText(data.get(position).getNumber());
+        CardList.Card card = data.get(holder.getAdapterPosition());
+        if ("3".equals(card.getCardType())) {
+            holder.tv_card_type.setText("鲁通B卡");
+        } else {
+            holder.tv_card_type.setText("");
+        }
+
+        holder.tv_card.setText(card.getCardId());
+        holder.tv_carno.setText(card.getVlp());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (click) {
+              mContext.startActivity(new Intent(mContext,PreRechargeActivity.class).putExtra("card",card));
+            }
+        });
     }
 
     @Override

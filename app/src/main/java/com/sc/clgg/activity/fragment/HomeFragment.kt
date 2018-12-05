@@ -42,9 +42,9 @@ class HomeFragment : Fragment() {
             title.layoutParams.height = MeasureHelper.dp2px(activity, 64f) - activity!!.statusBarHeight()
         }
         tv_more_car.setOnClickListener { WebActivity.start(activity, "整车", ConstantValue.MORE_CAR) }
-        tv_car_heavy.setOnClickListener { WebActivity.start(activity, "重型卡车", ConstantValue.CAR_HEAVY) }
-        tv_car_medium.setOnClickListener { WebActivity.start(activity, "中型卡车", ConstantValue.CAR_MEDIUM) }
-        tv_car_new.setOnClickListener { WebActivity.start(activity, "纯电动轻卡", ConstantValue.CAR_NEW) }
+        tv_car_heavy.setOnClickListener { WebActivity.start(activity, "整车", ConstantValue.CAR_HEAVY) }
+        tv_car_medium.setOnClickListener { WebActivity.start(activity, "整车", ConstantValue.CAR_MEDIUM) }
+        tv_car_new.setOnClickListener { WebActivity.start(activity, "整车", ConstantValue.CAR_NEW) }
 
         tv_more_truck_goods.setOnClickListener { (activity as MainActivity).checked(2) }
         tv_tire.setOnClickListener { WebActivity.start(activity, "轮胎", ConstantValue.TIRE) }

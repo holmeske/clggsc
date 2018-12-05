@@ -15,7 +15,7 @@ import com.sc.clgg.bean.Service;
 import com.sc.clgg.bean.ServiceStation;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.tool.helper.MeasureHelper;
-import com.sc.clgg.util.DialogUtil;
+import com.sc.clgg.util.DialogHelper;
 import com.sc.clgg.util.MapUtil;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class ServiceStationAdapter extends RecyclerView.Adapter<ServiceStationAd
             ArrayList<Service> list = MapUtil.getMapApp((Activity) mContext);
             if (!list.isEmpty()) {
                 // 显示导航对话框
-                DialogUtil.showCustomDialog((Activity) mContext,
+                DialogHelper.showCustomDialog((Activity) mContext,
                         sb,
                         MeasureHelper.getScreenWidth(App.getInstance()),
                         ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -73,7 +73,7 @@ public class ServiceStationAdapter extends RecyclerView.Adapter<ServiceStationAd
                     telList.add(bean.getTel());
                 }
             }
-            DialogUtil.showTelDialog((Activity) mContext, new ArrayList(new TreeSet(telList)));
+            DialogHelper.showTelDialog((Activity) mContext, new ArrayList(new TreeSet(telList)));
 
         }
     };

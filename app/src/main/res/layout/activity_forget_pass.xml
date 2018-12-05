@@ -55,6 +55,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_stroke"
         android:hint="请输入新密码"
+        android:inputType="textPassword"
         android:maxLength="14"
         android:padding="10dp"
         android:textColorHint="#aaa"

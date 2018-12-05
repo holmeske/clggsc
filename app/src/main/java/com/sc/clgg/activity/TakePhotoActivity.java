@@ -16,6 +16,8 @@ import org.devio.takephoto.permission.InvokeListener;
 import org.devio.takephoto.permission.PermissionManager;
 import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
+import androidx.annotation.NonNull;
+
 public class TakePhotoActivity extends BaseImmersionActivity implements TakePhoto.TakeResultListener, InvokeListener {
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
@@ -39,7 +41,7 @@ public class TakePhotoActivity extends BaseImmersionActivity implements TakePhot
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionManager.handlePermissionsResult(this, type, invokeParam, this);

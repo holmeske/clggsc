@@ -15,6 +15,7 @@ import com.sc.clgg.activity.CommentActivity
 import com.sc.clgg.activity.LoginRegisterActivity
 import com.sc.clgg.activity.PublishDynamicActivity
 import com.sc.clgg.adapter.TruckFriendsAdapter
+import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.bean.TruckFriend
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
@@ -23,10 +24,15 @@ import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.RecycleViewHelper
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_truck_friends.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+
 
 
 /**
@@ -53,6 +59,21 @@ class TruckFriendsFragment : BaseFragment() {
             title_right.layoutParams.height = MeasureHelper.dp2px(activity, 64f) - activity!!.statusBarHeight()
         }
         init()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onMessageEvent(event: MessageEvent) {
+        updateItem()
     }
 
     fun updateItem(){

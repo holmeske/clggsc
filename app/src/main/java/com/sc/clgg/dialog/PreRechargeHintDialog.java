@@ -26,7 +26,7 @@ public class PreRechargeHintDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_confirm_circle);
+        setContentView(R.layout.dialog_pre_recharge);
         setCanceledOnTouchOutside(false);
 
         Window window = getWindow();
@@ -38,10 +38,6 @@ public class PreRechargeHintDialog extends Dialog {
 
     public void setData(double v) {
         ((TextView) findViewById(R.id.tv_des_big)).setText(String.format(getContext().getString(R.string.can_circle_amount), DecimalFormatHelper.formatTwo(v)));
-    }
-
-    public void setConfirmListener(View.OnClickListener listener) {
-        findViewById(R.id.tv_confirm).setOnClickListener(listener);
     }
 
     public void setCancelListener(View.OnClickListener listener) {

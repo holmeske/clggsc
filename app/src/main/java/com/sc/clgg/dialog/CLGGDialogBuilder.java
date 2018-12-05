@@ -130,7 +130,7 @@ public class CLGGDialogBuilder {
      * Set an icon as supplied by a theme attribute. e.g.
      * android.R.attr.alertDialogIcon
      *
-     * @param attrId ID of a theme attribute that points to a drawable resource.
+     * @param attrId id of a theme attribute that points to a drawable resource.
      */
     public CLGGDialogBuilder setIconAttribute(int attrId) {
         return this;

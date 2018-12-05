@@ -96,20 +96,26 @@ class MyFragment : BaseFragment() {
     private var call: Call<PersonalData>? = null
 
     private fun getUserInfo() {
-        if (TextUtils.isEmpty(ConfigUtil().userid)){
+        if (TextUtils.isEmpty(ConfigUtil().userid)) {
             return
         }
         call = RetrofitHelper().personalData()
         call?.enqueue(object : Callback<PersonalData> {
-            override fun onFailure(call: Call<PersonalData>?, t: Throwable?) {
+            override fun onFailure(call: Call<PersonalData>, t: Throwable?) {
                 activity?.toast(R.string.network_anomaly)
                 iv_head.setDefaultRoundedCornerPicture(activity!!, R.drawable.ic_launcher)
             }
 
-            override fun onResponse(call: Call<PersonalData>?, response: Response<PersonalData>?) {
-                if (!response?.body()?.success!!) {
+            override fun onResponse(call: Call<PersonalData>, response: Response<PersonalData>) {
+                if (!response.isSuccessful) {
                     activity?.toast(R.string.network_anomaly)
                     return
+                }
+                response.body()?.success?.run {
+                    if (!this) {
+                        activity?.toast(R.string.network_anomaly)
+                        return
+                    }
                 }
                 response.body()?.data?.let {
 
@@ -141,7 +147,7 @@ class MyFragment : BaseFragment() {
 
     private var callIsNotReadInfo: Call<IsNotReadInfo>? = null
     private fun isNotReadInfo() {
-        if (TextUtils.isEmpty(ConfigUtil().userid)){
+        if (TextUtils.isEmpty(ConfigUtil().userid)) {
             return
         }
         callIsNotReadInfo = RetrofitHelper().isNotReadInfo

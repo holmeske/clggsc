@@ -83,7 +83,6 @@
     <string name="recharge_amount">充值金额</string>
     <string name="_100_2000_100">(100–2000元之间且满足100的整数倍)</string>
     <string name="other_amount">其他金额&#160;&#160;&#160;&#160;&#160;&#160;¥</string>
-    <string name="yuanxingtong">远行通</string>
     <string name="vehicle_position">车辆定位</string>
     <string name="more">更多</string>
     <string name="car_number">车牌</string>
@@ -108,6 +107,8 @@
     <string name="click_apply_a_card">点击申请A卡</string>
     <string name="click_apply_b_card">点击申请B卡</string>
     <string name="card_b_introduce">鲁通卡B卡(预付费卡)先充值，后消费。卡内记录了资金信息，相当于一个电子钱包，用户通过互联网高速公路收费站时，用预付费卡代替现金支付通行费，资金直接在卡上扣除。预付费卡的使用方式为一卡一车，卡与车辆绑定，可挂失、可注销。</string>
+    <string name="baidu_map">百度地图</string>
+    <string name="amap">高德地图</string>
 
 
 </resources>

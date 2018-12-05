@@ -1,8 +1,8 @@
 package com.sc.clgg.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.sc.clgg.R
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.UmengHelper
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_share.*
 import org.jetbrains.anko.toast
 
 
-class ShareActivity : Activity() {
+class ShareActivity : AppCompatActivity() {
     private var title: String? = ""
     private var content: String? = ""
     private var url: String? = ""

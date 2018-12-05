@@ -3,6 +3,8 @@ package com.sc.clgg.application;
 import android.app.Application;
 import android.content.Context;
 
+import com.android.recharge.ObuInterface;
+
 import androidx.multidex.MultiDex;
 
 
@@ -17,10 +19,13 @@ public class App extends Application {
         return instance;
     }
 
+    public ObuInterface mObuInterface;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(base);
+
     }
 
     @Override
@@ -28,6 +33,9 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         AppPresenterKt.start(this);
+
+        mObuInterface = new ObuInterface(this);
+        mObuInterface.initialize();
     }
 
 }

@@ -24,11 +24,16 @@ import java.util.ArrayList;
  * @date：2018/11/14 15:20
  */
 public class PickerViewHelper {
+
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
 
-
+    /**
+     * 3项联动选择器
+     * @param activity 上下文
+     * @param listener 监听器
+     */
     public void showPickerView(Activity activity, OnSelectListener listener) {// 弹出选择器
 
         OptionsPickerView pvOptions = new OptionsPickerBuilder(activity, new OnOptionsSelectListener() {
@@ -138,4 +143,8 @@ public class PickerViewHelper {
     public interface OnSelectListener {
         void select(String s1, String s2, String s3);
     }
+
+//----------
+
+
 }

@@ -1,7 +1,5 @@
 package com.sc.clgg.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +11,11 @@ import com.sc.clgg.bean.Record;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
- * @author：lvke
- * @date：2018/5/11 11:51
+ * @author lvke
  */
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyHolder> {
     private List<Record> data;
@@ -43,18 +43,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyHolder> 
         holder.mTextView.setText(record.getName());
 
         if (record.isChecked()) {
-            holder.iv_type.setImageResource(record.getPressImg());
+            holder.ivType.setImageResource(record.getPressImg());
         } else {
-            holder.iv_type.setImageResource(record.getNomalImg());
+            holder.ivType.setImageResource(record.getNomalImg());
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.iv_type.setImageResource(record.getPressImg());
-                if (mItemClickListener != null) {
-                    mItemClickListener.click(record.getTypeId() + "", record.getName(), holder.getAdapterPosition());
-                }
+        holder.itemView.setOnClickListener(v -> {
+            holder.ivType.setImageResource(record.getPressImg());
+            if (mItemClickListener != null) {
+                mItemClickListener.click(record.getTypeId() + "", record.getName(), holder.getAdapterPosition());
             }
         });
     }
@@ -75,12 +72,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyHolder> 
     class MyHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
-        private ImageView iv_type;
+        private ImageView ivType;
 
         public MyHolder(View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.tv_type);
-            iv_type = itemView.findViewById(R.id.iv_type);
+            ivType = itemView.findViewById(R.id.iv_type);
         }
 
     }

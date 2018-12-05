@@ -15,11 +15,14 @@ import com.lzy.ninegrid.NineGridView
 import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
 import com.sc.clgg.bean.LocationBean
+import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.service.AppService
 import com.sc.clgg.tool.helper.AMapLocationHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.squareup.leakcanary.LeakCanary
 import com.tencent.bugly.crashreport.CrashReport
+import pub.devrel.easypermissions.AppSettingsDialogHolderActivity
+import pub.devrel.easypermissions.EasyPermissions
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
@@ -35,13 +38,13 @@ fun Application.start() {
     CURRENT_LOCATION = LocationBean()
 
     LogHelper.e("初始化application")
-    AppService.start(this@start)
+    AppService.start(this)
 
     LogHelper.setLogSwitch(BuildConfig.LOG_DEBUG)
 
     NineGridView.setImageLoader(PicassoImageLoader())
     registerActivityLifecycleCallbacks()
-    AMapLocationHelper(this@start, AMapLocationHelper.OnLocationListener { bean -> CURRENT_LOCATION = bean })
+    AMapLocationHelper(this, AMapLocationHelper.OnLocationListener { bean -> CURRENT_LOCATION = bean })
 
     /*if (!BuildConfig.LOG_DEBUG) {
             CrashHandler crashHandler = CrashHandler.getInstance();
@@ -51,12 +54,12 @@ fun Application.start() {
 
     initBugly()
 
-    if (LeakCanary.isInAnalyzerProcess(this@start)) {
+    if (LeakCanary.isInAnalyzerProcess(this)) {
         // This process is dedicated to LeakCanary for heap analysis.
         // You should not init your app in this process.
         return
     }
-    LeakCanary.install(this@start)
+    LeakCanary.install(this)
     // Normal app init code...
 }
 
@@ -79,6 +82,9 @@ private fun Application.registerActivityLifecycleCallbacks() {
 
         override fun onActivityResumed(activity: Activity?) {
             LogHelper.d("activity", "onActivityResumed    " + activity?.localClassName)
+            if (activity is AppSettingsDialogHolderActivity && EasyPermissions.hasPermissions(activity, *ConstantValue.PERMISSION_NEED)) {
+                activity.finish()
+            }
         }
 
         override fun onActivityPaused(activity: Activity?) {

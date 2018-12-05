@@ -10,5 +10,5 @@ import kotlinx.android.parcel.Parcelize
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Service(var NAME: String? = null, var ID: Int = 0) : Parcelable
+data class Service(var name: String? = null, var id: Int = 0) : Parcelable
 

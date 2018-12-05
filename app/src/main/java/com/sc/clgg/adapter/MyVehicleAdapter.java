@@ -57,7 +57,7 @@ public class MyVehicleAdapter extends RecyclerView.Adapter<MyVehicleAdapter.MyHo
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        return new MyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_vehicle, parent, false));
+        return new MyHolder(LayoutInflater.from(mContext).inflate(R.layout.item_my_vehicle, parent, false));
     }
 
     @Override

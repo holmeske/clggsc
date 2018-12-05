@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="10dp"
+              android:layout_marginTop="10dp"
+              android:layout_marginEnd="10dp"
+              android:background="@drawable/bg_white"
+              android:orientation="vertical"
+              android:paddingBottom="20dp">
+
+    <TextView
+        android:id="@+id/tv_consume_time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_consume_time"
+        android:gravity="center_vertical"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:text="圈存时间:  2018-01-21 13:45:21"
+        android:textColor="@color/_ff2423"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_consume_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="圈存金额:  ￥28.00"
+        android:textColor="@color/_666"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_card_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="卡内余额:  ￥100.00"
+        android:textColor="@color/_666"
+        android:textSize="12sp"/>
+</LinearLayout>

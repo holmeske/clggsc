@@ -26,7 +26,7 @@ public class ApplyStateAdapter extends RecyclerView.Adapter<ApplyStateAdapter.My
     private List<ApplyState> dataList = new ArrayList<>();
     private Context mContext;
 
-    public void refresh() {
+    public void clear() {
         dataList.clear();
         notifyDataSetChanged();
     }

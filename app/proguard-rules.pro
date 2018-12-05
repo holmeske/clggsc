@@ -291,3 +291,12 @@
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
 -keepattributes Signature
 #----------umeng----------
+
+#----------etc蓝牙sdk----------
+-keep class etc.obu.** {*;}
+-keep class android.cert.** {*;}
+-keep class android.recharge.** {*;}
+-keep class genvict.bluetooth.manage.** {*;}
+-keep class google.protobuf.** {*;}
+-keep class protobufBle.protobuf.** {*;}
+#----------etc蓝牙sdk----------

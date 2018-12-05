@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="10dp"
+              android:layout_marginTop="10dp"
+              android:layout_marginEnd="10dp"
+              android:background="@drawable/bg_white"
+              android:orientation="vertical"
+              android:paddingBottom="20dp">
+
+    <TextView
+        android:id="@+id/tv_consume_time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_consume_time"
+        android:gravity="center_vertical"
+        android:text="消费时间:  2018-01-21 13:45:21"
+        android:textColor="@color/_ff2423"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_consume_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="消费金额:  ￥28.00"
+        android:textColor="@color/_666"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_card_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="卡内余额:  ￥100.00"
+        android:textColor="@color/_666"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_traffic_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="通行区间:  上海-杭州"
+        android:textColor="@color/_666"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_entrance_traffic_time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="入口通行时间:  2018-01-21 13:45:21"
+        android:textColor="@color/_666"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_export_traffic_time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="出口通行时间:  2018-01-21 13:45:21"
+        android:textColor="@color/_666"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_settlement_province"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="结算省份:  杭州"
+        android:textColor="@color/_666"
+        android:textSize="12sp"/>
+</LinearLayout>

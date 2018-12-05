@@ -38,6 +38,7 @@ public class WebActivity extends BaseImmersionActivity {
 
     private WebView mWebView;
     private ProgressBar mProgressBar;
+    private WebSettings mWebSettings;
 
     public static void start(Context context, String title, String url) {
         if (null == url || url.isEmpty()) {
@@ -52,8 +53,6 @@ public class WebActivity extends BaseImmersionActivity {
         }
         context.startActivity(new Intent(context, WebActivity.class).putExtra("name", title).putExtra("url", url).putExtra("hideTitle", hideTitle));
     }
-
-    private WebSettings mWebSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +74,18 @@ public class WebActivity extends BaseImmersionActivity {
         if (getIntent().getBooleanExtra("hideTitle", false)) {
             findViewById(R.id.titlebar).setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        findViewById(R.id.titlebar_left).setOnClickListener(v -> {
+            if (mWebView.canGoBack()) {
+                mWebView.goBack();
+            } else {
+                finish();
+            }
+        });
     }
 
     private void init() {
