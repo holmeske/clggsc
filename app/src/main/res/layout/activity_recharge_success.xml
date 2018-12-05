@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    tools:context=".activity.RechargeSuccessActivity">
+    tools:context=".activity.etc.RechargeSuccessActivity">
 
     <include layout="@layout/view_read_card"/>
 

@@ -1,9 +1,7 @@
 package com.sc.clgg.activity.presenter;
 
-import android.os.Handler;
 import android.text.TextUtils;
 
-import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.LoginContact;
 import com.sc.clgg.application.App;
 import com.sc.clgg.bean.User;
@@ -40,6 +38,8 @@ public class LoginPresenter {
         new RetrofitHelper().login(username, password).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                mLoginContact.setButtonSuccess();
+
                 User user = response.body();
                 if (!user.getSuccess()) {
                     mLoginContact.onToast(user.getMsg());
@@ -69,53 +69,22 @@ public class LoginPresenter {
 
                     LogHelper.e("history_account = " + SharedPreferencesHelper.SharedPreferences(App.instance).getString("history_account", ""));
 
-                    requestSuccess(bean);
+
+                    new ConfigUtil().setUserInfo(bean);
+                    mLoginContact.jumpOtherActivity();
                 } else {
-                    requestFail(user.getMsg());
+                    if (!TextUtils.isEmpty(user.getMsg())) {
+                        mLoginContact.onToast(user.getMsg());
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                mLoginContact.onError(t.getMessage());
+                mLoginContact.setButtonSuccess();
+                mLoginContact.onError("");
             }
         });
-    }
-
-    private void requestFail(String s) {
-        if (!TextUtils.isEmpty(s)) {
-            mLoginContact.onToast(s);
-        }
-        mLoginContact.setButtonSuccess();
-    }
-
-    private void requestSuccess(UserInfoBean bean) {
-        mLoginContact.setButtonSuccess();
-
-        if (bean != null) {
-            new ConfigUtil().setUserInfo(bean);
-            /*new RetrofitHelper().checkUser(bean.getUserCode()).enqueue(new Callback<Check>() {
-                @Override
-                public void onResponse(Call<Check> call, Response<Check> response) {
-
-                }
-
-                @Override
-                public void onFailure(Call<Check> call, Throwable t) {
-
-                }
-            });*/
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mLoginContact.jumpOtherActivity();
-                }
-            }, 400);
-
-        } else {
-            mLoginContact.onToast(App.instance.getString(R.string.network_anomaly));
-        }
     }
 
 }

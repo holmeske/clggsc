@@ -11,9 +11,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.sc.clgg.R
-import com.sc.clgg.activity.CommentActivity
-import com.sc.clgg.activity.LoginRegisterActivity
-import com.sc.clgg.activity.PublishDynamicActivity
+import com.sc.clgg.activity.friendscircle.CommentActivity
+import com.sc.clgg.activity.login.LoginRegisterActivity
+import com.sc.clgg.activity.friendscircle.PublishDynamicActivity
 import com.sc.clgg.adapter.TruckFriendsAdapter
 import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.bean.TruckFriend

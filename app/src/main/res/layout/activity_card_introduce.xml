@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:orientation="vertical"
-    tools:context=".activity.CardIntroduceActivity">
+    tools:context=".activity.etc.CardIntroduceActivity">
 
     <include layout="@layout/view_titlebar"/>
 

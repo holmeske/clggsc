@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.sc.clgg.application.App;
 
 public class Tools {
+
     public static void callPhone(String telphone, Activity activity) {
         Uri uri = Uri.parse("tel:" + telphone);
         Intent intent = new Intent(Intent.ACTION_DIAL, uri);

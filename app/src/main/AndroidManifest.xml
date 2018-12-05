@@ -17,7 +17,6 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -73,7 +72,6 @@
     <!-- &lt;!&ndash;允许程序访问CellID或WiFi热点来获取粗略的位置&ndash;&gt; -->
     <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
     <!-- 高德地图权限 -->
-
     <application
         android:name=".application.App"
         android:allowBackup="false"
@@ -113,123 +111,123 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.basic.LaunchActivity"
+            android:name=".activity.LaunchActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.basic.MainActivity"
+            android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity
-            android:name=".activity.vehiclemanager.myvehicle.MyVehicleActivity"
+            android:name=".activity.my.MyVehicleActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.vehiclemanager.gps.PositioningDetailActivity"
+            android:name=".activity.vehicle.locate.LocationDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity
-            android:name=".activity.vehiclemanager.gps.PositioningActivity"
+            android:name=".activity.vehicle.locate.LocateActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.vehiclemanager.FinancialAftermarketActivity"
+            android:name=".activity.vehicle.FinancialAftermarketActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.usersettings.AboutUsActivity"
+            android:name=".activity.my.set.AboutUsActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.vehiclemanager.myvehicle.PathRecordActivity"
+            android:name=".activity.vehicle.mileage.PathRecordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.vehiclemanager.myvehicle.AddVehicleActivity"
+            android:name=".activity.my.AddVehicleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name=".activity.basic.WebActivity"
+            android:name=".activity.WebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme"/>
         <activity
-            android:name=".activity.usersettings.ModifyPasswordActivity"
+            android:name=".activity.my.set.ModifyPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme"/>
         <activity
-            android:name=".activity.forgetpassword.ForgetPasswordActivity"
+            android:name=".activity.login.ForgetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme"/>
-        <activity android:name=".activity.ServiceStationActivity">
+        <activity android:name=".activity.vehicle.ServiceStationActivity">
         </activity>
         <activity
-            android:name=".activity.RepairActivity"
+            android:name=".activity.vehicle.RepairActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.RecordActivity"
+            android:name=".activity.vehicle.tally.RecordActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.FaultDiagnosisActivity"
+            android:name=".activity.vehicle.fault.FaultDiagnosisActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity
-            android:name=".activity.MileageStatisticalActivity"
+            android:name=".activity.vehicle.mileage.MileageStatisticalActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.ConsumptionStatisticalActivity"
+            android:name=".activity.vehicle.energy.ConsumptionStatisticalActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.ConsumptionDetailActivity"
+            android:name=".activity.vehicle.energy.ConsumptionDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.StatisticalDetailActivity"
+            android:name=".activity.vehicle.mileage.StatisticalDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.TallyBookActivity"
+            android:name=".activity.vehicle.tally.TallyBookActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.PublishDynamicActivity"
+            android:name=".activity.friendscircle.PublishDynamicActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.PersonalDataActivity"
+            android:name=".activity.my.userinfo.PersonalDataActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.GenderActivity"
+            android:name=".activity.my.userinfo.GenderActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.NickNameActivity"
+            android:name=".activity.my.userinfo.NickNameActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.ModifyAccountActivity"
+            android:name=".activity.my.userinfo.ModifyAccountActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.SetActivity"
+            android:name=".activity.my.SetActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.FeedbackActivity"
+            android:name=".activity.my.set.FeedbackActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.MyMessageActivity"
+            android:name=".activity.my.MyMessageActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.MessageActivity"
+            android:name=".activity.my.NewsActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.LoginRegisterActivity"
+            android:name=".activity.login.LoginRegisterActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.FaultDetailActivity"
+            android:name=".activity.vehicle.fault.FaultDetailActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -263,21 +261,21 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
-            android:name=".activity.ShareActivity"
+            android:name=".activity.vehicle.locate.ShareActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentFullScreenTheme">
         </activity>
         <activity
-            android:name=".activity.CommentActivity"
+            android:name=".activity.friendscircle.CommentActivity"
             android:theme="@style/TranslucentFullScreenTheme"
             android:windowSoftInputMode="stateVisible|adjustResize">
         </activity>
         <activity
-            android:name=".activity.TruckCircleMessageActivity"
+            android:name=".activity.my.DynamicDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.PictureActivity"
+            android:name=".activity.friendscircle.PictureActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -286,44 +284,46 @@
             android:exported="false">
         </service>
 
-        <activity android:name=".activity.InteractiveDetailActivity">
+        <activity android:name=".activity.etc.InteractiveDetailActivity">
         </activity>
-        <activity android:name=".activity.RechargeActivity">
+        <activity android:name=".activity.etc.RechargeActivity">
         </activity>
-        <activity android:name=".activity.ReadCardActivity">
+        <activity android:name=".activity.etc.ReadCardActivity">
         </activity>
-        <activity android:name=".activity.WriteCardActivity">
+        <activity android:name=".activity.etc.WriteCardActivity">
         </activity>
-        <activity android:name=".activity.RechargeSuccessActivity">
+        <activity android:name=".activity.etc.RechargeSuccessActivity">
         </activity>
-        <activity android:name=".activity.ResultNoticeActivity">
+        <activity android:name=".activity.etc.PayResultActivity">
         </activity>
-        <activity android:name=".activity.MyCardActivity">
+        <activity android:name=".activity.etc.MyCardActivity">
         </activity>
-        <activity android:name=".activity.ETCActivity">
+        <activity android:name=".activity.etc.ETCActivity">
         </activity>
-        <activity android:name=".activity.PreRechargeActivity">
+        <activity android:name=".activity.etc.PreRechargeActivity">
         </activity>
-        <activity android:name=".activity.IdentityCertificationActivity">
+        <activity android:name=".activity.etc.IdentityCertificationActivity">
         </activity>
-        <activity android:name=".activity.QueryActivity">
+        <activity android:name=".activity.etc.QueryActivity">
         </activity>
-        <activity android:name=".activity.VehicleCertificationActivity">
+        <activity android:name=".activity.etc.VehicleCertificationActivity">
         </activity>
-        <activity android:name=".activity.InfoCertificationActivity">
+        <activity android:name=".activity.etc.InfoCertificationActivity">
         </activity>
         <activity
-            android:name=".activity.AuditActivity"
+            android:name=".activity.etc.AuditActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.SubmitApplicationActivity">
+        <activity android:name=".activity.etc.SubmitApplyActivity">
         </activity>
-        <activity android:name=".activity.CardIntroduceActivity">
+        <activity android:name=".activity.etc.CardIntroduceActivity">
         </activity>
-        <activity android:name=".activity.ApplyStateActivity">
+        <activity android:name=".activity.etc.ApplyStateActivity">
         </activity>
-        <activity android:name=".activity.CardDetailActivity">
+        <activity android:name=".activity.etc.CardDetailActivity">
+        </activity>
+        <activity android:name=".mvvm.m.LiveDataActivity">
         </activity>
     </application>
 

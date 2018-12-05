@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sc.clgg.R;
-import com.sc.clgg.activity.PreRechargeActivity;
+import com.sc.clgg.activity.etc.PreRechargeActivity;
 import com.sc.clgg.adapter.MyCardAdapter.MyHolder;
 import com.sc.clgg.bean.CardList;
 

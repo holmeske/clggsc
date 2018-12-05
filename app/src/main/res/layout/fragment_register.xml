@@ -89,7 +89,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_invite_code"/>
 
-    <com.sc.clgg.tool.widget.ShapeTextView
+    <com.sc.clgg.widget.ShapeTextView
         android:id="@+id/tv_send"
         android:layout_width="90dp"
         android:layout_height="35dp"

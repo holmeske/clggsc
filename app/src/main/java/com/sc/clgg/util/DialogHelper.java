@@ -14,7 +14,7 @@ import com.sc.clgg.bean.Service;
 import com.sc.clgg.bean.ServiceStation;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.tool.helper.MeasureHelper;
-import com.sc.clgg.view.AppDialog;
+import com.sc.clgg.dialog.AppDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;

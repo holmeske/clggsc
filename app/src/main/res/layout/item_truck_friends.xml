@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="@id/iv_head"
         tools:text="万事屋老班来一打"/>
 
-    <com.sc.clgg.tool.widget.ShapeTextView
+    <com.sc.clgg.widget.ShapeTextView
         android:id="@+id/tv_official"
         android:layout_width="30dp"
         android:layout_height="16dp"

@@ -9,11 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sc.clgg.R;
-import com.sc.clgg.activity.CardDetailActivity;
-import com.sc.clgg.activity.CardIntroduceActivity;
-import com.sc.clgg.activity.MyCardActivity;
-import com.sc.clgg.activity.QueryActivity;
-import com.sc.clgg.activity.RechargeActivity;
+import com.sc.clgg.activity.etc.CardDetailActivity;
+import com.sc.clgg.activity.etc.CardIntroduceActivity;
+import com.sc.clgg.activity.etc.MyCardActivity;
+import com.sc.clgg.activity.etc.QueryActivity;
+import com.sc.clgg.activity.etc.RechargeActivity;
 import com.sc.clgg.adapter.ETCAdapter.MyHolder;
 import com.sc.clgg.tool.helper.MeasureHelper;
 import com.sc.clgg.util.ConfigUtil;

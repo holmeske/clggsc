@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
-import com.sc.clgg.activity.basic.WebActivity
+import com.sc.clgg.activity.WebActivity
 import com.sc.clgg.tool.helper.LogHelper
 import com.youth.banner.Banner
 import com.youth.banner.loader.ImageLoader

@@ -52,6 +52,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import androidx.lifecycle.LiveData;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -272,7 +273,6 @@ public class RetrofitHelper {
     public retrofit2.Call<Banner> getBannerList() {
         return Retrofit().create(RetrofitApi.class).getBannerList();
     }
-
     /**
      * 我的车辆-删除
      */

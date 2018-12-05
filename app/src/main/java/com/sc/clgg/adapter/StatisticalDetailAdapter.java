@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sc.clgg.R;
-import com.sc.clgg.activity.vehiclemanager.myvehicle.PathRecordActivity;
+import com.sc.clgg.activity.vehicle.mileage.PathRecordActivity;
 import com.sc.clgg.bean.MileageDetail;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.util.TimeHelper;

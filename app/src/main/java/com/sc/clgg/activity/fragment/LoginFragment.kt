@@ -10,10 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.sc.clgg.R
 import com.sc.clgg.activity.contact.LoginContact
-import com.sc.clgg.activity.forgetpassword.ForgetPasswordActivity
+import com.sc.clgg.activity.login.ForgetPasswordActivity
 import com.sc.clgg.activity.presenter.LoginPresenter
 import com.sc.clgg.dialog.LoadingDialogHelper
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 
 /**
@@ -27,6 +28,7 @@ class LoginFragment : Fragment(), LoginContact {
     }
 
     override fun onError(msg: String?) {
+        toast(R.string.network_anomaly)
         mLoadingDialogHelper?.dismiss()
     }
 

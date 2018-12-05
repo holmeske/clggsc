@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    tools:context=".activity.SetActivity">
+    tools:context=".activity.my.SetActivity">
 
     <include layout="@layout/view_titlebar"/>
 

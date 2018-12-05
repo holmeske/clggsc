@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titlebar"
         tools:text="2018-05"/>
 
-    <com.sc.clgg.tool.widget.Triangle
+    <com.sc.clgg.widget.Triangle
         android:layout_width="10dp"
         android:layout_height="6dp"
         android:layout_marginLeft="5dp"

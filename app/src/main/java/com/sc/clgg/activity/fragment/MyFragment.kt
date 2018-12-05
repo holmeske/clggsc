@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sc.clgg.R
-import com.sc.clgg.activity.MyMessageActivity
-import com.sc.clgg.activity.PersonalDataActivity
-import com.sc.clgg.activity.SetActivity
-import com.sc.clgg.activity.basic.WebActivity
-import com.sc.clgg.activity.vehiclemanager.myvehicle.MyVehicleActivity
+import com.sc.clgg.activity.my.MyMessageActivity
+import com.sc.clgg.activity.my.userinfo.PersonalDataActivity
+import com.sc.clgg.activity.my.SetActivity
+import com.sc.clgg.activity.WebActivity
+import com.sc.clgg.activity.my.MyVehicleActivity
 import com.sc.clgg.bean.IsNotReadInfo
 import com.sc.clgg.bean.PersonalData
 import com.sc.clgg.config.ConstantValue

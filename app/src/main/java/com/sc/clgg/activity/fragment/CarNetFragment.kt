@@ -9,10 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sc.clgg.R
-import com.sc.clgg.activity.*
 import com.sc.clgg.activity.contact.TruckManageContact
+import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.activity.presenter.TruckManagePresenter
-import com.sc.clgg.activity.vehiclemanager.gps.PositioningActivity
+import com.sc.clgg.activity.vehicle.RepairActivity
+import com.sc.clgg.activity.vehicle.ServiceStationActivity
+import com.sc.clgg.activity.vehicle.energy.ConsumptionStatisticalActivity
+import com.sc.clgg.activity.vehicle.fault.FaultDiagnosisActivity
+import com.sc.clgg.activity.vehicle.locate.LocateActivity
+import com.sc.clgg.activity.vehicle.mileage.MileageStatisticalActivity
+import com.sc.clgg.activity.vehicle.tally.TallyBookActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.VersionInfoBean
 import com.sc.clgg.retrofit.RetrofitHelper
@@ -20,7 +26,7 @@ import com.sc.clgg.tool.helper.ActivityHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.ConfigUtil
-import com.sc.clgg.util.UpdateApkUtil
+import com.sc.clgg.util.UpdateHelper
 import com.sc.clgg.util.setData
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_car_net.*
@@ -67,7 +73,7 @@ class CarNetFragment : Fragment(), TruckManageContact {
         }
 
         hb_vehicle_monitor.setHomeButtonOnClickListener {
-            ActivityHelper.startAcScale(activity, PositioningActivity::class.java)
+            ActivityHelper.startAcScale(activity, LocateActivity::class.java)
         }
         hb_my_vehicle.setHomeButtonOnClickListener {
             ActivityHelper.startAcScale(activity, MileageStatisticalActivity::class.java)
@@ -123,7 +129,7 @@ class CarNetFragment : Fragment(), TruckManageContact {
     override fun getVersionInfo(bean: VersionInfoBean?) {
         val path = """${getExternalStorageDirectory().path}${getDataDirectory()}$separator${activity?.packageName}${getDownloadCacheDirectory()}${separator}clggsc.apk"""
         LogHelper.e(path)
-        bean?.single?.type?.let { UpdateApkUtil().checkUpdateInfo(activity, bean.single?.code, it, bean.single?.url, false) }
+        bean?.single?.type?.let { UpdateHelper().checkUpdateInfo(activity, bean.single?.code, it, bean.single?.url, false) }
     }
 
 }

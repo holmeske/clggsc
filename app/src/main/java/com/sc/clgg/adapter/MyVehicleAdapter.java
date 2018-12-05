@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.CallbackListener;
-import com.sc.clgg.activity.vehiclemanager.gps.PositioningDetailActivity;
+import com.sc.clgg.activity.vehicle.locate.LocationDetailActivity;
 import com.sc.clgg.bean.Check;
 import com.sc.clgg.bean.Location;
 import com.sc.clgg.bean.Vehicle;
@@ -69,7 +69,7 @@ public class MyVehicleAdapter extends RecyclerView.Adapter<MyVehicleAdapter.MyHo
         holder.tv_car_position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, PositioningDetailActivity.class);
+                Intent intent = new Intent(mContext, LocationDetailActivity.class);
                 intent.putExtra("carno", bean.getCarNumber());
                 intent.putExtra("vin", bean.getVinNumber());
                 intent.putParcelableArrayListExtra("array", mCarList);

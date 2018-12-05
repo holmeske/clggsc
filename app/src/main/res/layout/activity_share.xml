@@ -7,7 +7,7 @@
     android:layout_gravity="bottom"
     android:background="@color/transparent"
     android:orientation="vertical"
-    tools:context=".activity.ShareActivity">
+    tools:context=".activity.vehicle.locate.ShareActivity">
 
     <View
         android:id="@+id/v"

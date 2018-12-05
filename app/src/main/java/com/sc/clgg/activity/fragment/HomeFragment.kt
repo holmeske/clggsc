@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sc.clgg.R
-import com.sc.clgg.activity.ConsumptionStatisticalActivity
-import com.sc.clgg.activity.ETCActivity
-import com.sc.clgg.activity.LoginRegisterActivity
-import com.sc.clgg.activity.TallyBookActivity
-import com.sc.clgg.activity.basic.MainActivity
-import com.sc.clgg.activity.basic.WebActivity
-import com.sc.clgg.activity.vehiclemanager.gps.PositioningActivity
+import com.sc.clgg.activity.vehicle.energy.ConsumptionStatisticalActivity
+import com.sc.clgg.activity.etc.ETCActivity
+import com.sc.clgg.activity.login.LoginRegisterActivity
+import com.sc.clgg.activity.vehicle.tally.TallyBookActivity
+import com.sc.clgg.activity.MainActivity
+import com.sc.clgg.activity.WebActivity
+import com.sc.clgg.activity.vehicle.locate.LocateActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.retrofit.RetrofitHelper
@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
         tv_factoring.setOnClickListener { WebActivity.start(activity, "商业保理", ConstantValue.FACTORING) }
         tv_insurance.setOnClickListener { WebActivity.start(activity, "保险经纪", ConstantValue.INSURANCE) }
 
-        tv_vehicle_positioning.setOnClickListener { activity!!.startActivity(PositioningActivity::class.java) }
+        tv_vehicle_positioning.setOnClickListener { activity!!.startActivity(LocateActivity::class.java) }
         tv_consumption_statistical.setOnClickListener { activity!!.startActivity(ConsumptionStatisticalActivity::class.java) }
         tv_tally_book.setOnClickListener { activity!!.startActivity(if (ConfigUtil().userid.isEmpty()) LoginRegisterActivity::class.java else TallyBookActivity::class.java) }
         tv_more.setOnClickListener { (activity as MainActivity).checked(1) }

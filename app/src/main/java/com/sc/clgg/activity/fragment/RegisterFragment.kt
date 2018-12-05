@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sc.clgg.R
-import com.sc.clgg.activity.basic.MainActivity
+import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.activity.contact.LoginContact
 import com.sc.clgg.activity.presenter.LoginPresenter
 import com.sc.clgg.bean.StatusBean
@@ -17,6 +17,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.CheckHelper
 import com.sc.clgg.util.Tools
 import kotlinx.android.synthetic.main.fragment_register.*
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +28,7 @@ class RegisterFragment : Fragment(), LoginContact {
     }
 
     override fun onError(msg: String?) {
+        toast(R.string.network_anomaly)
     }
 
     override fun onToast(msg: String?) {
@@ -108,7 +110,6 @@ class RegisterFragment : Fragment(), LoginContact {
             }
             register(phone, pwd, code, inviteCode)
         }
-
     }
 
     private fun send(phone: String) {
@@ -118,9 +119,10 @@ class RegisterFragment : Fragment(), LoginContact {
             }
 
             override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
-                val statusBean = response.body()
-                if (!statusBean?.status!!) {
-                    Tools.Toast(getString(R.string.network_anomaly))
+                response.body()?.run {
+                    if (!status) {
+                        toast("$msg")
+                    }
                 }
             }
 

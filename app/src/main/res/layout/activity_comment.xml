@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
-    tools:context=".activity.CommentActivity">
+    tools:context=".activity.friendscircle.CommentActivity">
 
     <View
         android:layout_width="match_parent"

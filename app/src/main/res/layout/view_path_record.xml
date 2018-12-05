@@ -35,7 +35,7 @@
             android:textSize="10sp"/>
     </LinearLayout>
 
-    <com.sc.clgg.tool.widget.Triangle
+    <com.sc.clgg.widget.Triangle
         android:layout_width="10dp"
         android:layout_height="6dp"
         app:color="#70000000"

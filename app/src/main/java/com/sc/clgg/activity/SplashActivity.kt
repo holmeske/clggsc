@@ -5,7 +5,7 @@ import android.content.Intent
 import com.google.gson.Gson
 import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
-import com.sc.clgg.activity.basic.LaunchActivity
+import com.sc.clgg.activity.etc.CardDetailActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.bean.Check
@@ -60,6 +60,7 @@ class SplashActivity : BaseImmersionActivity() {
                         toast(R.string.network_anomaly)
                     }
                 })
+
             }
             2 -> {
                 val info = "{\"businessLicenseImg\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/5SJX5)8F0JWG@[KM447E4RF.jpg\",\"cardType\":\"3\",\"certSn\":\"34222419920309133X\",\"etcCardApplyVehicleVoList\":[{\"carColor\":\"红\",\"carNo\":\"沪DA3719\",\"carNoColor\":\"黄\",\"carOwner\":\"上海远行供应链(集团)有限公司\",\"carType\":\"五型货车\",\"carWeight\":\"18000\",\"engineNumber\":\"1614D071069\",\"function\":\"营业货车\",\"imageId\":\"25ba3a2720814c248db4a40129e180a3\",\"vehicleLicenseImg\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/5SJX5)8F0JWG@[KM447E4RF.jpg\",\"vinCode\":\"LZGJDNR18EX030565\"}],\"idcardImgBehind\":\"\",\"idcardImgFront\":\"\",\"invitationCode\":\"000000\",\"linkMobile\":\"18949924714\",\"recipientsAddress\":\"上海 上海市 静安区永和路118弄东方环球企业中心2号楼\",\"recipientsName\":\"吕科\",\"recipientsPhone\":\"18949924714\",\"userName\":\"吕科\",\"userType\":\"2\",\"verificationCode\":\"221599\"}"

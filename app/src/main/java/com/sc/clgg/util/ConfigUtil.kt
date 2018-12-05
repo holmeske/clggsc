@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.text.TextUtils
 import androidx.core.content.edit
-import com.sc.clgg.activity.LoginRegisterActivity
+import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.application.App
 import com.sc.clgg.bean.UserInfoBean
 

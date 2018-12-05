@@ -83,7 +83,7 @@
         android:background="@color/divider_line"
         app:layout_constraintTop_toTopOf="@id/tv_content"/>
 
-    <com.sc.clgg.tool.widget.ShapeTextView
+    <com.sc.clgg.widget.ShapeTextView
         android:id="@+id/tv_type"
         android:layout_width="50dp"
         android:layout_height="16dp"

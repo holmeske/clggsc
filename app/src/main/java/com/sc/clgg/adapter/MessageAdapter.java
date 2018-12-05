@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sc.clgg.R;
-import com.sc.clgg.activity.basic.WebActivity;
+import com.sc.clgg.activity.WebActivity;
 import com.sc.clgg.bean.Message;
 import com.sc.clgg.config.NetField;
 import com.sc.clgg.tool.helper.LogHelper;
-import com.sc.clgg.tool.widget.ShapeTextView;
+import com.sc.clgg.widget.ShapeTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

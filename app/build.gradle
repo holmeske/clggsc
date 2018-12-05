@@ -96,7 +96,6 @@ android {
                 }
             }
         }
-
     }
 }
 
@@ -122,6 +121,7 @@ dependencies {
     implementation('androidx.recyclerview:recyclerview:1.0.0') {
         force = true
     }
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation "junit:junit:$junitLibraryVersion"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
@@ -184,14 +184,24 @@ dependencies {
     implementation files('libs/protobuf-java-2.4.0a.jar')
 
     implementation 'pub.devrel:easypermissions:2.0.0'
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    // alternatively - just ViewModel
+    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version" // use -ktx for Kotlin
+    // alternatively - just LiveData
+    implementation "android.arch.lifecycle:livedata:$lifecycle_version"
+    // alternatively - Lifecycles only (no ViewModel or LiveData).
+    //     Support library depends on this lightweight import
+    implementation "android.arch.lifecycle:runtime:$lifecycle_version"
+
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+    // alternately - if using Java8, use the following instead of compiler
+    implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
+
+    // optional - ReactiveStreams support for LiveData
+    implementation "android.arch.lifecycle:reactivestreams:$lifecycle_version"
+
+    // optional - Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:$lifecycle_version"
 }
-/*configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            if (!requested.name.startsWith("multidex")) {
-                details.useVersion '27.1.1'
-            }
-        }
-    }
-}*/
