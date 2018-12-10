@@ -67,7 +67,7 @@ fun Context.payMoney(cardNo: String?, money: String?) {
     })
 }
 
-private fun Context.surePayMoney(cardNo: String?, money: String?) {
+  fun Context.surePayMoney(cardNo: String?, money: String?) {
     RetrofitHelper().surePayMoney(cardNo, money).enqueue(object : Callback<StatusBean> {
         override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
             response.body()?.let {

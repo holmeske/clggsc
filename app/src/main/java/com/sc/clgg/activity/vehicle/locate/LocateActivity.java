@@ -1,12 +1,14 @@
 package com.sc.clgg.activity.vehicle.locate;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +30,12 @@ import com.sc.clgg.tool.helper.MeasureHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,27 +46,28 @@ import retrofit2.Response;
 public class LocateActivity extends BaseImmersionActivity implements AMap.OnMarkerClickListener, AMap.OnMapLoadedListener {
 
     private MapView map;
-    private ProgressBar mProgressBar;
 
     private boolean isVisible = true;
     private AMap aMap;
-    private ScheduledExecutorService mScheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private Call<Location> call;
 
-    private Location mLocation;
     private ArrayList<Location.Data> array;
+
+    private MutableLiveData<Location> mLiveData = new MutableLiveData<>();
+    private Handler mHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locate);
 
-        mProgressBar = findViewById(R.id.progressBar);
         map = findViewById(R.id.map);
 
         map.onCreate(savedInstanceState);
 
         init();
+
+        mLiveData.observe(this, this::updateView);
     }
 
     @Override
@@ -96,78 +98,90 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
         if (map != null) {
             map.onDestroy();
         }
-        if (mScheduledExecutorService != null) {
-            mScheduledExecutorService.shutdown();
-            mScheduledExecutorService.shutdownNow();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
         }
-        mScheduledExecutorService = null;
-
     }
 
+    @SuppressLint("HandlerLeak")
     protected void init() {
         initTitle("GPS定位");
 
         aMap = map.getMap();
-        aMap.setMapType(AMap.MAP_TYPE_NAVI);//设置地图模式。
-        aMap.getUiSettings().setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);//设置“高德地图”Logo的位置。
-        aMap.getUiSettings().setZoomControlsEnabled(true);//设置缩放按钮是否可见。
-        aMap.getUiSettings().setScrollGesturesEnabled(true);//设置拖拽手势是否可用。
-        aMap.getUiSettings().setScaleControlsEnabled(true);//设置比例尺控件是否可见
-        aMap.getUiSettings().setTiltGesturesEnabled(false);//设置倾斜手势是否可用。
-        aMap.getUiSettings().setRotateGesturesEnabled(false);//设置旋转手势是否可用。
-        aMap.setOnMarkerClickListener(this);//设置marker点击事件监听接口。
+        //设置地图模式。
+        aMap.setMapType(AMap.MAP_TYPE_NAVI);
+        //设置“高德地图”Logo的位置。
+        aMap.getUiSettings().setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
+        //设置缩放按钮是否可见。
+        aMap.getUiSettings().setZoomControlsEnabled(true);
+        //设置拖拽手势是否可用。
+        aMap.getUiSettings().setScrollGesturesEnabled(true);
+        //设置比例尺控件是否可见
+        aMap.getUiSettings().setScaleControlsEnabled(true);
+        //设置倾斜手势是否可用。
+        aMap.getUiSettings().setTiltGesturesEnabled(false);
+        //设置旋转手势是否可用。
+        aMap.getUiSettings().setRotateGesturesEnabled(false);
+        //设置marker点击事件监听接口。
+        aMap.setOnMarkerClickListener(this);
         aMap.moveCamera(CameraUpdateFactory.zoomTo(6));
 
-        mScheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+        mHandler = new Handler() {
             @Override
-            public void run() {
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
                 LogHelper.e("isVisible = " + isVisible);
                 if (isVisible) {
                     loadData();
                 }
+                mHandler.sendEmptyMessageDelayed(0, 10000);
             }
-        }, 0, 10, TimeUnit.SECONDS);
+        };
+        mHandler.sendEmptyMessage(0);
+    }
 
+    private void updateView(Location mLocation) {
+        LogHelper.e("GPS定位");
+        if (mLocation.getSuccess()) {
+            if (mLocation.getData() != null) {
+                List<Location.Data> dataList = mLocation.getData();
+
+                ArrayList<Location.Data> newList = new ArrayList<>();
+                for (Location.Data bean : dataList) {
+                    if (!TextUtils.isEmpty(bean.getLatitude()) && !TextUtils.isEmpty(bean.getLongitude()) && !TextUtils.isEmpty(bean.getStatus())) {
+                        newList.add(bean);
+                    }
+                }
+                array = newList;
+                if (array.size() == 1) {
+                    Intent intent = new Intent(LocateActivity.this, LocationDetailActivity.class);
+                    intent.putExtra("carno", array.get(0).getCarno());
+                    intent.putExtra("vin", array.get(0).getVin());
+                    intent.putParcelableArrayListExtra("array", array);
+                    startActivity(intent);
+                } else {
+                    addMarkersToMap(newList);
+                }
+            }
+        } else {
+            Toast.makeText(LocateActivity.this, mLocation.getMsg(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loadData() {
-        mProgressBar.setVisibility(View.VISIBLE);
+        showProgressDialog();
         call = new RetrofitHelper().location();
         call.enqueue(new Callback<Location>() {
             @Override
-            public void onResponse(@NonNull Call<Location> call, Response<Location> response) {
-                mProgressBar.setVisibility(View.GONE);
-                mLocation = response.body();
-                if (mLocation.getSuccess()) {
-                    if (mLocation.getData() != null) {
-                        List<Location.Data> dataList = mLocation.getData();
-
-                        ArrayList<Location.Data> newList = new ArrayList<>();
-                        for (Location.Data bean : dataList) {
-                            if (!TextUtils.isEmpty(bean.getLatitude()) && !TextUtils.isEmpty(bean.getLongitude()) && !TextUtils.isEmpty(bean.getStatus())) {
-                                newList.add(bean);
-                            }
-                        }
-                        array = newList;
-                        if (array.size() == 1) {
-                            Intent intent = new Intent(LocateActivity.this, LocationDetailActivity.class);
-                            intent.putExtra("carno", array.get(0).getCarno());
-                            intent.putExtra("vin", array.get(0).getVin());
-                            intent.putParcelableArrayListExtra("array", array);
-                            startActivity(intent);
-                        } else {
-                            addMarkersToMap(newList);
-                        }
-                    }
-                } else {
-                    Toast.makeText(LocateActivity.this, mLocation.getMsg(), Toast.LENGTH_SHORT).show();
-                }
+            public void onResponse(@NonNull Call<Location> call, @NonNull Response<Location> response) {
+                hideProgressDialog();
+                mLiveData.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<Location> call, Throwable t) {
-                mProgressBar.setVisibility(View.GONE);
-                LogHelper.e("onFailure");
+            public void onFailure(@NonNull Call<Location> call, Throwable t) {
+                hideProgressDialog();
+                Toast.makeText(LocateActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -191,27 +205,28 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
         for (Location.Data bean : list) {
             LatLng latLng = new LatLng(Double.parseDouble(bean.getLatitude()), Double.parseDouble(bean.getLongitude()));
             builder.include(latLng);
-
-            MarkerOptions markerOptions = new MarkerOptions();//它定义了marker 的属性信息。
-            markerOptions.position(latLng);//设置Marker覆盖物的位置坐标。
+            //它定义了marker 的属性信息。
+            MarkerOptions markerOptions = new MarkerOptions();
+            //设置Marker覆盖物的位置坐标。
+            markerOptions.position(latLng);
 
             View view = View.inflate(this, R.layout.view_amap_marker, null);
             TextView textCarNo = view.findViewById(R.id.text_car_no);
-            ImageView img_car_status = view.findViewById(R.id.img_car_status);
+            ImageView imgCarStatus = view.findViewById(R.id.img_car_status);
 
-            switch (bean.getStatus()) {
+            switch (Objects.requireNonNull(bean.getStatus())) {
                 case "3":
-                    img_car_status.setBackgroundResource(R.drawable.map_ico_offline);
+                    imgCarStatus.setBackgroundResource(R.drawable.map_ico_offline);
                     textCarNo.setTextColor(ContextCompat.getColor(this, R.color.offline));
                     textCarNo.setBackgroundResource(R.drawable.bg_offline);
                     break;
                 case "1":
-                    img_car_status.setBackgroundResource(R.drawable.map_ico_speed);
+                    imgCarStatus.setBackgroundResource(R.drawable.map_ico_speed);
                     textCarNo.setTextColor(ContextCompat.getColor(this, R.color.speed));
                     textCarNo.setBackgroundResource(R.drawable.bg_speed);
                     break;
                 case "2":
-                    img_car_status.setBackgroundResource(R.drawable.map_ico_park);
+                    imgCarStatus.setBackgroundResource(R.drawable.map_ico_park);
                     textCarNo.setTextColor(ContextCompat.getColor(this, R.color.park));
                     textCarNo.setBackgroundResource(R.drawable.bg_park);
                     break;
@@ -219,7 +234,7 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
                     break;
             }
             textCarNo.setText(bean.getCarno());
-            img_car_status.setRotation(Float.parseFloat(bean.getDirection()));
+            imgCarStatus.setRotation(Float.parseFloat(Objects.requireNonNull(bean.getDirection())));
             //设置Marker覆盖物的图标。
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(convertViewToBitmap(view)));
             view.setDrawingCacheEnabled(false);
@@ -231,12 +246,9 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
         }
 
         try {
-
             int width = MeasureHelper.getScreenWidth(this);
             //按照传入的CameraUpdate参数改变地图状态。
             aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), width * 4 / 5, width * 4 / 5, 0));
-            //设置缩放等级
-//            aMap.moveCamera(CameraUpdateFactory.zoomTo(6));
         } catch (Exception e) {
             LogHelper.e(e);
         }

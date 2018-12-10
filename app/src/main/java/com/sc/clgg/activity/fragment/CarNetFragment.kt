@@ -17,7 +17,7 @@ import com.sc.clgg.activity.vehicle.ServiceStationActivity
 import com.sc.clgg.activity.vehicle.energy.ConsumptionStatisticalActivity
 import com.sc.clgg.activity.vehicle.fault.FaultDiagnosisActivity
 import com.sc.clgg.activity.vehicle.locate.LocateActivity
-import com.sc.clgg.activity.vehicle.mileage.MileageStatisticalActivity
+import com.sc.clgg.activity.vehicle.mileage.MileageActivity
 import com.sc.clgg.activity.vehicle.tally.TallyBookActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.VersionInfoBean
@@ -76,7 +76,7 @@ class CarNetFragment : Fragment(), TruckManageContact {
             ActivityHelper.startAcScale(activity, LocateActivity::class.java)
         }
         hb_my_vehicle.setHomeButtonOnClickListener {
-            ActivityHelper.startAcScale(activity, MileageStatisticalActivity::class.java)
+            ActivityHelper.startAcScale(activity, MileageActivity::class.java)
         }
         hb_driving_score.setHomeButtonOnClickListener {
             //            startActivity(Intent(activity, PathRecordActivity::class.java)

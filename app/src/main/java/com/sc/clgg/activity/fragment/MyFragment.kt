@@ -138,7 +138,6 @@ class MyFragment : BaseFragment() {
         })
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         call?.cancel()

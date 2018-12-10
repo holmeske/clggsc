@@ -52,7 +52,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import androidx.lifecycle.LiveData;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -250,7 +249,7 @@ public class RetrofitHelper {
 
         long time = System.currentTimeMillis();
 
-        String yyyymmddhhmmss = new SimpleDateFormat("yyyymmddhhmmss", Locale.getDefault()).format(time);
+        String yyyymmddhhmmss = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(time);
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("cardNo", cardNo);

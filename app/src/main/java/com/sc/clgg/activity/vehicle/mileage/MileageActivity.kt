@@ -23,7 +23,7 @@ import com.sc.clgg.tool.helper.CalendarHelper
 import com.sc.clgg.tool.helper.DateHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.widget.MyMarkerView
-import kotlinx.android.synthetic.main.activity_mileage_statistical.*
+import kotlinx.android.synthetic.main.activity_mileage.*
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,7 +31,7 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MileageStatisticalActivity : BaseImmersionActivity() {
+class MileageActivity : BaseImmersionActivity() {
     var adpter: MileageStatisticalAdapter? = null
     private var dateStr: String? = ""
     var year: String? = ""
@@ -39,14 +39,14 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
     private var maxDay: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mileage_statistical)
+        setContentView(R.layout.activity_mileage)
 
         initTitle("里程统计")
         chart.setNoDataText("")
 
         adpter = MileageStatisticalAdapter(MileageStatisticalAdapter.ItemClickListener { vin, carno ->
             LogHelper.e("month = " + month)
-            startActivity(Intent(this@MileageStatisticalActivity, StatisticalDetailActivity::class.java)
+            startActivity(Intent(this@MileageActivity, MileageDetailActivity::class.java)
                     .putExtra("date", dateStr)
                     .putExtra("vin", vin)
                     .putExtra("carno", carno)
@@ -54,6 +54,7 @@ class MileageStatisticalActivity : BaseImmersionActivity() {
                     .putExtra("year", year)
             )
         })
+
         recyclerview?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerview?.adapter = adpter
 

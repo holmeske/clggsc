@@ -16,20 +16,20 @@ import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.MileageDetail
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
-import kotlinx.android.synthetic.main.activity_statistical_detail.*
+import kotlinx.android.synthetic.main.activity_mileage_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class StatisticalDetailActivity : BaseImmersionActivity() {
+class MileageDetailActivity : BaseImmersionActivity() {
     var adpter: StatisticalDetailAdapter? = null
     var year: String? = ""
     var month: Int = 0
     var maximum: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_statistical_detail)
+        setContentView(R.layout.activity_mileage_detail)
 
         initTitle("统计详情")
         month = intent.getIntExtra("month", 0)

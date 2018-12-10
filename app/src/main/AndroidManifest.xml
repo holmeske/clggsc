@@ -171,7 +171,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity
-            android:name=".activity.vehicle.mileage.MileageStatisticalActivity"
+            android:name=".activity.vehicle.mileage.MileageActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.vehicle.energy.ConsumptionStatisticalActivity"
@@ -180,7 +180,7 @@
             android:name=".activity.vehicle.energy.ConsumptionDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.vehicle.mileage.StatisticalDetailActivity"
+            android:name=".activity.vehicle.mileage.MileageDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity

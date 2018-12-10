@@ -17,6 +17,6 @@ class RechargeActivity : BaseImmersionActivity() {
         titlebar_title.text = getString(R.string.etc_czqc)
 
         v_1.setOnClickListener { startActivity(Intent(this@RechargeActivity, ReadCardActivity::class.java)) }
-        v_3.setOnClickListener { startActivity(PreRechargeActivity::class.java) }
+        v_3.setOnClickListener { startActivity(MyCardActivity::class.java) }
     }
 }
