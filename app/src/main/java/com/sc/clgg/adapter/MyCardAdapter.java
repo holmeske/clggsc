@@ -69,7 +69,7 @@ public class MyCardAdapter extends RecyclerView.Adapter<MyHolder> {
 
         holder.itemView.setOnClickListener(v -> {
             if (click) {
-              mContext.startActivity(new Intent(mContext,PreRechargeActivity.class).putExtra("card",card));
+                mContext.startActivity(new Intent(mContext, PreRechargeActivity.class).putExtra("card", card));
             }
         });
     }

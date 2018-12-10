@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.sc.clgg.config.ConstantValue;
 import com.sc.clgg.retrofit.PayhelperKt;
 import com.sc.clgg.retrofit.WeChatPayCache;
+import com.sc.clgg.tool.helper.LogHelper;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -37,7 +38,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onReq(BaseReq req) {
-
     }
 
     @Override
@@ -46,6 +46,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
             //支付成功
             //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_SUCCESS));
+            LogHelper.e("卡号:" + WeChatPayCache.Companion.getCardNo()
+                    + "\n金额:" + WeChatPayCache.Companion.getMoney());
             PayhelperKt.payMoney(this, WeChatPayCache.Companion.getCardNo(), WeChatPayCache.Companion.getMoney());
             WeChatPayCache.Companion.initValue();
 

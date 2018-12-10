@@ -28,6 +28,9 @@ class PreRechargeActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_recharge)
         card = intent.getParcelableExtra("card")
+        if (card==null){
+            card=  CardList.Card("3", "沪00001", "37011801220102886196")
+        }
         logcat(card)
         getCardInfo(card.cardId)
         init()

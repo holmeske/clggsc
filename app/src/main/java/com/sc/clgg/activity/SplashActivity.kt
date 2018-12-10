@@ -5,7 +5,6 @@ import android.content.Intent
 import com.google.gson.Gson
 import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
-import com.sc.clgg.activity.etc.CardDetailActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.bean.Check
@@ -13,6 +12,7 @@ import com.sc.clgg.bean.WeChatOrder
 import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.config.ConstantValue.WX_PARTNER_ID
 import com.sc.clgg.retrofit.RetrofitHelper
+import com.sc.clgg.retrofit.surePayMoney
 import com.sc.clgg.wxapi.WeChatPayUtil
 import com.tencent.mm.opensdk.modelpay.PayReq
 import org.jetbrains.anko.toast
@@ -74,7 +74,7 @@ class SplashActivity : BaseImmersionActivity() {
                 })
             }
             3 -> {
-                startActivity(Intent(this, CardDetailActivity::class.java))
+                surePayMoney("37011801220102886196", "1")
             }
             else -> {
                 startActivity(Intent(this, LaunchActivity::class.java))
