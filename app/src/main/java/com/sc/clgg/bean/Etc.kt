@@ -11,6 +11,14 @@ import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
 @Parcelize
+data class CircleSave(val msg: String? = "", val success: Boolean, var Mac2: String? = "",
+              var RChargeLsh: String? = "",
+              var RWriteTime: String? = "",
+              var RMac2: String? = "",
+              var RWasteSn: String? = "") : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class CarNumberList(var code: Int = 0,
                          var success: Boolean = false,
                          var msg: String? = "",

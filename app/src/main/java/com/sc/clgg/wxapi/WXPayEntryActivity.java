@@ -47,9 +47,13 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             //支付成功
             //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_SUCCESS));
             LogHelper.e("卡号:" + WeChatPayCache.Companion.getCardNo()
-                    + "\n金额:" + WeChatPayCache.Companion.getMoney());
-            PayhelperKt.payMoney(this, WeChatPayCache.Companion.getCardNo(), WeChatPayCache.Companion.getMoney());
-            WeChatPayCache.Companion.initValue();
+                    + "\n金额:" + WeChatPayCache.Companion.getMoney()
+                    + "\nWasteSn:" + WeChatPayCache.Companion.getWasteSn());
+            PayhelperKt.surePayMoney(this,
+                    WeChatPayCache.Companion.getCardNo(),
+                    WeChatPayCache.Companion.getMoney(),
+                    WeChatPayCache.Companion.getWasteSn());
+            //WeChatPayCache.Companion.initValue();
 
         } else if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {
             //支付取消

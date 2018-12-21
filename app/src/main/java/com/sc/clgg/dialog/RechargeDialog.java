@@ -14,15 +14,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sc.clgg.R;
+import com.sc.clgg.bean.StatusBean;
 import com.sc.clgg.retrofit.PayhelperKt;
+import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.retrofit.WeChatPayCache;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author：lvke
@@ -100,6 +106,7 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
 
         iv_alipay_state.setSelected(true);
         et_amount.setText("500");
+        tv_recharge_amount.setText("500");
 
         et_amount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -131,12 +138,24 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 iv_wechat_state.setSelected(true);
                 break;
             case R.id.v_instant_recharge:
-                String money=tv_recharge_amount.getText().toString();
+                String money = tv_recharge_amount.getText().toString();
+                long currentTimeMillis = System.currentTimeMillis();
+                new RetrofitHelper().payMoney(cardNumber, money, currentTimeMillis).enqueue(new Callback<StatusBean>() {
+                    @Override
+                    public void onResponse(Call<StatusBean> call, Response<StatusBean> response) {
+                        if (response.isSuccessful()) {
+                            PayhelperKt.wxPay(mActivity, cardNumber, money);
+                            WeChatPayCache.Companion.setValue(cardNumber, money, WeChatPayCache.Companion.getWasteSn());
+                        } else {
+                            Toast.makeText(mActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                PayhelperKt.wxPay(mActivity, cardNumber, money);
-
-                WeChatPayCache.Companion.setValue(cardNumber,money);
-
+                    @Override
+                    public void onFailure(Call<StatusBean> call, Throwable t) {
+                        Toast.makeText(mActivity, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
 
             default:

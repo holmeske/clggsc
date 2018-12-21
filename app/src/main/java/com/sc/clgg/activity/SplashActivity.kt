@@ -5,6 +5,8 @@ import android.content.Intent
 import com.google.gson.Gson
 import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
+import com.sc.clgg.activity.etc.PreRechargeActivity
+import com.sc.clgg.activity.etc.ble.BleActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.bean.Check
@@ -33,7 +35,7 @@ class SplashActivity : BaseImmersionActivity() {
 
     @SuppressLint("SdCardPath")
     private fun init() {
-        val v = 0
+        val v =4
         when (v) {
             1 -> {
 
@@ -74,7 +76,12 @@ class SplashActivity : BaseImmersionActivity() {
                 })
             }
             3 -> {
-                surePayMoney("37011801220102886196", "1")
+                startActivity(Intent(this, BleActivity::class.java))
+                finish()
+            }
+            4 -> {
+                startActivity(Intent(this, PreRechargeActivity::class.java))
+                finish()
             }
             else -> {
                 startActivity(Intent(this, LaunchActivity::class.java))

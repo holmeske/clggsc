@@ -6,6 +6,7 @@ import com.sc.clgg.bean.CarNumberList;
 import com.sc.clgg.bean.CardInfo;
 import com.sc.clgg.bean.CardList;
 import com.sc.clgg.bean.Check;
+import com.sc.clgg.bean.CircleSave;
 import com.sc.clgg.bean.Consumption;
 import com.sc.clgg.bean.ConsumptionDetail;
 import com.sc.clgg.bean.Fault;
@@ -49,11 +50,11 @@ import retrofit2.http.Query;
 
 public interface RetrofitApi {
 
-//    @POST("etc/cardApply/loadMoney")
-//    Call<CardList> getCardList(@Body RequestBody json);
-//
-//    @POST("etc/cardApply/sureLoadMoney")
-//    Call<CardList> getCardList(@Body RequestBody json);
+    @POST("etc/cardApply/loadMoney")
+    Call<CircleSave> loadMoney(@Body RequestBody json);
+
+    @POST("etc/cardApply/sureLoadMoney")
+    Call<CircleSave> sureLoadMoney(@Body RequestBody json);
 
     @POST("etc/cardApply/cardList")
     Call<CardList> getCardList(@Body RequestBody json);

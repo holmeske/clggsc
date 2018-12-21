@@ -1,7 +1,9 @@
 package com.sc.clgg.activity.etc
 
+import android.content.Intent
 import android.os.Bundle
 import com.sc.clgg.R
+import com.sc.clgg.activity.etc.ble.BleActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CardInfo
 import com.sc.clgg.bean.CardList
@@ -27,10 +29,10 @@ class PreRechargeActivity : BaseImmersionActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_recharge)
-        card = intent.getParcelableExtra("card")
-        if (card==null){
-            card=  CardList.Card("3", "沪00001", "37011801220102886196")
-        }
+        //card = intent.getParcelableExtra("card")
+        //if (card==null){
+            card=  CardList.Card("3", "沪00001", "37011801220102886198")
+       // }
         logcat(card)
         getCardInfo(card.cardId)
         init()
@@ -74,6 +76,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
                     response.body()?.let {
                         if (it.success) {
                             canCircleMoney = it.RQcMoney!!.toDouble()
+                            RAdjust=it.RAdjust!!.toInt()
                             if (canCircleMoney > 0.0) {
                                 v_1.setBackgroundResource(R.drawable.bg_gray_5)
                             } else if (canCircleMoney == 0.0) {
@@ -91,15 +94,19 @@ class PreRechargeActivity : BaseImmersionActivity() {
         }
     }
 
+      private var RAdjust = 1
     private fun initPreRechargeListener() {
         v_1.setOnClickListener {
 
             if (canCircleMoney > 0.0) {
-                PreRechargeHintDialog(this@PreRechargeActivity).apply {
+                /*PreRechargeHintDialog(this@PreRechargeActivity).apply {
                     show()
                     setData(canCircleMoney)
                     setCancelListener { dismiss() }
-                }
+                }*/
+                startActivity(Intent(this,BleActivity::class.java)
+                        .putExtra("RQcMoney",canCircleMoney.toInt())
+                        .putExtra("RAdjust",RAdjust))
             } else if (canCircleMoney == 0.0) {
 
                 RechargeDialog(this).apply {

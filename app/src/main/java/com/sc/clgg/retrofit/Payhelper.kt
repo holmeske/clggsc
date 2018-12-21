@@ -6,12 +6,15 @@ import com.sc.clgg.R
 import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.bean.WeChatOrder
 import com.sc.clgg.config.ConstantValue
+import com.sc.clgg.tool.helper.RandomHelper
 import com.sc.clgg.wxapi.WeChatPayUtil
 import com.tencent.mm.opensdk.modelpay.PayReq
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author：lvke
@@ -46,29 +49,19 @@ fun Context.wxPay(cardNo: String?, acount: String?) {
     })
 }
 
-fun Context.payMoney(cardNo: String?, money: String?) {
-    if (cardNo.isNullOrBlank() || money.isNullOrBlank()) {
-        return
-    }
-    RetrofitHelper().payMoney(cardNo, money).enqueue(object : Callback<StatusBean> {
-        override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
-            response.body()?.let {
-                if (it.success) {
-                    surePayMoney(cardNo, money)
-                } else {
-                    toast("${it.msg}")
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<StatusBean>, t: Throwable) {
-            toast(R.string.network_anomaly)
-        }
-    })
+/**
+ * 流水号
+ */
+fun Context.getWasteSn(currentTimeMillis:Long,cardNo: String):String {
+    return SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis)+ cardNo.substring(cardNo.length - 4) + RandomHelper.two()
 }
 
-  fun Context.surePayMoney(cardNo: String?, money: String?) {
-    RetrofitHelper().surePayMoney(cardNo, money).enqueue(object : Callback<StatusBean> {
+fun Context.getWasteSnThree(currentTimeMillis:Long,cardNo: String):String {
+    return SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis)+ cardNo.substring(cardNo.length - 4) + RandomHelper.three()
+}
+
+fun Context.surePayMoney(cardNo: String?, money: String?, wasteSn: String?) {
+    RetrofitHelper().surePayMoney(cardNo, money, wasteSn).enqueue(object : Callback<StatusBean> {
         override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
             response.body()?.let {
                 if (it.success) {
@@ -87,17 +80,21 @@ fun Context.payMoney(cardNo: String?, money: String?) {
 
 internal class WeChatPayCache {
     companion object {
-          var cardNo: String? = ""
-          var money: String? = ""
+        var cardNo: String? = ""
+        var money: String? = ""
+        var wasteSn: String? = ""
 
-        fun setValue(cardNumber: String, money: String) {
-            this.cardNo = cardNumber
-            this.money = money
+        fun setValue(cardNumber: String, money: String, wasteSn: String) {
+            this.wasteSn = wasteSn
+        }
+        fun setValue(  wasteSn: String) {
+            this.wasteSn = wasteSn
         }
 
         fun initValue() {
             cardNo = ""
             money = ""
+            wasteSn = ""
         }
     }
 }

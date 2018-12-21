@@ -22,6 +22,10 @@ public class RandomHelper {
         return String.valueOf((int) ((Math.random() * 9 + 1) * 1000));
     }
 
+    /*随机3位数*/
+    public static String three() {
+        return String.valueOf((int) ((Math.random() * 9 + 1) * 100));
+    }
 
     /*随机2位数*/
     public static String two() {
