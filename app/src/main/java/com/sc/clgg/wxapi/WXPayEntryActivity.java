@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.sc.clgg.bean.MessageEvent;
 import com.sc.clgg.config.ConstantValue;
-import com.sc.clgg.retrofit.PayhelperKt;
 import com.sc.clgg.retrofit.WeChatPayCache;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -14,6 +14,8 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * @author：lvke
@@ -44,14 +46,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
         //Toast.makeText(getApplicationContext(), new Gson().toJson(resp), Toast.LENGTH_SHORT).show();
         if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
+            EventBus.getDefault().postSticky(new MessageEvent(4));
             //支付成功
             //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_SUCCESS));
             LogHelper.e("卡号:" + WeChatPayCache.Companion.getCardNo()
-                    + "\n金额:" + WeChatPayCache.Companion.getMoney()
-                    + "\nWasteSn:" + WeChatPayCache.Companion.getWasteSn());
-            PayhelperKt.surePayMoney(this,
-                    WeChatPayCache.Companion.getCardNo(),
-                    WeChatPayCache.Companion.getMoney());
+                    + "\n金额:" + WeChatPayCache.Companion.getMoney());
+
             //WeChatPayCache.Companion.initValue();
 
         } else if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {

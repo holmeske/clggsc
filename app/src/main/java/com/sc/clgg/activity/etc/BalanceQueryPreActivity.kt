@@ -27,7 +27,7 @@ class BalanceQueryPreActivity : BaseImmersionActivity() {
     }
 
     private fun readCard() {
-        showProgressDialog("读卡...")
+        showProgressDialog("正在读卡")
         LogHelper.e("开始连接蓝牙设备")
         var intRandom = ""
         var intMac = ""

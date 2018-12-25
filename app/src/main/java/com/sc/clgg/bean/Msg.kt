@@ -27,7 +27,7 @@ data class Message(var msg: String? = "",
         @Parcelize
         data class Row(
                 var id: String? = "",
-                var created: Long=0,
+                var created: Long = 0,
                 var title: String? = "",
                 var plate: String? = "",
                 var top: String? = "",
@@ -36,4 +36,11 @@ data class Message(var msg: String? = "",
     }
 }
 
+/**
+ *0 评论
+ * 1 发布动态
+ * 2 我的车队
+ * 3
+ * 4 微信支付
+ */
 data class MessageEvent(var value: Int)

@@ -10,5 +10,7 @@ import kotlinx.android.parcel.Parcelize
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class StatusBean(val status: Boolean,var checkCode: String? = "",var Mac2: String? = "",
+data class StatusBean(val status: Boolean, var checkCode: String? = "", var Mac2: String? = "",
+                      var RWasteSn: String? = "", var cardNo: String? = "", var money: String? = "",
+                      var carNo: String? = "", var realMoney: String? = "",
                       val msg: String? = "", val code: Int, val success: Boolean) : Parcelable

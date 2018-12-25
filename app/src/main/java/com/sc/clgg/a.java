@@ -1,7 +1,7 @@
 package com.sc.clgg;
 
-import com.google.gson.Gson;
-import com.sc.clgg.bean.EtcCardInfo;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * @author：lvke
@@ -9,8 +9,15 @@ import com.sc.clgg.bean.EtcCardInfo;
  */
 public class a {
     public static void main(String[] args) {
-         System.out.print(System.currentTimeMillis());
-        EtcCardInfo etcCardInfo;
-        etcCardInfo  =new Gson().fromJson("",EtcCardInfo.class);
+        System.out.println(String.format("%.2f", 0.4f));
+    }
+    public static String formatTwo(Double d) {
+        if (d == 0) {
+            return "0.00";
+        }
+
+        BigDecimal bg = new BigDecimal(d);
+        double value = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return new DecimalFormat("#.00").format(value);
     }
 }

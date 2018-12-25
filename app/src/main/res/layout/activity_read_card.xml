@@ -29,20 +29,6 @@
         app:layout_constraintTop_toTopOf="@id/v_1"/>
 
     <TextView
-        android:id="@+id/tv_click_replace"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:drawableStart="@drawable/recharge_replace"
-        android:drawableEnd="@drawable/recharge_arrow_grey"
-        android:drawablePadding="10dp"
-        android:gravity="center"
-        android:text="点击更换设备"
-        android:textColor="@color/_444"
-        app:layout_constraintLeft_toLeftOf="@id/v_1"
-        app:layout_constraintRight_toRightOf="@id/v_1_divider"
-        app:layout_constraintTop_toTopOf="@id/v_1"/>
-
-    <TextView
         android:id="@+id/tv_no_card_recharge"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
@@ -52,7 +38,7 @@
         android:gravity="center"
         android:text="无卡充值"
         android:textColor="@color/_444"
-        app:layout_constraintLeft_toLeftOf="@id/v_1_divider"
+        app:layout_constraintLeft_toLeftOf="@id/v_1"
         app:layout_constraintRight_toRightOf="@id/v_1"
         app:layout_constraintTop_toTopOf="@id/v_1"/>
 

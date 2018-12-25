@@ -28,7 +28,7 @@ class MyCardActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_card)
 
-        adapter?.setItemEnable(intent.getBooleanExtra("click",false))
+        adapter.setItemEnable(intent.getBooleanExtra("click",false))
         
         initView()
     }

@@ -124,7 +124,7 @@ class MallFragment : Fragment() {
 
             override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
                 super.onReceivedError(view, request, error)
-                LogHelper.e("onReceivedError   ")
+                LogHelper.e("onReceivedError()")
                 v_reload?.visibility = View.VISIBLE
 
                 activity?.let {

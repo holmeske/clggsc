@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="卡类型:"
+        android:text="车    牌:"
         android:textColor="@color/_a2a7b5"
         android:textSize="13sp"
         android:typeface="sans"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_1"/>
 
     <TextView
-        android:id="@+id/tv_card_type"
+        android:id="@+id/tv_card_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -69,7 +69,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_2"
         app:layout_constraintLeft_toRightOf="@id/tv_2"
         app:layout_constraintTop_toTopOf="@id/tv_2"
-        tools:text="鲁通A卡"/>
+        tools:text="- -"/>
 
     <View
         android:id="@+id/v_line_1"
@@ -99,7 +99,7 @@
         android:layout_marginTop="10dp"
         android:drawableStart="@drawable/balance_icon"
         android:drawablePadding="10dp"
-        android:text="余额 (元)"
+        android:text="卡內余额 (元)"
         android:textColor="@color/_444"
         android:textSize="12sp"
         android:typeface="sans"
@@ -160,20 +160,7 @@
         android:textColor="@color/_4285f4"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tv_go_circle"
-        app:layout_constraintTop_toBottomOf="@id/v_1"/>
-
-    <TextView
-        android:id="@+id/tv_go_circle"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/bg_blue_2"
-        android:gravity="center"
-        android:text="@string/go_circle"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@id/tv_back_home"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_1"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

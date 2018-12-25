@@ -17,10 +17,6 @@ class ETCActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_etc)
 
-        /*val dialog = UndevelopedHintDialog(this@ETCActivity)
-        dialog.show()
-        dialog.findViewById<View>(R.id.iv_2).setOnClickListener { dialog.dismiss() }
-        dialog.setOnDismissListener { finish() }*/
         init()
     }
 

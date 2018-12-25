@@ -1,8 +1,10 @@
 package com.sc.clgg.retrofit
 
 import android.content.Context
+import android.content.Intent
 import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
+import com.sc.clgg.activity.etc.PreRechargeFinishActivity
 import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.bean.WeChatOrder
 import com.sc.clgg.config.ConstantValue
@@ -61,11 +63,14 @@ fun Context.getWasteSnThree(currentTimeMillis: Long, cardNo: String): String {
 }
 
 fun Context.surePayMoney(cardNo: String?, money: String?) {
+
     RetrofitHelper().surePayMoney(cardNo, money).enqueue(object : Callback<StatusBean> {
         override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
             response.body()?.let {
                 if (it.success) {
                     toast("支付成功")
+                    startActivity(Intent(this@surePayMoney, PreRechargeFinishActivity::class.java)
+                            .putExtra("data", response.body()))
                 } else {
                     toast("${it.msg}")
                 }

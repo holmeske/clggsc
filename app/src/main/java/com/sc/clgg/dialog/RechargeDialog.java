@@ -104,7 +104,7 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
         v_wechat.setOnClickListener(this);
         v_instant_recharge.setOnClickListener(this);
 
-        iv_alipay_state.setSelected(true);
+        iv_wechat_state.setSelected(true);
         et_amount.setText("500");
         tv_recharge_amount.setText("500");
 
@@ -130,8 +130,8 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.v_alipay:
-                iv_alipay_state.setSelected(true);
-                iv_wechat_state.setSelected(false);
+                //iv_alipay_state.setSelected(true);
+                //iv_wechat_state.setSelected(false);
                 break;
             case R.id.v_wechat:
                 iv_alipay_state.setSelected(false);

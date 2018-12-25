@@ -31,7 +31,12 @@ data class CircleSave(val msg: String? = "", val success: Boolean, var Mac2: Str
                       var RChargeLsh: String? = "",
                       var RWriteTime: String? = "",
                       var RMac2: String? = "",
-                      var RWasteSn: String? = "") : Parcelable
+                      var RWasteSn: String? = "",
+                      var cardNo: String? = "",
+                      var money: String? = "",
+                      var carNo: String? = "",
+                      var realMoney: String? = ""
+) : Parcelable
 
 @SuppressLint("ParcelCreator")
 @Parcelize

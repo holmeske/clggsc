@@ -34,7 +34,7 @@ public class ETCAdapter extends RecyclerView.Adapter<MyHolder> {
     private Context mContext;
     private String[] names = new String[]{
             "申请ETC卡", "充值 · 圈存", "预充值", "充值记录查询",
-            "ETC卡余额", "我的ETC卡", "我的车队", "路况查询",};
+            "ETC卡余额", "我的ETC卡", "我的车队", "开卡审核",};
 
     private int[] drawables = new int[]{
             R.drawable.etc_icon1, R.drawable.etc_icon2, R.drawable.etc_icon3, R.drawable.etc_icon4,
@@ -98,7 +98,7 @@ public class ETCAdapter extends RecyclerView.Adapter<MyHolder> {
                         break;
                     case 6:
                         mContext.startActivity(new Intent(mContext, MainActivity.class));
-                        EventBus.getDefault().postSticky(new MessageEvent(1));
+                        EventBus.getDefault().postSticky(new MessageEvent(2));
                         break;
                     case 7:
                         Toast.makeText(mContext.getApplicationContext(), "敬请期待", Toast.LENGTH_SHORT).show();

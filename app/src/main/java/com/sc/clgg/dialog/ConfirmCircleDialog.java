@@ -9,7 +9,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.sc.clgg.R;
-import com.sc.clgg.tool.helper.DecimalFormatHelper;
 
 import androidx.annotation.NonNull;
 
@@ -37,8 +36,8 @@ public class ConfirmCircleDialog extends Dialog {
     }
 
     public void setData(double v) {
-        ((TextView) findViewById(R.id.tv_des_big)).setText(String.format(getContext().getString(R.string.confirm_circle), DecimalFormatHelper.formatTwo(v)));
-        ((TextView) findViewById(R.id.tv_des_small)).setText(String.format(getContext().getString(R.string.can_write_str), DecimalFormatHelper.formatTwo(v)));
+        ((TextView) findViewById(R.id.tv_des_big)).setText(String.format(getContext().getString(R.string.confirm_circle), String.format("%.2f", v)));
+        ((TextView) findViewById(R.id.tv_des_small)).setText(String.format(getContext().getString(R.string.can_write_str), String.format("%.2f", v)));
     }
 
     public void setConfirmListener(View.OnClickListener listener) {

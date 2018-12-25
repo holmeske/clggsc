@@ -24,13 +24,12 @@ class ReadCardActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_read_card)
 
         titlebar_title.text = getString(R.string.read_card)
-
         iv_nav.setImageResource(R.drawable.pay_nav_step_icon)
 
-        tv_click_replace.setOnClickListener { startActivity(RechargeActivity::class.java) }
+        tv_no_card_recharge.setOnClickListener { startActivity(MyCardActivity::class.java) }
 
         tv_read_card.setOnClickListener {
-            showProgressDialog("读卡...")
+            showProgressDialog("正在读卡")
             LogHelper.e("开始连接蓝牙设备")
             var intRandom = ""
             var intMac = ""

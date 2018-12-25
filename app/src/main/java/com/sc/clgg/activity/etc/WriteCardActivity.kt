@@ -1,5 +1,6 @@
 package com.sc.clgg.activity.etc
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
@@ -14,7 +15,6 @@ import com.sc.clgg.dialog.RechargeDialog
 import com.sc.clgg.etc.NewDES
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
-import com.sc.clgg.util.startActivity
 import etc.obu.data.CardInformation
 import kotlinx.android.synthetic.main.activity_write_card.*
 import kotlinx.android.synthetic.main.view_read_card.*
@@ -28,7 +28,8 @@ import java.util.*
 
 class WriteCardActivity : BaseImmersionActivity() {
     private var card: CardInformation? = null
-
+    private var RQcMoney = 0
+    private var RAdjust = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +41,13 @@ class WriteCardActivity : BaseImmersionActivity() {
 
         tv_card.text = card?.cardId
         tv_carno.text = card?.vehicleNumber
-        tv_balance.text = "${card?.balance}.00元"
+        card?.balance?.toDouble()?.let { tv_balance.text = "${it / 100}元" }
 
         tv_recharge_circle.setOnClickListener {
             if (tv_recharge_circle.text == "圈存") {
                 ConfirmCircleDialog(this@WriteCardActivity).run {
                     show()
-                    setData(card?.balance!!.toDouble())
+                    setData(RQcMoney.toDouble() / 100)
                     setConfirmListener {
                         dismiss()
                         qc()
@@ -70,8 +71,10 @@ class WriteCardActivity : BaseImmersionActivity() {
             override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
                 response.body()?.let {
                     RQcMoney = it.RQcMoney!!.toInt()
-                    RAdjust == it.RAdjust!!.toInt()
+                    RAdjust = it.RAdjust!!.toInt()
                     tv_carno.text = it.RVLP
+                    it.RQcMoney?.toDouble()?.let { tv_can_write.text = "${it / 100} 元" }
+
                     if (it.RQcMoney?.toDouble()!! > 0) {
                         tv_recharge_circle.text = "圈存"
                         cl_go_circle.isSelected = true
@@ -115,13 +118,11 @@ class WriteCardActivity : BaseImmersionActivity() {
      */
     private var a_on = ""
 
-    private var RQcMoney = 0
-    private var RAdjust = 1
-
     private fun qc() {
-        var bluetoothSn: String? = ""
+        showProgressDialog("正在圈存")
+        var bluetoothSn: String
         var KEY = "2D65d001246ade79151C634be75264AF"
-        var intRandom = ""
+        var intRandom: String
         var intMac = ""
 
         Thread {
@@ -194,6 +195,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                 a_m1,
                                                 a_cbb, a_rnd, a_on, bluetoothSn).enqueue(object : Callback<CircleSave> {
                                             override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
+                                                hideProgressDialog()
                                                 if (response.isSuccessful && response.body()?.success!!) {
 
                                                     var date = ""
@@ -219,15 +221,23 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                             response.body()!!.RWriteTime!!.replace("/".toRegex(), "-"))
                                                             .enqueue(object : Callback<CircleSave> {
                                                                 override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
+                                                                    hideProgressDialog()
                                                                     if (response.body()!!.success) {
+                                                                        val cardInfo = CardInformation()
+                                                                        App.getInstance().mObuInterface.getCardInformation(cardInfo)
+
                                                                         Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
-                                                                        startActivity(RechargeSuccessActivity::class.java)
+                                                                        startActivity(Intent(this@WriteCardActivity,
+                                                                                WriteCardSuccessActivity::class.java)
+                                                                                .putExtra("data", response.body())
+                                                                                .putExtra("balance", cardInfo.balance))
                                                                     } else {
                                                                         Toast.makeText(applicationContext, "圈存失败", Toast.LENGTH_SHORT).show()
                                                                     }
                                                                 }
 
                                                                 override fun onFailure(call: Call<CircleSave>, t: Throwable) {
+                                                                    hideProgressDialog()
                                                                     Toast.makeText(applicationContext, R.string.network_anomaly, Toast.LENGTH_SHORT).show()
                                                                 }
                                                             })
@@ -235,6 +245,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                                             }
 
                                             override fun onFailure(call: Call<CircleSave>, t: Throwable) {
+                                                hideProgressDialog()
                                                 Toast.makeText(applicationContext, R.string.network_anomaly, Toast.LENGTH_SHORT).show()
                                             }
                                         })
@@ -245,11 +256,13 @@ class WriteCardActivity : BaseImmersionActivity() {
 
 
                         } else {
+                            hideProgressDialog()
                             LogHelper.e("读取蓝牙设备信息失败")
                         }
                     }
                 } else {
                     LogHelper.e("连接失败")
+                    hideProgressDialog()
                 }
             }
         }.start()

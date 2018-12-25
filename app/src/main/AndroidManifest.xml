@@ -264,7 +264,7 @@
         <activity android:name=".activity.etc.RechargeActivity"/>
         <activity android:name=".activity.etc.ReadCardActivity"/>
         <activity android:name=".activity.etc.WriteCardActivity"/>
-        <activity android:name=".activity.etc.RechargeSuccessActivity"/>
+        <activity android:name=".activity.etc.WriteCardSuccessActivity"/>
         <activity android:name=".activity.etc.PayResultActivity"/>
         <activity android:name=".activity.etc.MyCardActivity"/>
         <activity
@@ -291,6 +291,8 @@
             android:enabled="true"/>
 
         <activity android:name=".activity.etc.BalanceQueryPreActivity">
+        </activity>
+        <activity android:name=".activity.etc.PreRechargeFinishActivity">
         </activity>
     </application>
 
