@@ -5,7 +5,7 @@ import android.content.Intent
 import com.google.gson.Gson
 import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
-import com.sc.clgg.activity.etc.PreRechargeActivity
+import com.sc.clgg.activity.etc.ETCActivity
 import com.sc.clgg.activity.etc.ble.BleActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
@@ -14,7 +14,6 @@ import com.sc.clgg.bean.WeChatOrder
 import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.config.ConstantValue.WX_PARTNER_ID
 import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.retrofit.surePayMoney
 import com.sc.clgg.wxapi.WeChatPayUtil
 import com.tencent.mm.opensdk.modelpay.PayReq
 import org.jetbrains.anko.toast
@@ -35,7 +34,7 @@ class SplashActivity : BaseImmersionActivity() {
 
     @SuppressLint("SdCardPath")
     private fun init() {
-        val v =4
+        val v = 0
         when (v) {
             1 -> {
 
@@ -80,7 +79,7 @@ class SplashActivity : BaseImmersionActivity() {
                 finish()
             }
             4 -> {
-                startActivity(Intent(this, PreRechargeActivity::class.java))
+                startActivity(Intent(this, ETCActivity::class.java))
                 finish()
             }
             else -> {

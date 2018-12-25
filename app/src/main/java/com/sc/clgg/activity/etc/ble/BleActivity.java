@@ -31,9 +31,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BleActivity extends AppCompatActivity {
-    private final static String KEY = "2D65d001246ade79151C634be75264AF";
     private String tag = "logcat";
     private ServiceStatus mServiceStatus;
+    private String KEY = "2D65d001246ade79151C634be75264AF";
     private String intRandom = "";
     private String intMac = "";
     private String newKey = "";
@@ -45,8 +45,8 @@ public class BleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ble);
-        RQcMoney=getIntent().getIntExtra("RQcMoney",0);
-        RAdjust=getIntent().getIntExtra("RAdjust",0);
+        RQcMoney = getIntent().getIntExtra("RQcMoney", 0);
+        RAdjust = getIntent().getIntExtra("RAdjust", 0);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -92,7 +92,7 @@ public class BleActivity extends AppCompatActivity {
                     }
                 }).start();
                 break;
-            case R.id.read:
+            case R.id.read_and_circle:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -149,8 +149,7 @@ public class BleActivity extends AppCompatActivity {
                                     }
                                 }
                                 if (loadMac1Status.getServiceCode() == 0) {
-                                    long currentTimeMillis = System.currentTimeMillis();
-                                    new RetrofitHelper().loadMoney(currentTimeMillis,
+                                    new RetrofitHelper().loadMoney(
                                             cardInfo.getCardId(),
                                             RQcMoney + "",
                                             RAdjust + "",
@@ -178,23 +177,24 @@ public class BleActivity extends AppCompatActivity {
                                                 new RetrofitHelper().sureLoadMoney(cardInfo.getCardId(),
                                                         response.body().getRChargeLsh(),
                                                         cardInfo.getBalanceString(), chargeFlag, writeCardStatu.getServiceInfo(),
-                                                        a_on, response.body().getRWasteSn(),
+                                                        a_on,
                                                         String.valueOf(RQcMoney + RAdjust),
-                                                        response.body().getRWriteTime().replaceAll("/", "-")).enqueue(new Callback<CircleSave>() {
-                                                    @Override
-                                                    public void onResponse(Call<CircleSave> call, Response<CircleSave> response) {
-                                                        if (response.body().getSuccess()) {
-                                                            Toast.makeText(BleActivity.this, "圈存成功", Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            Toast.makeText(BleActivity.this, "圈存失败", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
+                                                        response.body().getRWriteTime().replaceAll("/", "-"))
+                                                        .enqueue(new Callback<CircleSave>() {
+                                                            @Override
+                                                            public void onResponse(Call<CircleSave> call, Response<CircleSave> response) {
+                                                                if (response.body().getSuccess()) {
+                                                                    Toast.makeText(BleActivity.this, "圈存成功", Toast.LENGTH_SHORT).show();
+                                                                } else {
+                                                                    Toast.makeText(BleActivity.this, "圈存失败", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
 
-                                                    @Override
-                                                    public void onFailure(Call<CircleSave> call, Throwable t) {
-                                                        Toast.makeText(BleActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
+                                                            @Override
+                                                            public void onFailure(Call<CircleSave> call, Throwable t) {
+                                                                Toast.makeText(BleActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
                                             }
                                         }
 
@@ -207,12 +207,10 @@ public class BleActivity extends AppCompatActivity {
                             }
 
                         }
-
-
                     }
                 }).start();
                 break;
-            case R.id.mac2:
+            case R.id.read_card_info:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

@@ -52,16 +52,16 @@ fun Context.wxPay(cardNo: String?, acount: String?) {
 /**
  * 流水号
  */
-fun Context.getWasteSn(currentTimeMillis:Long,cardNo: String):String {
-    return SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis)+ cardNo.substring(cardNo.length - 4) + RandomHelper.two()
+fun Context.getWasteSn(currentTimeMillis: Long, cardNo: String): String {
+    return SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis) + cardNo.substring(cardNo.length - 4) + RandomHelper.two()
 }
 
-fun Context.getWasteSnThree(currentTimeMillis:Long,cardNo: String):String {
-    return SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis)+ cardNo.substring(cardNo.length - 4) + RandomHelper.three()
+fun Context.getWasteSnThree(currentTimeMillis: Long, cardNo: String): String {
+    return SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis) + cardNo.substring(cardNo.length - 4) + RandomHelper.three()
 }
 
-fun Context.surePayMoney(cardNo: String?, money: String?, wasteSn: String?) {
-    RetrofitHelper().surePayMoney(cardNo, money, wasteSn).enqueue(object : Callback<StatusBean> {
+fun Context.surePayMoney(cardNo: String?, money: String?) {
+    RetrofitHelper().surePayMoney(cardNo, money).enqueue(object : Callback<StatusBean> {
         override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
             response.body()?.let {
                 if (it.success) {
@@ -84,11 +84,9 @@ internal class WeChatPayCache {
         var money: String? = ""
         var wasteSn: String? = ""
 
-        fun setValue(cardNumber: String, money: String, wasteSn: String) {
-            this.wasteSn = wasteSn
-        }
-        fun setValue(  wasteSn: String) {
-            this.wasteSn = wasteSn
+        fun setValue(cardNumber: String, money: String) {
+            this.cardNo = cardNumber
+            this.money = money
         }
 
         fun initValue() {

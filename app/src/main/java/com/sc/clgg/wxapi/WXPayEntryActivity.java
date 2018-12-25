@@ -51,8 +51,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     + "\nWasteSn:" + WeChatPayCache.Companion.getWasteSn());
             PayhelperKt.surePayMoney(this,
                     WeChatPayCache.Companion.getCardNo(),
-                    WeChatPayCache.Companion.getMoney(),
-                    WeChatPayCache.Companion.getWasteSn());
+                    WeChatPayCache.Companion.getMoney());
             //WeChatPayCache.Companion.initValue();
 
         } else if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {

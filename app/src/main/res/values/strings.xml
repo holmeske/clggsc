@@ -87,6 +87,7 @@
     <string name="submint_hint">提交申请表示您已经同意用户协议</string>
     <string name="next_step">下一步</string>
     <string name="back_home">返回首页</string>
+    <string name="back_etc_home">返回ETC首页</string>
     <string name="audit_hint">1–2日内通过审核，请耐心等待。可在我的ETC卡中查看进度</string>
     <string name="upload_hint">上传时确保行驶证主副页一起，字体清晰，亮度均匀:</string>
     <string name="card_a_introduce">鲁通卡A卡(记账卡)发售对象为信用度较高的单位用户，一卡一车，车与卡绑定，先消费，后缴费。办理时需登记单位用户资料、车辆等相关信息，按规定缴纳一定额度的通行费保证金，并签订协议，可挂失、可注销。</string>

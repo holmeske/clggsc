@@ -14,6 +14,7 @@ import android.webkit.*
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.sc.clgg.R
+import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.config.NetField
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.ConfigUtil
@@ -69,7 +70,6 @@ class MallFragment : Fragment() {
     }
 
 
-
     override fun onResume() {
         super.onResume()
         if (userVisibleHint) {
@@ -111,8 +111,9 @@ class MallFragment : Fragment() {
             override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {
                 handler.proceed()
             }
+
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                if ( url.startsWith("mailto:") || url.startsWith("geo:") || url.startsWith("tel:")) {
+                if (url.startsWith("mailto:") || url.startsWith("geo:") || url.startsWith("tel:")) {
                     var intent = Intent(Intent.ACTION_CALL, Uri.parse(url))
                     startActivity(intent)
                     return true
@@ -125,7 +126,12 @@ class MallFragment : Fragment() {
                 super.onReceivedError(view, request, error)
                 LogHelper.e("onReceivedError   ")
                 v_reload?.visibility = View.VISIBLE
-                activity?.toast("检查网络后重试")
+
+                activity?.let {
+                    if ((it as MainActivity).currenMainTabIndex == 2) {
+                        it.toast("检查网络后重试")
+                    }
+                }
             }
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {

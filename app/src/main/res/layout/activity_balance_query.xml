@@ -6,10 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    tools:context=".activity.etc.QueryActivity">
+    tools:context=".activity.etc.BalanceQueryActivity">
 
     <include layout="@layout/view_titlebar"/>
-
 
     <View
         android:id="@+id/v_1"
@@ -157,7 +156,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/stroke_blue_2"
         android:gravity="center"
-        android:text="@string/back_home"
+        android:text="@string/back_etc_home"
         android:textColor="@color/_4285f4"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -171,7 +170,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/bg_blue_2"
         android:gravity="center"
-        android:text="@string/back_home"
+        android:text="@string/go_circle"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/tv_back_home"

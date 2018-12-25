@@ -24,10 +24,6 @@ class ETCActivity : BaseImmersionActivity() {
         init()
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     private fun init() {
         titlebar_left.visibility = View.GONE
         titlebar_title.text = "远行通"

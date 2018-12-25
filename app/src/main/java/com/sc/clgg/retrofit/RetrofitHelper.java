@@ -39,7 +39,6 @@ import com.sc.clgg.bean.WeChatOrder;
 import com.sc.clgg.config.ConstantValue;
 import com.sc.clgg.config.NetField;
 import com.sc.clgg.tool.helper.LogHelper;
-import com.sc.clgg.tool.helper.RandomHelper;
 import com.sc.clgg.util.ConfigUtil;
 import com.sc.clgg.util.Tools;
 
@@ -193,21 +192,12 @@ public class RetrofitHelper {
     }
 
     /**
-     * 车牌列表
-     */
-    public retrofit2.Call<CarNumberList> getCarNumberList() {
-        return Retrofit().create(RetrofitApi.class).getCarNumberList("35");
-//        return Retrofit().create(RetrofitApi.class).getCarNumberList(new ConfigUtil().getUserid());
-    }
-
-    /**
      * 获取mac2
      */
-    public retrofit2.Call<CircleSave> loadMoney(long currentTimeMillis, String cardNo, String money, String adjustMoney, String mac1,
+    public retrofit2.Call<CircleSave> loadMoney(String cardNo, String money, String adjustMoney, String mac1,
                                                 String storeMoney, String rand, String onlineNum, String bluetoothSn) {
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("wasteSn", WeChatPayCache.Companion.getWasteSn());
         params.put("cardNo", cardNo);
         params.put("money", money);
         params.put("adjustMoney", adjustMoney);
@@ -231,14 +221,13 @@ public class RetrofitHelper {
      * @param chargeFlag 圈存结果--0：成功 其他：失败
      * @param tac        从与写卡设备交互后的数据获取（16机制串）
      * @param cardTran   从与写卡设备交互后的数据获取（16进制串）
-     * @param wasteSn    流水号 时间yyyymmddhhmmss(14)+卡号(后4位)+随机数(3位）
      * @param realMoney  实际写卡金额（单位：分）  实际写卡金额=圈存金额+调整金额
      * @param writeTime  写卡时间格式：YYYY-MM-DD HH:MI:SS
      * @return
      */
     public retrofit2.Call<CircleSave> sureLoadMoney(String cardNo, String chargeLsh, String storeMoney,
                                                     String chargeFlag, String tac, String cardTran,
-                                                    String wasteSn, String realMoney, String writeTime) {
+                                                    String realMoney, String writeTime) {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("cardNo", cardNo);
@@ -247,7 +236,6 @@ public class RetrofitHelper {
         params.put("chargeFlag", chargeFlag);
         params.put("tac", tac);
         params.put("cardTran", cardTran);
-        params.put("wasteSn", wasteSn);
         params.put("realMoney", realMoney);
         params.put("writeTime", writeTime);
         params.put("userCode", new ConfigUtil().getUserid());
@@ -264,11 +252,17 @@ public class RetrofitHelper {
         HashMap<String, Object> params = new HashMap<>();
         params.put("cardType", cardType);
         params.put("carNo", carNo);
-        params.put("userCode", "35");
-        //params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", new ConfigUtil().getUserid());
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
         return Retrofit().create(RetrofitApi.class).getCardList(json);
+    }
+
+    /**
+     * 车牌列表
+     */
+    public retrofit2.Call<CarNumberList> getCarNumberList() {
+        return Retrofit().create(RetrofitApi.class).getCarNumberList(new ConfigUtil().getUserid());
     }
 
     /**
@@ -284,18 +278,16 @@ public class RetrofitHelper {
     /**
      * 齐鲁交通充值
      */
-    public retrofit2.Call<StatusBean> payMoney(String cardNo, String money, long currentTimeMillis) {
+    public retrofit2.Call<StatusBean> payMoney(String cardNo, String money ) {
 
-        String yyyymmddhhmmss = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis);
+        String yyyymmddhhmmss = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(System.currentTimeMillis());
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("cardNo", cardNo);
         params.put("payTime", yyyymmddhhmmss);
         params.put("money", money);
         params.put("userCode", new ConfigUtil().getUserid());
-        String ws=  yyyymmddhhmmss + cardNo.substring(cardNo.length() - 4) + RandomHelper.three();
-        WeChatPayCache.Companion.setValue(ws);
-        params.put("wasteSn",ws);
+
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
 
         return Retrofit().create(RetrofitApi.class).payMoney(json);
@@ -304,11 +296,9 @@ public class RetrofitHelper {
     /**
      * 齐鲁交通充值确认
      */
-    public retrofit2.Call<StatusBean> surePayMoney(String cardNo, String money, String wasteSn) {
+    public retrofit2.Call<StatusBean> surePayMoney(String cardNo, String money) {
 
         long time = System.currentTimeMillis();
-
-        String yyyymmddhhmmss = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(time);
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("cardNo", cardNo);
@@ -319,7 +309,6 @@ public class RetrofitHelper {
         params.put("payFlag", "0");
         params.put("tradeno", time + "");
 
-        params.put("wasteSn", wasteSn);
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
 
         return Retrofit().create(RetrofitApi.class).surePayMoney(json);

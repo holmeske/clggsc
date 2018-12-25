@@ -3,6 +3,7 @@ package com.sc.clgg.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.sc.clgg.R;
@@ -40,6 +41,7 @@ public class LoadingDialog extends Dialog {
     public void setContent(String msg) {
         if (msg != null && mTvConten != null) {
             mTvConten.setText(msg);
+            mTvConten.setVisibility(View.VISIBLE);
         }
     }
 

@@ -1,9 +1,7 @@
 package com.sc.clgg.activity.etc
 
-import android.content.Intent
 import android.os.Bundle
 import com.sc.clgg.R
-import com.sc.clgg.activity.etc.ble.BleActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CardInfo
 import com.sc.clgg.bean.CardList
@@ -24,17 +22,17 @@ class PreRechargeActivity : BaseImmersionActivity() {
      * 可圈存余额
      */
     private var canCircleMoney: Double = -1.0
-    private lateinit var card: CardList.Card
+    private var card: CardList.Card? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_recharge)
-        //card = intent.getParcelableExtra("card")
+        card = intent.getParcelableExtra("card")
         //if (card==null){
-            card=  CardList.Card("3", "沪00001", "37011801220102886198")
-       // }
+        //    card=  CardList.Card("3", "沪00001", "37011801220102886198")
+        // }
         logcat(card)
-        getCardInfo(card.cardId)
+        getCardInfo(card?.cardId)
         init()
     }
 
@@ -45,7 +43,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
     private fun init() {
         titlebar_title.text = getString(R.string.pre_recharge)
 
-        when (card.cardType) {
+        when (card?.cardType) {
             "2" -> {
                 tv_card_type.text = "鲁通A卡"
             }
@@ -56,8 +54,8 @@ class PreRechargeActivity : BaseImmersionActivity() {
                 tv_card_type.text = ""
             }
         }
-        tv_card.text = card.cardId
-        tv_carno.text = card.vlp
+        tv_card.text = card?.cardId
+        tv_carno.text = card?.vlp
 
         initPreRechargeListener()
     }
@@ -76,7 +74,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
                     response.body()?.let {
                         if (it.success) {
                             canCircleMoney = it.RQcMoney!!.toDouble()
-                            RAdjust=it.RAdjust!!.toInt()
+                            RAdjust = it.RAdjust!!.toInt()
                             if (canCircleMoney > 0.0) {
                                 v_1.setBackgroundResource(R.drawable.bg_gray_5)
                             } else if (canCircleMoney == 0.0) {
@@ -94,25 +92,21 @@ class PreRechargeActivity : BaseImmersionActivity() {
         }
     }
 
-      private var RAdjust = 1
+    private var RAdjust = 1
     private fun initPreRechargeListener() {
         v_1.setOnClickListener {
 
             if (canCircleMoney > 0.0) {
-                /*PreRechargeHintDialog(this@PreRechargeActivity).apply {
+                PreRechargeHintDialog(this@PreRechargeActivity).apply {
                     show()
                     setData(canCircleMoney)
                     setCancelListener { dismiss() }
-                }*/
-                startActivity(Intent(this,BleActivity::class.java)
-                        .putExtra("RQcMoney",canCircleMoney.toInt())
-                        .putExtra("RAdjust",RAdjust))
+                }
+//                startActivity(Intent(this, BleActivity::class.java)
+//                        .putExtra("RQcMoney", canCircleMoney.toInt())
+//                        .putExtra("RAdjust", RAdjust))
             } else if (canCircleMoney == 0.0) {
-
-                RechargeDialog(this).apply {
-                    setCardNumber(card.cardId)
-                }.show()
-
+                RechargeDialog(this).apply { setCardNumber(card?.cardId) }.show()
             }
 
         }

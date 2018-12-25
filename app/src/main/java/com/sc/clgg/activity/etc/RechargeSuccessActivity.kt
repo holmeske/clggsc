@@ -2,7 +2,6 @@ package com.sc.clgg.activity.etc
 
 import android.os.Bundle
 import com.sc.clgg.R
-import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_recharge_success.*
@@ -18,7 +17,6 @@ class RechargeSuccessActivity : BaseImmersionActivity() {
         titlebar_title.text = "成功"
         iv_nav.setImageResource(R.drawable.pay_success_nav_step_icon)
 
-//        tv_back_home.setOnClickListener { startActivity(Intent(this@RechargeSuccessActivity,MainActivity::class.java).putExtra("activity","recharge")) }
-        tv_back_home.setOnClickListener {startActivity(MainActivity::class.java)}
+        tv_back_home.setOnClickListener {startActivity(ETCActivity::class.java)}
     }
 }

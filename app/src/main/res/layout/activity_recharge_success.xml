@@ -176,25 +176,10 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_blue_stroke"
             android:gravity="center"
-            android:text="返回首页"
+            android:text="返回ETC首页"
             android:textColor="@color/_4285f4"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/tv_continue_recharge"
-            app:layout_constraintTop_toBottomOf="@id/tv_can_write_str"/>
-
-        <TextView
-            android:id="@+id/tv_continue_recharge"
-            android:layout_width="120dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_blue"
-            android:gravity="center"
-            android:text="继续充值"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toRightOf="@id/tv_back_home"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_can_write_str"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

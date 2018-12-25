@@ -11,11 +11,27 @@ import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
 @Parcelize
+data class EtcCardInfo(val balanceInt: Int? = 0,
+                       val balanceString: String? = "",
+                       var cardId: String? = "",
+                       var cardStatus: Int? = 0,
+                       var cardType: String? = "",
+                       var cardVersion: String? = "",
+                       var expiredDate: String? = "",
+                       var plateColor: String? = "",
+                       var provider: String? = "",
+                       var signedDate: String? = "",
+                       var userType: String? = "",
+                       var vehicleModel: String? = "",
+                       var vehicleNumber: String? = "") : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class CircleSave(val msg: String? = "", val success: Boolean, var Mac2: String? = "",
-              var RChargeLsh: String? = "",
-              var RWriteTime: String? = "",
-              var RMac2: String? = "",
-              var RWasteSn: String? = "") : Parcelable
+                      var RChargeLsh: String? = "",
+                      var RWriteTime: String? = "",
+                      var RMac2: String? = "",
+                      var RWasteSn: String? = "") : Parcelable
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -33,6 +49,7 @@ data class CardInfo(var code: Int = 0,
                     var RQcMoney: String? = "",
                     var RVLP: String? = "",
                     var RAdjust: String? = ""
+
 ) : Parcelable
 
 @SuppressLint("ParcelCreator")

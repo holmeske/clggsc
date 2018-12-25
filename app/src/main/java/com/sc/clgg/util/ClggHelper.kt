@@ -49,6 +49,6 @@ fun Banner?.setData(context: Context? = null, data: ArrayList<com.sc.clgg.bean.B
 /**
  * 快捷 打印日志
  */
-fun logcat(o: Any) {
+fun logcat(o: Any?) {
     LogHelper.e(Gson().toJson(o))
 }

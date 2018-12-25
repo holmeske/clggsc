@@ -139,13 +139,12 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.v_instant_recharge:
                 String money = tv_recharge_amount.getText().toString();
-                long currentTimeMillis = System.currentTimeMillis();
-                new RetrofitHelper().payMoney(cardNumber, money, currentTimeMillis).enqueue(new Callback<StatusBean>() {
+                new RetrofitHelper().payMoney(cardNumber, money).enqueue(new Callback<StatusBean>() {
                     @Override
                     public void onResponse(Call<StatusBean> call, Response<StatusBean> response) {
                         if (response.isSuccessful()) {
                             PayhelperKt.wxPay(mActivity, cardNumber, money);
-                            WeChatPayCache.Companion.setValue(cardNumber, money, WeChatPayCache.Companion.getWasteSn());
+                            WeChatPayCache.Companion.setValue(cardNumber, money);
                         } else {
                             Toast.makeText(mActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                         }
