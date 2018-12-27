@@ -4,8 +4,6 @@ import android.Manifest;
 
 import com.sc.clgg.util.ConfigUtil;
 
-import java.util.ArrayList;
-
 /**
  * @author lvke
  */
@@ -14,7 +12,6 @@ public class ConstantValue {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE};
-    public static ArrayList<String> PERMISSION_HAS = new ArrayList();
 
     /**
      * 客服电话

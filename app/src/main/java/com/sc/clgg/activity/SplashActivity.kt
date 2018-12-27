@@ -5,7 +5,7 @@ import android.content.Intent
 import com.google.gson.Gson
 import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
-import com.sc.clgg.activity.etc.ETCActivity
+import com.sc.clgg.activity.etc.CardIntroduceActivity
 import com.sc.clgg.activity.etc.ble.BleActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
@@ -79,7 +79,7 @@ class SplashActivity : BaseImmersionActivity() {
                 finish()
             }
             4 -> {
-                startActivity(Intent(this, ETCActivity::class.java))
+                startActivity(Intent(this, CardIntroduceActivity::class.java))
                 finish()
             }
             else -> {

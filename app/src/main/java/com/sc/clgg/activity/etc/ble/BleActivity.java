@@ -87,7 +87,9 @@ public class BleActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         DeviceInformation deviceInformation = App.getInstance().mObuInterface.getDeviceInformation();
-                        bluetoothSn = deviceInformation.Sn;
+                        if (deviceInformation != null) {
+                            bluetoothSn = deviceInformation.Sn;
+                        }
                         Log.e(tag, "" + new Gson().toJson(deviceInformation));
                     }
                 }).start();
@@ -214,20 +216,25 @@ public class BleActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        Log.e(tag, "链接状态 " + new Gson().toJson(App.getInstance().mObuInterface.getConnectStatus()));
                         intRandom = "1234";
                         try {
                             intMac = NewDES.PBOC_3DES_MAC(intRandom, KEY).substring(0, 8);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if (App.getInstance().mObuInterface.intAuthDev(intRandom.length() / 2, intRandom, intMac) == 0) {
+                        ServiceStatus status = null;
+                        int AuthDev = App.getInstance().mObuInterface.intAuthDev(intRandom.length() / 2, intRandom, intMac);
+                        if (AuthDev == 0) {
                             Log.e(tag, "认证成功");
                             CardInformation cardInfo = new CardInformation();
-                            ServiceStatus status = App.getInstance().mObuInterface.getCardInformation(cardInfo);
+                            status = App.getInstance().mObuInterface.getCardInformation(cardInfo);
                             if (status.getServiceCode() == 0) {
                                 Log.e(tag, "读卡成功 " + new Gson().toJson(cardInfo));
                             }
                         }
+                        Log.e(tag, "AuthDev =  " + AuthDev);
+                        Log.e(tag, "读卡 " + new Gson().toJson(App.getInstance().mObuInterface.getCardInformation(new CardInformation())));
                     }
                 }).start();
                 break;

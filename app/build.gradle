@@ -123,14 +123,13 @@ dependencies {
     }
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation "junit:junit:$junitLibraryVersion"
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
     implementation 'com.amap.api:3dmap:6.5.0'
     implementation 'com.amap.api:location:4.4.0'
     implementation 'com.amap.api:search:6.5.0.1'
     implementation 'com.google.code.gson:gson:2.8.5'
-    //implementation 'com.yanzhenjie:permission:2.0.0-rc12'
     implementation 'com.youth.banner:banner:1.4.10'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
@@ -155,7 +154,7 @@ dependencies {
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
     implementation "org.jetbrains.anko:anko-sdk25-listeners:$anko_version"
     implementation 'androidx.core:core-ktx:1.0.1'
-    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
 

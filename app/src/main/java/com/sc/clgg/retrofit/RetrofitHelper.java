@@ -9,6 +9,7 @@ import com.sc.clgg.application.App;
 import com.sc.clgg.application.AppPresenterKt;
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
+import com.sc.clgg.bean.BusinessNoteList;
 import com.sc.clgg.bean.CarNumberList;
 import com.sc.clgg.bean.CardInfo;
 import com.sc.clgg.bean.CardList;
@@ -28,6 +29,7 @@ import com.sc.clgg.bean.MileageDetail;
 import com.sc.clgg.bean.NoReadInfo;
 import com.sc.clgg.bean.PathRecord;
 import com.sc.clgg.bean.PersonalData;
+import com.sc.clgg.bean.RechargeOrderList;
 import com.sc.clgg.bean.ServiceStation;
 import com.sc.clgg.bean.StatusBean;
 import com.sc.clgg.bean.TallyBook;
@@ -212,6 +214,14 @@ public class RetrofitHelper {
         return Retrofit().create(RetrofitApi.class).loadMoney(json);
     }
 
+    public retrofit2.Call<RechargeOrderList> getRechargeOrderList() {
+        return Retrofit().create(RetrofitApi.class).getRechargeOrderList(new ConfigUtil().getUserid());
+    }
+
+    public retrofit2.Call<BusinessNoteList> getEtcBusinessNote() {
+        return Retrofit().create(RetrofitApi.class).getEtcBusinessNote();
+    }
+
     /**
      * 圈存确认
      *
@@ -278,7 +288,7 @@ public class RetrofitHelper {
     /**
      * 齐鲁交通充值
      */
-    public retrofit2.Call<StatusBean> payMoney(String cardNo, String money ) {
+    public retrofit2.Call<StatusBean> payMoney(String cardNo, String money) {
 
         String yyyymmddhhmmss = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(System.currentTimeMillis());
 

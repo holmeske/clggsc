@@ -9,6 +9,42 @@ import kotlinx.android.parcel.Parcelize
  * @date：2018/10/16 17:22
  */
 
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class BusinessNoteList(var code: Int = 0,
+                            val success: Boolean,
+                            val msg: String? = "",
+                            val etcBusinessNoteList: ArrayList<Note>? = ArrayList()) : Parcelable {
+    @Parcelize
+    data class Note(
+            var id: Int? = 0,
+            val title: String? = "",
+            var text: String? = "",
+            var createTime: String? = "",
+            var rank: Int? = 0
+    ) : Parcelable
+}
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class RechargeOrderList(var code: Int = 0,
+                             val success: Boolean,
+                             val msg: String? = "",
+                             val payOrdersVoList: ArrayList<Order>? = ArrayList()) : Parcelable {
+    @Parcelize
+    data class Order(
+            val wasteSn: String? = "",
+            var cardNo: String? = "",
+            var payMoney: Int? = 0,
+            var payTime: String? = "",
+            var payFlag: String? = "",
+            var payType: String? = "",
+            var createTime: String? = "",
+            var isLoad: String? = ""
+    ) : Parcelable
+}
+
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class EtcCardInfo(val balanceInt: Int? = 0,

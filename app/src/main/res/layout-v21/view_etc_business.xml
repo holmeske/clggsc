@@ -2,33 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_etc_grid"
     android:elevation="5dp"
-    android:paddingBottom="15dp"
-    android:paddingStart="25dp">
+    android:paddingStart="25dp"
+    android:paddingBottom="15dp">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:text="@string/default_hint"
         android:textColor="#444"
         android:textSize="13sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="A卡是什么？"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tv_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/default_hint"
         android:textColor="#9c9c9c"
         android:textSize="10sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        tools:text="我是内容，我是内容，我是..."/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
 
     <ImageView
         android:layout_width="wrap_content"

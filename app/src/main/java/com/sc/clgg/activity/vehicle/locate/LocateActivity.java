@@ -49,7 +49,7 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
 
     private boolean isVisible = true;
     private AMap aMap;
-    private Call<Location> call;
+    private Call<Location> http;
 
     private ArrayList<Location.Data> array;
 
@@ -92,8 +92,8 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
     protected void onDestroy() {
         super.onDestroy();
         isVisible = false;
-        if (call != null) {
-            call.cancel();
+        if (http != null) {
+            http.cancel();
         }
         if (map != null) {
             map.onDestroy();
@@ -170,8 +170,8 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
 
     private void loadData() {
         showProgressDialog();
-        call = new RetrofitHelper().location();
-        call.enqueue(new Callback<Location>() {
+        http = new RetrofitHelper().location();
+        http.enqueue(new Callback<Location>() {
             @Override
             public void onResponse(@NonNull Call<Location> call, @NonNull Response<Location> response) {
                 hideProgressDialog();
@@ -179,7 +179,7 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
             }
 
             @Override
-            public void onFailure(@NonNull Call<Location> call, Throwable t) {
+            public void onFailure(@NonNull Call<Location> call, @NonNull Throwable t) {
                 hideProgressDialog();
                 Toast.makeText(LocateActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
             }
@@ -203,7 +203,8 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
 
         //过滤不包含经纬度的不完整bean
         for (Location.Data bean : list) {
-            LatLng latLng = new LatLng(Double.parseDouble(bean.getLatitude()), Double.parseDouble(bean.getLongitude()));
+            LatLng latLng = new LatLng(Double.parseDouble(Objects.requireNonNull(bean.getLatitude())),
+                    Double.parseDouble(Objects.requireNonNull(bean.getLongitude())));
             builder.include(latLng);
             //它定义了marker 的属性信息。
             MarkerOptions markerOptions = new MarkerOptions();

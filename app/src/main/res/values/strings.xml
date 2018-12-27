@@ -68,7 +68,7 @@
     <string name="personal_data">个人资料</string>
     <string name="set">设置</string>
     <string name="recharge_amount">充值金额</string>
-    <string name="_100_2000_100">(100–2000元之间且满足100的整数倍)</string>
+    <string name="_100_2000_100">(大于100的整数)</string>
     <string name="other_amount">其他金额&#160;&#160;&#160;&#160;&#160;&#160;¥</string>
     <string name="vehicle_position">车辆定位</string>
     <string name="more">更多</string>
@@ -88,14 +88,19 @@
     <string name="next_step">下一步</string>
     <string name="back_home">返回首页</string>
     <string name="back_etc_home">返回ETC首页</string>
-    <string name="audit_hint">1–2日内通过审核，请耐心等待。可在我的ETC卡中查看进度</string>
+    <string name="audit_hint">需3-5工作日内审核，7个工作日寄送，请在“开卡审核”查看进度。如遇系统升级，会稍许延迟，可拨打客服电话：400-888-1122进行查询。</string>
     <string name="upload_hint">上传时确保行驶证主副页一起，字体清晰，亮度均匀:</string>
     <string name="card_a_introduce">鲁通卡A卡(记账卡)发售对象为信用度较高的单位用户，一卡一车，车与卡绑定，先消费，后缴费。办理时需登记单位用户资料、车辆等相关信息，按规定缴纳一定额度的通行费保证金，并签订协议，可挂失、可注销。</string>
     <string name="click_apply_a_card">点击申请A卡</string>
     <string name="click_apply_b_card">点击申请B卡</string>
-    <string name="card_b_introduce">鲁通卡B卡(预付费卡)先充值，后消费。卡内记录了资金信息，相当于一个电子钱包，用户通过互联网高速公路收费站时，用预付费卡代替现金支付通行费，资金直接在卡上扣除。预付费卡的使用方式为一卡一车，卡与车辆绑定，可挂失、可注销。</string>
+    <string name="card_b_introduce">鲁通卡B卡(预付费卡)先充值，后消费。预付费卡的使用方式为一卡一车，卡与车辆绑定，可挂失、可注销。
+        \n提示：
+        \n1、目前仅支持货车ETC（货三、货四、货五），小车以及客车请勿提交
+    \n2、一辆车仅能办理一张ETC卡，若您已有ETC卡请销卡后再提交
+    \n3、若您之前已提交ETC购卡申请，可在“开卡审核”查看进度</string>
     <string name="baidu_map">百度地图</string>
     <string name="amap">高德地图</string>
+    <string name="default_hint">- -</string>
 
 
 </resources>

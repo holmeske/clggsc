@@ -44,4 +44,8 @@ public class PreRechargeHintDialog extends Dialog {
         findViewById(R.id.tv_cancel).setOnClickListener(listener);
     }
 
+    public void setData(String big, String small) {
+        ((TextView) findViewById(R.id.tv_des_big)).setText(big);
+        ((TextView) findViewById(R.id.tv_des_small)).setText(small);
+    }
 }

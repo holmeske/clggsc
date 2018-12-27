@@ -30,9 +30,14 @@ public class BaseAppCompatActivity extends AppCompatActivity implements EasyPerm
         show(canceledOnTouchOutside);
     }
 
+    protected void showProgressDialog(String msg,boolean canceledOnTouchOutside) {
+        show(msg);
+        dialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
+    }
     protected void showProgressDialog(String msg) {
         show(msg);
     }
+
 
     private void show(String msg) {
         if (dialog == null) {

@@ -12,7 +12,6 @@ import com.sc.clgg.util.startActivity
 import etc.obu.data.CardInformation
 import etc.obu.data.ServiceStatus
 import kotlinx.android.synthetic.main.activity_read_card.*
-import kotlinx.android.synthetic.main.view_read_card.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.toast
 import java.text.SimpleDateFormat
@@ -24,7 +23,6 @@ class ReadCardActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_read_card)
 
         titlebar_title.text = getString(R.string.read_card)
-        iv_nav.setImageResource(R.drawable.pay_nav_step_icon)
 
         tv_no_card_recharge.setOnClickListener { startActivity(MyCardActivity::class.java) }
 

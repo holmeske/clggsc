@@ -35,12 +35,12 @@ class AuditActivity : BaseImmersionActivity() {
 
         var spannableString = SpannableString(hint)
 
-        spannableString.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, R.color._4285f4)), hint.length - 11, hint.length - 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(MyClick(this@AuditActivity), hint.length - 11, hint.length - 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, R.color._4285f4)), 22, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(MyClick(this@AuditActivity), 22, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
         tv_2.setText(spannableString)
-        tv_2.movementMethod=LinkMovementMethod.getInstance()
+        tv_2.movementMethod = LinkMovementMethod.getInstance()
 
         tv_back_home.setOnClickListener { startActivity(MainActivity::class.java) }
 
@@ -49,12 +49,12 @@ class AuditActivity : BaseImmersionActivity() {
     internal inner class MyClick(private val mContext: Context) : ClickableSpan() {
 
         override fun onClick(@NonNull widget: View) {
-            mContext.startActivity(Intent(mContext, MyCardActivity::class.java).putExtra("click",false))
+            mContext.startActivity(Intent(mContext, ApplyStateActivity::class.java))
         }
 
         override fun updateDrawState(ds: TextPaint) {
             super.updateDrawState(ds)
-            ds.color=ContextCompat.getColor(mContext, R.color._4285f4)
+            ds.color = ContextCompat.getColor(mContext, R.color._4285f4)
         }
     }
 

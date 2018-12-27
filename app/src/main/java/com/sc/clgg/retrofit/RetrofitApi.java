@@ -2,6 +2,7 @@ package com.sc.clgg.retrofit;
 
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
+import com.sc.clgg.bean.BusinessNoteList;
 import com.sc.clgg.bean.CarNumberList;
 import com.sc.clgg.bean.CardInfo;
 import com.sc.clgg.bean.CardList;
@@ -20,6 +21,7 @@ import com.sc.clgg.bean.MileageDetail;
 import com.sc.clgg.bean.NoReadInfo;
 import com.sc.clgg.bean.PathRecord;
 import com.sc.clgg.bean.PersonalData;
+import com.sc.clgg.bean.RechargeOrderList;
 import com.sc.clgg.bean.ServiceStation;
 import com.sc.clgg.bean.StatusBean;
 import com.sc.clgg.bean.TallyBook;
@@ -49,6 +51,12 @@ import retrofit2.http.Query;
  */
 
 public interface RetrofitApi {
+
+    @GET("etc/cardApply/getEtcBusinessNote")
+    Call<BusinessNoteList> getEtcBusinessNote();
+
+    @GET("etc/cardApply/payOrders")
+    Call<RechargeOrderList> getRechargeOrderList(@Query("userCode") String userCode);
 
     @POST("etc/cardApply/loadMoney")
     Call<CircleSave> loadMoney(@Body RequestBody json);

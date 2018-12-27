@@ -27,4 +27,5 @@ class CardIntroduceActivity : BaseImmersionActivity() {
     private fun next() {
         startActivity(Intent(this, IdentityCertificationActivity::class.java).putExtra("info", certificationInfo))
     }
+
 }

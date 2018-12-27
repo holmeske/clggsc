@@ -79,7 +79,7 @@ class CarNetFragment : Fragment(), TruckManageContact {
             ActivityHelper.startAcScale(activity, MileageActivity::class.java)
         }
         hb_driving_score.setHomeButtonOnClickListener {
-            //            startActivity(Intent(activity, PathRecordActivity::class.java)
+//            startActivity(Intent(activity, PathRecordActivity::class.java)
 //                    .putExtra("carno", "晋C64989").putExtra("vin", "HX114675")
 //                    .putExtra("startDate", "20180716000000")
 //                    .putExtra("endDate", "20180716235959") )

@@ -294,6 +294,10 @@
         </activity>
         <activity android:name=".activity.etc.PreRechargeFinishActivity">
         </activity>
+        <activity android:name=".activity.etc.RechargeOrderActivity">
+        </activity>
+        <activity android:name=".activity.BusinessIntroductionActivity">
+        </activity>
     </application>
 
 </manifest>
