@@ -199,7 +199,8 @@ class WriteCardActivity : BaseImmersionActivity() {
                                 }
                             }
                         } else {
-                            toast("${it.msg}")
+                            startActivity(Intent(this@WriteCardActivity, PayResultActivity::class.java)
+                                    .putExtra("msg", it.msg))
                         }
                     }
                 }

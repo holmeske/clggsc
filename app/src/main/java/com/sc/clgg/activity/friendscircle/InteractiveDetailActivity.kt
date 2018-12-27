@@ -1,4 +1,4 @@
-package com.sc.clgg.activity.etc
+package com.sc.clgg.activity.friendscircle
 
 import android.content.Context
 import android.content.Intent
@@ -13,7 +13,6 @@ import com.lzy.ninegrid.ImageInfo
 import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.NineGridViewAdapter
 import com.sc.clgg.R
-import com.sc.clgg.activity.friendscircle.PictureActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Check
 import com.sc.clgg.bean.InteractiveDetail

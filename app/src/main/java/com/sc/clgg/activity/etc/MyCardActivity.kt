@@ -33,10 +33,6 @@ class MyCardActivity : BaseImmersionActivity() {
         initView()
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         cardListHttp?.cancel()

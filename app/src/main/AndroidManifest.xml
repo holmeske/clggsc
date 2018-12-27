@@ -260,7 +260,7 @@
             android:name=".service.AppService"
             android:exported="false"/>
 
-        <activity android:name=".activity.etc.InteractiveDetailActivity"/>
+        <activity android:name=".activity.friendscircle.InteractiveDetailActivity"/>
         <activity android:name=".activity.etc.RechargeActivity"/>
         <activity android:name=".activity.etc.ReadCardActivity"/>
         <activity android:name=".activity.etc.WriteCardActivity"/>

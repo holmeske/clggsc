@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sc.clgg.R;
-import com.sc.clgg.activity.etc.InteractiveDetailActivity;
+import com.sc.clgg.activity.friendscircle.InteractiveDetailActivity;
 import com.sc.clgg.bean.NoReadInfo;
 import com.sc.clgg.util.PotatoKt;
 
