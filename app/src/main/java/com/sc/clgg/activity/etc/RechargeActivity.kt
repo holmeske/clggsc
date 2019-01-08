@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
-import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_recharge.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 
@@ -17,6 +16,8 @@ class RechargeActivity : BaseImmersionActivity() {
         titlebar_title.text = getString(R.string.etc_czqc)
 
         v_1.setOnClickListener { startActivity(Intent(this, ReadCardActivity::class.java)) }
-        v_3.setOnClickListener { startActivity(MyCardActivity::class.java) }
+        v_3.setOnClickListener {
+            startActivity(Intent(this, MyCardActivity::class.java).putExtra("click", true))
+        }
     }
 }

@@ -2,6 +2,10 @@ package com.sc.clgg
 
 
 fun main() {
+    for (i in 1..3) {
+        println(i)
+    }
+
     bar(null)
     bar("42")
 //    var s = "370118012R20102886102"
@@ -14,6 +18,8 @@ fun main() {
             .map { "$it, " }
             // 循环输出
             .forEach { println(it) }
+
+
 }
 
 fun bar(x: String?) {

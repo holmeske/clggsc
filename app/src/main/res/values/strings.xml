@@ -101,6 +101,7 @@
     <string name="baidu_map">百度地图</string>
     <string name="amap">高德地图</string>
     <string name="default_hint">- -</string>
+    <string name="youjixinxi">邮寄信息</string>
 
 
 </resources>

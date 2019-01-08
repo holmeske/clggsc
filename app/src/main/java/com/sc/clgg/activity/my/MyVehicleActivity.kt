@@ -10,6 +10,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.ActivityHelper
 import kotlinx.android.synthetic.main.activity_my_vehicle.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Response
 
@@ -45,16 +46,20 @@ class MyVehicleActivity : BaseImmersionActivity() {
         http = RetrofitHelper().myVehicle()
         http?.enqueue(object : retrofit2.Callback<Vehicle> {
             override fun onFailure(call: Call<Vehicle>?, t: Throwable?) {
-
+                toast(R.string.network_anomaly)
             }
 
             override fun onResponse(call: Call<Vehicle>?, response: Response<Vehicle>?) {
                 response?.body()?.let {
-                    if (it.vehicleInfoList?.isNullOrEmpty()!!) {
-                        tv_nocar.visibility = View.VISIBLE
+                    if (it.success) {
+                        if (it.vehicleInfoList?.isNullOrEmpty()!!) {
+                            tv_nocar.visibility = View.VISIBLE
+                        } else {
+                            tv_nocar.visibility = View.GONE
+                            adapter?.refresh(it.vehicleInfoList)
+                        }
                     } else {
-                        tv_nocar.visibility = View.GONE
-                        adapter?.refresh(it.vehicleInfoList)
+                        toast("${it.msg}")
                     }
                 }
             }

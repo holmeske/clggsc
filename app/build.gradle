@@ -109,24 +109,23 @@ def static releaseTime() {//-HH-mm-ss
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation('com.google.android.material:material:1.0.0') {
+    implementation('com.google.android.material:material:1.1.0-alpha02') {
         force = true
     }
-    implementation('androidx.appcompat:appcompat:1.0.2') {
+    implementation('androidx.appcompat:appcompat:1.1.0-alpha01') {
         force = true
     }
     implementation('androidx.legacy:legacy-support-v4:1.0.0') {
         force = true
     }
-    implementation('androidx.recyclerview:recyclerview:1.0.0') {
+    implementation('androidx.recyclerview:recyclerview:1.1.0-alpha01') {
         force = true
     }
-    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation "junit:junit:$junitLibraryVersion"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     androidTestImplementation 'androidx.test:runner:1.1.1'
-    implementation 'com.amap.api:3dmap:6.5.0'
+    implementation 'com.amap.api:3dmap:6.6.0'
     implementation 'com.amap.api:location:4.4.0'
     implementation 'com.amap.api:search:6.5.0.1'
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -155,8 +154,8 @@ dependencies {
     implementation "org.jetbrains.anko:anko-sdk25-listeners:$anko_version"
     implementation 'androidx.core:core-ktx:1.0.1'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
 
     //沉浸式
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'

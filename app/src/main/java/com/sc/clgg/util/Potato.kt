@@ -22,6 +22,10 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+fun randomId(): String {
+    return UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault())
+}
+
 fun EditText.setTextChangeListener(body: (key: String) -> Unit) {
     addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {

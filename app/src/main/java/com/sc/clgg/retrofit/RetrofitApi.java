@@ -52,6 +52,9 @@ import retrofit2.http.Query;
 
 public interface RetrofitApi {
 
+    @GET("wxpay/confirmPayStatus/{cardCode}")
+    Call<StatusBean> confirmPayStatus(@Path("cardCode") String cardCode);
+
     @GET("etc/cardApply/getEtcBusinessNote")
     Call<BusinessNoteList> getEtcBusinessNote();
 
@@ -150,6 +153,18 @@ public interface RetrofitApi {
     @Multipart
     @POST("vehicleInfo/scan")
     Call<Map<String, Object>> scan(@Part List<MultipartBody.Part> parts);
+
+    @Multipart
+    @POST("vehicleInfo/passport")
+    Call<Map<String, Object>> passport(@Part List<MultipartBody.Part> parts);
+
+    @Multipart
+    @POST("vehicleInfo/idCard")
+    Call<Map<String, Object>> idCard(@Part List<MultipartBody.Part> parts);
+
+    @Multipart
+    @POST("vehicleInfo/licensePlate")
+    Call<Map<String, Object>> licensePlate(@Part List<MultipartBody.Part> parts);
 
     @POST("client/update")
     Call<Check> update(@Body RequestBody json);

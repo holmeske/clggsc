@@ -34,11 +34,11 @@ public class ETCAdapter extends RecyclerView.Adapter<MyHolder> {
     private Context mContext;
     private String[] names = new String[]{
             "申请ETC卡", "充值 · 圈存", "预充值", "订单查询",
-            "余额查询", "我的ETC卡", "我的车队", "开卡审核",};
+            "余额查询", "我的ETC卡", "我的车队", "开卡审核"};
 
     private int[] drawables = new int[]{
             R.drawable.etc_icon1, R.drawable.etc_icon2, R.drawable.etc_icon3, R.drawable.etc_icon4,
-            R.drawable.etc_icon5, R.drawable.etc_icon6, R.drawable.etc_icon7, R.drawable.etc_icon8,};
+            R.drawable.etc_icon5, R.drawable.etc_icon6, R.drawable.etc_icon7, R.drawable.etc_icon8};
 
     private Class[] activitys = new Class[]{
             CardIntroduceActivity.class, RechargeActivity.class, MyCardActivity.class, RechargeOrderActivity.class,

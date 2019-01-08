@@ -25,6 +25,10 @@ class ETCActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_etc)
 
+        /*val dialog = UndevelopedHintDialog(this@ETCActivity)
+        dialog.show()
+        dialog.findViewById<View>(R.id.iv_2).setOnClickListener { dialog.dismiss() }
+        dialog.setOnDismissListener { finish() }*/
         init()
         loadData()
     }
@@ -45,8 +49,8 @@ class ETCActivity : BaseImmersionActivity() {
 
             override fun onResponse(call: Call<BusinessNoteList>, response: Response<BusinessNoteList>) {
                 response.body()?.etcBusinessNoteList?.run {
-                    ll_a.findViewById<TextView>(R.id.tv_title).text = get(0)?.title
-                    ll_a.findViewById<TextView>(R.id.tv_content).text = get(0)?.text
+                    ll_a.findViewById<TextView>(R.id.tv_title).text = get(0).title
+                    ll_a.findViewById<TextView>(R.id.tv_content).text = get(0).text
 
                     ll_a.setOnClickListener {
                         startActivity(Intent(this@ETCActivity, BusinessIntroductionActivity::class.java)

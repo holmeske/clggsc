@@ -271,15 +271,15 @@
             android:name=".activity.etc.ETCActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".activity.etc.PreRechargeActivity"/>
-        <activity android:name=".activity.etc.IdentityCertificationActivity"/>
+        <activity android:name=".activity.etc.opencard.IdentityCertificationActivity"/>
         <activity android:name=".activity.etc.BalanceQueryActivity"/>
-        <activity android:name=".activity.etc.VehicleCertificationActivity"/>
-        <activity android:name=".activity.etc.InfoCertificationActivity"/>
+        <activity android:name=".activity.etc.opencard.VehicleCertificationActivity"/>
+        <activity android:name=".activity.etc.opencard.InfoCertificationActivity"/>
         <activity
             android:name=".activity.etc.AuditActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.etc.SubmitApplyActivity"/>
+        <activity android:name=".activity.etc.opencard.SubmitApplyActivity"/>
         <activity android:name=".activity.etc.CardIntroduceActivity"/>
         <activity android:name=".activity.etc.ApplyStateActivity"/>
         <activity android:name=".activity.etc.CardDetailActivity"/>
@@ -297,6 +297,8 @@
         <activity android:name=".activity.etc.RechargeOrderActivity">
         </activity>
         <activity android:name=".activity.BusinessIntroductionActivity">
+        </activity>
+        <activity android:name=".activity.etc.opencard.CarCertificationActivity">
         </activity>
     </application>
 

@@ -1,12 +1,18 @@
 package com.sc.clgg.activity.etc
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import com.sc.clgg.R
+import com.sc.clgg.activity.etc.opencard.IdentityCertificationActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
+import com.sc.clgg.util.Tools
 import kotlinx.android.synthetic.main.activity_card_introduce.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.toast
 
 class CardIntroduceActivity : BaseImmersionActivity() {
     private var certificationInfo = CertificationInfo()
@@ -21,6 +27,17 @@ class CardIntroduceActivity : BaseImmersionActivity() {
         tv_apply_b.setOnClickListener {
             certificationInfo.cardType = "3"
             next()
+        }
+        tv_tel.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    Tools.callPhone("400-888-1122", this)
+                } else {
+                    toast("电话权限被禁止，请打开设置-应用权限页面开通")
+                }
+            } else {
+                Tools.callPhone("400-888-1122", this)
+            }
         }
     }
 

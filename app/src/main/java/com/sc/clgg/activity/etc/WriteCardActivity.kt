@@ -2,6 +2,7 @@ package com.sc.clgg.activity.etc
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.widget.Toast
 import com.google.gson.Gson
@@ -149,13 +150,85 @@ class WriteCardActivity : BaseImmersionActivity() {
         EventBus.getDefault().unregister(this)
     }
 
+    private var handler = Handler()
+    private var runnable: Runnable = object : Runnable {
+        override fun run() {
+            confirmPayStatus()
+        }
+    }
+
+    private fun confirmPayStatus() {
+        RetrofitHelper().confirmPayStatus(WeChatPayCache.cardNo).enqueue(object : Callback<StatusBean> {
+            override fun onFailure(call: Call<StatusBean>, t: Throwable) {
+                hideProgressDialog()
+                toast(R.string.network_anomaly)
+            }
+
+            override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
+                response.body()?.let {
+                    if (it.success) {
+                        hideProgressDialog()
+                        toast("支付成功")
+                        PreRechargeHintDialog(this@WriteCardActivity).apply {
+                            show()
+                            setData("请保持蓝牙盒子开启", "(蓝色指示灯闪亮)")
+                            setCancelListener {
+                                RetrofitHelper().getCardInfo(card?.cardId, "0").enqueue(object : Callback<CardInfo> {
+                                    override fun onFailure(call: Call<CardInfo>, t: Throwable) {
+                                        toast(R.string.network_anomaly)
+                                    }
+
+                                    override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
+                                        response.body()?.let {
+                                            RQcMoney = it.RQcMoney!!.toInt()
+                                            RAdjust = it.RAdjust!!.toInt()
+                                            tv_carno?.text = it.RVLP
+                                            it.RQcMoney?.toDouble()?.let { tv_can_write?.text = "${String.format("%.2f", it / 100)} 元" }
+
+                                            if (it.RQcMoney?.toDouble()!! > 0) {
+                                                tv_recharge_circle?.text = "圈存"
+                                                cl_go_circle?.isSelected = true
+                                                cl_go_recharge?.isSelected = false
+
+                                                cl_go_recharge?.isEnabled = false
+                                            } else {
+                                                tv_recharge_circle?.text = "充值"
+                                                cl_go_circle?.isSelected = false
+                                                cl_go_recharge?.isSelected = true
+
+                                                cl_go_circle?.isEnabled = false
+                                            }
+                                            qc()
+                                        }
+                                    }
+                                })
+
+                                dismiss()
+                            }
+                        }
+                    } else {
+                        if (it.payStatus != 2) {
+                            hideProgressDialog()
+                            toast("${it.msg}")
+                            startActivity(Intent(this@WriteCardActivity, PayResultActivity::class.java)
+                                    .putExtra("msg", it.msg))
+                        } else {
+                            handler.postDelayed(runnable, 3000)
+                        }
+                    }
+                }
+            }
+        })
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: MessageEvent) {
         EventBus.getDefault().removeStickyEvent(event)
         if (event?.value == 4) {
             LogHelper.e("充值确认")
             showProgressDialog()
-            RetrofitHelper().surePayMoney(WeChatPayCache.cardNo, WeChatPayCache.money).enqueue(object : Callback<StatusBean> {
+            confirmPayStatus()
+            /*RetrofitHelper().surePayMoney(WeChatPayCache.cardNo, WeChatPayCache.money).enqueue(object : Callback<StatusBean> {
                 override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
                     hideProgressDialog()
                     response.body()?.let {
@@ -209,7 +282,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                     hideProgressDialog()
                     toast(R.string.network_anomaly)
                 }
-            })
+            })*/
         }
     }
 

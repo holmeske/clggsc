@@ -9,7 +9,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.sc.clgg.R;
-import com.sc.clgg.tool.helper.DecimalFormatHelper;
 
 import androidx.annotation.NonNull;
 
@@ -37,7 +36,7 @@ public class PreRechargeHintDialog extends Dialog {
     }
 
     public void setData(double v) {
-        ((TextView) findViewById(R.id.tv_des_big)).setText(String.format(getContext().getString(R.string.can_circle_amount), DecimalFormatHelper.formatTwo(v)));
+        ((TextView) findViewById(R.id.tv_des_big)).setText(String.format(getContext().getString(R.string.can_circle_amount), v + ""));
     }
 
     public void setCancelListener(View.OnClickListener listener) {

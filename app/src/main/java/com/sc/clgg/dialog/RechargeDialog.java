@@ -160,6 +160,7 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                         Toast.makeText(mActivity, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
                     }
                 });
+                dismiss();
                 break;
 
             default:

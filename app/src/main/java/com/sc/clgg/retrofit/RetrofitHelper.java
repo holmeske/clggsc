@@ -62,7 +62,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.sc.clgg.config.NetField.PUBLIC_SITE;
+import static com.sc.clgg.config.NetField.SITE;
 
 /**
  * @author：lvke
@@ -103,7 +103,7 @@ public class RetrofitHelper {
                     .build();
         }
         return new Retrofit.Builder()
-                .baseUrl(baseUrl.length == 0 ? NetField.SITE : baseUrl[0])
+                .baseUrl(baseUrl.length == 0 ? SITE : baseUrl[0])
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -117,47 +117,53 @@ public class RetrofitHelper {
         params.put("card_no", card_no);
         params.put("total_fee", total_fee);
         params.put("spbill_create_ip", Tools.getIpAddress(App.getInstance().getApplicationContext()));
+        params.put("userCode", new ConfigUtil().getUserid());
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
-        return Retrofit(PUBLIC_SITE).create(RetrofitApi.class).wxPay(json);
+        return Retrofit(NetField.WX_PAY_SITE).create(RetrofitApi.class).wxPay(json);
     }
 
     /**
      * 开卡申请
      */
     public retrofit2.Call<Check> apply(CertificationInfo info) {
-
         List<MultipartBody.Part> parts = new ArrayList<>();
 
-        parts.add(MultipartBody.Part.createFormData("cardType", info.getCardType()));
-        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
         parts.add(MultipartBody.Part.createFormData("userType", info.getUserType()));
-        parts.add(MultipartBody.Part.createFormData("userName", info.getUserName()));
-        parts.add(MultipartBody.Part.createFormData("certType", "2"));
-        parts.add(MultipartBody.Part.createFormData("certSn", info.getCertSn()));
-        parts.add(MultipartBody.Part.createFormData("linkMobile", info.getLinkMobile()));
         parts.add(MultipartBody.Part.createFormData("invitationCode", info.getInvitationCode()));
-
         if (!info.getIdcardImgFront().isEmpty()) {
             parts.add(creatPart("idcardImgFront", randomId(), info.getIdcardImgFront()));
         }
         if (!info.getIdcardImgBehind().isEmpty()) {
             parts.add(creatPart("idcardImgBehind", randomId(), info.getIdcardImgBehind()));
         }
+        if (!info.getAgentIdcardImgFront().isEmpty()) {
+            parts.add(creatPart("agentIdcardImgFront", randomId(), info.getAgentIdcardImgFront()));
+        }
+        if (!info.getAgentIdcardImgBehind().isEmpty()) {
+            parts.add(creatPart("agentIdcardImgBehind", randomId(), info.getAgentIdcardImgBehind()));
+        }
         if (!info.getBusinessLicenseImg().isEmpty()) {
             parts.add(creatPart("businessLicenseImg", randomId(), info.getBusinessLicenseImg()));
         }
 
+        parts.add(MultipartBody.Part.createFormData("cardType", info.getCardType()));
+        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        //parts.add(MultipartBody.Part.createFormData("userName", info.getUserName()));
+        parts.add(MultipartBody.Part.createFormData("certType", info.getCertType()));
+        parts.add(MultipartBody.Part.createFormData("certSn", info.getCertSn()));
+
         for (CertificationInfo.Car car : info.getEtcCardApplyVehicleVoList()) {
-            car.setImageId(randomId());
-            parts.add(creatPart("allVehicleImages", car.getImageId(), car.getVehicleLicenseImg()));
+            parts.add(creatPart("allVehicleImages", car.getVehicleImageId(), car.getVehicleLicenseImg()));
+            parts.add(creatPart("allCarNumberImages", car.getCarNoImageId(), car.getVehicleFrontImg()));
         }
         parts.add(MultipartBody.Part.createFormData("etcCardApplyVehicleVoList", new Gson().toJson(info.getEtcCardApplyVehicleVoList())));
-
 
         parts.add(MultipartBody.Part.createFormData("recipientsName", info.getRecipientsName()));
         parts.add(MultipartBody.Part.createFormData("recipientsPhone", info.getRecipientsPhone()));
         parts.add(MultipartBody.Part.createFormData("recipientsAddress", info.getRecipientsAddress()));
+        parts.add(MultipartBody.Part.createFormData("agentName", info.getAgentName()));
+        parts.add(MultipartBody.Part.createFormData("linkMobile", info.getAgentPhone()));
 
         LogHelper.e("info = " + new Gson().toJson(info));
         return Retrofit().create(RetrofitApi.class).apply(parts);
@@ -193,6 +199,63 @@ public class RetrofitHelper {
         return Retrofit().create(RetrofitApi.class).myVehicle(getDefaultUserId());
     }
 
+    public retrofit2.Call<RechargeOrderList> getRechargeOrderList() {
+        return Retrofit().create(RetrofitApi.class).getRechargeOrderList(new ConfigUtil().getUserid());
+    }
+
+    public retrofit2.Call<BusinessNoteList> getEtcBusinessNote() {
+        return Retrofit().create(RetrofitApi.class).getEtcBusinessNote();
+    }
+
+    /**
+     * 确认支付状态
+     *
+     * @param cardCode
+     * @return
+     */
+    public retrofit2.Call<StatusBean> confirmPayStatus(String cardCode) {
+        return Retrofit().create(RetrofitApi.class).confirmPayStatus(cardCode);
+    }
+
+    /**
+     * 齐鲁交通充值
+     */
+    public retrofit2.Call<StatusBean> payMoney(String cardNo, String money) {
+
+        String yyyymmddhhmmss = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(System.currentTimeMillis());
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("cardNo", cardNo);
+        params.put("payTime", yyyymmddhhmmss);
+        params.put("money", money);
+        params.put("userCode", new ConfigUtil().getUserid());
+
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+
+        return Retrofit().create(RetrofitApi.class).payMoney(json);
+    }
+
+    /**
+     * 齐鲁交通充值确认
+     */
+    public retrofit2.Call<StatusBean> surePayMoney(String cardNo, String money) {
+
+        long time = System.currentTimeMillis();
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("cardNo", cardNo);
+        params.put("payTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(time));
+        params.put("money", money);
+        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("payType", "18");
+        params.put("payFlag", "0");
+        params.put("tradeno", time + "");
+
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+
+        return Retrofit().create(RetrofitApi.class).surePayMoney(json);
+    }
+
     /**
      * 获取mac2
      */
@@ -212,14 +275,6 @@ public class RetrofitHelper {
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
         return Retrofit().create(RetrofitApi.class).loadMoney(json);
-    }
-
-    public retrofit2.Call<RechargeOrderList> getRechargeOrderList() {
-        return Retrofit().create(RetrofitApi.class).getRechargeOrderList(new ConfigUtil().getUserid());
-    }
-
-    public retrofit2.Call<BusinessNoteList> getEtcBusinessNote() {
-        return Retrofit().create(RetrofitApi.class).getEtcBusinessNote();
     }
 
     /**
@@ -283,45 +338,6 @@ public class RetrofitHelper {
      */
     public retrofit2.Call<CardInfo> getCardInfo(String cardNo, String storeMoney) {
         return Retrofit().create(RetrofitApi.class).getCardInfo(cardNo, storeMoney);
-    }
-
-    /**
-     * 齐鲁交通充值
-     */
-    public retrofit2.Call<StatusBean> payMoney(String cardNo, String money) {
-
-        String yyyymmddhhmmss = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(System.currentTimeMillis());
-
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("cardNo", cardNo);
-        params.put("payTime", yyyymmddhhmmss);
-        params.put("money", money);
-        params.put("userCode", new ConfigUtil().getUserid());
-
-        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
-
-        return Retrofit().create(RetrofitApi.class).payMoney(json);
-    }
-
-    /**
-     * 齐鲁交通充值确认
-     */
-    public retrofit2.Call<StatusBean> surePayMoney(String cardNo, String money) {
-
-        long time = System.currentTimeMillis();
-
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("cardNo", cardNo);
-        params.put("payTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(time));
-        params.put("money", money);
-        params.put("userCode", new ConfigUtil().getUserid());
-        params.put("payType", "18");
-        params.put("payFlag", "0");
-        params.put("tradeno", time + "");
-
-        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
-
-        return Retrofit().create(RetrofitApi.class).surePayMoney(json);
     }
 
     /**
@@ -598,7 +614,7 @@ public class RetrofitHelper {
         params.put("password", password);
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
-        return Retrofit(NetField.SITE).create(RetrofitApi.class).login(json);
+        return Retrofit(SITE).create(RetrofitApi.class).login(json);
     }
 
     /**
@@ -650,7 +666,7 @@ public class RetrofitHelper {
         params.put("checkCode", checkCode);
         params.put("inviteUserCode", inviteUserCode);
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
-        return Retrofit(NetField.SITE).create(RetrofitApi.class).appRegister(json);
+        return Retrofit(SITE).create(RetrofitApi.class).appRegister(json);
     }
 
     /**
@@ -703,6 +719,9 @@ public class RetrofitHelper {
         return Retrofit().create(RetrofitApi.class).oilsteamsDetail(vin, date);
     }
 
+    /**
+     * 行驶证识别
+     */
     public retrofit2.Call<Map<String, Object>> scan(File file) {
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault());
         String fileName = file.getName();
@@ -715,6 +734,56 @@ public class RetrofitHelper {
         parts.add(p2);
         parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
         return Retrofit().create(RetrofitApi.class).scan(parts);
+    }
+    /**
+     * 营业执照识别
+     */
+    public retrofit2.Call<Map<String, Object>> passport(File file) {
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault());
+        String fileName = file.getName();
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part p2 = MultipartBody.Part.createFormData("files",
+                uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        parts.add(p2);
+        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        return Retrofit().create(RetrofitApi.class).passport(parts);
+    }
+
+    /**
+     * 身份证识别
+     */
+    public retrofit2.Call<Map<String, Object>> idCard(File file) {
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault());
+        String fileName = file.getName();
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part p2 = MultipartBody.Part.createFormData("files",
+                uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        parts.add(p2);
+        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        return Retrofit().create(RetrofitApi.class).idCard(parts);
+    }
+
+    /**
+     * 车牌识别
+     */
+    public retrofit2.Call<Map<String, Object>> licensePlate(File file) {
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault());
+        String fileName = file.getName();
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part p2 = MultipartBody.Part.createFormData("files",
+                uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        parts.add(p2);
+        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        return Retrofit().create(RetrofitApi.class).licensePlate(parts);
     }
 
     public retrofit2.Call<Check> feedBack(List<String> files, String content) {

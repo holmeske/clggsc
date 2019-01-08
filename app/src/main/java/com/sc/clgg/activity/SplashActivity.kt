@@ -3,24 +3,13 @@ package com.sc.clgg.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import com.google.gson.Gson
-import com.sc.clgg.BuildConfig
-import com.sc.clgg.R
-import com.sc.clgg.activity.etc.CardIntroduceActivity
 import com.sc.clgg.activity.etc.ble.BleActivity
+import com.sc.clgg.activity.etc.opencard.CarCertificationActivity
+import com.sc.clgg.activity.etc.opencard.InfoCertificationActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
-import com.sc.clgg.bean.Check
-import com.sc.clgg.bean.WeChatOrder
 import com.sc.clgg.config.ConstantValue
-import com.sc.clgg.config.ConstantValue.WX_PARTNER_ID
-import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.wxapi.WeChatPayUtil
-import com.tencent.mm.opensdk.modelpay.PayReq
-import org.jetbrains.anko.toast
 import pub.devrel.easypermissions.EasyPermissions
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class SplashActivity : BaseImmersionActivity() {
@@ -37,49 +26,91 @@ class SplashActivity : BaseImmersionActivity() {
         val v = 0
         when (v) {
             1 -> {
+                var gson ="{\n" +
+                        "  \"agentIdcardImgBehind\": \"\",\n" +
+                        "  \"agentIdcardImgFront\": \"\",\n" +
+                        "  \"agentName\": \"\",\n" +
+                        "  \"agentPhone\": \"\",\n" +
+                        "  \"businessLicenseImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/1540376781532.jpg\",\n" +
+                        "  \"cardType\": \"3\",\n" +
+                        "  \"certSn\": \"\",\n" +
+                        "  \"certType\": \"\",\n" +
+                        "  \"etcCardApplyVehicleVoList\": [\n" +
+                        "    {\n" +
+                        "      \"address\": \"\",\n" +
+                        "      \"axleNumber\": \"\",\n" +
+                        "      \"carColor\": \"\",\n" +
+                        "      \"carLicenseType\": \"\",\n" +
+                        "      \"carNo\": \"\",\n" +
+                        "      \"carNoColor\": \"\",\n" +
+                        "      \"carNoImageId\": \"29038823318c45718e4c1cec9a57e6e9\",\n" +
+                        "      \"carOwner\": \"\",\n" +
+                        "      \"carOwnerCertificateNumber\": \"\",\n" +
+                        "      \"carOwnerCertificateType\": \"\",\n" +
+                        "      \"carType\": \"\",\n" +
+                        "      \"engineNumber\": \"\",\n" +
+                        "      \"function\": \"\",\n" +
+                        "      \"model\": \"\",\n" +
+                        "      \"tyreNumber\": \"\",\n" +
+                        "      \"vehicleFrontImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/1540376781532.jpg\",\n" +
+                        "      \"vehicleImageId\": \"4ce3bab240e14186abe6a8799a0bff22\",\n" +
+                        "      \"vehicleLicenseImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/IMG20181212113028.jpg\",\n" +
+                        "      \"vinCode\": \"\"\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "      \"address\": \"\",\n" +
+                        "      \"axleNumber\": \"\",\n" +
+                        "      \"carColor\": \"\",\n" +
+                        "      \"carLicenseType\": \"\",\n" +
+                        "      \"carNo\": \"\",\n" +
+                        "      \"carNoColor\": \"\",\n" +
+                        "      \"carNoImageId\": \"90e56485fbc04d0a9b09537d4bbe4ccf\",\n" +
+                        "      \"carOwner\": \"\",\n" +
+                        "      \"carOwnerCertificateNumber\": \"\",\n" +
+                        "      \"carOwnerCertificateType\": \"\",\n" +
+                        "      \"carType\": \"\",\n" +
+                        "      \"engineNumber\": \"\",\n" +
+                        "      \"function\": \"\",\n" +
+                        "      \"model\": \"\",\n" +
+                        "      \"tyreNumber\": \"\",\n" +
+                        "      \"vehicleFrontImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/1540376789719.jpg\",\n" +
+                        "      \"vehicleImageId\": \"63b0810aa8364f2e89b98df535786729\",\n" +
+                        "      \"vehicleLicenseImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/06.jpg\",\n" +
+                        "      \"vinCode\": \"\"\n" +
+                        "    }\n" +
+                        "  ],\n" +
+                        "  \"idcardImgBehind\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/1540376781532.jpg\",\n" +
+                        "  \"idcardImgFront\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/IMG20190107172209.jpg\",\n" +
+                        "  \"invitationCode\": \"\",\n" +
+                        "  \"linkMobile\": \"\",\n" +
+                        "  \"recipientsAddress\": \"\",\n" +
+                        "  \"recipientsName\": \"\",\n" +
+                        "  \"recipientsPhone\": \"\",\n" +
+                        "  \"userName\": \"\",\n" +
+                        "  \"userType\": \"2\",\n" +
+                        "  \"verificationCode\": \"\"\n" +
+                        "}"
 
-                RetrofitHelper().wxPay("56", "1").enqueue(object : Callback<WeChatOrder> {
-                    override fun onResponse(call: Call<WeChatOrder>, response: Response<WeChatOrder>) {
-                        val request = PayReq()
-                        response.body()?.let {
-                            if (it.success) {
-                                request.appId = it.data?.appid
-                                request.partnerId = WX_PARTNER_ID
-                                request.prepayId = it.data?.prepay_id
-                                request.packageValue = BuildConfig.APPLICATION_ID
-                                request.nonceStr = it.data?.nonce_str
-                                request.timeStamp = System.currentTimeMillis().toString()
-                                request.sign = it.data?.sign
-                                WeChatPayUtil(applicationContext).toPay(request)
-                            } else {
-                                toast("${it.msg}")
-                            }
-                        }
-                    }
-
-                    override fun onFailure(call: Call<WeChatOrder>, t: Throwable) {
-                        toast(R.string.network_anomaly)
-                    }
-                })
-
-            }
-            2 -> {
-                val info = "{\"businessLicenseImg\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/5SJX5)8F0JWG@[KM447E4RF.jpg\",\"cardType\":\"3\",\"certSn\":\"34222419920309133X\",\"etcCardApplyVehicleVoList\":[{\"carColor\":\"红\",\"carNo\":\"沪DA3719\",\"carNoColor\":\"黄\",\"carOwner\":\"上海远行供应链(集团)有限公司\",\"carType\":\"五型货车\",\"carWeight\":\"18000\",\"engineNumber\":\"1614D071069\",\"function\":\"营业货车\",\"imageId\":\"25ba3a2720814c248db4a40129e180a3\",\"vehicleLicenseImg\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/5SJX5)8F0JWG@[KM447E4RF.jpg\",\"vinCode\":\"LZGJDNR18EX030565\"}],\"idcardImgBehind\":\"\",\"idcardImgFront\":\"\",\"invitationCode\":\"000000\",\"linkMobile\":\"18949924714\",\"recipientsAddress\":\"上海 上海市 静安区永和路118弄东方环球企业中心2号楼\",\"recipientsName\":\"吕科\",\"recipientsPhone\":\"18949924714\",\"userName\":\"吕科\",\"userType\":\"2\",\"verificationCode\":\"221599\"}"
-
-                RetrofitHelper().apply(Gson().fromJson(info, CertificationInfo::class.java)).enqueue(object : Callback<Check> {
-                    override fun onResponse(call: Call<Check>, response: Response<Check>) {
-                    }
-
+                /*RetrofitHelper().apply(Gson().fromJson(gson, CertificationInfo::class.java)).enqueue(object : Callback<Check> {
                     override fun onFailure(call: Call<Check>, t: Throwable) {
                     }
-                })
+
+                    override fun onResponse(call: Call<Check>, response: Response<Check>) {
+                    }
+                })*/
+                startActivity(Intent(this, InfoCertificationActivity::class.java).putExtra("info", Gson().fromJson(gson, CertificationInfo::class.java)))
+finish()
+            }
+            2 -> {
+                startActivity(Intent(this, InfoCertificationActivity::class.java))
+                finish()
             }
             3 -> {
                 startActivity(Intent(this, BleActivity::class.java))
                 finish()
             }
             4 -> {
-                startActivity(Intent(this, CardIntroduceActivity::class.java))
+                startActivity(Intent(this, CarCertificationActivity::class.java))
                 finish()
             }
             else -> {

@@ -23,16 +23,8 @@
                 android:id="@+id/certificationProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:gravity="center_vertical"
-                android:paddingStart="18dp"
-                android:text="车辆信息"
-                android:textColor="@color/black_333"
-                android:textSize="12sp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
             <LinearLayout
                 android:id="@+id/ll_user_type"
@@ -53,9 +45,10 @@
                 <TextView
                     android:id="@+id/tv_user_type"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="请选择用户类型"
                     android:textSize="13sp"/>
 
@@ -66,259 +59,60 @@
                     android:src="@drawable/precharg_home_skip"/>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingStart="18sp"
+                android:text="推荐人信息（选填）"
+                android:textColor="@color/black_333"
+                android:textSize="12sp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_height="40dp"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingStart="18dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="12dp">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="姓名"
-                    android:textColor="@color/_4285f4"
-                    android:textSize="13sp"/>
-
-                <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="请输入持卡人姓名"
-                    android:maxLength="8"
-                    android:maxLines="1"
-                    android:textColorHint="@color/_ccc"
-                    android:textSize="14sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="12dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/divider_line"
-                    android:background="@color/divider_line"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="身份证号"
-                    android:textColor="@color/_4285f4"
-                    android:textSize="13sp"/>
-
-                <EditText
-                    android:id="@+id/et_id_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="请输入持卡人身份证号"
-                    android:maxLength="18"
-                    android:maxLines="1"
-                    android:textColorHint="@color/_ccc"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="手机号"
-                    android:textColor="@color/_4285f4"
-                    android:textSize="13sp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/et_mobile_phone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:hint="请输入持卡人手机号"
-                        android:inputType="phone"
-                        android:maxLength="11"
-                        android:textColorHint="@color/_ccc"
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:id="@+id/tv_get_verification_code"
-                        android:layout_width="72dp"
-                        android:layout_height="20dp"
-                        android:background="@color/orange"
-                        android:gravity="center"
-                        android:text="获取验证码"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="12dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/divider_line"
-                    android:background="@color/divider_line"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="验证码"
-                    android:textColor="@color/_4285f4"
-                    android:textSize="13sp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/et_verification_code"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:hint="请输入验证码"
-                        android:maxLength="8"
-                        android:textColorHint="@color/_ccc"
-                        android:textSize="14sp"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/apply_card_car_correct_icon"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:text="推荐人邀请码(非必填)"
                     android:textColor="@color/_4285f4"
                     android:textSize="13sp"/>
 
                 <EditText
                     android:id="@+id/et_invite_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:gravity="center_vertical|end"
                     android:hint="请输入推荐人邀请码"
                     android:maxLength="11"
+                    android:paddingEnd="18dp"
                     android:textColorHint="@color/_ccc"
                     android:textSize="14sp"/>
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_info_hint"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center_vertical"
-                android:paddingStart="18dp"
-                android:text="信息上传"
+                android:paddingStart="18sp"
+                android:text="上传身份证照片"
                 android:textColor="@color/black_333"
-                android:textSize="12sp"
-                android:visibility="gone"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ll_enterprise"
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:padding="25dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_stroke"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:id="@+id/iv_enterprise"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/apply_card_id_business_licence"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:text="上传企业营业执照图片"
-                    android:textColor="@color/_9c9c9c"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textSize="12sp"/>
 
             <LinearLayout
-                android:id="@+id/ll_personal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="25dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -327,7 +121,7 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:id="@+id/iv_id_crad_positive"
+                        android:id="@+id/iv_idcard_front"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="1dp"
@@ -354,7 +148,7 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:id="@+id/iv_id_crad_reverse"
+                        android:id="@+id/iv_idcard_reverse"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="1dp"
@@ -373,6 +167,129 @@
                         app:layout_constraintRight_toRightOf="parent"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/bg"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18sp"
+                    android:text="上传经办人身份证（本人可不填）"
+                    android:textColor="@color/black_333"
+                    android:textSize="12sp"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_margin="25dp"
+                    android:background="@drawable/bg_stroke"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/iv_agent_idcard_front"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/apply_card_id_front_side"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="40dp"
+                        android:text="上传身份证正面图片"
+                        android:textColor="@color/_9c9c9c"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/bg_stroke"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/iv_agent_idcard_reverse"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/apply_card_id_reverse_side"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="40dp"
+                        android:text="上传身份证反面图片"
+                        android:textColor="@color/_9c9c9c"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_enterprise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="25dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/bg"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18sp"
+                    android:text="上传营业执照正本加盖公章"
+                    android:textColor="@color/black_333"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_margin="25dp"
+                    android:background="@drawable/bg_stroke"
+                    android:padding="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_1">
+
+                    <ImageView
+                        android:id="@+id/iv_enterprise"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/apply_card_id_business_licence"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:text="上传企业营业执照图片"
+                    android:textColor="@color/_9c9c9c"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_next"

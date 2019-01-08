@@ -1,4 +1,4 @@
-package com.sc.clgg.activity.etc
+package com.sc.clgg.activity.etc.opencard
 
 import android.content.Context
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.sc.clgg.R
+import com.sc.clgg.activity.etc.AuditActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.bean.Check
@@ -32,8 +33,9 @@ class SubmitApplyActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_submit_apply)
 
-        certificationProgressView.setProress(4)
         certificationInfo = intent.getParcelableExtra("info")
+        LogHelper.e("开卡信息 = ${Gson().toJson(certificationInfo)}")
+
         init()
     }
 
@@ -52,14 +54,15 @@ class SubmitApplyActivity : BaseImmersionActivity() {
         tv_hint.movementMethod = LinkMovementMethod.getInstance()
 
         tv_submit_card.setOnClickListener {
-            LogHelper.e("认证信息 = ${Gson().toJson(certificationInfo)}")
             if (!checkBox.isChecked) {
                 toast("请勾选用户协议")
                 return@setOnClickListener
             }
+            showProgressDialog()
             http = RetrofitHelper().apply(certificationInfo).apply {
                 enqueue(object : Callback<Check> {
                     override fun onResponse(call: retrofit2.Call<Check>, response: Response<Check>) {
+                        hideProgressDialog()
                         response.body()?.let {
                             if (it.success) {
                                 startActivity(AuditActivity::class.java)
@@ -70,6 +73,7 @@ class SubmitApplyActivity : BaseImmersionActivity() {
                     }
 
                     override fun onFailure(call: retrofit2.Call<Check>, t: Throwable) {
+                        hideProgressDialog()
                         toast(R.string.network_anomaly)
                     }
                 })

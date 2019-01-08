@@ -14,152 +14,391 @@
         android:fillViewport="true"
         android:scrollbars="none">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bg">
+            android:orientation="vertical">
 
             <com.sc.clgg.widget.CertificationProgressView
                 android:id="@+id/certificationProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:id="@+id/tv_mail_info"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginStart="18dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/white"
                 android:gravity="center_vertical"
-                android:text="邮寄信息"
-                android:textColor="@color/black_333"
-                android:textSize="13sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/certificationProgressView"/>
-
-            <TextView
-                android:id="@+id/tv_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:orientation="horizontal"
                 android:paddingStart="18dp"
-                android:paddingTop="13dp"
-                android:text="收货人姓名"
-                android:textColor="@color/_4285f4"
-                android:textSize="13sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_mail_info"/>
+                android:paddingEnd="18dp">
 
-            <EditText
-                android:id="@+id/et_consignee_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:hint="请输入收货人姓名"
-                android:paddingStart="18dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="13dp"
-                android:textColorHint="@color/_ccc"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_1"/>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="14dp"
+                    android:background="@color/_4285f4"/>
 
-            <TextView
-                android:id="@+id/tv_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingStart="18dp"
-                android:paddingTop="13dp"
-                android:text="收货人手机号"
-                android:textColor="@color/_4285f4"
-                android:textSize="13sp"
-                app:layout_constraintTop_toBottomOf="@id/et_consignee_name"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/youjixinxi"
+                    android:textColor="@color/black_333"
+                    android:textSize="13sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/et_consignee_phone"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="@dimen/divider_line"
+                android:background="@color/divider_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
                 android:background="@color/white"
-                android:hint="请输入收货人手机号"
-                android:paddingStart="18dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="13dp"
-                android:textColorHint="@color/_ccc"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_2"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="收货人姓名"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_consignee_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:focusable="true"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入收货人姓名"
+                    android:inputType="text"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_line"
                 android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
-                android:background="@color/divider_line"
-                app:layout_constraintTop_toBottomOf="@id/et_consignee_name"/>
+                android:background="@color/divider_line"/>
 
-            <TextView
-                android:id="@+id/tv_3"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
                 android:background="@color/white"
-                android:paddingStart="18dp"
-                android:paddingTop="13dp"
-                android:text="收货地址"
-                android:textColor="@color/_4285f4"
-                android:textSize="13sp"
-                app:layout_constraintTop_toBottomOf="@id/et_consignee_phone"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
 
-            <TextView
-                android:id="@+id/tv_region"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="收货人手机号"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_consignee_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入收货人手机号"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:hint="请选择所在地区"
-                android:paddingStart="18dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="13dp"
-                android:textColor="@color/_ccc"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_3"/>
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line"/>
 
-            <ImageView
-                android:id="@+id/iv_select_vehicle_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="18dp"
-                android:src="@drawable/precharg_home_skip"
-                app:layout_constraintBottom_toBottomOf="@id/tv_region"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_3"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="收货地址"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_region"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择所在地区"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line"/>
 
             <EditText
                 android:id="@+id/et_detailed_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLength="30"
+                android:layout_height="45dp"
                 android:background="@color/white"
                 android:hint="详细地址:如街道、小区、楼栋号、单元室等"
+                android:inputType="text"
+                android:maxLength="120"
+                android:maxLines="1"
                 android:paddingStart="18dp"
-                android:paddingTop="10dp"
                 android:paddingEnd="18dp"
-                android:paddingBottom="13dp"
                 android:textColorHint="@color/_ccc"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_region"/>
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="14dp"
+                    android:background="@color/_4285f4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="经办人信息"
+                    android:textColor="@color/black_333"
+                    android:textSize="13sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="经办人姓名"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_agent_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入经办人姓名"
+                    android:inputType="text"
+                    android:maxLength="150"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_line"
                 android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
-                android:background="@color/divider_line"
-                app:layout_constraintTop_toBottomOf="@id/tv_region"/>
+                android:background="@color/divider_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="联系电话"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_agent_tel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="票根网开票时需要与此保持一致"
+                    android:inputType="phone"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="14dp"
+                    android:background="@color/_4285f4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="所有人证件信息"
+                    android:textColor="@color/black_333"
+                    android:textSize="13sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="证件类型"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_certificate_type"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择所有人证件类型"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="证件号码"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_certificate_number"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入所有人证件号码"
+                    android:inputType="text"
+                    android:maxLength="150"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_next"
@@ -171,18 +410,15 @@
                 android:gravity="center"
                 android:text="@string/next_step"
                 android:textColor="@color/white"
-                android:textSize="19sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_detailed_address"/>
+                android:textSize="19sp"/>
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@color/bg"
-                app:layout_constraintTop_toBottomOf="@id/tv_next"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="200dp"/>
+        </LinearLayout>
+
     </ScrollView>
+
 </LinearLayout>
 
 

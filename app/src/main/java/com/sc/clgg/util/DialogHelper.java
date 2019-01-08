@@ -109,7 +109,6 @@ public final class DialogHelper {
                 R.style.Theme_dialog);
         dialog.setCanceledOnTouchOutside(true);
 
-        // 导航地图列表
         ListView mapLv = dialog.findViewById(R.id.map_lv);
         mapLv.setAdapter(new ArrayAdapter<>(mActivity, R.layout.item_tel, R.id.tv_mapName, list));
         mapLv.setOnItemClickListener((parent, view, position, id) -> {

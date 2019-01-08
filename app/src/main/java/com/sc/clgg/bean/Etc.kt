@@ -9,7 +9,6 @@ import kotlinx.android.parcel.Parcelize
  * @date：2018/10/16 17:22
  */
 
-
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class BusinessNoteList(var code: Int = 0,
@@ -47,22 +46,6 @@ data class RechargeOrderList(var code: Int = 0,
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class EtcCardInfo(val balanceInt: Int? = 0,
-                       val balanceString: String? = "",
-                       var cardId: String? = "",
-                       var cardStatus: Int? = 0,
-                       var cardType: String? = "",
-                       var cardVersion: String? = "",
-                       var expiredDate: String? = "",
-                       var plateColor: String? = "",
-                       var provider: String? = "",
-                       var signedDate: String? = "",
-                       var userType: String? = "",
-                       var vehicleModel: String? = "",
-                       var vehicleNumber: String? = "") : Parcelable
-
-@SuppressLint("ParcelCreator")
-@Parcelize
 data class CircleSave(val msg: String? = "", val success: Boolean, var Mac2: String? = "",
                       var RChargeLsh: String? = "",
                       var RWriteTime: String? = "",
@@ -87,7 +70,7 @@ data class CarNumberList(var code: Int = 0,
 data class CardInfo(var code: Int = 0,
                     var success: Boolean = false,
                     var msg: String? = "",
-                    var RQcMoney: String? = "",
+                    var RQcMoney: String? = "0.00",
                     var RVLP: String? = "",
                     var RAdjust: String? = ""
 
@@ -143,22 +126,34 @@ data class TrafficDetail(var consumeTime: String? = "",
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Card(var type: String? = "",
-                var number: String? = "",
-                var no: String? = ""
-) : Parcelable
-
-@SuppressLint("ParcelCreator")
-@Parcelize
 data class CertificationInfo(
+        /**
+         * 用户证件类型:
+         * 0：无（内部机构）；
+         * 1：工商营业执照号码（企业）
+         * 2：身份证（个人）；
+         * 3：组织机构代码证书（事业单位、政府机关、社会团体）；
+         * 4: 军队代号（军队）
+         */
+        var certType: String? = "",
+        /**
+         * 用户证件号
+         */
+        var certSn: String? = "",
+
         var cardType: String? = "",
+        /**
+         * 1个人  2企业
+         */
         var userType: String? = "",
         var userName: String? = "",
-        var certSn: String? = "",
+
         var linkMobile: String? = "",
         var invitationCode: String? = "",
         var idcardImgFront: String? = "",
         var idcardImgBehind: String? = "",
+        var agentIdcardImgFront: String? = "",
+        var agentIdcardImgBehind: String? = "",
         var businessLicenseImg: String? = "",
         var verificationCode: String? = "",
 
@@ -166,43 +161,38 @@ data class CertificationInfo(
 
         var recipientsName: String? = "",
         var recipientsPhone: String? = "",
-        var recipientsAddress: String? = ""
+        var recipientsAddress: String? = "",
+
+        var agentName: String? = "",
+        var agentPhone: String? = ""
 ) : Parcelable {
 
     @Parcelize
     data class Car(
-            var imageId: String? = "",
-            var carNo: String? = "",
-            var vinCode: String? = "",
-            var carOwner: String? = "",
-            var carWeight: String? = "",
-            var carType: String? = "",
-            var function: String? = "",
-            var engineNumber: String? = "",
-            var carColor: String? = "",
+            //车牌图片id，用来绑定图片和车辆信息的
+            var carNoImageId: String? = "",
+            //行驶证图片id，用来绑定图片和车辆信息的
+            var vehicleImageId: String? = "",
+            var vehicleFrontImg: String? = "",
+            var vehicleLicenseImg: String? = "",
+
             var carNoColor: String? = "",
-            var vehicleLicenseImg: String? = ""
+            var carColor: String? = "",
+            var carNo: String? = "",
+            var carOwner: String? = "",
+            var address: String? = "",
+            var carType: String? = "",
+
+            var carLicenseType: String? = "",
+            var model: String? = "",
+            var function: String? = "",
+            var vinCode: String? = "",
+            var engineNumber: String? = "",
+            var tyreNumber: String? = "",
+            var axleNumber: String? = ""
     ) : Parcelable
 
 }
-
-@SuppressLint("ParcelCreator")
-@Parcelize
-data class Province(
-        var name: String? = "",
-        var city: ArrayList<City>? = null) : Parcelable {
-    @Parcelize
-    data class City(var name: String? = "",
-                    var area: ArrayList<String>? = null) : Parcelable
-}
-
-@SuppressLint("ParcelCreator")
-@Parcelize
-data class VerificationCode(
-        var code: Int? = 0,
-        var success: Boolean? = false,
-        var checkCode: String? = "") : Parcelable
-
 
 @SuppressLint("ParcelCreator")
 @Parcelize

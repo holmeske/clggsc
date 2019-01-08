@@ -12,6 +12,7 @@ import com.sc.clgg.tool.helper.LogHelper
 import com.youth.banner.Banner
 import com.youth.banner.loader.ImageLoader
 
+
 /**
  * @author：lvke
  * @date：2018/10/15 14:48
@@ -51,4 +52,11 @@ fun Banner?.setData(context: Context? = null, data: ArrayList<com.sc.clgg.bean.B
  */
 fun logcat(o: Any?) {
     LogHelper.e(Gson().toJson(o))
+}
+
+/**
+ * 快捷 打印日志
+ */
+fun logcat(pre: String? = "", o: Any?) {
+    LogHelper.e("${pre}${Gson().toJson(o)}")
 }
