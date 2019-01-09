@@ -34,12 +34,10 @@ import static org.jetbrains.anko.ToastsKt.toast;
 public class VehicleInfoView extends ConstraintLayout {
     private LinearLayout ll_body;
     private View mView;
-    private TextView tv_title, tv_vehicle_brand_color, tv_vehicle_color,
-    //tv_vehicle_master_certificate_type,
-    tv_vehicle_type,
+    private TextView tv_title, tv_vehicle_brand_color, tv_vehicle_color, tv_vehicle_type,
             tv_vehicle_use_type;
     private ImageView iv_folding;
-    private EditText et_vehicle_no, et_vehicle_master, et_vehicle_master_address, //et_vehicle_master_certificate_number,
+    private EditText et_vehicle_no, et_vehicle_master, et_vehicle_master_address,
             et_vehicle_license_type, et_vehicle_license_brand_model, et_vehicle_vin, et_vehicle_engine_no, et_vehicle_wheel_amount, et_vehicle_axle_amount;
 
     private CertificationInfo.Car car = new CertificationInfo.Car();
@@ -91,19 +89,11 @@ public class VehicleInfoView extends ConstraintLayout {
             toast(context, "请输入所有人地址（行驶证）");
             return false;
         }
-        /*if (car.getCarOwnerCertificateType().isEmpty()) {
-            toast(context, "请选择所有人证件类型");
-            return false;
-        }
-        if (car.getCarOwnerCertificateNumber().isEmpty()) {
-            toast(context, "请输入所有人证件号码");
-            return false;
-        }*/
         if (car.getCarType().isEmpty()) {
             toast(context, "请选择车型");
             return false;
         }
-        if (car.getCarLicenseType().isEmpty()) {
+        if (car.getVehicleType().isEmpty()) {
             toast(context, "请输入行驶证车辆类型");
             return false;
         }
@@ -136,10 +126,8 @@ public class VehicleInfoView extends ConstraintLayout {
         car.setCarNo(et_vehicle_no.getText().toString());
         car.setCarOwner(et_vehicle_master.getText().toString());
         car.setAddress(et_vehicle_master_address.getText().toString());
-//        car.setCarOwnerCertificateType(tv_vehicle_master_certificate_type.getText().toString());
-//        car.setCarOwnerCertificateNumber(et_vehicle_master_certificate_number.getText().toString());
         car.setCarType(tv_vehicle_type.getText().toString());
-        car.setCarLicenseType(et_vehicle_license_type.getText().toString());
+        car.setVehicleType(et_vehicle_license_type.getText().toString());
         car.setModel(et_vehicle_license_brand_model.getText().toString());
         car.setFunction(tv_vehicle_use_type.getText().toString());
         car.setVinCode(et_vehicle_vin.getText().toString());
@@ -154,7 +142,7 @@ public class VehicleInfoView extends ConstraintLayout {
         this.et_vehicle_no.setText(c.getCarNo());
         this.et_vehicle_master.setText(c.getCarOwner());
         this.et_vehicle_master_address.setText(c.getAddress());
-        this.et_vehicle_license_type.setText(c.getCarLicenseType());
+        this.et_vehicle_license_type.setText(c.getVehicleType());
         this.et_vehicle_license_brand_model.setText(c.getModel());
         this.et_vehicle_vin.setText(c.getVinCode());
         this.et_vehicle_engine_no.setText(c.getEngineNumber());
@@ -170,8 +158,6 @@ public class VehicleInfoView extends ConstraintLayout {
         et_vehicle_no = v.findViewById(R.id.et_vehicle_no);
         et_vehicle_master = v.findViewById(R.id.et_vehicle_master);
         et_vehicle_master_address = v.findViewById(R.id.et_vehicle_master_address);
-//        tv_vehicle_master_certificate_type = v.findViewById(R.id.tv_vehicle_master_certificate_type);
-//        et_vehicle_master_certificate_number = v.findViewById(R.id.et_vehicle_master_certificate_number);
         tv_vehicle_type = v.findViewById(R.id.tv_vehicle_type);
 
         et_vehicle_license_type = v.findViewById(R.id.et_vehicle_license_type);
@@ -224,20 +210,6 @@ public class VehicleInfoView extends ConstraintLayout {
                 });
             }
         });
-//        tv_vehicle_master_certificate_type.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            "身份证含临时身份证", "护照", "港澳居民来往内地通行证", "台湾居民来往大陆通行证"
-        //"统一社会信用代码证书", "组织机构代码证", "营业执照", "事业单位法人证书", "社会团体法人登记证书", "律师事物所执业许可证"
-//                creatPicker(new String[]{"身份证含临时身份证", "护照", "港澳居民来往内地通行证", "台湾居民来往大陆通行证", "军官证", "武警警察身份证",
-//                        "统一社会信用代码证书", "组织机构代码证", "营业执照", "事业单位法人证书", "社会团体法人登记证书", "律师事物所执业许可证"}, new OnPickListener() {
-//                    @Override
-//                    public void onOptionsSelect(String str) {
-//                        tv_vehicle_master_certificate_type.setText(str);
-//                    }
-//                });
-//            }
-//        });
         tv_vehicle_type.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

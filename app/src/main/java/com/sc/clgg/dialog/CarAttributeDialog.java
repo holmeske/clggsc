@@ -25,7 +25,7 @@ public class CarAttributeDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (attribute.equals("type")) {
+        if (attribute.equals("cardType")) {
             setContentView(R.layout.dialog_car_type);
         } else if (attribute.equals("function")) {
             setContentView(R.layout.dialog_car_function);

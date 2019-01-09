@@ -2,9 +2,11 @@ package com.sc.clgg.activity.etc.opencard
 
 import android.content.Intent
 import android.os.Bundle
+import com.google.gson.Gson
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
+import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.PickerViewHelper
 import com.sc.clgg.widget.VehicleInfoView
 import kotlinx.android.synthetic.main.activity_info_certification.*
@@ -20,7 +22,7 @@ class InfoCertificationActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_info_certification)
 
         certificationInfo = intent.getParcelableExtra("info")
-
+        LogHelper.e("“信息认证”页面接收的数据 = ${Gson().toJson(certificationInfo)}")
         init()
     }
 
@@ -68,6 +70,7 @@ class InfoCertificationActivity : BaseImmersionActivity() {
                 certificationInfo?.certType = tv_certificate_type?.text.toString()
                 certificationInfo?.certSn = et_certificate_number?.text.toString()
 
+                certificationInfo?.etcCardApplyVehicleVoList?.clear()
                 ll_view_container?.takeIf { it.childCount > 0 }?.run {
                     for (i in 0 until childCount) {
                         getChildAt(i).apply {

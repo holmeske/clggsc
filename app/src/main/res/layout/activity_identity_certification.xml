@@ -97,84 +97,94 @@
                     android:textSize="14sp"/>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center_vertical"
-                android:paddingStart="18sp"
-                android:text="上传身份证照片"
-                android:textColor="@color/black_333"
-                android:textSize="12sp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="25dp"
-                android:visibility="visible">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="210dp"
-                    android:background="@drawable/bg_stroke"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:id="@+id/iv_idcard_front"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/apply_card_id_front_side"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="40dp"
-                        android:text="上传身份证正面图片"
-                        android:textColor="@color/_9c9c9c"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="210dp"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/bg_stroke"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:id="@+id/iv_idcard_reverse"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/apply_card_id_reverse_side"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="40dp"
-                        android:text="上传身份证反面图片"
-                        android:textColor="@color/_9c9c9c"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/ll_personal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:orientation="vertical"
                 android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18sp"
+                    android:text="上传身份证照片"
+                    android:textColor="@color/black_333"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="25dp"
+                    android:visibility="visible">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_stroke"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:id="@+id/iv_idcard_front"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="1dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/apply_card_id_front_side"/>
+
+                        <TextView
+                            android:id="@+id/tv_idcard_front_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="40dp"
+                            android:text="上传身份证正面图片"
+                            android:textColor="@color/_9c9c9c"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/bg_stroke"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:id="@+id/iv_idcard_reverse"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="1dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/apply_card_id_reverse_side"/>
+
+                        <TextView
+                            android:id="@+id/tv_idcard_reverse_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="40dp"
+                            android:text="上传身份证反面图片"
+                            android:textColor="@color/_9c9c9c"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_agent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -202,6 +212,7 @@
                         android:src="@drawable/apply_card_id_front_side"/>
 
                     <TextView
+                        android:id="@+id/tv_agent_idcard_front_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="40dp"
@@ -231,6 +242,7 @@
                         android:src="@drawable/apply_card_id_reverse_side"/>
 
                     <TextView
+                        android:id="@+id/tv_agent_idcard_reverse_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="40dp"
@@ -280,6 +292,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_enterprise_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"

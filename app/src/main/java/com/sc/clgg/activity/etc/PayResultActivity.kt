@@ -13,6 +13,6 @@ class PayResultActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_pay_result)
 
         tv_recharge_des?.text=intent.getStringExtra("msg")?:""
-        tv_back_home.setOnClickListener { startActivity(ETCActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
     }
 }

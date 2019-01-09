@@ -29,6 +29,6 @@ class WriteCardSuccessActivity : BaseImmersionActivity() {
         }
         tv_card_balance.text = "${intent.getIntExtra("balance", 0).toDouble() / 100}元"
 
-        tv_back_home.setOnClickListener { startActivity(ETCActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
     }
 }

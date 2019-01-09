@@ -6,16 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sc.clgg.R;
 import com.sc.clgg.activity.MainActivity;
+import com.sc.clgg.activity.etc.ApplyStateActivity;
 import com.sc.clgg.activity.etc.BalanceQueryPreActivity;
 import com.sc.clgg.activity.etc.CardIntroduceActivity;
 import com.sc.clgg.activity.etc.MyCardActivity;
 import com.sc.clgg.activity.etc.RechargeActivity;
 import com.sc.clgg.activity.etc.RechargeOrderActivity;
-import com.sc.clgg.adapter.ETCAdapter.MyHolder;
+import com.sc.clgg.adapter.EtcAdapter.MyHolder;
 import com.sc.clgg.bean.MessageEvent;
 import com.sc.clgg.tool.helper.MeasureHelper;
 import com.sc.clgg.util.ConfigUtil;
@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author：lvke
  * @date：2018/9/12 19:29
  */
-public class ETCAdapter extends RecyclerView.Adapter<MyHolder> {
+public class EtcAdapter extends RecyclerView.Adapter<MyHolder> {
     private Context mContext;
     private String[] names = new String[]{
             "申请ETC卡", "充值 · 圈存", "预充值", "订单查询",
@@ -42,7 +42,7 @@ public class ETCAdapter extends RecyclerView.Adapter<MyHolder> {
 
     private Class[] activitys = new Class[]{
             CardIntroduceActivity.class, RechargeActivity.class, MyCardActivity.class, RechargeOrderActivity.class,
-            BalanceQueryPreActivity.class, MyCardActivity.class, MainActivity.class, RechargeActivity.class};
+            BalanceQueryPreActivity.class, MyCardActivity.class, MainActivity.class, ApplyStateActivity.class};
 
     @NonNull
     @Override
@@ -82,7 +82,7 @@ public class ETCAdapter extends RecyclerView.Adapter<MyHolder> {
     class MyListener implements View.OnClickListener {
         private int pos;
 
-        public MyListener(int pos) {
+        MyListener(int pos) {
             this.pos = pos;
         }
 
@@ -99,9 +99,6 @@ public class ETCAdapter extends RecyclerView.Adapter<MyHolder> {
                     case 6:
                         mContext.startActivity(new Intent(mContext, MainActivity.class));
                         EventBus.getDefault().postSticky(new MessageEvent(2));
-                        break;
-                    case 7:
-                        Toast.makeText(mContext.getApplicationContext(), "敬请期待", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         mContext.startActivity(new Intent(mContext, activitys[pos]));

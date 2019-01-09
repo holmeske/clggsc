@@ -155,7 +155,6 @@ data class CertificationInfo(
         var agentIdcardImgFront: String? = "",
         var agentIdcardImgBehind: String? = "",
         var businessLicenseImg: String? = "",
-        var verificationCode: String? = "",
 
         var etcCardApplyVehicleVoList: ArrayList<Car>? = ArrayList(),
 
@@ -179,11 +178,12 @@ data class CertificationInfo(
             var carNoColor: String? = "",
             var carColor: String? = "",
             var carNo: String? = "",
+            //行驶证车辆类型
             var carOwner: String? = "",
             var address: String? = "",
             var carType: String? = "",
-
-            var carLicenseType: String? = "",
+            //行驶证车辆类型
+            var vehicleType: String? = "",
             var model: String? = "",
             var function: String? = "",
             var vinCode: String? = "",
@@ -196,10 +196,20 @@ data class CertificationInfo(
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class ApplyState(
-        var time: String? = "",
-        var carNo: String? = "",
-        var etc: String? = "",
-        var type: String? = "",
-        var opinion: String? = "",
-        var state: Int? = 0) : Parcelable
+data class ApplyStateList(var code: Int = 0,
+                          var success: Boolean = false,
+                          var msg: String? = "",
+                          var etcCardApplyOpenList: ArrayList<ApplyState>? = null
+) : Parcelable {
+    @Parcelize
+    data class ApplyState(
+            var createTime: String? = "",
+            var carNo: String? = "",
+            var cardId: String? = "",
+            var cardType: String? = "",
+            var remarkFalse: String? = "",
+            //0审核通过  1开卡成功   2开卡失败
+            var isSuccess: String? = "",
+            //0审核中  2审核驳回
+            var checkStatus: String? = "") : Parcelable
+}

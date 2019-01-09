@@ -13,10 +13,12 @@ import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.sc.clgg.R
+import com.sc.clgg.activity.WebActivity
 import com.sc.clgg.activity.etc.AuditActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.bean.Check
+import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.startActivity
@@ -36,6 +38,23 @@ class SubmitApplyActivity : BaseImmersionActivity() {
         certificationInfo = intent.getParcelableExtra("info")
         LogHelper.e("开卡信息 = ${Gson().toJson(certificationInfo)}")
 
+        certificationInfo?.certType?.let {
+            fun updateCertType(string: String) {
+                certificationInfo?.certType = string
+            }
+            when (it) {
+                "身份证含临时身份证" -> updateCertType("101")
+                "护照" -> updateCertType("102")
+                "港澳居民来往内地通行证" -> updateCertType("103")
+                "台湾居民来往大陆通行证" -> updateCertType("104")
+                "统一社会信用代码证书" -> updateCertType("201")
+                "组织机构代码证" -> updateCertType("202")
+                "营业执照" -> updateCertType("203")
+                else -> {
+                }
+            }
+        }
+        LogHelper.e("证件类型修改后的数据 = ${Gson().toJson(certificationInfo)}")
         init()
     }
 
@@ -92,6 +111,7 @@ class SubmitApplyActivity : BaseImmersionActivity() {
     internal inner class MyClick(private val mContext: Context) : ClickableSpan() {
 
         override fun onClick(@NonNull widget: View) {
+            WebActivity.start(this@SubmitApplyActivity, "用户协议", ConstantValue.USER_AGREEMENT)
         }
 
         override fun updateDrawState(ds: TextPaint) {

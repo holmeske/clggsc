@@ -2,12 +2,10 @@ package com.sc.clgg.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import com.google.gson.Gson
+import com.sc.clgg.activity.etc.CardIntroduceActivity
 import com.sc.clgg.activity.etc.ble.BleActivity
 import com.sc.clgg.activity.etc.opencard.CarCertificationActivity
-import com.sc.clgg.activity.etc.opencard.InfoCertificationActivity
 import com.sc.clgg.base.BaseImmersionActivity
-import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.config.ConstantValue
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -23,73 +21,11 @@ class SplashActivity : BaseImmersionActivity() {
 
     @SuppressLint("SdCardPath")
     private fun init() {
-        val v = 0
+        val v = 2
         when (v) {
             1 -> {
-                var gson ="{\n" +
-                        "  \"agentIdcardImgBehind\": \"\",\n" +
-                        "  \"agentIdcardImgFront\": \"\",\n" +
-                        "  \"agentName\": \"\",\n" +
-                        "  \"agentPhone\": \"\",\n" +
-                        "  \"businessLicenseImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/1540376781532.jpg\",\n" +
-                        "  \"cardType\": \"3\",\n" +
-                        "  \"certSn\": \"\",\n" +
-                        "  \"certType\": \"\",\n" +
-                        "  \"etcCardApplyVehicleVoList\": [\n" +
-                        "    {\n" +
-                        "      \"address\": \"\",\n" +
-                        "      \"axleNumber\": \"\",\n" +
-                        "      \"carColor\": \"\",\n" +
-                        "      \"carLicenseType\": \"\",\n" +
-                        "      \"carNo\": \"\",\n" +
-                        "      \"carNoColor\": \"\",\n" +
-                        "      \"carNoImageId\": \"29038823318c45718e4c1cec9a57e6e9\",\n" +
-                        "      \"carOwner\": \"\",\n" +
-                        "      \"carOwnerCertificateNumber\": \"\",\n" +
-                        "      \"carOwnerCertificateType\": \"\",\n" +
-                        "      \"carType\": \"\",\n" +
-                        "      \"engineNumber\": \"\",\n" +
-                        "      \"function\": \"\",\n" +
-                        "      \"model\": \"\",\n" +
-                        "      \"tyreNumber\": \"\",\n" +
-                        "      \"vehicleFrontImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/1540376781532.jpg\",\n" +
-                        "      \"vehicleImageId\": \"4ce3bab240e14186abe6a8799a0bff22\",\n" +
-                        "      \"vehicleLicenseImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/IMG20181212113028.jpg\",\n" +
-                        "      \"vinCode\": \"\"\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "      \"address\": \"\",\n" +
-                        "      \"axleNumber\": \"\",\n" +
-                        "      \"carColor\": \"\",\n" +
-                        "      \"carLicenseType\": \"\",\n" +
-                        "      \"carNo\": \"\",\n" +
-                        "      \"carNoColor\": \"\",\n" +
-                        "      \"carNoImageId\": \"90e56485fbc04d0a9b09537d4bbe4ccf\",\n" +
-                        "      \"carOwner\": \"\",\n" +
-                        "      \"carOwnerCertificateNumber\": \"\",\n" +
-                        "      \"carOwnerCertificateType\": \"\",\n" +
-                        "      \"carType\": \"\",\n" +
-                        "      \"engineNumber\": \"\",\n" +
-                        "      \"function\": \"\",\n" +
-                        "      \"model\": \"\",\n" +
-                        "      \"tyreNumber\": \"\",\n" +
-                        "      \"vehicleFrontImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/1540376789719.jpg\",\n" +
-                        "      \"vehicleImageId\": \"63b0810aa8364f2e89b98df535786729\",\n" +
-                        "      \"vehicleLicenseImg\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/06.jpg\",\n" +
-                        "      \"vinCode\": \"\"\n" +
-                        "    }\n" +
-                        "  ],\n" +
-                        "  \"idcardImgBehind\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/1540376781532.jpg\",\n" +
-                        "  \"idcardImgFront\": \"/data/user/0/com.sc.clgg/cache/takephoto_cache/IMG20190107172209.jpg\",\n" +
-                        "  \"invitationCode\": \"\",\n" +
-                        "  \"linkMobile\": \"\",\n" +
-                        "  \"recipientsAddress\": \"\",\n" +
-                        "  \"recipientsName\": \"\",\n" +
-                        "  \"recipientsPhone\": \"\",\n" +
-                        "  \"userName\": \"\",\n" +
-                        "  \"userType\": \"2\",\n" +
-                        "  \"verificationCode\": \"\"\n" +
-                        "}"
+                //var gson = "{\"agentIdcardImgBehind\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/1546938864614.jpg\",\"agentIdcardImgFront\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/1546938864614.jpg\",\"agentName\":\"张三\",\"agentPhone\":\"15380836693\",\"businessLicenseImg\":\"\",\"cardType\":\"2\",\"certSn\":\"320721199402171625\",\"certType\":\"101\",\"etcCardApplyVehicleVoList\":[{\"address\":\"中国(上海）自由贸易试验区顺通路5号B棱D158室\",\"axleNumber\":\"6\",\"carColor\":\"黄\",\"vehicleType\":\"重型半挂牵引车\",\"carNo\":\"沪DA3719\",\"carNoColor\":\"黄\",\"carNoImageId\":\"6001f443e75e4f6898ce7a60e1655237\",\"carOwner\":\"上海远行供应链管理集团有限公司\",\"carType\":\"一型客车\",\"engineNumber\":\"1614D071069\",\"function\":\"营业货车\",\"model\":\"陕汽牌SX4186NR361\",\"tyreNumber\":\"5\",\"vehicleFrontImg\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/05.jpg\",\"vehicleImageId\":\"fa857cb1815d4d4f8346b47c38539ca9\",\"vehicleLicenseImg\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/1547019838747.jpg\",\"vinCode\":\"LZGJDNR18EX030565\"},{\"address\":\"中国(上海）自由贸易试验区顺通路5号B棱D158室\",\"axleNumber\":\"6\",\"carColor\":\"黄\",\"vehicleType\":\"重型半挂牵引车\",\"carNo\":\"沪DA3719\",\"carNoColor\":\"黄\",\"carNoImageId\":\"6001f443e75e4f6898ce7a60e1655237\",\"carOwner\":\"上海远行供应链管理集团有限公司\",\"carType\":\"一型客车\",\"engineNumber\":\"1614D071069\",\"function\":\"营业货车\",\"model\":\"陕汽牌SX4186NR361\",\"tyreNumber\":\"5\",\"vehicleFrontImg\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/05.jpg\",\"vehicleImageId\":\"fa857cb1815d4d4f8346b47c38539ca9\",\"vehicleLicenseImg\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/1547019838747.jpg\",\"vinCode\":\"LZGJDNR18EX030565\"}],\"idcardImgBehind\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/1546938864614.jpg\",\"idcardImgFront\":\"/data/user/0/com.sc.clgg/cache/takephoto_cache/1546938864614.jpg\",\"invitationCode\":\"\",\"linkMobile\":\"\",\"recipientsAddress\":\"上海 上海市 静安区东方环球企业118弄2号楼\",\"recipientsName\":\"李雯雯\",\"recipientsPhone\":\"18351926827\",\"userName\":\"\",\"userType\":\"1\",\"verificationCode\":\"\"}"
+                //startActivity(Intent(this, InfoCertificationActivity::class.java).putExtra("info", Gson().fromJson(gson, CertificationInfo::class.java)))
 
                 /*RetrofitHelper().apply(Gson().fromJson(gson, CertificationInfo::class.java)).enqueue(object : Callback<Check> {
                     override fun onFailure(call: Call<Check>, t: Throwable) {
@@ -98,11 +34,10 @@ class SplashActivity : BaseImmersionActivity() {
                     override fun onResponse(call: Call<Check>, response: Response<Check>) {
                     }
                 })*/
-                startActivity(Intent(this, InfoCertificationActivity::class.java).putExtra("info", Gson().fromJson(gson, CertificationInfo::class.java)))
-finish()
+                finish()
             }
             2 -> {
-                startActivity(Intent(this, InfoCertificationActivity::class.java))
+                startActivity(Intent(this, CardIntroduceActivity::class.java))
                 finish()
             }
             3 -> {

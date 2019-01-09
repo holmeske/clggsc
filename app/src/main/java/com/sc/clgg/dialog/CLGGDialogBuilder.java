@@ -369,7 +369,7 @@ public class CLGGDialogBuilder {
     /**
      * Set a list of items to be displayed in the dialog as the content, you
      * will be notified of the selected item via the supplied listener. This
-     * should be an array type i.e. R.array.foo
+     * should be an array cardType i.e. R.array.foo
      *
      * @return This Builder object to allow for chaining of calls to set methods
      */
@@ -460,7 +460,7 @@ public class CLGGDialogBuilder {
     /**
      * Set a list of items to be displayed in the dialog as the content, you
      * will be notified of the selected item via the supplied listener. This
-     * should be an array type, e.g. R.array.foo. The list will have a check
+     * should be an array cardType, e.g. R.array.foo. The list will have a check
      * mark displayed to the right of the text for each checked item. Clicking
      * on an item in the list will not dismiss the dialog. Clicking on a button
      * will dismiss the dialog.
@@ -526,7 +526,7 @@ public class CLGGDialogBuilder {
     /**
      * Set a list of items to be displayed in the dialog as the content, you
      * will be notified of the selected item via the supplied listener. This
-     * should be an array type i.e. R.array.foo The list will have a check mark
+     * should be an array cardType i.e. R.array.foo The list will have a check mark
      * displayed to the right of the text for the checked item. Clicking on an
      * item in the list will not dismiss the dialog. Clicking on a button will
      * dismiss the dialog.

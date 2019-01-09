@@ -121,6 +121,7 @@ dependencies {
     implementation('androidx.recyclerview:recyclerview:1.1.0-alpha01') {
         force = true
     }
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation "junit:junit:$junitLibraryVersion"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'

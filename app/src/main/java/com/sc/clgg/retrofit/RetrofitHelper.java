@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.sc.clgg.BuildConfig;
 import com.sc.clgg.application.App;
 import com.sc.clgg.application.AppPresenterKt;
+import com.sc.clgg.bean.ApplyStateList;
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
 import com.sc.clgg.bean.BusinessNoteList;
@@ -149,7 +150,7 @@ public class RetrofitHelper {
 
         parts.add(MultipartBody.Part.createFormData("cardType", info.getCardType()));
         parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
-        //parts.add(MultipartBody.Part.createFormData("userName", info.getUserName()));
+        parts.add(MultipartBody.Part.createFormData("userName", ""));
         parts.add(MultipartBody.Part.createFormData("certType", info.getCertType()));
         parts.add(MultipartBody.Part.createFormData("certSn", info.getCertSn()));
 
@@ -162,6 +163,7 @@ public class RetrofitHelper {
         parts.add(MultipartBody.Part.createFormData("recipientsName", info.getRecipientsName()));
         parts.add(MultipartBody.Part.createFormData("recipientsPhone", info.getRecipientsPhone()));
         parts.add(MultipartBody.Part.createFormData("recipientsAddress", info.getRecipientsAddress()));
+        parts.add(MultipartBody.Part.createFormData("agentCertType", "2"));
         parts.add(MultipartBody.Part.createFormData("agentName", info.getAgentName()));
         parts.add(MultipartBody.Part.createFormData("linkMobile", info.getAgentPhone()));
 
@@ -186,10 +188,10 @@ public class RetrofitHelper {
     }
 
     /**
-     * 身份验证码
+     * ETC申请状态查询
      */
-    public retrofit2.Call<StatusBean> identityCertification(String phone) {
-        return Retrofit().create(RetrofitApi.class).identityCertification(phone);
+    public retrofit2.Call<ApplyStateList> getApplyStateList() {
+        return Retrofit().create(RetrofitApi.class).applyStateList(getDefaultUserId());
     }
 
     /**
@@ -735,6 +737,7 @@ public class RetrofitHelper {
         parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
         return Retrofit().create(RetrofitApi.class).scan(parts);
     }
+
     /**
      * 营业执照识别
      */
@@ -806,7 +809,7 @@ public class RetrofitHelper {
     public retrofit2.Call<Check> publishDynamic(List<String> files, String message) {
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(MultipartBody.Part.createFormData("userId", new ConfigUtil().getUserid()));
-        parts.add(MultipartBody.Part.createFormData("type", "0"));
+        parts.add(MultipartBody.Part.createFormData("cardType", "0"));
         parts.add(MultipartBody.Part.createFormData("message", message));
 
         for (String s : files) {

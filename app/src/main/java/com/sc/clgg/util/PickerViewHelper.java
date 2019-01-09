@@ -10,6 +10,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
+import com.sc.clgg.R;
 import com.sc.clgg.bean.JsonBean;
 
 import org.json.JSONArray;
@@ -18,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * @author：lvke
@@ -31,6 +34,7 @@ public class PickerViewHelper {
 
     /**
      * 3项联动选择器
+     *
      * @param activity 上下文
      * @param listener 监听器
      */
@@ -47,7 +51,8 @@ public class PickerViewHelper {
             }
         }).setTitleText("城市选择")
                 .setDividerColor(Color.BLACK)
-                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setTextColorOut(ContextCompat.getColor(activity, R.color._9c9c9c))
+                .setTextColorCenter(ContextCompat.getColor(activity, R.color.blue))
                 .setContentTextSize(20)
                 .build();
 

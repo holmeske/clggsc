@@ -29,7 +29,7 @@ class BalanceQueryActivity : BaseImmersionActivity() {
         tv_card_no.text = card?.cardId
         tv_balance.text = String.format("%.2f", card?.balance?.toDouble()!!/100)
 
-        tv_back_home.setOnClickListener { startActivity(ETCActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
 
         RetrofitHelper().getCardInfo(card?.cardId, "0").enqueue(object : Callback<CardInfo> {
             override fun onFailure(call: Call<CardInfo>, t: Throwable) {

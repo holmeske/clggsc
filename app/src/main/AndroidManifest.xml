@@ -268,7 +268,7 @@
         <activity android:name=".activity.etc.PayResultActivity"/>
         <activity android:name=".activity.etc.MyCardActivity"/>
         <activity
-            android:name=".activity.etc.ETCActivity"
+            android:name=".activity.etc.EtcActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".activity.etc.PreRechargeActivity"/>
         <activity android:name=".activity.etc.opencard.IdentityCertificationActivity"/>
@@ -299,6 +299,8 @@
         <activity android:name=".activity.BusinessIntroductionActivity">
         </activity>
         <activity android:name=".activity.etc.opencard.CarCertificationActivity">
+        </activity>
+        <activity android:name=".activity.UserAgreementActivity">
         </activity>
     </application>
 

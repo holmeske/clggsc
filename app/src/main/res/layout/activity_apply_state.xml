@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity.etc.ApplyStateActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/view_titlebar"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="18dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="申请状态"
+            android:textColor="@color/_444"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_apply_state"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:background="@color/white"
+            android:drawableEnd="@drawable/precharg_home_skip"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical|end"
+            android:hint="请选择申请状态"
+            android:paddingEnd="18dp"
+            android:textColor="@color/_444"
+            android:textColorHint="@color/_9c9c9c"
+            android:textSize="14sp"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/titlebar"
         android:id="@+id/rv"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="0dp"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

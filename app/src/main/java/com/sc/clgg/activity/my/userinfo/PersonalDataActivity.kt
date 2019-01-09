@@ -58,21 +58,21 @@ class PersonalDataActivity : TakePhotoActivity() {
 
         tv_name.setOnClickListener {
             startActivity(Intent(this@PersonalDataActivity, NickNameActivity::class.java)
-                    .putExtra("type", "name").putExtra("name", DATA?.realName)
+                    .putExtra("cardType", "name").putExtra("name", DATA?.realName)
                     .putExtra("maxLength", 20))
         }
         tv_nickname.setOnClickListener {
             startActivity(Intent(this@PersonalDataActivity, NickNameActivity::class.java)
-                    .putExtra("type", "nickname").putExtra("nickname", DATA?.nickName).putExtra("maxLength", 20))
+                    .putExtra("cardType", "nickname").putExtra("nickname", DATA?.nickName).putExtra("maxLength", 20))
         }
         tv_signature.setOnClickListener {
             startActivity(Intent(this@PersonalDataActivity, NickNameActivity::class.java)
-                    .putExtra("type", "signature").putExtra("signature", DATA?.clientSign).putExtra("maxLength", 50))
+                    .putExtra("cardType", "signature").putExtra("signature", DATA?.clientSign).putExtra("maxLength", 50))
         }
 
         tv_invite_code.setOnClickListener {
             startActivity(Intent(this@PersonalDataActivity, NickNameActivity::class.java)
-                    .putExtra("type", "invite").putExtra("invite", DATA?.inviteCode).putExtra("maxLength", 15))
+                    .putExtra("cardType", "invite").putExtra("invite", DATA?.inviteCode).putExtra("maxLength", 15))
         }
 
         getPersonalInfo()

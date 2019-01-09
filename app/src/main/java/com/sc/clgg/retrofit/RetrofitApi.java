@@ -1,5 +1,6 @@
 package com.sc.clgg.retrofit;
 
+import com.sc.clgg.bean.ApplyStateList;
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
 import com.sc.clgg.bean.BusinessNoteList;
@@ -51,6 +52,8 @@ import retrofit2.http.Query;
  */
 
 public interface RetrofitApi {
+    @GET("etc/cardApply/myETCApplyCheck")
+    Call<ApplyStateList> applyStateList(@Query("userCode") String userCode);
 
     @GET("wxpay/confirmPayStatus/{cardCode}")
     Call<StatusBean> confirmPayStatus(@Path("cardCode") String cardCode);

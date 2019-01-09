@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.sc.clgg.R
 import com.sc.clgg.activity.TakePhotoActivity
 import com.sc.clgg.bean.CertificationInfo
@@ -77,31 +78,37 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                 choosingFront -> {
                     idcardImgFront = it
                     Glide.with(this).load(File(it)).into(iv_idcard_front)
+                    tv_idcard_front_hint.visibility = View.INVISIBLE
                     certificationInfo?.idcardImgFront = it
                     LogHelper.e("客户正面")
-                    scanIdCard(idcardImgFront)
+                    scanIdCard(idcardImgFront, false)
                 }
                 choosingBehind -> {
                     idcardImgBehind = it
                     Glide.with(this).load(File(it)).into(iv_idcard_reverse)
+                    tv_idcard_reverse_hint.visibility = View.INVISIBLE
                     certificationInfo?.idcardImgBehind = it
                     LogHelper.e("客户正面")
                 }
                 choosingAgentFront -> {
                     agentIdcardFront = it
                     Glide.with(this).load(File(it)).into(iv_agent_idcard_front)
+                    tv_agent_idcard_front_hint.visibility = View.INVISIBLE
                     certificationInfo?.agentIdcardImgFront = it
                     LogHelper.e("经办人正面")
+                    scanIdCard(idcardImgFront, true)
                 }
                 choosingAgentReverse -> {
                     agentIdcardReverse = it
                     Glide.with(this).load(File(it)).into(iv_agent_idcard_reverse)
+                    tv_agent_idcard_reverse_hint.visibility = View.INVISIBLE
                     certificationInfo?.agentIdcardImgBehind = it
                     LogHelper.e("经办人反面")
                 }
                 else -> {
                     businessLicenseImg = it
                     Glide.with(this).load(File(it)).into(iv_enterprise)
+                    tv_enterprise_hint.visibility = View.INVISIBLE
                     certificationInfo?.businessLicenseImg = it
                     LogHelper.e("营业执照")
                     scanPassport(businessLicenseImg)
@@ -116,6 +123,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
         setContentView(R.layout.activity_identity_certification)
 
         certificationInfo = intent.getParcelableExtra("info")
+        LogHelper.e("“身份认证”页面接收的数据 = ${Gson().toJson(certificationInfo)}")
         init()
     }
 
@@ -130,13 +138,14 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                     tv_user_type.text = this
                     if (this == "个人") {
                         ll_personal.visibility = View.VISIBLE
+                        ll_agent.visibility = View.VISIBLE
                         ll_enterprise.visibility = View.GONE
 
                         certificationInfo?.userType = "1"
                     } else {
                         ll_personal.visibility = View.GONE
+                        ll_agent.visibility = View.VISIBLE
                         ll_enterprise.visibility = View.VISIBLE
-
                         certificationInfo?.userType = "2"
                     }
                 }
@@ -154,17 +163,31 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                 toast("请选择用户类型")
                 return@setOnClickListener
             }
-            if (certificationInfo?.idcardImgFront!!.isBlank()) {
-                toast("请上传身份证正面图片")
-                return@setOnClickListener
-            }
-            if (certificationInfo?.idcardImgBehind!!.isBlank()) {
-                toast("请上传身份证反面图片")
-                return@setOnClickListener
-            }
-            if (certificationInfo?.userType == "2" && certificationInfo?.businessLicenseImg!!.isBlank()) {
-                toast("请上传企业营业执照图片")
-                return@setOnClickListener
+            when (certificationInfo?.userType) {
+                "1" -> {
+                    if (certificationInfo?.idcardImgFront!!.isBlank()) {
+                        toast("请上传身份证正面图片")
+                        return@setOnClickListener
+                    }
+                    if (certificationInfo?.idcardImgBehind!!.isBlank()) {
+                        toast("请上传身份证反面图片")
+                        return@setOnClickListener
+                    }
+                }
+                "2" -> {
+                    if (certificationInfo?.agentIdcardImgFront!!.isBlank()) {
+                        toast("请上传经办人身份证正面图片")
+                        return@setOnClickListener
+                    }
+                    if (certificationInfo?.agentIdcardImgBehind!!.isBlank()) {
+                        toast("请上传经办人身份证反面图片")
+                        return@setOnClickListener
+                    }
+                    if (certificationInfo?.userType == "2" && certificationInfo?.businessLicenseImg!!.isBlank()) {
+                        toast("请上传企业营业执照图片")
+                        return@setOnClickListener
+                    }
+                }
             }
 
             certificationInfo?.invitationCode = et_invite_code.text.toString()
@@ -224,28 +247,24 @@ class IdentityCertificationActivity : TakePhotoActivity() {
     /**
      * 识别身份证
      */
-    private fun scanIdCard(filePath: String?) {
+    private fun scanIdCard(filePath: String?, isAgent: Boolean) {
         scanIdCardHttp = RetrofitHelper().idCard(File(filePath))
         scanIdCardHttp?.enqueue(object : Callback<Map<String, Any>> {
             override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
                 hideProgressDialog()
                 try {
-                    response.body()?.let {
-                        if (it.containsKey("success") && it["success"] as Boolean) {
+                    val allMap = response.body()
+                    if (allMap!!.containsKey("success") && allMap["success"] as Boolean) {
+                        val identifyMap = allMap["identify"] as Map<String, Any>
 
-                            if (it.containsKey("identify")) {
-                                it["identify"]?.let { it as Map<String, Any> }?.let {
-                                    if (it.containsKey("words_result")) {
-                                        it["words_result"]?.let { it as Map<String, Any> }?.let {
-                                            it["社会信用代码"]?.let { it as Map<String, String> }?.let {
-                                                certificationInfo?.certSn = if (it["words"] == "无") "" else it["words"]
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                        if (identifyMap.containsKey("words_result")) {
 
+                            val resultMap = identifyMap["words_result"] as Map<String, Any>
+
+                            if (isAgent) certificationInfo?.agentName = (resultMap["姓名"] as Map<String, String>)["words"]
+                            else certificationInfo?.certSn = (resultMap["公民身份号码"] as Map<String, String>)["words"]
                         }
+
                     }
                 } catch (e: Exception) {
                     LogHelper.e(e)

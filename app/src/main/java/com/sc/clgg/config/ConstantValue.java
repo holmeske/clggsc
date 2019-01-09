@@ -36,6 +36,7 @@ public class ConstantValue {
     public static final String LEASE = NetField.SITE + "shop/lease";
     public static final String FACTORING = NetField.SITE + "shop/premiums";
     public static final String INSURANCE = NetField.SITE + "shop/mx";
+    public static final String USER_AGREEMENT = NetField.SITE + "preview/cardB";
 
     private static String NO_VEHICLE_HEAD = "http://sj.clgg.com/Html/View/Main/Index.html?username="
             + new ConfigUtil().getAccount() + "&password=" + new ConfigUtil().getPassword();

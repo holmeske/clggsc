@@ -39,8 +39,8 @@ public class PickerViewHelper {
                 .setSubmitColor(ContextCompat.getColor(context, R.color.black_333))
                 .setLineSpacingMultiplier(2.5f)
                 .setContentTextSize(15)
-                .setTextColorOut(ContextCompat.getColor(context, R.color.blue))
-                .setTextColorCenter(ContextCompat.getColor(context, R.color._9c9c9c))
+                .setTextColorOut(ContextCompat.getColor(context, R.color._9c9c9c))
+                .setTextColorCenter(ContextCompat.getColor(context, R.color.blue))
                 .setDividerColor(ContextCompat.getColor(context, R.color._ccc))
                 .build();
         pvOptions.setPicker(data);

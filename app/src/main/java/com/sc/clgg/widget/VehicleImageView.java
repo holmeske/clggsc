@@ -25,7 +25,6 @@ public class VehicleImageView extends ConstraintLayout {
     private TextView tv_car_title, tv_delete, tv_vehicle_license_hint, tv_vehicle_front_hint;
     private ImageView iv_expand, iv_vehicle_license, iv_vehicle_front;
     private LinearLayout ll_body, ll_hint_1, ll_hint_2;
-    private String vehicleLicense = "";
 
     private CertificationInfo.Car car = new CertificationInfo.Car();
 
@@ -69,6 +68,18 @@ public class VehicleImageView extends ConstraintLayout {
         initListener(context);
     }
 
+    /**
+     * 隐藏行驶证上传提示
+     */
+    public void hideLicenseHint( ) {
+        tv_vehicle_license_hint.setVisibility(View.INVISIBLE);
+    }
+    /**
+     * 隐藏车辆正面照片上传提示
+     */
+    public void hideFrontHint( ) {
+        tv_vehicle_front_hint.setVisibility(View.INVISIBLE);
+    }
     /**
      * 设置车辆标题
      */

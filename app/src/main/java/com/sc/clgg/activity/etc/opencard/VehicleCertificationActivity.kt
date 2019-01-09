@@ -35,9 +35,9 @@ class VehicleCertificationActivity : TakePhotoActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vehicle_certification)
         certificationInfo = intent.getParcelableExtra("info")
+        LogHelper.e("“车辆认证”页面接收的数据 = ${Gson().toJson(certificationInfo)}")
 
         init()
-        LogHelper.e("身份认证 = ${Gson().toJson(certificationInfo)}")
     }
 
     /**
@@ -66,13 +66,15 @@ class VehicleCertificationActivity : TakePhotoActivity() {
                 LogHelper.e("设置行驶证")
                 currentVehicle?.car?.vehicleLicenseImg = result?.image?.compressPath
                 currentVehicle?.car?.vehicleImageId = randomId()
+                currentVehicle?.hideLicenseHint()
                 Glide.with(this).load(File(currentVehicle?.car?.vehicleLicenseImg)).into(currentImageView!!)
-                scanVehicleLicense(result?.image?.compressPath, currentVehicle?.tag as Int)
+                scanVehicleLicense(result?.image?.compressPath)
             }
             R.id.iv_vehicle_front -> {
                 LogHelper.e("设置正面照")
                 currentVehicle?.car?.vehicleFrontImg = result?.image?.compressPath
                 currentVehicle?.car?.carNoImageId = randomId()
+                currentVehicle?.hideFrontHint()
                 Glide.with(this).load(File(currentVehicle?.car?.vehicleFrontImg)).into(currentImageView!!)
                 scanVehicleFront(result?.image?.compressPath)
             }
@@ -173,7 +175,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
     /**
      * 识别行驶证
      */
-    private fun scanVehicleLicense(filePath: String?, index: Int = 0) {
+    private fun scanVehicleLicense(filePath: String?) {
         vehicleLicenseInfoHttp = RetrofitHelper().scan(File(filePath))
         vehicleLicenseInfoHttp?.enqueue(object : Callback<Map<String, Any>> {
             override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
@@ -192,7 +194,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
                                 it.carOwner = (resultMap["所有人"] as Map<String, String>)["words"]
                                 it.address = (resultMap["住址"] as Map<String, String>)["words"]
 
-                                it.carLicenseType = (resultMap["车辆类型"] as Map<String, String>)["words"]
+                                it.vehicleType = (resultMap["车辆类型"] as Map<String, String>)["words"]
                                 it.model = (resultMap["品牌型号"] as Map<String, String>)["words"]
                                 it.vinCode = (resultMap["车辆识别代号"] as Map<String, String>)["words"]
                                 it.engineNumber = (resultMap["发动机号码"] as Map<String, String>)["words"]

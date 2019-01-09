@@ -26,6 +26,6 @@ class PreRechargeFinishActivity : AppCompatActivity() {
                 tv_can_write_balance.text = "${it / 100}元"
             }
         }
-        tv_back_home.setOnClickListener { startActivity(ETCActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
     }
 }

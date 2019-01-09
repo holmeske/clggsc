@@ -225,7 +225,7 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
         } else {
-            // create a dataset and give it a type
+            // create a dataset and give it a cardType
 
             //                     参数2：0轴线 下面的文字
             dataSet = LineDataSet(values, "")

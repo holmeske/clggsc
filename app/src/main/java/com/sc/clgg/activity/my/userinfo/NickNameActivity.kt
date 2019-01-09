@@ -21,7 +21,7 @@ class NickNameActivity : BaseImmersionActivity() {
 
         et.filters = arrayOf(InputFilter.LengthFilter(intent.getIntExtra("maxLength", 20)))
 
-        type = intent.getStringExtra("type")
+        type = intent.getStringExtra("cardType")
 
         when {
             type.equals("name") -> {
