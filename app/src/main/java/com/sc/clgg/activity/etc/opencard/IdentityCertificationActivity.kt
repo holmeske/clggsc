@@ -81,14 +81,14 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                     tv_idcard_front_hint.visibility = View.INVISIBLE
                     certificationInfo?.idcardImgFront = it
                     LogHelper.e("客户正面")
-                    scanIdCard(idcardImgFront, false)
+                    scanIdCard(it, false)
                 }
                 choosingBehind -> {
                     idcardImgBehind = it
                     Glide.with(this).load(File(it)).into(iv_idcard_reverse)
                     tv_idcard_reverse_hint.visibility = View.INVISIBLE
                     certificationInfo?.idcardImgBehind = it
-                    LogHelper.e("客户正面")
+                    LogHelper.e("客户反面")
                 }
                 choosingAgentFront -> {
                     agentIdcardFront = it
@@ -96,7 +96,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                     tv_agent_idcard_front_hint.visibility = View.INVISIBLE
                     certificationInfo?.agentIdcardImgFront = it
                     LogHelper.e("经办人正面")
-                    scanIdCard(idcardImgFront, true)
+                    scanIdCard(it, true)
                 }
                 choosingAgentReverse -> {
                     agentIdcardReverse = it
@@ -111,7 +111,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                     tv_enterprise_hint.visibility = View.INVISIBLE
                     certificationInfo?.businessLicenseImg = it
                     LogHelper.e("营业执照")
-                    scanPassport(businessLicenseImg)
+                    scanPassport(it)
                 }
             }
         }
