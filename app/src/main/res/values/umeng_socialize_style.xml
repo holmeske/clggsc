@@ -52,7 +52,7 @@
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
     <!--</style>-->
 
-    <style name="Theme.UMDefault" parent="android:style/Theme.NoTitleBar"></style>
+    <style name="Theme.UMDefault" parent="android:style/Theme.NoTitleBar"/>
 
     <!--<style name="umeng_socialize_divider">-->
         <!--<item name="android:layout_width">fill_parent</item>-->

@@ -1,6 +1,7 @@
 package com.sc.clgg.util
 
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.text.Editable
@@ -21,6 +22,22 @@ import org.devio.takephoto.app.TakePhoto
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+fun Activity.showAlertDialog(message: String, ok: () -> Unit) {
+    AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton("确定") { _, _ -> ok() }
+            .setNegativeButton("取消", null)
+            .show()
+}
+
+/**
+ * 是否打开蓝牙
+ */
+fun isOpenBlueTooth(): Boolean {
+    return BluetoothAdapter.getDefaultAdapter().isEnabled
+}
 
 fun randomId(): String {
     return UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault())

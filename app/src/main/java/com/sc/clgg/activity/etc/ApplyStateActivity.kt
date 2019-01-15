@@ -35,23 +35,23 @@ class ApplyStateActivity : BaseImmersionActivity() {
         tv_apply_state.setOnClickListener {
             val data = Arrays.asList<String>("审核中", "审核驳回", "审核通过", "开卡成功", "开卡失败")
             PickerViewHelper().creat(this, data)
-            { options1, options2, options3, v ->
+            { options1, _, _, _ ->
                 tv_apply_state.text = data[options1]
                 when (options1) {
                     0 -> {
-                        mApplyStateAdapter.refresh(dataList?.filter { it.checkStatus == "0" })
+                        mApplyStateAdapter.refresh(dataList.filter { it.checkStatus == "0" })
                     }
                     1 -> {
-                        mApplyStateAdapter.refresh(dataList?.filter { it.checkStatus == "2" })
+                        mApplyStateAdapter.refresh(dataList.filter { it.checkStatus == "2" })
                     }
                     2 -> {
-                        mApplyStateAdapter.refresh(dataList?.filter { it.isSuccess == "0" })
+                        mApplyStateAdapter.refresh(dataList.filter { it.isSuccess == "0" })
                     }
                     3 -> {
-                        mApplyStateAdapter.refresh(dataList?.filter { it.isSuccess == "1" })
+                        mApplyStateAdapter.refresh(dataList.filter { it.isSuccess == "1" })
                     }
                     4 -> {
-                        mApplyStateAdapter.refresh(dataList?.filter { it.isSuccess == "2" })
+                        mApplyStateAdapter.refresh(dataList.filter { it.isSuccess == "2" })
                     }
                 }
             }

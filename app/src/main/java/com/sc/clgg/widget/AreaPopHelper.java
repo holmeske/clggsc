@@ -35,7 +35,7 @@ public class AreaPopHelper {
     public PopupWindow init(Context context) {
         View view = View.inflate(context, R.layout.pop_area, null);
         RecyclerView mRecyclerView = view.findViewById(R.id.rv_area);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 4, RecyclerView.VERTICAL, false));
         mAreaAdapter = new AreaAdapter(Arrays.asList(areas_net == null ? areas : areas_net));
         mRecyclerView.setAdapter(mAreaAdapter);
         mRecyclerView.setHasFixedSize(true);

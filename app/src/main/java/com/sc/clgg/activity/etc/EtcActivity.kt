@@ -2,7 +2,6 @@ package com.sc.clgg.activity.etc
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +29,6 @@ class EtcActivity : BaseImmersionActivity() {
     }
 
     private fun init() {
-        titlebar_left.visibility = View.GONE
         titlebar_title.text = "远行通"
 
         recyclerView.adapter = EtcAdapter()

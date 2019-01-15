@@ -37,7 +37,7 @@ lateinit var CURRENT_LOCATION: LocationBean
 fun Application.start() {
     CURRENT_LOCATION = LocationBean()
 
-    LogHelper.e("初始化application")
+    LogHelper.e("Application初始化")
     AppService.start(this)
 
     LogHelper.setLogSwitch(BuildConfig.LOG_DEBUG)

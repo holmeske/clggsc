@@ -33,9 +33,21 @@ public class AppHelper {
         }
     }
 
-    public static void openSetting(Context context) {
+    /**
+     * 打开蓝牙
+     */
+    public static void openBluetoothSettings(Context context) {
+        Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 打开定位服务
+     */
+    public static void openLocationSettings(Context context) {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         context.startActivity(intent);
     }
+
 
 }

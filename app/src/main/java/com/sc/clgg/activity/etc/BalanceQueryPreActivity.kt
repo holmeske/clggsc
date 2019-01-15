@@ -8,6 +8,7 @@ import com.sc.clgg.application.App
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.etc.NewDES
 import com.sc.clgg.tool.helper.LogHelper
+import com.sc.clgg.util.isOpenBluetoothLocation
 import etc.obu.data.CardInformation
 import kotlinx.android.synthetic.main.activity_balance_query_pre.*
 import kotlinx.android.synthetic.main.view_titlebar.*
@@ -22,19 +23,18 @@ class BalanceQueryPreActivity : BaseImmersionActivity() {
         titlebar_title.text = "我的ETC卡余额查询"
 
         tv_read_card.setOnClickListener {
-            readCard()
+            if (isOpenBluetoothLocation()) readCard()
         }
     }
 
     private fun readCard() {
         showProgressDialog("正在读卡")
         LogHelper.e("开始连接蓝牙设备")
-        var intRandom = ""
+        val intRandom = "1234"
         var intMac = ""
-        val KEY = "2D65d001246ade79151C634be75264AF"
-        intRandom = "1234"
+        val key = "2D65d001246ade79151C634be75264AF"
         try {
-            intMac = NewDES.PBOC_3DES_MAC(intRandom, KEY).substring(0, 8)
+            intMac = NewDES.PBOC_3DES_MAC(intRandom, key).substring(0, 8)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -53,7 +53,7 @@ class BalanceQueryPreActivity : BaseImmersionActivity() {
                         val status = App.getInstance().mObuInterface.getCardInformation(cardInfo)
                         if (status.serviceCode == 0) {
                             //runOnUiThread { toast("读卡成功") }
-                            LogHelper.e("${Gson().toJson(cardInfo)}")
+                            LogHelper.e(Gson().toJson(cardInfo))
                             startActivity(Intent(this@BalanceQueryPreActivity, BalanceQueryActivity::class.java)
                                     .putExtra("card", cardInfo))
                         }

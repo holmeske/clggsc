@@ -1,30 +1,16 @@
 package com.sc.clgg
 
-import com.sc.clgg.bean.CertificationInfo
-
+import com.sc.clgg.bean.UserInfoBean
 
 fun main() {
-    var certificationInfo = CertificationInfo()
-    certificationInfo.certType = "营业执照"
 
-    certificationInfo?.certType?.let {
-        fun updateCertType(string: String) {
-            certificationInfo?.certType = string
-        }
-        when (it) {
-            "身份证含临时身份证" -> updateCertType("101")
-            "护照" -> updateCertType("102")
-            "港澳居民来往内地通行证" -> updateCertType("103")
-            "台湾居民来往大陆通行证" -> updateCertType("104")
-            "统一社会信用代码证书" -> updateCertType("201")
-            "组织机构代码证" -> updateCertType("202")
-            "营业执照" -> updateCertType("203")
-            else -> {
-            }
-        }
+    var result2 = UserInfoBean().let {
+        it?.id = "16"//这行其实是在调用setAge函数,如果这行为最后一行，则没有返回值
+
+          it?.account
     }
+    println("let 返回值 = $result2")
 
-    println(certificationInfo?.certType)
     /*for (i in 1..3) {
         println(i)
     }

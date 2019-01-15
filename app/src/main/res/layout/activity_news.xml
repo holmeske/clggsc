@@ -21,9 +21,10 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                tools:ignore="MissingConstraints"/>
 
             <TextView
                 android:id="@+id/tv_nomessage"
@@ -35,6 +36,7 @@
                 android:text="暂无消息，去其他地方逛逛吧~"
                 android:textColor="@color/_666"
                 android:textSize="15sp"
+                android:gravity="center"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

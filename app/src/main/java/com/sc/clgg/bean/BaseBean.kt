@@ -11,6 +11,5 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 open class BaseBean(var success: Boolean = false,
-                    var errorCode: String? = "",
-                    var message: String? = "",
-                    var msg: String? = "") : Parcelable
+                    var code: String? = "",
+                    var msg: Int = 0) : Parcelable

@@ -27,6 +27,7 @@ android {
     }
     lintOptions {
         abortOnError false
+        check 'Interoperability'
     }
     sourceSets {
         main {
@@ -42,7 +43,11 @@ android {
             keyPassword "bluemobi"
         }
     }
-
+    /*splits {
+        abi {
+            include 'armeabi', 'armeabi-v7a', 'arm64-v8a'//, 'arm64-v8a', 'x86', 'x86_64'
+        }
+    }*/
     defaultConfig {
         applicationId "com.sc.clgg"
         multiDexEnabled true
@@ -112,34 +117,34 @@ dependencies {
     implementation('com.google.android.material:material:1.1.0-alpha02') {
         force = true
     }
-    implementation('androidx.appcompat:appcompat:1.1.0-alpha01') {
-        force = true
-    }
     implementation('androidx.legacy:legacy-support-v4:1.0.0') {
         force = true
     }
     implementation('androidx.recyclerview:recyclerview:1.1.0-alpha01') {
         force = true
     }
-    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation "junit:junit:$junitLibraryVersion"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     androidTestImplementation 'androidx.test:runner:1.1.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
+    implementation 'androidx.core:core-ktx:1.1.0-alpha03'
+    implementation 'androidx.multidex:multidex:2.0.1'
+
     implementation 'com.amap.api:3dmap:6.6.0'
     implementation 'com.amap.api:location:4.4.0'
     implementation 'com.amap.api:search:6.5.0.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.youth.banner:banner:1.4.10'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.2'
-    implementation 'com.tencent.bugly:crashreport:2.6.6.1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+    implementation 'com.tencent.bugly:crashreport:2.8.6.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // Anko Commons
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
@@ -153,11 +158,9 @@ dependencies {
     // Anko SQLite
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
     implementation "org.jetbrains.anko:anko-sdk25-listeners:$anko_version"
-    implementation 'androidx.core:core-ktx:1.0.1'
-    implementation 'androidx.multidex:multidex:2.0.1'
+
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
-
     //沉浸式
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
     //图表
@@ -167,6 +170,7 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
+
     implementation files('libs/SecurityEnvSDK-release-1.1.0.jar')
     implementation files('libs/umeng-common-1.5.3.jar')
     implementation files('libs/umeng-share-core-6.9.2.jar')
@@ -175,11 +179,13 @@ dependencies {
     implementation files('libs/umeng-shareboard-widget-6.9.2.jar')
     implementation files('libs/umeng-sharetool-6.9.2.jar')
     implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
+
     implementation 'com.lzy.widget:ninegridview:0.2.1'
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     implementation 'org.devio.takephoto:takephoto_library:4.1.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.6'
-    implementation 'top.zibin:Luban:1.1.8'
+    //implementation 'top.zibin:Luban:1.1.8'
+
     implementation files('libs/obu-sdk.jar')
     implementation files('libs/protobuf-java-2.4.0a.jar')
 
@@ -192,16 +198,13 @@ dependencies {
     // alternatively - just LiveData
     implementation "android.arch.lifecycle:livedata:$lifecycle_version"
     // alternatively - Lifecycles only (no ViewModel or LiveData).
-    //     Support library depends on this lightweight import
+    // Support library depends on this lightweight import
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"
-
     annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
     // alternately - if using Java8, use the following instead of compiler
     implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
-
     // optional - ReactiveStreams support for LiveData
     implementation "android.arch.lifecycle:reactivestreams:$lifecycle_version"
-
     // optional - Test helpers for LiveData
     testImplementation "android.arch.core:core-testing:$lifecycle_version"
 }

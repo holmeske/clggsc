@@ -8,6 +8,7 @@ import com.sc.clgg.application.App
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.etc.NewDES
 import com.sc.clgg.tool.helper.LogHelper
+import com.sc.clgg.util.isOpenBluetoothLocation
 import com.sc.clgg.util.startActivity
 import etc.obu.data.CardInformation
 import etc.obu.data.ServiceStatus
@@ -27,6 +28,7 @@ class ReadCardActivity : BaseImmersionActivity() {
         tv_no_card_recharge.setOnClickListener { startActivity(MyCardActivity::class.java) }
 
         tv_read_card.setOnClickListener {
+            if (!isOpenBluetoothLocation()) return@setOnClickListener
             showProgressDialog("正在读卡")
             LogHelper.e("开始连接蓝牙设备")
             var intRandom = ""
@@ -38,7 +40,6 @@ class ReadCardActivity : BaseImmersionActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
             Thread(Runnable {
                 App.getInstance().mObuInterface.connectDevice().apply {
                     runOnUiThread { hideProgressDialog() }

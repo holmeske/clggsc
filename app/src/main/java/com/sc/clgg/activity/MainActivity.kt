@@ -71,7 +71,7 @@ class MainActivity : BaseAppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: MessageEvent) {
-        checked(event.value)
+        checked(event.value - 1)
     }
 
     override fun onDestroy() {

@@ -73,7 +73,7 @@ class NewsActivity : BaseImmersionActivity() {
                 swipeRefreshLayout?.isRefreshing = false
 
                 response?.body()?.let {
-                    if (it.data?.rows.isNullOrEmpty()||it.data?.rows?.size==0) {
+                    if (it.data?.rows.isNullOrEmpty() || it.data?.rows?.size == 0) {
                         tv_nomessage.visibility = View.VISIBLE
                         return
                     } else {
@@ -86,9 +86,7 @@ class NewsActivity : BaseImmersionActivity() {
                         }
                         adapter?.refresh(it.data?.rows, it.data?.rows?.size!! < pageSize)
                     } else {
-                        it.msg?.let {
-                            toast(it)
-                        }
+                        toast("${it.msg}")
                     }
                 }
 

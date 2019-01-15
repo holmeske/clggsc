@@ -139,11 +139,11 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.v_instant_recharge:
                 String money = tv_recharge_amount.getText().toString();
-                /*int amount = Integer.parseInt(money);
+                int amount = Integer.parseInt(money);
                 if (amount < 100 || amount > 1000000) {
                     Toast.makeText(mActivity.getApplication(), "请输入大于等于100小于1000000的整数", Toast.LENGTH_SHORT).show();
                     return;
-                }*/
+                }
                 new RetrofitHelper().payMoney(cardNumber, money).enqueue(new Callback<StatusBean>() {
                     @Override
                     public void onResponse(Call<StatusBean> call, Response<StatusBean> response) {

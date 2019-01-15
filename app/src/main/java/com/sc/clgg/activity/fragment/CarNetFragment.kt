@@ -1,5 +1,6 @@
 package com.sc.clgg.activity.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -8,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.sc.clgg.R
 import com.sc.clgg.activity.contact.TruckManageContact
 import com.sc.clgg.activity.login.LoginRegisterActivity
@@ -21,6 +24,7 @@ import com.sc.clgg.activity.vehicle.mileage.MileageActivity
 import com.sc.clgg.activity.vehicle.tally.TallyBookActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.VersionInfoBean
+import com.sc.clgg.mvvm.vm.MyViewModel
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.ActivityHelper
 import com.sc.clgg.tool.helper.LogHelper
@@ -41,15 +45,28 @@ import java.io.File.separator
  * @date：2018/2/27 17:02
  */
 class CarNetFragment : Fragment(), TruckManageContact {
+    private lateinit var myViewModel: MyViewModel
+    private val changeObserver = Observer<Banner> { value ->
+        LogHelper.e("更新Banner")
+        banner.setData(activity, value.data?.banner, false)
+    }
 
     private var viewCreated: Boolean = false
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(activity).inflate(R.layout.fragment_car_net, container, false)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        // 创建并注册观察者
+        myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        myViewModel.getBanner().observe(this, changeObserver)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewCreated = true
+
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             title.setPadding(0, 0, 0, 0)
@@ -79,10 +96,10 @@ class CarNetFragment : Fragment(), TruckManageContact {
             ActivityHelper.startAcScale(activity, MileageActivity::class.java)
         }
         hb_driving_score.setHomeButtonOnClickListener {
-//            startActivity(Intent(activity, PathRecordActivity::class.java)
-//                    .putExtra("carno", "晋C64989").putExtra("vin", "HX114675")
-//                    .putExtra("startDate", "20180716000000")
-//                    .putExtra("endDate", "20180716235959") )
+            /*startActivity(Intent(activity, PathRecordActivity::class.java)
+                    .putExtra("carno", "晋C64989").putExtra("vin", "HX114675")
+                    .putExtra("startDate", "20180716000000")
+                    .putExtra("endDate", "20180716235959"))*/
             ActivityHelper.startAcScale(activity, ConsumptionStatisticalActivity::class.java)
         }
         hb_maintenance_home.setHomeButtonOnClickListener {
@@ -107,8 +124,9 @@ class CarNetFragment : Fragment(), TruckManageContact {
 
                 override fun onResponse(call: Call<Banner>, response: Response<Banner>) {
 
-                    response.body()?.data?.let {
-                        banner.setData(activity, it.banner, false)
+                    response.body()?.let {
+                        myViewModel.getBanner().value = it
+                        //banner.setData(activity, it.banner, false)
                     }
                 }
             })
@@ -118,7 +136,6 @@ class CarNetFragment : Fragment(), TruckManageContact {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (viewCreated) {
-
             when {
                 isVisibleToUser -> banner?.startAutoPlay()
                 else -> banner?.stopAutoPlay()

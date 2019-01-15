@@ -1,13 +1,16 @@
 package com.sc.clgg.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.sc.clgg.activity.WebActivity
+import com.sc.clgg.tool.helper.AppHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.youth.banner.Banner
 import com.youth.banner.loader.ImageLoader
@@ -17,6 +20,19 @@ import com.youth.banner.loader.ImageLoader
  * @author：lvke
  * @date：2018/10/15 14:48
  */
+
+fun Activity.isOpenBluetoothLocation(): Boolean {
+    if (!isOpenBlueTooth()) {
+        showAlertDialog("请打开手机蓝牙", { AppHelper.openBluetoothSettings(this) })
+        return false
+    }
+    if (Build.VERSION.SDK_INT >= 23 && !AppHelper.isGpsOpen(applicationContext)) {
+        showAlertDialog("请打开定位服务", { AppHelper.openLocationSettings(this) })
+        return false
+    }
+    return true
+}
+
 private class GlideImageLoader : ImageLoader() {
     override fun displayImage(context: Context, path: Any, imageView: ImageView) {
         /*注意：

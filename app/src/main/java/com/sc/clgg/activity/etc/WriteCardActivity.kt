@@ -20,6 +20,7 @@ import com.sc.clgg.etc.NewDES
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.retrofit.WeChatPayCache
 import com.sc.clgg.tool.helper.LogHelper
+import com.sc.clgg.util.isOpenBluetoothLocation
 import etc.obu.data.CardInformation
 import kotlinx.android.synthetic.main.activity_write_card.*
 import kotlinx.android.synthetic.main.view_read_card.*
@@ -127,6 +128,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     private var a_on = ""
 
     private fun qc() {
+        if (!isOpenBluetoothLocation()) return
         showProgressDialog(false)
         Thread {
             var connectStatus = App.getInstance().mObuInterface.getConnectStatus()
