@@ -72,12 +72,12 @@ class InfoCertificationActivity : BaseImmersionActivity() {
 
                 certificationInfo?.etcCardApplyVehicleVoList?.clear()
                 ll_view_container?.takeIf { it.childCount > 0 }?.run {
-                    for (i in 0 until childCount) {
+                    for (i in 0 until ll_view_container.childCount) {
                         getChildAt(i).apply {
                             this as VehicleInfoView
                             certificationInfo?.etcCardApplyVehicleVoList?.add(car)
                             if (checkThrough(applicationContext)) {
-                                if (i == childCount - 1) {
+                                if (i == ll_view_container.childCount - 1) {
                                     startActivity(Intent(this@InfoCertificationActivity, SubmitApplyActivity::class.java)
                                             .putExtra("info", certificationInfo))
                                 }

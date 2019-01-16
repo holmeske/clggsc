@@ -33,7 +33,7 @@ class ApplyStateActivity : BaseImmersionActivity() {
         loadData()
 
         tv_apply_state.setOnClickListener {
-            val data = Arrays.asList<String>("审核中", "审核驳回", "审核通过", "开卡成功", "开卡失败")
+            val data = Arrays.asList<String>("审核中", "审核驳回", "审核通过", "开卡成功", "开卡失败", "卡片寄出")
             PickerViewHelper().creat(this, data)
             { options1, _, _, _ ->
                 tv_apply_state.text = data[options1]
@@ -48,10 +48,13 @@ class ApplyStateActivity : BaseImmersionActivity() {
                         mApplyStateAdapter.refresh(dataList.filter { it.isSuccess == "0" })
                     }
                     3 -> {
-                        mApplyStateAdapter.refresh(dataList.filter { it.isSuccess == "1" })
+                        mApplyStateAdapter.refresh(dataList.filter { it.isSuccess == "1" && it.expressInfo.isNullOrEmpty() })
                     }
                     4 -> {
                         mApplyStateAdapter.refresh(dataList.filter { it.isSuccess == "2" })
+                    }
+                    else -> {
+                        mApplyStateAdapter.refresh(dataList.filter { it.isSuccess == "1" && !it.expressInfo.isNullOrEmpty() })
                     }
                 }
             }
@@ -64,7 +67,7 @@ class ApplyStateActivity : BaseImmersionActivity() {
         http = RetrofitHelper().applyStateList.apply {
             enqueue(object : Callback<ApplyStateList> {
                 override fun onFailure(call: Call<ApplyStateList>, t: Throwable) {
-                hideProgressDialog()
+                    hideProgressDialog()
                 }
 
                 override fun onResponse(call: Call<ApplyStateList>, response: Response<ApplyStateList>) {

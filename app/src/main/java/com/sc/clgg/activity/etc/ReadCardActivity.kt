@@ -9,7 +9,6 @@ import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.etc.NewDES
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.isOpenBluetoothLocation
-import com.sc.clgg.util.startActivity
 import etc.obu.data.CardInformation
 import etc.obu.data.ServiceStatus
 import kotlinx.android.synthetic.main.activity_read_card.*
@@ -25,7 +24,7 @@ class ReadCardActivity : BaseImmersionActivity() {
 
         titlebar_title.text = getString(R.string.read_card)
 
-        tv_no_card_recharge.setOnClickListener { startActivity(MyCardActivity::class.java) }
+        tv_no_card_recharge.setOnClickListener { startActivity(Intent(this, MyCardActivity::class.java).putExtra("click", true)) }
 
         tv_read_card.setOnClickListener {
             if (!isOpenBluetoothLocation()) {

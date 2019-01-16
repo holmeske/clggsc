@@ -10,7 +10,6 @@ import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.dialog.LoadingDialogHelper
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.util.ConfigUtil
-import com.sc.clgg.util.Tools
 import com.sc.clgg.util.setTextChangeListener
 import kotlinx.android.synthetic.main.activity_modify_pass.*
 import org.jetbrains.anko.toast
@@ -53,32 +52,36 @@ class ModifyPasswordActivity : BaseImmersionActivity() {
     }
 
     private fun determine() {
-        val oldPassword = et_old_password!!.text.toString()
-        val newPassword = et_new_password!!.text.toString()
-        val againNewPassword = et_again_new_password!!.text.toString()
+        val oldPassword = et_old_password.text.toString()
+        val newPassword = et_new_password.text.toString()
+        val againNewPassword = et_again_new_password.text.toString()
 
         if (oldPassword.isEmpty()) {
-            Tools.Toast("原始密码不能为空")
+            toast("原始密码不能为空")
             return
         }
         if (newPassword == oldPassword) {
-            Tools.Toast("新旧密码不可相同")
+            toast("新旧密码不可相同")
+            return
+        }
+        if (newPassword == oldPassword) {
+            toast("新旧密码不可相同")
             return
         }
         if (newPassword.isEmpty()) {
-            Tools.Toast("新密码不能为空")
+            toast("新密码不能为空")
             return
         }
         if (newPassword.length < 6) {
-            Tools.Toast("密码长度应在6-16位，当前" + newPassword.length + "位！")
+            toast("密码长度应在6-16位，当前" + newPassword.length + "位！")
             return
         }
         if (againNewPassword.isEmpty()) {
-            Tools.Toast("第二次输入新密码不能为空")
+            toast("第二次输入新密码不能为空")
             return
         }
         if (againNewPassword != newPassword) {
-            Tools.Toast("两次密码不一致")
+            toast("两次密码不一致")
             return
         }
 

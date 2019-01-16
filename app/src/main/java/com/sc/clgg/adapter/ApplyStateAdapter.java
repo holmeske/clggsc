@@ -61,7 +61,7 @@ public class ApplyStateAdapter extends RecyclerView.Adapter<ApplyStateAdapter.My
         holder.tv_etc_card.setText("ETC:  " + bean.getCardId());
         holder.tv_audit_opinion.setText("审核意见:  " + bean.getRemarkFalse());
         if (TextUtils.isEmpty(bean.getCheckStatus())) {
-            isSuccess(holder, bean.isSuccess());
+            isSuccess(holder, bean);
         } else {
             checkStatus(holder, bean.getCheckStatus());
         }
@@ -75,8 +75,8 @@ public class ApplyStateAdapter extends RecyclerView.Adapter<ApplyStateAdapter.My
     /**
      * 根据 isSuccess 属性判断
      */
-    private void isSuccess(@NonNull MyHolder holder, String state) {
-        switch (state) {
+    private void isSuccess(@NonNull MyHolder holder, ApplyStateList.ApplyState bean) {
+        switch (bean.isSuccess()) {
             case "0":
                 holder.iv_apply_state.setVisibility(View.GONE);
 
@@ -92,7 +92,11 @@ public class ApplyStateAdapter extends RecyclerView.Adapter<ApplyStateAdapter.My
                 holder.tv_audit_state.setVisibility(View.GONE);
 
                 holder.iv_apply_state.setVisibility(View.VISIBLE);
-                holder.iv_apply_state.setImageResource(R.drawable.open_card_success_icon);
+                if (TextUtils.isEmpty(bean.getExpressInfo())){
+                    holder.iv_apply_state.setImageResource(R.drawable.open_card_success_icon);
+                }else {
+                    holder.iv_apply_state.setImageResource(R.drawable.card_send_off_icon);
+                }
 
                 holder.tv_etc_card.setVisibility(View.VISIBLE);
                 holder.ll_audit_opinion.setVisibility(View.GONE);

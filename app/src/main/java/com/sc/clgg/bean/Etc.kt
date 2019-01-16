@@ -208,6 +208,7 @@ data class ApplyStateList(var code: Int = 0,
             var cardId: String? = "",
             var cardType: String? = "",
             var remarkFalse: String? = "",
+            var expressInfo:String?="",
             //0审核通过  1开卡成功   2开卡失败
             var isSuccess: String? = "",
             //0审核中  2审核驳回

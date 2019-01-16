@@ -19,7 +19,6 @@ import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.service.AppService
 import com.sc.clgg.tool.helper.AMapLocationHelper
 import com.sc.clgg.tool.helper.LogHelper
-import com.squareup.leakcanary.LeakCanary
 import com.tencent.bugly.crashreport.CrashReport
 import pub.devrel.easypermissions.AppSettingsDialogHolderActivity
 import pub.devrel.easypermissions.EasyPermissions
@@ -53,14 +52,6 @@ fun Application.start() {
         }*/
 
     initBugly()
-
-    if (LeakCanary.isInAnalyzerProcess(this)) {
-        // This process is dedicated to LeakCanary for heap analysis.
-        // You should not init your app in this process.
-        return
-    }
-    LeakCanary.install(this)
-    // Normal app init code...
 }
 
 private fun Application.registerActivityLifecycleCallbacks() {

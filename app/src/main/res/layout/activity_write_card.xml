@@ -24,7 +24,7 @@
             android:id="@+id/tv_card_str"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="33dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:text="卡号:"
             android:textColor="#a2a785"
@@ -53,7 +53,7 @@
             android:id="@+id/tv_carno_str"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="33dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:text="车牌:"
             android:textColor="#a2a785"
@@ -94,7 +94,6 @@
             android:id="@+id/tv_balance_str"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:text="卡内余额:"
             android:textColor="#58677f"
             android:textSize="12sp"
@@ -104,7 +103,7 @@
 
         <TextView
             android:id="@+id/tv_balance"
-            android:layout_width="91dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:text="- -"
@@ -171,7 +170,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/select_type_2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"/>
 
         <TextView
             android:id="@+id/tv_recharge"
@@ -181,7 +181,8 @@
             android:text="@string/go_recharge"
             android:textColor="@drawable/select_text"
             android:textSize="12sp"
-            app:layout_constraintLeft_toRightOf="@id/iv_recharge"/>
+            app:layout_constraintLeft_toRightOf="@id/iv_recharge"
+            tools:ignore="MissingConstraints"/>
 
         <TextView
             android:layout_width="wrap_content"

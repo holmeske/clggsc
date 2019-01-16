@@ -1,6 +1,7 @@
 package com.sc.clgg.activity.etc
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sc.clgg.R
 import com.sc.clgg.adapter.MyCardAdapter
@@ -28,15 +29,52 @@ class MyCardActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_card)
 
-        adapter.setItemEnable(intent.getBooleanExtra("click",false))
-        
+        adapter.setItemEnable(intent.getBooleanExtra("click", false))
+
         initView()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cardListHttp?.cancel()
-        carNumberListHttp?.cancel()
+    private fun initView() {
+        initHttp()
+
+        titlebar_title.text = getString(R.string.my_etc_card)
+        titlebar_right?.run {
+            visibility = View.VISIBLE
+            text = "全部"
+            setOnClickListener {
+                currentCarNumber = ""
+                currentCardType = ""
+
+                tv_car_type.text = "- -"
+                tv_car_number.text = "- -"
+
+                getCardList(currentCardType, currentCarNumber)
+            }
+        }
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        tv_apply_state.setOnClickListener { startActivity(ApplyStateActivity::class.java) }
+
+        iv_car_type.setOnClickListener {
+            val data = arrayListOf("鲁通A卡", "鲁通B卡")
+            PickerViewHelper().creat(this@MyCardActivity, data)
+            { options1, _, _, _ ->
+                tv_car_type.text = data[options1]
+
+                when (options1) {
+                    0 -> {
+                        currentCardType = "2"
+                        getCardList(currentCardType, currentCarNumber)
+                    }
+                    1 -> {
+                        currentCardType = "3"
+                        getCardList(currentCardType, currentCarNumber)
+                    }
+                }
+            }
+        }
     }
 
     private fun initHttp() {
@@ -95,36 +133,9 @@ class MyCardActivity : BaseImmersionActivity() {
         }
     }
 
-    private fun initView() {
-        initHttp()
-
-        titlebar_title.text = getString(R.string.my_etc_card)
-
-        iv_car_number.setOnClickListener { }
-        iv_car_type.setOnClickListener { }
-
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        tv_apply_state.setOnClickListener { startActivity(ApplyStateActivity::class.java) }
-
-        iv_car_type.setOnClickListener {
-            val data = arrayListOf("鲁通A卡", "鲁通B卡")
-            PickerViewHelper().creat(this@MyCardActivity, data)
-            { options1, _, _, _ ->
-                tv_car_type.text = data[options1]
-
-                when (options1) {
-                    0 -> {
-                        currentCardType = "2"
-                        getCardList(currentCardType, currentCarNumber)
-                    }
-                    1 -> {
-                        currentCardType = "3"
-                        getCardList(currentCardType, currentCarNumber)
-                    }
-                }
-            }
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        cardListHttp?.cancel()
+        carNumberListHttp?.cancel()
     }
 }
