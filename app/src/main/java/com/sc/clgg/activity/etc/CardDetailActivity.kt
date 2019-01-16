@@ -3,7 +3,6 @@ package com.sc.clgg.activity.etc
 import android.graphics.Typeface.BOLD
 import android.graphics.Typeface.NORMAL
 import android.os.Bundle
-import android.os.Looper
 import android.text.Spannable
 import com.sc.clgg.R
 import com.sc.clgg.activity.fragment.CircleDepositRecordFragment
@@ -22,11 +21,6 @@ class CardDetailActivity : BaseImmersionActivity() {
         init()
     }
 
-    override fun onResume() {
-        super.onResume()
-        //Looper.myQueue().addIdleHandler { init();false }
-    }
-
     private fun init() {
         titlebar_title.text = "ETC卡详情"
 
@@ -34,7 +28,7 @@ class CardDetailActivity : BaseImmersionActivity() {
         tv_card_can_write.text = customText("可写卡余额: ", "100.00元")
 
         tabLayout.setupWithViewPager(viewPager)
-        viewPager.offscreenPageLimit=3;
+        viewPager.offscreenPageLimit = 3
         viewPager?.adapter = TabAdapter(supportFragmentManager,
                 listOf(TrafficDetailFragment(), CircleDepositRecordFragment(), CircleDepositRecordFragment()),
                 listOf("通行明细", "圈存记录", "充值圈存记录"))

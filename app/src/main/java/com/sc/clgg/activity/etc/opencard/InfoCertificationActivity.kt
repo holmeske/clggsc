@@ -26,7 +26,7 @@ class InfoCertificationActivity : BaseImmersionActivity() {
         init()
     }
 
-    val pickerViewHelper = PickerViewHelper()
+    private val pickerViewHelper = PickerViewHelper()
 
     private fun init() {
         if (certificationInfo?.userType == "2") {
@@ -40,7 +40,7 @@ class InfoCertificationActivity : BaseImmersionActivity() {
         pickerViewHelper.initJsonData(this)
 
         tv_region.setOnClickListener {
-            pickerViewHelper.showPickerView(this, { s1, s2, s3 -> tv_region.text = "${s1} ${s2} ${s3}" })
+            pickerViewHelper.showPickerView(this) { s1, s2, s3 -> tv_region.text = "${s1} ${s2} ${s3}" }
         }
 
         tv_certificate_type.setOnClickListener {
@@ -50,7 +50,7 @@ class InfoCertificationActivity : BaseImmersionActivity() {
                     if (certificationInfo?.userType == "1") arrayOf("身份证含临时身份证", "护照", "港澳居民来往内地通行证", "台湾居民来往大陆通行证").toList()
                     else arrayOf("统一社会信用代码证书", "组织机构代码证", "营业执照").toList()
             com.sc.clgg.widget.PickerViewHelper().creat(this, data)
-            { options1, options2, options3, v -> tv_certificate_type.text = data[options1] }
+            { options1, _, _, _ -> tv_certificate_type.text = data[options1] }
         }
 
         var index = 1

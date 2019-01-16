@@ -88,7 +88,7 @@ class MyCardActivity : BaseImmersionActivity() {
                         if (!success) {
                             toast("$msg")
                         }
-                        adapter?.refresh(etcCardApplyList)
+                        adapter.refresh(etcCardApplyList)
                     }
                 }
             })

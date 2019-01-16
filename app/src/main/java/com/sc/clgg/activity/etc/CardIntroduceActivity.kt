@@ -21,11 +21,11 @@ class CardIntroduceActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_card_introduce)
         titlebar_title.text = "鲁通A卡和B卡的区别"
         tv_apply_a.setOnClickListener {
-            certificationInfo?.cardType = "2"
+            certificationInfo.cardType = "2"
             next()
         }
         tv_apply_b.setOnClickListener {
-            certificationInfo?.cardType = "3"
+            certificationInfo.cardType = "3"
             next()
         }
         tv_tel.setOnClickListener {

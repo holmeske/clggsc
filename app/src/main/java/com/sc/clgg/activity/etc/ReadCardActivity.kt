@@ -28,7 +28,9 @@ class ReadCardActivity : BaseImmersionActivity() {
         tv_no_card_recharge.setOnClickListener { startActivity(MyCardActivity::class.java) }
 
         tv_read_card.setOnClickListener {
-            if (!isOpenBluetoothLocation()) return@setOnClickListener
+            if (!isOpenBluetoothLocation()) {
+                return@setOnClickListener
+            }
             showProgressDialog("正在读卡")
             LogHelper.e("开始连接蓝牙设备")
             var intRandom = ""

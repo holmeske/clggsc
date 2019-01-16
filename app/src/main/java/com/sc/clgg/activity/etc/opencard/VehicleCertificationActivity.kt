@@ -90,7 +90,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
         certificationProgressView.setProress(2)
 
         //添加第一辆车
-        ll_vehicle_container.addView(creatVehicleImageView().apply { setFirstVehicle();setTag(0) })
+        ll_vehicle_container.addView(creatVehicleImageView().apply { setFirstVehicle();tag = 0 })
 
         tv_add_vehicle.visibility = if (certificationInfo?.userType == "2") View.VISIBLE else View.GONE
 
@@ -128,10 +128,10 @@ class VehicleCertificationActivity : TakePhotoActivity() {
     /**
      * 重新为所有车辆打标记
      */
-    private fun resetVehicleTag(container: LinearLayout) {
+    private fun resetVehicleTag(container: LinearLayout?) {
         container?.childCount?.takeIf { it > 0 }?.let {
             for (index in 0 until it) {
-                container.get(index).run {
+                container?.get(index).run {
                     this as VehicleImageView
                     setTag(index)
                     if (index != it - 1) {

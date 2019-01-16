@@ -36,7 +36,7 @@ class EtcActivity : BaseImmersionActivity() {
     }
 
     private fun loadData() {
-        RetrofitHelper().getEtcBusinessNote().enqueue(object : Callback<BusinessNoteList> {
+        RetrofitHelper().etcBusinessNote.enqueue(object : Callback<BusinessNoteList> {
             override fun onFailure(call: Call<BusinessNoteList>, t: Throwable) {
                 toast(R.string.network_anomaly)
             }
@@ -48,25 +48,25 @@ class EtcActivity : BaseImmersionActivity() {
 
                     ll_a.setOnClickListener {
                         startActivity(Intent(this@EtcActivity, BusinessIntroductionActivity::class.java)
-                                .putExtra("title", get(0)?.title).putExtra("text", get(0)?.text))
+                                .putExtra("title", get(0).title).putExtra("text", get(0).text))
                     }
 
-                    ll_b.findViewById<TextView>(R.id.tv_title).text = get(1)?.title
-                    ll_b.findViewById<TextView>(R.id.tv_content).text = get(1)?.text
+                    ll_b.findViewById<TextView>(R.id.tv_title).text = get(1).title
+                    ll_b.findViewById<TextView>(R.id.tv_content).text = get(1).text
 
                     ll_b.setOnClickListener {
                         startActivity(Intent(this@EtcActivity, BusinessIntroductionActivity::class.java)
-                                .putExtra("title", get(1)?.title)
-                                .putExtra("text", get(1)?.text))
+                                .putExtra("title", get(1).title)
+                                .putExtra("text", get(1).text))
                     }
 
-                    ll_c.findViewById<TextView>(R.id.tv_title).text = get(2)?.title
-                    ll_c.findViewById<TextView>(R.id.tv_content).text = get(2)?.text
+                    ll_c.findViewById<TextView>(R.id.tv_title).text = get(2).title
+                    ll_c.findViewById<TextView>(R.id.tv_content).text = get(2).text
 
                     ll_c.setOnClickListener {
                         startActivity(Intent(this@EtcActivity, BusinessIntroductionActivity::class.java)
-                                .putExtra("title", get(2)?.title)
-                                .putExtra("text", get(2)?.text))
+                                .putExtra("title", get(2).title)
+                                .putExtra("text", get(2).text))
                     }
                 }
             }

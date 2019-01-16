@@ -298,10 +298,6 @@
         </activity>
         <activity android:name=".activity.BusinessIntroductionActivity">
         </activity>
-        <activity android:name=".activity.etc.opencard.CarCertificationActivity">
-        </activity>
-        <activity android:name=".activity.UserAgreementActivity">
-        </activity>
     </application>
 
 </manifest>

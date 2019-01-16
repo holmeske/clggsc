@@ -68,12 +68,10 @@ class PreRechargeActivity : BaseImmersionActivity() {
                         if (it.success) {
                             canCircleMoney = it.RQcMoney!!.toDouble()/ 100
                             RAdjust = it.RAdjust!!.toInt()
-                            if (canCircleMoney > 0.0) {
-                                v_1.setBackgroundResource(R.drawable.bg_gray_5)
-                            } else if (canCircleMoney == 0.0) {
-                                v_1.setBackgroundResource(R.drawable.bg_blue_5)
-                            } else {
-                                v_1.setBackgroundResource(R.drawable.bg_blue_5)
+                            when {
+                                canCircleMoney > 0.0 -> v_1.setBackgroundResource(R.drawable.bg_gray_5)
+                                canCircleMoney == 0.0 -> v_1.setBackgroundResource(R.drawable.bg_blue_5)
+                                else -> v_1.setBackgroundResource(R.drawable.bg_blue_5)
                             }
                             tv_can_write_amount.text = "${String.format("%.2f", canCircleMoney)}元"
                         } else {
@@ -118,7 +116,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: MessageEvent) {
         EventBus.getDefault().removeStickyEvent(event)
-        if (event?.value == 4) {
+        if (event.value == 4) {
             LogHelper.e("充值确认")
             showProgressDialog("支付确认中...", false)
             confirmPayStatus()
@@ -145,11 +143,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
     }
 
     private var handler = Handler()
-    private var runnable: Runnable = object : Runnable {
-        override fun run() {
-            confirmPayStatus()
-        }
-    }
+    private var runnable: Runnable = Runnable { confirmPayStatus() }
 
     override fun onDestroy() {
         super.onDestroy()
