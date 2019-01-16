@@ -226,7 +226,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: MessageEvent) {
         EventBus.getDefault().removeStickyEvent(event)
-        if (event?.value == 4) {
+        if (event.value == 4) {
             LogHelper.e("充值确认")
             showProgressDialog()
             confirmPayStatus()
@@ -289,8 +289,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     }
 
     private fun connectWriteCard() {
-        var bluetoothSn: String
-        var KEY = "2D65d001246ade79151C634be75264AF"
+        var key = "2D65d001246ade79151C634be75264AF"
         var intRandom: String
         var intMac = ""
         LogHelper.e("开始连接")
@@ -302,11 +301,10 @@ class WriteCardActivity : BaseImmersionActivity() {
                 App.getInstance().mObuInterface.getDeviceInformation().apply {
                     if (serviceCode == 0) {
                         LogHelper.e("读取蓝牙设备信息成功")
-                        bluetoothSn = Sn
 
                         intRandom = "1234"
                         try {
-                            intMac = NewDES.PBOC_3DES_MAC(intRandom, KEY)!!.substring(0, 8)
+                            intMac = NewDES.PBOC_3DES_MAC(intRandom, key)!!.substring(0, 8)
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
@@ -325,7 +323,6 @@ class WriteCardActivity : BaseImmersionActivity() {
 
                         }
 
-
                     } else {
                         hideProgressDialog()
                         LogHelper.e("读取蓝牙设备信息失败")
@@ -341,7 +338,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     private fun writeCard(cardInfo: CardInformation) {
         App.getInstance().mObuInterface.getDeviceInformation().apply {
 
-            var pinCode = ""
+            var pinCode: String
             if ("40" == cardInfo.cardVersion) {
                 pinCode = "313233343536"
             } else {
@@ -374,67 +371,68 @@ class WriteCardActivity : BaseImmersionActivity() {
             }
 
             if (loadMac1Status.serviceCode == 0) {
-                RetrofitHelper().loadMoney(
-                        cardInfo.cardId,
-                        RQcMoney.toString(),
-                        RAdjust.toString(),
-                        a_m1,
-                        a_cbb, a_rnd, a_on, Sn).enqueue(object : Callback<CircleSave> {
-                    override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
-                        hideProgressDialog()
-                        if (response.isSuccessful && response.body()?.success!!) {
-
-                            var date = ""
-                            val timeStr = response.body()!!.RWriteTime
-                            if (!TextUtils.isEmpty(timeStr)) {
-                                date = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date(timeStr!!).time)
-                            }
-                            val dateMac2 = date + response.body()!!.Mac2!!
-                            LogHelper.e("dateMac2 = $dateMac2")
-                            val writeCardStatu = App.getInstance().mObuInterface.loadCreditWriteCard(dateMac2)
-                            LogHelper.e("写卡 = " + Gson().toJson(writeCardStatu))
-                            var chargeFlag = "-1"
-                            if (writeCardStatu.serviceCode == 0) {
-                                chargeFlag = "0"
-                            } else {
-                                chargeFlag = "-1"
-                            }
-                            RetrofitHelper().sureLoadMoney(cardInfo.cardId,
-                                    response.body()!!.RChargeLsh,
-                                    cardInfo.balanceString, chargeFlag, writeCardStatu.serviceInfo,
-                                    a_on,
-                                    (RQcMoney + RAdjust).toString(),
-                                    response.body()!!.RWriteTime!!.replace("/".toRegex(), "-"))
-                                    .enqueue(object : Callback<CircleSave> {
-                                        override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
-                                            hideProgressDialog()
-                                            if (response.body()!!.success) {
-                                                val cardInfo = CardInformation()
-                                                App.getInstance().mObuInterface.getCardInformation(cardInfo)
-
-                                                Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
-                                                startActivity(Intent(this@WriteCardActivity,
-                                                        WriteCardSuccessActivity::class.java)
-                                                        .putExtra("data", response.body())
-                                                        .putExtra("balance", cardInfo.balance))
-                                            } else {
-                                                Toast.makeText(applicationContext, "圈存失败", Toast.LENGTH_SHORT).show()
-                                            }
+                RetrofitHelper().loadMoney(cardInfo.cardId, RQcMoney.toString(), RAdjust.toString(), a_m1, a_cbb, a_rnd, a_on, Sn)
+                        .enqueue(object : Callback<CircleSave> {
+                            override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
+                                hideProgressDialog()
+                                response.body()?.run {
+                                    if (success) {
+                                        var date = ""
+                                        val timeStr = response.body()?.RWriteTime
+                                        if (!TextUtils.isEmpty(timeStr)) {
+                                            date = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date(timeStr!!).time)
                                         }
-
-                                        override fun onFailure(call: Call<CircleSave>, t: Throwable) {
-                                            hideProgressDialog()
-                                            toast(R.string.network_anomaly)
+                                        val dateMac2 = date + response.body()?.Mac2
+                                        LogHelper.e("dateMac2 = $dateMac2")
+                                        val writeCardStatu = App.getInstance().mObuInterface.loadCreditWriteCard(dateMac2)
+                                        LogHelper.e("写卡 = " + Gson().toJson(writeCardStatu))
+                                        var chargeFlag = "-1"
+                                        if (writeCardStatu.serviceCode == 0) {
+                                            chargeFlag = "0"
+                                        } else {
+                                            chargeFlag = "-1"
                                         }
-                                    })
-                        }
-                    }
+                                        RetrofitHelper().sureLoadMoney(cardInfo.cardId,
+                                                response.body()!!.RChargeLsh,
+                                                cardInfo.balanceString, chargeFlag, writeCardStatu.serviceInfo,
+                                                a_on,
+                                                (RQcMoney + RAdjust).toString(),
+                                                response.body()!!.RWriteTime!!.replace("/".toRegex(), "-"))
+                                                .enqueue(object : Callback<CircleSave> {
+                                                    override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
+                                                        hideProgressDialog()
+                                                        response.body()?.run {
+                                                            if (success) {
+                                                                val cardInfo = CardInformation()
+                                                                App.getInstance().mObuInterface.getCardInformation(cardInfo)
 
-                    override fun onFailure(call: Call<CircleSave>, t: Throwable) {
-                        hideProgressDialog()
-                        toast(R.string.network_anomaly)
-                    }
-                })
+                                                                Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
+                                                                startActivity(Intent(this@WriteCardActivity,
+                                                                        WriteCardSuccessActivity::class.java)
+                                                                        .putExtra("data", response.body())
+                                                                        .putExtra("balance", cardInfo.balance))
+                                                            } else {
+                                                                Toast.makeText(applicationContext, "圈存失败", Toast.LENGTH_SHORT).show()
+                                                            }
+                                                        }
+                                                    }
+
+                                                    override fun onFailure(call: Call<CircleSave>, t: Throwable) {
+                                                        hideProgressDialog()
+                                                        toast(R.string.network_anomaly)
+                                                    }
+                                                })
+                                    } else {
+                                        toast("$msg")
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(call: Call<CircleSave>, t: Throwable) {
+                                hideProgressDialog()
+                                toast(R.string.network_anomaly)
+                            }
+                        })
             }
         }
     }

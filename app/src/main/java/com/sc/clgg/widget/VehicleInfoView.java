@@ -13,11 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.OnPickListener;
 import com.sc.clgg.bean.CertificationInfo;
 import com.sc.clgg.tool.helper.LogHelper;
+import com.sc.clgg.util.PotatoKt;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +41,7 @@ public class VehicleInfoView extends ConstraintLayout {
             et_vehicle_license_type, et_vehicle_license_brand_model, et_vehicle_vin, et_vehicle_engine_no, et_vehicle_wheel_amount, et_vehicle_axle_amount;
 
     private CertificationInfo.Car car = new CertificationInfo.Car();
+    private Context mContext;
 
     public VehicleInfoView(Context context) {
         super(context);
@@ -58,6 +59,7 @@ public class VehicleInfoView extends ConstraintLayout {
     }
 
     private void init(Context context) {
+        mContext = context;
         mView = LayoutInflater.from(context).inflate(R.layout.view_vehicle_info, this, false);
         addView(mView);
 
@@ -191,7 +193,7 @@ public class VehicleInfoView extends ConstraintLayout {
         tv_vehicle_brand_color.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                creatPicker(new String[]{"蓝", "黄", "黑", "白", "渐变绿", "黄绿双拼", "蓝白渐变"}, new OnPickListener() {
+                creatPicker(v, new String[]{"蓝", "黄", "黑", "白", "渐变绿", "黄绿双拼", "蓝白渐变"}, new OnPickListener() {
                     @Override
                     public void onOptionsSelect(String str) {
                         tv_vehicle_brand_color.setText(str);
@@ -202,7 +204,7 @@ public class VehicleInfoView extends ConstraintLayout {
         tv_vehicle_color.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                creatPicker(new String[]{"蓝", "黄", "黑", "白", "渐变绿", "黄绿双拼", "蓝白渐变", "灰", "青", "银", "红", "棕", "紫"}, new OnPickListener() {
+                creatPicker(v, new String[]{"蓝", "黄", "黑", "白", "渐变绿", "黄绿双拼", "蓝白渐变", "灰", "青", "银", "红", "棕", "紫"}, new OnPickListener() {
                     @Override
                     public void onOptionsSelect(String str) {
                         tv_vehicle_color.setText(str);
@@ -213,7 +215,7 @@ public class VehicleInfoView extends ConstraintLayout {
         tv_vehicle_type.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                creatPicker(new String[]{"一型客车", "二型客车", "三型客车", "四型客车", "一型货车", "二型货车", "三型货车", "四型货车", "五型货车"}, new OnPickListener() {
+                creatPicker(v, new String[]{"一型货车", "二型货车", "三型货车", "四型货车", "五型货车", "一型客车", "二型客车", "三型客车", "四型客车"}, new OnPickListener() {
                     @Override
                     public void onOptionsSelect(String str) {
                         tv_vehicle_type.setText(str);
@@ -224,7 +226,7 @@ public class VehicleInfoView extends ConstraintLayout {
         tv_vehicle_use_type.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                creatPicker(new String[]{"家庭自用", "非营业车辆", "营业客车", "非营业货车", "营业货车", "特种车", "挂车"}, new OnPickListener() {
+                creatPicker(v, new String[]{"家庭自用", "非营业车辆", "营业客车", "非营业货车", "营业货车", "特种车", "挂车"}, new OnPickListener() {
                     @Override
                     public void onOptionsSelect(String str) {
                         tv_vehicle_use_type.setText(str);
@@ -234,13 +236,10 @@ public class VehicleInfoView extends ConstraintLayout {
         });
     }
 
-    private void creatPicker(String[] strings, OnPickListener listener) {
+    private void creatPicker(View view, String[] strings, OnPickListener listener) {
+        PotatoKt.hideSoftInputFromWindow(mContext, view);
         List<String> data = Arrays.asList(strings);
-        new PickerViewHelper().creat(((Activity) getContext()), data, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                listener.onOptionsSelect(data.get(options1));
-            }
-        });
+        new PickerViewHelper().creat(((Activity) getContext()), data, (options1, options2, options3, v) -> listener.onOptionsSelect(data.get(options1)));
     }
+
 }

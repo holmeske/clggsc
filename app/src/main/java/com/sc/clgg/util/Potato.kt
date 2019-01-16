@@ -7,6 +7,7 @@ import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
@@ -23,6 +24,11 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+fun Context.hideSoftInputFromWindow(v: View) {
+    var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(v, InputMethodManager.SHOW_FORCED)
+    imm.hideSoftInputFromWindow(v.windowToken, 0)
+}
 
 fun Activity.showAlertDialog(message: String, ok: () -> Unit) {
     AlertDialog.Builder(this)

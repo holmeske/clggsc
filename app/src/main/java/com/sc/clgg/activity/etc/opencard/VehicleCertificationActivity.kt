@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.core.view.get
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
@@ -18,7 +17,6 @@ import com.sc.clgg.util.randomId
 import com.sc.clgg.util.showTakePhoto
 import com.sc.clgg.widget.VehicleImageView
 import kotlinx.android.synthetic.main.activity_vehicle_certification.*
-import kotlinx.android.synthetic.main.activity_vehicle_certification.view.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 import org.devio.takephoto.model.TResult
 import retrofit2.Call
@@ -97,7 +95,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
         //添加车辆
         tv_add_vehicle.setOnClickListener {
             ll_vehicle_container.addView(creatVehicleImageView())
-            resetVehicleTag(ll_vehicle_container)
+            resetVehicleTag()
         }
 
         //点击下一步
@@ -105,7 +103,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
             LogHelper.e("childCount =  ${ll_vehicle_container.childCount}")
             val lastIndex = ll_vehicle_container.childCount - 1
             certificationInfo?.etcCardApplyVehicleVoList?.clear()
-            ll_vehicle_container?.takeIf { it.childCount > 0 }?.run {
+            ll_vehicle_container.takeIf { it.childCount > 0 }?.run {
                 for (i in 0 until ll_vehicle_container.childCount) {
                     LogHelper.e("i =  $i")
                     getChildAt(i).apply {
@@ -113,7 +111,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
                         certificationInfo?.etcCardApplyVehicleVoList?.add(car)
 
                         if (checkThrough(applicationContext) && i == lastIndex) {
-                            LogHelper.e("childCount =  ${ll_vehicle_container?.childCount}")
+                            LogHelper.e("childCount =  ${ll_vehicle_container.childCount}")
                             LogHelper.e("size =  ${certificationInfo?.etcCardApplyVehicleVoList?.size}")
                             LogHelper.e("将要传递到下个页面的数据 =  ${Gson().toJson(certificationInfo)}")
                             startActivity(Intent(this@VehicleCertificationActivity, InfoCertificationActivity::class.java)
@@ -128,10 +126,10 @@ class VehicleCertificationActivity : TakePhotoActivity() {
     /**
      * 重新为所有车辆打标记
      */
-    private fun resetVehicleTag(container: LinearLayout?) {
-        container?.childCount?.takeIf { it > 0 }?.let {
+    private fun resetVehicleTag() {
+        ll_vehicle_container.childCount.takeIf { it > 0 }?.let {
             for (index in 0 until it) {
-                container?.get(index).run {
+                ll_vehicle_container[index].run {
                     this as VehicleImageView
                     setTag(index)
                     if (index != it - 1) {
@@ -159,7 +157,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
             }
             OnDeleteListener {
                 ll_vehicle_container.removeView(this)
-                resetVehicleTag(ll_vehicle_container)
+                resetVehicleTag()
             }
             certificationInfo?.etcCardApplyVehicleVoList?.add(car)
         }

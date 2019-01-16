@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.sc.clgg.R
 import com.sc.clgg.activity.TakePhotoActivity
 import com.sc.clgg.bean.CertificationInfo
+import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.logcat
@@ -159,44 +160,71 @@ class IdentityCertificationActivity : TakePhotoActivity() {
         iv_enterprise.setOnClickListener { showTakePhoto(takePhoto) }
 
         tv_next.setOnClickListener {
+            /*startActivity(Intent(this@IdentityCertificationActivity, VehicleCertificationActivity::class.java)
+                    .putExtra("info", certificationInfo))
+            return@setOnClickListener*/
             if (certificationInfo?.userType!!.isBlank()) {
                 toast("请选择用户类型")
                 return@setOnClickListener
             }
-            when (certificationInfo?.userType) {
-                "1" -> {
-                    if (certificationInfo?.idcardImgFront!!.isBlank()) {
-                        toast("请上传身份证正面图片")
-                        return@setOnClickListener
-                    }
-                    if (certificationInfo?.idcardImgBehind!!.isBlank()) {
-                        toast("请上传身份证反面图片")
-                        return@setOnClickListener
-                    }
-                }
-                "2" -> {
-                    if (certificationInfo?.agentIdcardImgFront!!.isBlank()) {
-                        toast("请上传经办人身份证正面图片")
-                        return@setOnClickListener
-                    }
-                    if (certificationInfo?.agentIdcardImgBehind!!.isBlank()) {
-                        toast("请上传经办人身份证反面图片")
-                        return@setOnClickListener
-                    }
-                    if (certificationInfo?.userType == "2" && certificationInfo?.businessLicenseImg!!.isBlank()) {
-                        toast("请上传企业营业执照图片")
-                        return@setOnClickListener
-                    }
+            with(et_invite_code.text.toString()) {
+                if (isNotBlank()) {
+                    RetrofitHelper().invitationCode(this).enqueue(object : Callback<StatusBean> {
+                        override fun onFailure(call: Call<StatusBean>, t: Throwable) {
+                            check()
+                        }
+
+                        override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
+                            if (response.body()?.number == 0) {
+                                toast("邀请码不存在")
+                                return
+                            }
+                            check()
+                        }
+                    })
+                }else{
+                    check()
                 }
             }
-
-            certificationInfo?.invitationCode = et_invite_code.text.toString()
-
-            startActivity(Intent(this@IdentityCertificationActivity, VehicleCertificationActivity::class.java)
-                    .putExtra("info", certificationInfo))
         }
     }
 
+    /**
+     * 输入校验
+     */
+    private fun check() {
+        when (certificationInfo?.userType) {
+            "1" -> {
+                if (certificationInfo?.idcardImgFront!!.isBlank()) {
+                    toast("请上传身份证正面图片")
+                    return
+                }
+                if (certificationInfo?.idcardImgBehind!!.isBlank()) {
+                    toast("请上传身份证反面图片")
+                    return
+                }
+            }
+            "2" -> {
+                if (certificationInfo?.agentIdcardImgFront!!.isBlank()) {
+                    toast("请上传经办人身份证正面图片")
+                    return
+                }
+                if (certificationInfo?.agentIdcardImgBehind!!.isBlank()) {
+                    toast("请上传经办人身份证反面图片")
+                    return
+                }
+                if (certificationInfo?.userType == "2" && certificationInfo?.businessLicenseImg!!.isBlank()) {
+                    toast("请上传企业营业执照图片")
+                    return
+                }
+            }
+        }
+
+        certificationInfo?.invitationCode = et_invite_code.text.toString()
+
+        startActivity(Intent(this@IdentityCertificationActivity, VehicleCertificationActivity::class.java)
+                .putExtra("info", certificationInfo))
+    }
 
     override fun onDestroy() {
         super.onDestroy()

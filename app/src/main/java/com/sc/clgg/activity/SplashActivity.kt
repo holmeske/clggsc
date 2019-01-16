@@ -2,8 +2,8 @@ package com.sc.clgg.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import com.sc.clgg.activity.etc.CardIntroduceActivity
 import com.sc.clgg.activity.etc.ble.BleActivity
+import com.sc.clgg.activity.etc.opencard.InfoCertificationActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.config.ConstantValue
 import pub.devrel.easypermissions.EasyPermissions
@@ -36,7 +36,7 @@ class SplashActivity : BaseImmersionActivity() {
                 finish()
             }
             2 -> {
-                startActivity(Intent(this, CardIntroduceActivity::class.java))
+                startActivity(Intent(this, InfoCertificationActivity::class.java))
                 finish()
             }
             3 -> {

@@ -194,6 +194,13 @@ public class RetrofitHelper {
         return Retrofit().create(RetrofitApi.class).applyStateList(getDefaultUserId());
     }
 
+
+    /**
+     * 邀请码校验
+     */
+    public retrofit2.Call<StatusBean> invitationCode(String code) {
+        return Retrofit().create(RetrofitApi.class).invitationCode(code);
+    }
     /**
      * 我的车辆
      */

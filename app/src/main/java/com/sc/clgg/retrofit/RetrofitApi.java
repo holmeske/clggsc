@@ -52,6 +52,9 @@ import retrofit2.http.Query;
  */
 
 public interface RetrofitApi {
+    @GET("etc/cardApply/getEtcInvitationCode")
+    Call<StatusBean> invitationCode(@Query("invitationCode") String invitationCode);
+
     @GET("etc/cardApply/myETCApplyCheck")
     Call<ApplyStateList> applyStateList(@Query("userCode") String userCode);
 

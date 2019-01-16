@@ -73,8 +73,8 @@ class ApplyStateActivity : BaseImmersionActivity() {
                 override fun onResponse(call: Call<ApplyStateList>, response: Response<ApplyStateList>) {
                     hideProgressDialog()
                     response.body()?.etcCardApplyOpenList?.let {
-                        mApplyStateAdapter?.clear()
-                        mApplyStateAdapter?.notifyItemInserted(it)
+                        mApplyStateAdapter.clear()
+                        mApplyStateAdapter.notifyItemInserted(it)
                         dataList = it
                     }
                 }
