@@ -19,9 +19,9 @@ class WriteCardSuccessActivity : BaseImmersionActivity() {
         iv_nav.setImageResource(R.drawable.pay_success_nav_step_icon)
         intent.getParcelableExtra<CircleSave>("data")?.let {
             it.realMoney?.toDouble()?.let { tv_success_money.text = "${it / 100}元" }
-            tv_order_number.text = "${it.RWasteSn}"
-            tv_card_number.text = "${it.cardNo}"
-            tv_car_number.text = "${it.carNo}"
+            tv_order_number.text = it.RWasteSn
+            tv_card_number.text = it.cardNo
+            tv_car_number.text = it.carNo
             it.money?.let {
                 tv_success_money.text = "${it.toDouble() / 100}元"
             }

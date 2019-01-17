@@ -19,15 +19,6 @@
         android:background="@drawable/bg_white"
         app:layout_constraintTop_toBottomOf="@id/cl_read_card"/>
 
-    <View
-        android:id="@+id/v_1_divider"
-        android:layout_width="@dimen/divider_line"
-        android:layout_height="50dp"
-        android:background="@color/divider_line"
-        app:layout_constraintLeft_toLeftOf="@id/v_1"
-        app:layout_constraintRight_toRightOf="@id/v_1"
-        app:layout_constraintTop_toTopOf="@id/v_1"/>
-
     <TextView
         android:id="@+id/tv_no_card_recharge"
         android:layout_width="wrap_content"

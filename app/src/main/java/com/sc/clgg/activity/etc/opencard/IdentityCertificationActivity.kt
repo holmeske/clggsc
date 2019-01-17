@@ -140,12 +140,14 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                     if (this == "个人") {
                         ll_personal.visibility = View.VISIBLE
                         ll_agent.visibility = View.VISIBLE
+                        tv_agent.text = "上传经办人身份证（本人可不填）"
                         ll_enterprise.visibility = View.GONE
 
                         certificationInfo?.userType = "1"
                     } else {
                         ll_personal.visibility = View.GONE
                         ll_agent.visibility = View.VISIBLE
+                        tv_agent.text = "上传经办人身份证"
                         ll_enterprise.visibility = View.VISIBLE
                         certificationInfo?.userType = "2"
                     }
@@ -182,7 +184,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                             check()
                         }
                     })
-                }else{
+                } else {
                     check()
                 }
             }
@@ -237,6 +239,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
      * 识别营业执照
      */
     private fun scanPassport(filePath: String?) {
+        showProgressDialog(false)
         scanPassportHttp = RetrofitHelper().passport(File(filePath))
         scanPassportHttp?.enqueue(object : Callback<Map<String, Any>> {
             override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
@@ -276,6 +279,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
      * 识别身份证
      */
     private fun scanIdCard(filePath: String?, isAgent: Boolean) {
+        showProgressDialog(false)
         scanIdCardHttp = RetrofitHelper().idCard(File(filePath))
         scanIdCardHttp?.enqueue(object : Callback<Map<String, Any>> {
             override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {

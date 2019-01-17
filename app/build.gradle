@@ -45,7 +45,12 @@ android {
     }
     /*splits {
         abi {
-            include 'armeabi', 'armeabi-v7a', 'arm64-v8a'//, 'arm64-v8a', 'x86', 'x86_64'
+            enable true
+            reset()
+            // Specify a list of ABIs that Gradle should create APKs for
+            include 'x86', 'x86_64', 'arm64-v8a', 'armeabi-v7a'
+            // If you don’t want to generate a universal APK that includes all ABIs.
+            universalApk false
         }
     }*/
     defaultConfig {
@@ -60,7 +65,9 @@ android {
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             //"armeabi", "armeabi-v7a", "arm64-v8a", ,"arm64-v8a","x86", "x86_64"
-            abiFilters "arm64-v8a", "armeabi", "armeabi-v7a"
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            //abiFilters 'arm64-v8a', 'armeabi', 'armeabi-v7a', 'x86'
+            // armeabi, mips and mips64 has removed since NDK r17
         }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -76,6 +83,10 @@ android {
             minifyEnabled false
             zipAlignEnabled false
             shrinkResources false
+            splits.abi.enable = false
+            splits.density.enable = false
+            aaptOptions.cruncherEnabled = false
+            ext.alwaysUpdateBuildId = false
 
             signingConfig signingConfigs.release
 

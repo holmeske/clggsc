@@ -8,6 +8,7 @@ import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.PickerViewHelper
+import com.sc.clgg.util.hideSoftInputFromWindow
 import com.sc.clgg.widget.VehicleInfoView
 import kotlinx.android.synthetic.main.activity_info_certification.*
 import kotlinx.android.synthetic.main.view_titlebar.*
@@ -40,10 +41,12 @@ class InfoCertificationActivity : BaseImmersionActivity() {
         pickerViewHelper.initJsonData(this)
 
         tv_region.setOnClickListener {
+            hideSoftInputFromWindow(it)
             pickerViewHelper.showPickerView(this) { s1, s2, s3 -> tv_region.text = "${s1} ${s2} ${s3}" }
         }
 
         tv_certificate_type.setOnClickListener {
+            hideSoftInputFromWindow(it)
             //"身份证含临时身份证", "护照", "港澳居民来往内地通行证", "台湾居民来往大陆通行证"
             //"统一社会信用代码证书", "组织机构代码证", "营业执照"
             val data =

@@ -79,6 +79,10 @@ class WriteCardActivity : BaseImmersionActivity() {
 
             override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
                 response.body()?.let {
+                    if (!it.success){
+                        toast("${it.msg}")
+                        return@let
+                    }
                     RQcMoney = it.RQcMoney!!.toInt()
                     RAdjust = it.RAdjust!!.toInt()
                     tv_carno.text = it.RVLP

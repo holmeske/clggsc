@@ -174,6 +174,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
      * 识别行驶证
      */
     private fun scanVehicleLicense(filePath: String?) {
+        showProgressDialog(false)
         vehicleLicenseInfoHttp = RetrofitHelper().scan(File(filePath))
         vehicleLicenseInfoHttp?.enqueue(object : Callback<Map<String, Any>> {
             override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
@@ -188,7 +189,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
                             val resultMap = identifyMap["words_result"] as Map<String, Any>
 
                             currentVehicle?.car?.let {
-                                it.carNo = (resultMap["号牌号码"] as Map<String, String>)["words"]
+                                //it.carNo = (resultMap["号牌号码"] as Map<String, String>)["words"]
                                 it.carOwner = (resultMap["所有人"] as Map<String, String>)["words"]
                                 it.address = (resultMap["住址"] as Map<String, String>)["words"]
 
@@ -202,9 +203,10 @@ class VehicleCertificationActivity : TakePhotoActivity() {
                     }
                 } catch (e: Exception) {
                     LogHelper.e(e)
+                } finally {
+                    logcat("识别结果 = ", currentVehicle?.car)
+                    initVehicleSelectState()
                 }
-                logcat("识别结果 = ", currentVehicle?.car)
-                initVehicleSelectState()
             }
 
             override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
@@ -216,9 +218,10 @@ class VehicleCertificationActivity : TakePhotoActivity() {
 
     private var vehicleFrontHttp: Call<Map<String, Any>>? = null
     /**
-     * 识别行驶证
+     * 识别车牌
      */
     private fun scanVehicleFront(filePath: String?) {
+        showProgressDialog(false)
         vehicleFrontHttp = RetrofitHelper().licensePlate(File(filePath))
         vehicleFrontHttp?.enqueue(object : Callback<Map<String, Any>> {
             override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
@@ -232,17 +235,15 @@ class VehicleCertificationActivity : TakePhotoActivity() {
 
                             val resultMap = identifyMap["words_result"] as Map<String, String>
 
-                            currentVehicle?.car?.let {
-                                it.carNo = resultMap["number"]
-                            }
+                            currentVehicle?.car?.let { it.carNo = resultMap["number"] }
                         }
 
                     }
                 } catch (e: Exception) {
                     LogHelper.e(e)
+                } finally {
+                    initVehicleSelectState()
                 }
-
-                initVehicleSelectState()
             }
 
             override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {

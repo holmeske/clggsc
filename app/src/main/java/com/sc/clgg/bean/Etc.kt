@@ -70,9 +70,9 @@ data class CarNumberList(var code: Int = 0,
 data class CardInfo(var code: Int = 0,
                     var success: Boolean = false,
                     var msg: String? = "",
-                    var RQcMoney: String? = "0.00",
+                    var RQcMoney: String? = "0",
                     var RVLP: String? = "",
-                    var RAdjust: String? = ""
+                    var RAdjust: String? = "0"
 
 ) : Parcelable
 
@@ -145,7 +145,7 @@ data class CertificationInfo(
         /**
          * 1个人  2企业
          */
-        var userType: String? = "",
+        var userType: String? = "2",
         var userName: String? = "",
 
         var linkMobile: String? = "",
@@ -208,6 +208,7 @@ data class ApplyStateList(var code: Int = 0,
             var cardId: String? = "",
             var cardType: String? = "",
             var remarkFalse: String? = "",
+
             var expressInfo:String?="",
             //0审核通过  1开卡成功   2开卡失败
             var isSuccess: String? = "",
