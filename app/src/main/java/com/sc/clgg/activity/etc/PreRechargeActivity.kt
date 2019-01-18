@@ -12,8 +12,6 @@ import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.dialog.PreRechargeHintDialog
 import com.sc.clgg.dialog.RechargeDialog
 import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.retrofit.WeChatPayCache
-import com.sc.clgg.retrofit.WeChatPayCache.Companion.cardNo
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.logcat
 import kotlinx.android.synthetic.main.activity_pre_recharge.*
@@ -34,11 +32,14 @@ class PreRechargeActivity : BaseImmersionActivity() {
      */
     private var canCircleMoney: Double = -1.0
     private var card: CardList.Card? = null
+    private var money: String = "0"
+    private var wasteSn: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_recharge)
         card = intent.getParcelableExtra("card")
+        //card?.cardId="37011801220102886198"
         logcat(card)
         getCardInfo(card?.cardId)
         init()
@@ -66,7 +67,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
                     hideProgressDialog()
                     response.body()?.let {
                         if (it.success) {
-                            canCircleMoney = it.RQcMoney!!.toDouble()/ 100
+                            canCircleMoney = it.RQcMoney!!.toDouble() / 100
                             RAdjust = it.RAdjust!!.toInt()
                             when {
                                 canCircleMoney > 0.0 -> v_1.setBackgroundResource(R.drawable.bg_gray_5)
@@ -94,7 +95,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
                     setCancelListener { dismiss() }
                 }
             } else if (canCircleMoney == 0.0) {
-                RechargeDialog(this).apply { setCardNumber(card?.cardId) }.show()
+                RechargeDialog(this).apply { setCardNumber(card?.cardId);setItemClickListener { money = it };setWasteSnListener { wasteSn = it } }.show()
             }
 
         }
@@ -113,12 +114,11 @@ class PreRechargeActivity : BaseImmersionActivity() {
         EventBus.getDefault().unregister(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
     fun onMessageEvent(event: MessageEvent) {
-        EventBus.getDefault().removeStickyEvent(event)
+        //EventBus.getDefault().removeStickyEvent(event)
         if (event.value == 4) {
             LogHelper.e("充值确认")
-            showProgressDialog("支付确认中...", false)
             confirmPayStatus()
             /*RetrofitHelper().surePayMoney(WeChatPayCache.cardNo, WeChatPayCache.money).enqueue(object : Callback<StatusBean> {
                 override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
@@ -151,7 +151,8 @@ class PreRechargeActivity : BaseImmersionActivity() {
     }
 
     private fun confirmPayStatus() {
-        RetrofitHelper().confirmPayStatus(WeChatPayCache.cardNo).enqueue(object : Callback<StatusBean> {
+        showProgressDialog("支付确认中...", false)
+        RetrofitHelper().confirmPayStatus(card?.cardId).enqueue(object : Callback<StatusBean> {
             override fun onFailure(call: Call<StatusBean>, t: Throwable) {
                 hideProgressDialog()
                 toast(R.string.network_anomaly)
@@ -163,22 +164,9 @@ class PreRechargeActivity : BaseImmersionActivity() {
                         hideProgressDialog()
                         toast("支付成功")
                         LogHelper.e("查询卡信息")
-                        showProgressDialog(false)
-                        RetrofitHelper().getCardInfo(cardNo, "0").apply {
-                            enqueue(object : Callback<CardInfo> {
-                                override fun onFailure(call: Call<CardInfo>, t: Throwable) {
-                                    hideProgressDialog()
-                                    toast(R.string.network_anomaly)
-                                }
-
-                                override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
-                                    hideProgressDialog()
-                                    startActivity(Intent(this@PreRechargeActivity, PreRechargeFinishActivity::class.java)
-                                            .putExtra("data", response.body()))
-                                }
-                            })
-                        }
-
+                        startActivity(Intent(this@PreRechargeActivity, PreRechargeFinishActivity::class.java)
+                                .putExtra("card", card)
+                                .putExtra("money", money).putExtra("wasteSn",wasteSn))
                     } else {
                         if (it.payStatus != 2) {
                             hideProgressDialog()

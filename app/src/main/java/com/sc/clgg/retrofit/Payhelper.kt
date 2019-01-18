@@ -25,8 +25,8 @@ import java.util.*
 /**
  * 微信支付
  */
-fun Context.wxPay(cardNo: String?, acount: String?) {
-    RetrofitHelper().wxPay(cardNo, acount).enqueue(object : Callback<WeChatOrder> {
+fun Context.wxPay(cardNo: String?, acount: String?, out_trade_no: String?) {
+    RetrofitHelper().wxPay(cardNo, acount,out_trade_no).enqueue(object : Callback<WeChatOrder> {
         override fun onResponse(call: Call<WeChatOrder>, response: Response<WeChatOrder>) {
             val request = PayReq()
             response.body()?.let {

@@ -18,7 +18,6 @@ import com.sc.clgg.dialog.PreRechargeHintDialog
 import com.sc.clgg.dialog.RechargeDialog
 import com.sc.clgg.etc.NewDES
 import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.retrofit.WeChatPayCache
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.isOpenBluetoothLocation
 import etc.obu.data.CardInformation
@@ -164,7 +163,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     }
 
     private fun confirmPayStatus() {
-        RetrofitHelper().confirmPayStatus(WeChatPayCache.cardNo).enqueue(object : Callback<StatusBean> {
+        RetrofitHelper().confirmPayStatus(card?.cardId).enqueue(object : Callback<StatusBean> {
             override fun onFailure(call: Call<StatusBean>, t: Throwable) {
                 hideProgressDialog()
                 toast(R.string.network_anomaly)

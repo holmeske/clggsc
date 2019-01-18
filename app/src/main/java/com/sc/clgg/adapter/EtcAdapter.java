@@ -74,9 +74,16 @@ public class EtcAdapter extends RecyclerView.Adapter<MyHolder> {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name);
             name.setWidth(MeasureHelper.getScreenWidth(itemView.getContext()) / 4);
-
         }
 
+    }
+
+    class ItemListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 
     class MyListener implements View.OnClickListener {

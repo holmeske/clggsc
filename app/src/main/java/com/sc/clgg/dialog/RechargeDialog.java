@@ -17,13 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sc.clgg.R;
+import com.sc.clgg.activity.contact.ItemClickListener;
 import com.sc.clgg.bean.StatusBean;
 import com.sc.clgg.retrofit.PayhelperKt;
 import com.sc.clgg.retrofit.RetrofitHelper;
-import com.sc.clgg.retrofit.WeChatPayCache;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import retrofit2.Call;
@@ -136,6 +137,9 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.v_instant_recharge:
                 String money = tv_recharge_amount.getText().toString();
+                if (mItemClickListener!=null){
+                    mItemClickListener.click(money);
+                }
                 int amount = Integer.parseInt(money);
                 /*if (amount < 100 || amount > 1000000) {
                     Toast.makeText(mActivity.getApplication(), "请输入大于等于100小于1000000的整数", Toast.LENGTH_SHORT).show();
@@ -144,9 +148,12 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 new RetrofitHelper().payMoney(cardNumber, money).enqueue(new Callback<StatusBean>() {
                     @Override
                     public void onResponse(Call<StatusBean> call, Response<StatusBean> response) {
-                        if (response.isSuccessful()) {
-                            PayhelperKt.wxPay(mActivity, cardNumber, money);
-                            WeChatPayCache.Companion.setValue(cardNumber, money);
+                        if (response.body().getSuccess()) {
+                            if (mWasteSnListener != null) {
+                                mWasteSnListener.click(Objects.requireNonNull(response.body()).getWasteSn());
+                            }
+                            PayhelperKt.wxPay(mActivity, cardNumber, money,response.body().getWasteSn());
+                            //WeChatPayCache.Companion.setValue(cardNumber, money);
                         } else {
                             Toast.makeText(mActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                         }
@@ -163,6 +170,17 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
             default:
                 break;
         }
+    }
+    private ItemClickListener mItemClickListener;
+
+    private ItemClickListener mWasteSnListener;
+
+    public void setWasteSnListener(ItemClickListener wasteSnListener) {
+        mWasteSnListener = wasteSnListener;
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 
     private void initStyle() {

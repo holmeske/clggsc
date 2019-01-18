@@ -37,7 +37,7 @@ data class Message(var msg: String? = "",
 }
 
 /**
- *0 评论
+ * 0 评论
  * 1 发布动态
  * 2 我的车队
  * 3

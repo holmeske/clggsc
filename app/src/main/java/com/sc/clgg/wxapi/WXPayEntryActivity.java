@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.sc.clgg.bean.MessageEvent;
 import com.sc.clgg.config.ConstantValue;
-import com.sc.clgg.retrofit.WeChatPayCache;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -40,20 +39,19 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onReq(BaseReq req) {
+        LogHelper.d("WXPayEntryActivity.onReq()");
     }
 
     @Override
     public void onResp(BaseResp resp) {
+        LogHelper.d("WXPayEntryActivity.onResp()");
         //Toast.makeText(getApplicationContext(), new Gson().toJson(resp), Toast.LENGTH_SHORT).show();
         if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
-            EventBus.getDefault().postSticky(new MessageEvent(4));
+            EventBus.getDefault().post(new MessageEvent(4));
             //支付成功
             //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_SUCCESS));
-            LogHelper.e("卡号:" + WeChatPayCache.Companion.getCardNo()
-                    + "\n金额:" + WeChatPayCache.Companion.getMoney());
-
-            //WeChatPayCache.Companion.initValue();
-
+            //LogHelper.e("卡号:" + WeChatPayCache.Companion.getCardNo() + "\n金额:" + WeChatPayCache.Companion.getMoney());
+            //Toast.makeText(getApplicationContext(), "支付成功", Toast.LENGTH_SHORT).show();
         } else if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {
             //支付取消
             //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_CANCEL));
@@ -63,6 +61,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_FAILURE));
             Toast.makeText(getApplicationContext(), "支付失败", Toast.LENGTH_SHORT).show();
         }
+        //WeChatPayCache.Companion.initValue();
         finish();
     }
 

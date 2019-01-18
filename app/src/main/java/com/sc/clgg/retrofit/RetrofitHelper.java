@@ -111,14 +111,15 @@ public class RetrofitHelper {
     }
 
     /**
-     * 微信支付
+     * 申请微信预支付订单
      */
-    public retrofit2.Call<WeChatOrder> wxPay(String card_no, String total_fee) {
+    public retrofit2.Call<WeChatOrder> wxPay(String card_no, String total_fee,String out_trade_no) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("card_no", card_no);
         params.put("total_fee", total_fee);
         params.put("spbill_create_ip", Tools.getIpAddress(App.getInstance().getApplicationContext()));
         params.put("userCode", new ConfigUtil().getUserid());
+        params.put("out_trade_no",out_trade_no);
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
         return Retrofit(NetField.WX_PAY_SITE).create(RetrofitApi.class).wxPay(json);

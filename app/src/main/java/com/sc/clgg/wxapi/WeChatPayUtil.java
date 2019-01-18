@@ -15,7 +15,8 @@ import androidx.collection.ArrayMap;
 
 public class WeChatPayUtil {
     private Context context;
-    private IWXAPI wxApi;// IWXAPI 是第三方app和微信通信的openapi接口
+    // IWXAPI 是第三方app和微信通信的openapi接口
+    private IWXAPI wxApi;
 
     public WeChatPayUtil(Context context) {
         this.context = context;

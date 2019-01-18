@@ -4,6 +4,7 @@ package com.sc.clgg.wxapi;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.sc.clgg.tool.helper.LogHelper;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
@@ -15,6 +16,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LogHelper.d("WXEntryActivity.onCreate()");
         //IWXAPI iwxapi = WXAPIFactory.createWXAPI(this, ConstantValue.WX_APP_ID);
         //iwxapi.handleIntent(getIntent(), this);
         super.onCreate(savedInstanceState);
@@ -34,11 +36,12 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onReq(BaseReq arg0) {
-
+        LogHelper.d("WXEntryActivity.onReq()");
     }
 
     @Override
     public void onResp(BaseResp resp) {
+        LogHelper.d("WXEntryActivity.onResp()");
         /*if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
             //发送成功
 //            EventBus.getDefault().post(new EventBusBean(Constants.APP_SHARE_SUCCESS));

@@ -1,14 +1,21 @@
 package com.sc.clgg.activity.etc
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.sc.clgg.R
-import com.sc.clgg.bean.StatusBean
+import com.sc.clgg.base.BaseImmersionActivity
+import com.sc.clgg.bean.CardInfo
+import com.sc.clgg.bean.CardList
+import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_pre_recharge_finish.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class PreRechargeFinishActivity : AppCompatActivity() {
+class PreRechargeFinishActivity : BaseImmersionActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,16 +23,37 @@ class PreRechargeFinishActivity : AppCompatActivity() {
 
         titlebar_title.text = "完成"
 
-        intent.getParcelableExtra<StatusBean>("data")?.let {
-            tv_success_money.text = "${it.money}"
-            tv_order_number.text = "${it.RWasteSn}"
-            tv_card_number.text = "${it.cardNo}"
-            tv_car_number.text = "${it.carNo}"
-            it.money?.toDouble()?.let {
-                tv_success_money.text = "${it / 100}元"
-                tv_can_write_balance.text = "${it / 100}元"
+        intent.getParcelableExtra<CardList.Card>("data")?.let {
+            tv_card_number.text = "${it.cardId}"
+            tv_car_number.text = "${it.vlp}"
+
+            showProgressDialog()
+            RetrofitHelper().getCardInfo(it.cardId, "0").apply {
+                enqueue(object : Callback<CardInfo> {
+                    override fun onFailure(call: Call<CardInfo>, t: Throwable) {
+                        hideProgressDialog()
+                        toast(R.string.network_anomaly)
+                    }
+
+                    @SuppressLint("SetTextI18n")
+                    override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
+                        hideProgressDialog()
+                        response.body()?.let {
+                            it.RQcMoney?.toDouble()?.let {
+                                tv_can_write_balance.text = "${String.format("%.2f", it / 100)}元"
+                            }
+                        }
+                    }
+                })
             }
         }
+        intent.getStringExtra("money")?.toDouble()?.let {
+            tv_success_money.text = "${String.format("%.2f", it / 100)}元"
+        }
+        intent.getStringExtra("wasteSn")?.let {
+            tv_order_number.text = "${it}"
+        }
+
         tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
     }
 }
