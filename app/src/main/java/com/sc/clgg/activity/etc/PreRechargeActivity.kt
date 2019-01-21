@@ -99,7 +99,8 @@ class PreRechargeActivity : BaseImmersionActivity() {
             }
 
         }
-        tv_in_card.setOnClickListener { finish() }
+        titlebar_right.text=getString(R.string.in_card)
+        titlebar_right.setOnClickListener { finish() }
     }
 
     override fun onStart() {

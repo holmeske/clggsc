@@ -38,8 +38,8 @@ class WriteCardActivity : BaseImmersionActivity() {
     private var card: CardInformation? = null
     private var RQcMoney = 0
     private var RAdjust = 0
-    private var cardNo:String?=""
-    private var licensePlate:String?=""
+    private var cardNo: String? = ""
+    private var licensePlate: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +73,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     }
 
     private fun init() {
-        cardNo=card?.cardId
+        cardNo = card?.cardId
         RetrofitHelper().getCardInfo(card?.cardId, "0").enqueue(object : Callback<CardInfo> {
             override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                 toast(R.string.network_anomaly)
@@ -81,11 +81,11 @@ class WriteCardActivity : BaseImmersionActivity() {
 
             override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
                 response.body()?.let {
-                    if (!it.success){
+                    if (!it.success) {
                         toast("${it.msg}")
                         return@let
                     }
-                    licensePlate=it.RVLP
+                    licensePlate = it.RVLP
                     RQcMoney = it.RQcMoney!!.toInt()
                     RAdjust = it.RAdjust!!.toInt()
                     tv_carno.text = it.RVLP
@@ -159,6 +159,11 @@ class WriteCardActivity : BaseImmersionActivity() {
         EventBus.getDefault().unregister(this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        payStatusHttp?.cancel()
+    }
+
     private var handler = Handler()
     private var runnable: Runnable = object : Runnable {
         override fun run() {
@@ -166,8 +171,10 @@ class WriteCardActivity : BaseImmersionActivity() {
         }
     }
 
+    private var payStatusHttp: Call<StatusBean>? = null
     private fun confirmPayStatus() {
-        RetrofitHelper().confirmPayStatus(card?.cardId).enqueue(object : Callback<StatusBean> {
+        payStatusHttp = RetrofitHelper().confirmPayStatus(card?.cardId)
+        payStatusHttp?.enqueue(object : Callback<StatusBean> {
             override fun onFailure(call: Call<StatusBean>, t: Throwable) {
                 hideProgressDialog()
                 toast(R.string.network_anomaly)
@@ -211,7 +218,6 @@ class WriteCardActivity : BaseImmersionActivity() {
                                         }
                                     }
                                 })
-
                                 dismiss()
                             }
                         }

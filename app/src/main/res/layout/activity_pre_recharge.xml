@@ -44,7 +44,7 @@
             android:id="@+id/tv_card_str"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="33dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:text="卡号:"
             android:textColor="@color/_ccc"
@@ -56,9 +56,10 @@
 
         <TextView
             android:id="@+id/tv_card"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
+            android:layout_marginEnd="20dp"
             android:maxLines="1"
             android:text="- -"
             android:textColor="#397be6"
@@ -66,14 +67,15 @@
             android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@id/tv_card_str"
-            app:layout_constraintLeft_toRightOf="@id/tv_card_str"/>
+            app:layout_constraintLeft_toRightOf="@id/tv_card_str"
+            app:layout_constraintRight_toRightOf="parent"/>
 
 
         <TextView
             android:id="@+id/tv_carno_str"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="33dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:text="车牌:"
             android:textColor="@color/_ccc"
@@ -114,7 +116,6 @@
             android:id="@+id/tv_balance_str"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:text="可圈存金额:"
             android:textColor="#58677f"
             android:textSize="12sp"
@@ -144,6 +145,7 @@
             android:text="@string/in_card"
             android:textColor="@color/_444"
             android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
