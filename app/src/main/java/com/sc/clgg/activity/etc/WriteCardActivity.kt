@@ -38,6 +38,8 @@ class WriteCardActivity : BaseImmersionActivity() {
     private var card: CardInformation? = null
     private var RQcMoney = 0
     private var RAdjust = 0
+    private var cardNo:String?=""
+    private var licensePlate:String?=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     }
 
     private fun init() {
+        cardNo=card?.cardId
         RetrofitHelper().getCardInfo(card?.cardId, "0").enqueue(object : Callback<CardInfo> {
             override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                 toast(R.string.network_anomaly)
@@ -82,6 +85,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                         toast("${it.msg}")
                         return@let
                     }
+                    licensePlate=it.RVLP
                     RQcMoney = it.RQcMoney!!.toInt()
                     RAdjust = it.RAdjust!!.toInt()
                     tv_carno.text = it.RVLP
@@ -231,7 +235,7 @@ class WriteCardActivity : BaseImmersionActivity() {
         EventBus.getDefault().removeStickyEvent(event)
         if (event.value == 4) {
             LogHelper.e("充值确认")
-            showProgressDialog()
+            showProgressDialog(false)
             confirmPayStatus()
             /*RetrofitHelper().surePayMoney(WeChatPayCache.cardNo, WeChatPayCache.money).enqueue(object : Callback<StatusBean> {
                 override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
@@ -410,9 +414,10 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                                 App.getInstance().mObuInterface.getCardInformation(cardInfo)
 
                                                                 Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
-                                                                startActivity(Intent(this@WriteCardActivity,
-                                                                        WriteCardSuccessActivity::class.java)
+                                                                startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
                                                                         .putExtra("data", response.body())
+                                                                        .putExtra("cardNo", card?.cardId)
+                                                                        .putExtra("carNo", licensePlate)
                                                                         .putExtra("balance", cardInfo.balance))
                                                             } else {
                                                                 Toast.makeText(applicationContext, "圈存失败", Toast.LENGTH_SHORT).show()

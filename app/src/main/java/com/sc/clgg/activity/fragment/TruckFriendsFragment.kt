@@ -15,7 +15,7 @@ import com.sc.clgg.activity.friendscircle.CommentActivity
 import com.sc.clgg.activity.friendscircle.PublishDynamicActivity
 import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.adapter.TruckFriendsAdapter
-import com.sc.clgg.bean.MessageEvent
+import com.sc.clgg.bean.CommentEvent
 import com.sc.clgg.bean.TruckFriend
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
@@ -69,8 +69,8 @@ class TruckFriendsFragment : BaseFragment() {
         EventBus.getDefault().unregister(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: MessageEvent) {
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
+    fun onCommentEvent(event: CommentEvent) {
         when (event.value) {
             0 -> {
                 LogHelper.e("更新单条")

@@ -7,17 +7,17 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.sc.clgg.R
 import com.sc.clgg.bean.Check
-import com.sc.clgg.bean.MessageEvent
+import com.sc.clgg.bean.CommentEvent
 import com.sc.clgg.bean.TruckFriend
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.ConfigUtil
+import com.sc.clgg.util.hideSoftInputFromWindow
 import kotlinx.android.synthetic.main.activity_comment.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Response
-
 
 
 class CommentActivity : AppCompatActivity(), View.OnLayoutChangeListener {
@@ -57,34 +57,32 @@ class CommentActivity : AppCompatActivity(), View.OnLayoutChangeListener {
 
         tv_send.setOnClickListener {
             val comment = et_input?.text?.toString()
-
+            hideSoftInputFromWindow(it)
             if (!comment?.isBlank()!!)
-
                 RetrofitHelper().sendOpinion(circleMessageId, commentUserId, comment).enqueue(object : retrofit2.Callback<Check> {
-                            override fun onFailure(call: Call<Check>?, t: Throwable?) {
-                                toast("评论失败")
-                            }
+                    override fun onFailure(call: Call<Check>?, t: Throwable?) {
+                        toast("评论失败")
+                    }
 
-                            override fun onResponse(call: Call<Check>?, response: Response<Check>?) {
-                                response?.body()?.let {
-                                    if (it.success) {
-                                        toast("评论成功")
-                                        commen = TruckFriend.Commen(it.id?.toInt()!!,
-                                                circleMessageId,
-                                                commentUserId,
-                                                ConfigUtil().userid.toInt(),
-                                                System.currentTimeMillis().toString(),
-                                                0,
-                                                comment,
-                                                0, ConfigUtil().nickName)
-                                        //MainActivity().truckFriendsFragment?.updateItem()
-                                        EventBus.getDefault().post(MessageEvent(0))
-                                    } else {
-                                        toast("${it.msg}")
-                                    }
-                                }
+                    override fun onResponse(call: Call<Check>?, response: Response<Check>?) {
+                        response?.body()?.let {
+                            if (it.success) {
+                                toast("评论成功")
+                                commen = TruckFriend.Commen(it.id?.toInt()!!,
+                                        circleMessageId,
+                                        commentUserId,
+                                        ConfigUtil().userid.toInt(),
+                                        System.currentTimeMillis().toString(),
+                                        0,
+                                        comment,
+                                        0, ConfigUtil().nickName)
+                                EventBus.getDefault().post(CommentEvent(0))
+                            } else {
+                                toast("${it.msg}")
                             }
-                        })
+                        }
+                    }
+                })
             finish()
         }
     }

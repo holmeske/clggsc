@@ -35,12 +35,3 @@ data class Message(var msg: String? = "",
                 var article: String? = "") : Parcelable
     }
 }
-
-/**
- * 0 评论
- * 1 发布动态
- * 2 我的车队
- * 3
- * 4 微信支付
- */
-data class MessageEvent(var value: Int)

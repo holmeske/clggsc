@@ -1,15 +1,19 @@
 package com.sc.clgg
 
-import com.sc.clgg.bean.UserInfoBean
+import kotlinx.coroutines.*
 
-fun main() {
+val threadLocal = ThreadLocal<String?>() // 声明线程局部变量
+fun main()= runBlocking<Unit>{
 
-    var result2 = UserInfoBean().let {
-        it?.id = "16"//这行其实是在调用setAge函数,如果这行为最后一行，则没有返回值
-
-          it?.account
+    threadLocal.set("main")
+    println("Pre-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+    val job = launch(Dispatchers.Default + threadLocal.asContextElement(value = "launch")) {
+        println("Launch start, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+        yield()
+        println("After yield, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
     }
-    println("let 返回值 = $result2")
+    job.join()
+    println("Post-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
 
     /*for (i in 1..3) {
         println(i)

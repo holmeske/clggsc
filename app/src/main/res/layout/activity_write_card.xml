@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
-    tools:context=".activity.etc.WriteCardActivity">
+    android:background="@color/bg">
 
     <include layout="@layout/view_read_card"/>
 
@@ -69,7 +68,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:maxLines="1"
-            android:text="- -"
             android:textColor="#397be6"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -106,7 +104,7 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:text="- -"
+            android:text="0"
             android:textColor="#ff0000"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/v_balance"
@@ -129,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:text="- -"
+            android:text="0"
             android:textColor="#ff0000"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/v_balance"
