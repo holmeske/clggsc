@@ -165,6 +165,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_balance_str"/>
 
         <TextView
+            android:id="@+id/tv_can_circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"

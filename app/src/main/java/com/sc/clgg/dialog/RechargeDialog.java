@@ -3,6 +3,7 @@ package com.sc.clgg.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.ItemClickListener;
+import com.sc.clgg.activity.etc.ResultNoticeActivity;
 import com.sc.clgg.bean.StatusBean;
 import com.sc.clgg.retrofit.PayhelperKt;
 import com.sc.clgg.retrofit.RetrofitHelper;
@@ -46,6 +48,8 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
     private String cardNumber;
 
     private Activity mActivity;
+    private ItemClickListener mItemClickListener;
+    private ItemClickListener mWasteSnListener;
 
     public RechargeDialog(@NonNull Context context) {
         super(context, R.style.dialog_base);
@@ -94,6 +98,7 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 }
                 rb.setChecked(true);
                 String text = rb.getText().toString();
+                et_amount.setText(text.subSequence(0, text.length() - 1));
                 tv_recharge_amount.setText(text.subSequence(0, text.length() - 1));
             });
         }
@@ -137,7 +142,7 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.v_instant_recharge:
                 String money = tv_recharge_amount.getText().toString();
-                if (mItemClickListener!=null){
+                if (mItemClickListener != null) {
                     mItemClickListener.click(money);
                 }
                 int amount = Integer.parseInt(money);
@@ -152,10 +157,11 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                             if (mWasteSnListener != null) {
                                 mWasteSnListener.click(Objects.requireNonNull(response.body()).getWasteSn());
                             }
-                            PayhelperKt.wxPay(mActivity, cardNumber, money,response.body().getWasteSn());
+                            PayhelperKt.wxPay(mActivity, cardNumber, money, response.body().getWasteSn());
                             //WeChatPayCache.Companion.setValue(cardNumber, money);
                         } else {
                             Toast.makeText(mActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                            mActivity.startActivity(new Intent(mActivity, ResultNoticeActivity.class).putExtra("msg", response.body().getMsg()));
                         }
                     }
 
@@ -171,9 +177,6 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 break;
         }
     }
-    private ItemClickListener mItemClickListener;
-
-    private ItemClickListener mWasteSnListener;
 
     public void setWasteSnListener(ItemClickListener wasteSnListener) {
         mWasteSnListener = wasteSnListener;

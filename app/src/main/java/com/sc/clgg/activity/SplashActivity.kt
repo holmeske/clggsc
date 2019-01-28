@@ -33,6 +33,7 @@ class SplashActivity : BaseImmersionActivity() {
             4 -> {
             }
             else -> {
+//                WriteCardHintDialog(this).apply { show();setData("000", "111");setCancelListener {  } }
                 startActivity(Intent(this, LaunchActivity::class.java))
                 finish()
             }

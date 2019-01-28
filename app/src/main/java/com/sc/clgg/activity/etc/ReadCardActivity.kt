@@ -12,9 +12,11 @@ import com.sc.clgg.util.isOpenBluetoothLocation
 import etc.obu.data.CardInformation
 import kotlinx.android.synthetic.main.activity_read_card.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 
 class ReadCardActivity : BaseImmersionActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_card)
@@ -37,32 +39,33 @@ class ReadCardActivity : BaseImmersionActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            Thread(Runnable {
+            doAsync {
                 App.getInstance().mObuInterface.connectDevice().apply {
-                    runOnUiThread { hideProgressDialog() }
+                    hideProgressDialog()
                     if (serviceCode == 0) {
 
-                        LogHelper.e("连接蓝牙设备成功")
+                        LogHelper.e("蓝牙设备 - 连接成功")
                         if (App.getInstance().mObuInterface.intAuthDev(intRandom.length / 2, intRandom, intMac) == 0) {
                             LogHelper.e("认证成功")
                             val cardInfo = CardInformation()
-                            val status = App.getInstance().mObuInterface.getCardInformation(cardInfo)
-                            if (status.serviceCode == 0) {
+                            if (App.getInstance().mObuInterface.getCardInformation(cardInfo).serviceCode == 0) {
                                 LogHelper.e(Gson().toJson(cardInfo))
-                                startActivity(Intent(this@ReadCardActivity, WriteCardActivity::class.java)
-                                        .putExtra("card", cardInfo))
+                                startActivity(Intent(this@ReadCardActivity, WriteCardActivity::class.java).putExtra("card", cardInfo))
                             }
                         }
 
                     } else {
-                        LogHelper.e("连接蓝牙设备失败")
-                        runOnUiThread { toast("连接蓝牙设备失败") }
+                        LogHelper.e("$serviceInfo")
+                        runOnUiThread { toast(serviceInfo) }
                     }
                 }
-
-            }).start()
-
+            }
         }
+    }
+
+    override fun onDestroy() {
+        LogHelper.e("${Gson().toJson(App.getInstance().mObuInterface.disconnectDevice())}")
+        super.onDestroy()
     }
 
 }

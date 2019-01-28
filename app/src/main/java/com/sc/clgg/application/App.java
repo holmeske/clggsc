@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.android.recharge.ObuInterface;
+import com.sc.clgg.BuildConfig;
 import com.squareup.leakcanary.LeakCanary;
 
 import androidx.multidex.MultiDex;
@@ -15,12 +16,11 @@ import androidx.multidex.MultiDex;
 public class App extends Application {
 
     public static App instance;
+    public ObuInterface mObuInterface;
 
     public static App getInstance() {
         return instance;
     }
-
-    public ObuInterface mObuInterface;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -44,6 +44,8 @@ public class App extends Application {
 
         mObuInterface = new ObuInterface(this);
         mObuInterface.initialize();
+        mObuInterface.openLog(BuildConfig.LOG_DEBUG);
+
     }
 
 }

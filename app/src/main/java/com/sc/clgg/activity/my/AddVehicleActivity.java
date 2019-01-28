@@ -90,9 +90,7 @@ public class AddVehicleActivity extends TakePhotoActivity {
                     if (allMap.containsKey("success") && (boolean) allMap.get("success")) {
                         Map<String, Object> identifyMap = (Map<String, Object>) allMap.get("identify");
 
-
                         if (identifyMap.containsKey("words_result")) {
-
                             Map<String, Object> resultMap = (Map<String, Object>) identifyMap.get("words_result");
 
                             et_car_no.setText(((Map<String, String>) resultMap.get("号牌号码")).get("words"));

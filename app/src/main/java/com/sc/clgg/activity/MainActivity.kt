@@ -11,7 +11,6 @@ import com.sc.clgg.base.BaseAppCompatActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.dialog.ExitDialog
-import com.sc.clgg.tool.helper.LogHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -54,8 +53,6 @@ class MainActivity : BaseAppCompatActivity() {
 
         checked(0)
         tv_home.isSelected = true
-
-        LogHelper.e("${intent.getIntExtra("tab", 0)}")
     }
 
 

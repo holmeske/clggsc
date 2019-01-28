@@ -9,8 +9,12 @@ import java.text.DecimalFormat;
  */
 public class a {
     public static void main(String[] args) {
-        System.out.println(String.format("%.2f", 0.4f));
+        System.out.print(String.format("%.4f", 3.1415926));
+        System.out.print("\n");
+        System.out.print(new BigDecimal(3.1415926).setScale(4, BigDecimal.ROUND_DOWN).doubleValue());
+
     }
+
     public static String formatTwo(Double d) {
         if (d == 0) {
             return "0.00";

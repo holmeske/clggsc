@@ -265,7 +265,7 @@
         <activity android:name=".activity.etc.ReadCardActivity"/>
         <activity android:name=".activity.etc.WriteCardActivity"/>
         <activity android:name=".activity.etc.WriteCardSuccessActivity"/>
-        <activity android:name=".activity.etc.PayResultActivity"/>
+        <activity android:name=".activity.etc.ResultNoticeActivity"/>
         <activity android:name=".activity.etc.MyCardActivity"/>
         <activity
             android:name=".activity.etc.EtcActivity"

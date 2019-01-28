@@ -26,7 +26,6 @@ import retrofit2.Response
 
 
 class PreRechargeActivity : BaseImmersionActivity() {
-
     /**
      * 可圈存余额
      */
@@ -42,21 +41,20 @@ class PreRechargeActivity : BaseImmersionActivity() {
         //card?.cardId="37011801220102886198"
         logcat(card)
         getCardInfo(card?.cardId)
-        init()
-    }
 
-    private fun init() {
         titlebar_title.text = getString(R.string.pre_recharge)
+        titlebar_right.text = getString(R.string.in_card)
 
         tv_card.text = card?.cardId
         tv_carno.text = card?.vlp
 
-        initPreRechargeListener()
+        initListener()
     }
 
+    private var http_2: Call<CardInfo>? = null
     private fun getCardInfo(cardNo: String?) {
         showProgressDialog(false)
-        RetrofitHelper().getCardInfo(cardNo, "0").apply {
+        http_2 = RetrofitHelper().getCardInfo(cardNo, "0").apply {
             enqueue(object : Callback<CardInfo> {
                 override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                     hideProgressDialog()
@@ -67,8 +65,9 @@ class PreRechargeActivity : BaseImmersionActivity() {
                     hideProgressDialog()
                     response.body()?.let {
                         if (it.success) {
-                            canCircleMoney = it.RQcMoney!!.toDouble() / 100
-                            RAdjust = it.RAdjust!!.toInt()
+
+                            it.RQcMoney?.toDouble()?.run { canCircleMoney = this / 100 }
+
                             when {
                                 canCircleMoney > 0.0 -> v_1.setBackgroundResource(R.drawable.bg_gray_5)
                                 canCircleMoney == 0.0 -> v_1.setBackgroundResource(R.drawable.bg_blue_5)
@@ -84,11 +83,10 @@ class PreRechargeActivity : BaseImmersionActivity() {
         }
     }
 
-    private var RAdjust = 1
-    private fun initPreRechargeListener() {
+    private fun initListener() {
         v_1.setOnClickListener {
 
-            if (canCircleMoney > 0.0) {
+            if (canCircleMoney > 0) {
                 PreRechargeHintDialog(this).apply {
                     show()
                     setData(canCircleMoney)
@@ -99,7 +97,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
             }
 
         }
-        titlebar_right.text=getString(R.string.in_card)
+
         titlebar_right.setOnClickListener { finish() }
     }
 
@@ -121,63 +119,50 @@ class PreRechargeActivity : BaseImmersionActivity() {
         if (event.value == 4) {
             LogHelper.e("充值确认")
             confirmPayStatus()
-            /*RetrofitHelper().surePayMoney(WeChatPayCache.cardNo, WeChatPayCache.money).enqueue(object : Callback<StatusBean> {
-                override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
-                    hideProgressDialog()
-                    response.body()?.let {
-                        if (it.success) {
-                            toast("支付成功")
-                            startActivity(Intent(this@PreRechargeActivity, PreRechargeFinishActivity::class.java)
-                                    .putExtra("data", response.body()))
-                        } else {
-                            toast("${it.msg}")
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<StatusBean>, t: Throwable) {
-                    hideProgressDialog()
-                    toast(R.string.network_anomaly)
-                }
-            })*/
         }
     }
-
-    private var handler = Handler()
-    private var runnable: Runnable = Runnable { confirmPayStatus() }
 
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(runnable)
+
+        http_1?.cancel()
+        http_2?.cancel()
     }
 
+    private var handler = Handler()
+    private var runnable: Runnable = Runnable { confirmPayStatus() }
+    private var http_1: Call<StatusBean>? = null
     private fun confirmPayStatus() {
         showProgressDialog("支付确认中...", false)
-        RetrofitHelper().confirmPayStatus(card?.cardId).enqueue(object : Callback<StatusBean> {
-            override fun onFailure(call: Call<StatusBean>, t: Throwable) {
-                hideProgressDialog()
-                toast(R.string.network_anomaly)
-            }
+        http_1 = RetrofitHelper().confirmPayStatus(card?.cardId).apply {
+            enqueue(object : Callback<StatusBean> {
+                override fun onFailure(call: Call<StatusBean>, t: Throwable) {
+                    hideProgressDialog()
+                    toast(R.string.network_anomaly)
+                }
 
-            override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
-                response.body()?.let {
-                    if (it.success) {
-                        hideProgressDialog()
-                        toast("支付成功")
-                        LogHelper.e("查询卡信息")
-                        startActivity(Intent(this@PreRechargeActivity, PreRechargeFinishActivity::class.java)
-                                .putExtra("card", card)
-                                .putExtra("money", money).putExtra("wasteSn",wasteSn))
-                    } else {
-                        if (it.payStatus != 2) {
+                override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
+                    response.body()?.let {
+                        if (it.success) {
                             hideProgressDialog()
-                            toast("${it.msg}")
+                            startActivity(Intent(this@PreRechargeActivity, PreRechargeFinishActivity::class.java)
+                                    .putExtra("data", card)
+                                    .putExtra("money", money)
+                                    .putExtra("wasteSn", wasteSn))
                         } else {
-                            handler.postDelayed(runnable, 3000)
+                            if (it.payStatus != 2) {
+                                hideProgressDialog()
+                                startActivity(Intent(this@PreRechargeActivity, ResultNoticeActivity::class.java).putExtra("msg", it.msg))
+                            } else {
+                                handler.postDelayed(runnable, 3000)
+                            }
                         }
                     }
                 }
-            }
-        })
+            })
+        }
     }
+
 }
+

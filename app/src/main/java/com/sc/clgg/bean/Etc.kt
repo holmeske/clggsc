@@ -46,16 +46,18 @@ data class RechargeOrderList(var code: Int = 0,
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class CircleSave(val msg: String? = "", val success: Boolean, var Mac2: String? = "",
+data class CircleSave(val msg: String? = "", val success: Boolean  = false,
+        //圈存申请
+                      var Mac2: String? = "",
                       var RChargeLsh: String? = "",
                       var RWriteTime: String? = "",
-                      var RMac2: String? = "",
                       var RWasteSn: String? = "",
+        //圈存确认
                       var cardNo: String? = "",
-                      var money: String? = "",
                       var carNo: String? = "",
                       var realMoney: String? = ""
 ) : Parcelable
+
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -209,7 +211,7 @@ data class ApplyStateList(var code: Int = 0,
             var cardType: String? = "",
             var remarkFalse: String? = "",
 
-            var expressInfo:String?="",
+            var expressInfo: String? = "",
             //0审核通过  1开卡成功   2开卡失败
             var isSuccess: String? = "",
             //0审核中  2审核驳回

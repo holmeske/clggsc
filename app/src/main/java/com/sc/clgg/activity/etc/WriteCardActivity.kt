@@ -3,7 +3,6 @@ package com.sc.clgg.activity.etc
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.text.TextUtils
 import android.widget.Toast
 import com.google.gson.Gson
 import com.sc.clgg.R
@@ -16,6 +15,7 @@ import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.dialog.ConfirmCircleDialog
 import com.sc.clgg.dialog.PreRechargeHintDialog
 import com.sc.clgg.dialog.RechargeDialog
+import com.sc.clgg.dialog.WriteCardHintDialog
 import com.sc.clgg.etc.NewDES
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
@@ -35,11 +35,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class WriteCardActivity : BaseImmersionActivity() {
-    private var card: CardInformation? = null
+    private lateinit var card: CardInformation
     private var RQcMoney = 0
     private var RAdjust = 0
-    private var cardNo: String? = ""
-    private var licensePlate: String? = ""
+    private var RCarNo: String? = ""
+    private var wasteSn: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +49,9 @@ class WriteCardActivity : BaseImmersionActivity() {
         iv_nav.setImageResource(R.drawable.pay_nav_step_icon)
         card = intent.getParcelableExtra("card")
 
-        tv_card.text = card?.cardId
-        tv_carno.text = card?.vehicleNumber
-        card?.balance?.toDouble()?.let { tv_balance.text = "${String.format("%.2f", it / 100)}元" }
+        tv_card.text = card.cardId
+        tv_carno.text = card.vehicleNumber
+        card.balance.toDouble()?.let { tv_balance.text = "${String.format("%.2f", it / 100)}元" }
 
         tv_recharge_circle.setOnClickListener {
             if (tv_recharge_circle.text == "圈存") {
@@ -65,48 +65,53 @@ class WriteCardActivity : BaseImmersionActivity() {
                     setCancelListener { toast("取消");dismiss() }
                 }
             } else {
-                RechargeDialog(this).apply { setCardNumber(card?.cardId) }.show()
+                RechargeDialog(this).apply { setCardNumber(card.cardId) }.show()
             }
         }
-
-        init()
+        updateCardInfo()
     }
 
-    private fun init() {
-        cardNo = card?.cardId
-        RetrofitHelper().getCardInfo(card?.cardId, "0").enqueue(object : Callback<CardInfo> {
+    private fun updateCardInfo() {
+        RetrofitHelper().getCardInfo(card.cardId, "0").enqueue(object : Callback<CardInfo> {
             override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                 toast(R.string.network_anomaly)
             }
 
             override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
                 response.body()?.let {
-                    if (!it.success) {
+                    if (it.success.not()) {
                         toast("${it.msg}")
                         return@let
                     }
-                    licensePlate = it.RVLP
-                    RQcMoney = it.RQcMoney!!.toInt()
-                    RAdjust = it.RAdjust!!.toInt()
-                    tv_carno.text = it.RVLP
-                    it.RQcMoney?.toDouble()?.let { tv_can_write.text = "${String.format("%.2f", it / 100)} 元" }
-
-                    if (it.RQcMoney?.toDouble()!! > 0) {
-                        tv_recharge_circle.text = "圈存"
-                        cl_go_circle.isSelected = true
-                        cl_go_recharge.isSelected = false
-
-                        cl_go_recharge.isEnabled = false
-                    } else {
-                        tv_recharge_circle.text = "充值"
-                        cl_go_circle.isSelected = false
-                        cl_go_recharge.isSelected = true
-
-                        cl_go_circle.isEnabled = false
-                    }
+                    setViewData(it)
                 }
             }
         })
+    }
+
+    /**
+     * 卡信息处理
+     */
+    private fun setViewData(it: CardInfo?) {
+        RQcMoney = it?.RQcMoney?.toInt()!!
+        RAdjust = it?.RAdjust?.toInt()!!
+        RCarNo = it.RVLP
+        tv_carno?.text = it.RVLP
+        it.RQcMoney?.toDouble()?.let { tv_can_write?.text = "${String.format("%.2f", it / 100)} 元" }
+
+        if (it.RQcMoney?.toDouble()!! > 0) {
+            tv_recharge_circle?.text = "圈存"
+            cl_go_circle?.isSelected = true
+            cl_go_recharge?.isSelected = false
+
+            cl_go_recharge?.isEnabled = false
+        } else {
+            tv_recharge_circle?.text = "充值"
+            cl_go_circle?.isSelected = false
+            cl_go_recharge?.isSelected = true
+
+            cl_go_circle?.isEnabled = false
+        }
     }
 
     /**
@@ -134,16 +139,14 @@ class WriteCardActivity : BaseImmersionActivity() {
      */
     private var a_on = ""
 
+    /**
+     * 圈存
+     */
     private fun qc() {
         if (!isOpenBluetoothLocation()) return
         showProgressDialog(false)
         Thread {
-            var connectStatus = App.getInstance().mObuInterface.getConnectStatus()
-            if (connectStatus.toString().equals("ConnectStatus.SERVICES_DISCOVERED")) {
-                writeCard(card!!)
-            } else {
-                connectWriteCard()
-            }
+            if (App.getInstance().mObuInterface.getConnectStatus().toString() == "SERVICES_DISCOVERED") writeCard(card) else connectWriteCard()
         }.start()
     }
 
@@ -161,6 +164,7 @@ class WriteCardActivity : BaseImmersionActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        LogHelper.e("断开设备连接  ${Gson().toJson(App.getInstance().mObuInterface.disconnectDevice())}")
         payStatusHttp?.cancel()
     }
 
@@ -172,8 +176,11 @@ class WriteCardActivity : BaseImmersionActivity() {
     }
 
     private var payStatusHttp: Call<StatusBean>? = null
+    /**
+     * 获取支付确认状态
+     */
     private fun confirmPayStatus() {
-        payStatusHttp = RetrofitHelper().confirmPayStatus(card?.cardId)
+        payStatusHttp = RetrofitHelper().confirmPayStatus(card.cardId)
         payStatusHttp?.enqueue(object : Callback<StatusBean> {
             override fun onFailure(call: Call<StatusBean>, t: Throwable) {
                 hideProgressDialog()
@@ -184,36 +191,20 @@ class WriteCardActivity : BaseImmersionActivity() {
                 response.body()?.let {
                     if (it.success) {
                         hideProgressDialog()
+                        wasteSn = it.RWasteSn
                         toast("支付成功")
                         PreRechargeHintDialog(this@WriteCardActivity).apply {
                             show()
                             setData("请保持蓝牙盒子开启", "(蓝色指示灯闪亮)")
                             setCancelListener {
-                                RetrofitHelper().getCardInfo(card?.cardId, "0").enqueue(object : Callback<CardInfo> {
+                                RetrofitHelper().getCardInfo(card.cardId, "0").enqueue(object : Callback<CardInfo> {
                                     override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                                         toast(R.string.network_anomaly)
                                     }
 
                                     override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
-                                        response.body()?.let {
-                                            RQcMoney = it.RQcMoney!!.toInt()
-                                            RAdjust = it.RAdjust!!.toInt()
-                                            tv_carno?.text = it.RVLP
-                                            it.RQcMoney?.toDouble()?.let { tv_can_write?.text = "${String.format("%.2f", it / 100)} 元" }
-
-                                            if (it.RQcMoney?.toDouble()!! > 0) {
-                                                tv_recharge_circle?.text = "圈存"
-                                                cl_go_circle?.isSelected = true
-                                                cl_go_recharge?.isSelected = false
-
-                                                cl_go_recharge?.isEnabled = false
-                                            } else {
-                                                tv_recharge_circle?.text = "充值"
-                                                cl_go_circle?.isSelected = false
-                                                cl_go_recharge?.isSelected = true
-
-                                                cl_go_circle?.isEnabled = false
-                                            }
+                                        response.body()?.run {
+                                            setViewData(this)
                                             qc()
                                         }
                                     }
@@ -224,9 +215,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                     } else {
                         if (it.payStatus != 2) {
                             hideProgressDialog()
-                            toast("${it.msg}")
-                            startActivity(Intent(this@WriteCardActivity, PayResultActivity::class.java)
-                                    .putExtra("msg", it.msg))
+                            startActivity(Intent(this@WriteCardActivity, ResultNoticeActivity::class.java).putExtra("msg", it.msg))
                         } else {
                             handler.postDelayed(runnable, 3000)
                         }
@@ -236,137 +225,109 @@ class WriteCardActivity : BaseImmersionActivity() {
         })
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
     fun onMessageEvent(event: MessageEvent) {
         EventBus.getDefault().removeStickyEvent(event)
         if (event.value == 4) {
-            LogHelper.e("充值确认")
             showProgressDialog(false)
             confirmPayStatus()
-            /*RetrofitHelper().surePayMoney(WeChatPayCache.cardNo, WeChatPayCache.money).enqueue(object : Callback<StatusBean> {
-                override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
-                    hideProgressDialog()
-                    response.body()?.let {
-                        if (it.success) {
-                            toast("支付成功")
-                            PreRechargeHintDialog(this@WriteCardActivity).apply {
-                                show()
-                                setData("请保持蓝牙盒子开启", "(蓝色指示灯闪亮)")
-                                setCancelListener {
-                                    RetrofitHelper().getCardInfo(card?.cardId, "0").enqueue(object : Callback<CardInfo> {
-                                        override fun onFailure(call: Call<CardInfo>, t: Throwable) {
-                                            toast(R.string.network_anomaly)
-                                        }
-
-                                        override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
-                                            response.body()?.let {
-                                                RQcMoney = it.RQcMoney!!.toInt()
-                                                RAdjust = it.RAdjust!!.toInt()
-                                                tv_carno?.text = it.RVLP
-                                                it.RQcMoney?.toDouble()?.let { tv_can_write?.text = "${String.format("%.2f", it / 100)} 元" }
-
-                                                if (it.RQcMoney?.toDouble()!! > 0) {
-                                                    tv_recharge_circle?.text = "圈存"
-                                                    cl_go_circle?.isSelected = true
-                                                    cl_go_recharge?.isSelected = false
-
-                                                    cl_go_recharge?.isEnabled = false
-                                                } else {
-                                                    tv_recharge_circle?.text = "充值"
-                                                    cl_go_circle?.isSelected = false
-                                                    cl_go_recharge?.isSelected = true
-
-                                                    cl_go_circle?.isEnabled = false
-                                                }
-                                                qc()
-                                            }
-                                        }
-                                    })
-
-                                    dismiss()
-                                }
-                            }
-                        } else {
-                            startActivity(Intent(this@WriteCardActivity, PayResultActivity::class.java)
-                                    .putExtra("msg", it.msg))
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<StatusBean>, t: Throwable) {
-                    hideProgressDialog()
-                    toast(R.string.network_anomaly)
-                }
-            })*/
         }
     }
 
+    /**
+     * 连接设备写卡
+     */
     private fun connectWriteCard() {
         var key = "2D65d001246ade79151C634be75264AF"
-        var intRandom: String
+        var intRandom = "1234"
         var intMac = ""
-        LogHelper.e("开始连接")
+        LogHelper.e("开始连接 - 蓝牙设备")
         App.getInstance().mObuInterface.connectDevice().apply {
             if (serviceCode == 0) {
-                LogHelper.e("连接成功")
+                LogHelper.e("连接蓝牙设备 - 成功")
 
-                LogHelper.e("开始读取蓝牙设备信息")
                 App.getInstance().mObuInterface.getDeviceInformation().apply {
                     if (serviceCode == 0) {
-                        LogHelper.e("读取蓝牙设备信息成功")
+                        LogHelper.e("读取蓝牙设备信息 - 成功")
 
-                        intRandom = "1234"
                         try {
-                            intMac = NewDES.PBOC_3DES_MAC(intRandom, key)!!.substring(0, 8)
+                            intMac = NewDES.PBOC_3DES_MAC(intRandom, key).substring(0, 8)
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
 
                         if (App.getInstance().mObuInterface.intAuthDev(intRandom.length / 2, intRandom, intMac) == 0) {
-                            LogHelper.e("认证成功")
+                            LogHelper.e("设备对系统认证 - 成功")
 
                             val cardInfo = CardInformation()
-                            val status = App.getInstance().mObuInterface.getCardInformation(cardInfo)
-                            LogHelper.e("读卡 = " + Gson().toJson(status))
+                            if (App.getInstance().mObuInterface.getCardInformation(cardInfo).serviceCode == 0) {
+                                LogHelper.e("读取卡片信息 - 成功")
+                                if (cardInfo.cardId == card.cardId) {
+                                    writeCard(cardInfo)
+                                } else {
+                                    hideProgressDialog()
+                                    LogHelper.e(" ---- 已连接其他蓝牙设备 ----")
+                                    LogHelper.e(" ---- 自动断开其他蓝牙设备 ----")
+                                    LogHelper.e("断开蓝牙设备 is ${Gson().to(App.getInstance().mObuInterface.disconnectDevice())}")
 
-                            if (status.serviceCode == 0) {
-                                LogHelper.e("读卡成功 " + Gson().toJson(cardInfo))
-                                writeCard(cardInfo)
+                                    WriteCardHintDialog(this@WriteCardActivity)?.run {
+                                        show();setData(card.cardId, cardInfo.cardId)
+                                        setCancelListener {
+                                            dismiss()
+                                            qcFailure()
+                                        }
+                                    }
+                                }
+                            } else {
+                                hideProgressDialog()
+                                LogHelper.e("读取卡片信息 - 失败")
                             }
+                            LogHelper.e("卡片信息 = ${Gson().toJson(cardInfo)}")
 
+                        } else {
+                            hideProgressDialog()
+                            LogHelper.e("设备对系统认证 - 失败")
                         }
 
                     } else {
                         hideProgressDialog()
-                        LogHelper.e("读取蓝牙设备信息失败")
+                        LogHelper.e("读取蓝牙设备信息 - 失败")
                     }
                 }
             } else {
-                LogHelper.e("连接失败")
                 hideProgressDialog()
+                LogHelper.e(message)
+                toast(message)
             }
         }
     }
 
+    /**
+     * 圈存失败提示
+     */
+    private fun qcFailure() {
+        startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
+                .putExtra("failure", 1)
+                .putExtra("data", CircleSave().apply { cardNo = card.cardId;carNo = RCarNo;RWasteSn = wasteSn })
+                .putExtra("qc", RQcMoney)
+                .putExtra("balance", card.balanceString))
+    }
+
+    /**
+     * 写卡
+     */
     private fun writeCard(cardInfo: CardInformation) {
+
         App.getInstance().mObuInterface.getDeviceInformation().apply {
 
-            var pinCode: String
-            if ("40" == cardInfo.cardVersion) {
-                pinCode = "313233343536"
-            } else {
-                pinCode = "123456"
-            }
-            val loadMac1Status = App.getInstance().mObuInterface.loadCreditGetMac1(
-                    cardInfo.cardId,
-                    RQcMoney + RAdjust,
-                    "000000000000",
-                    pinCode,
-                    "02",
-                    "01")
-            val info = loadMac1Status.serviceInfo.split("&".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            var pinCode = if ("40" == cardInfo.cardVersion) "313233343536" else "123456"
 
-            for (s in info) {
+            val mac1Status = App.getInstance().mObuInterface.loadCreditGetMac1(cardInfo.cardId, RQcMoney + RAdjust, "000000000000",
+                    pinCode, "02", "01")
+
+            val serviceInfo = mac1Status.serviceInfo.split("&".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+            for (s in serviceInfo) {
                 LogHelper.e("info元素 = $s")
                 if (s.startsWith("a_cid=")) {
                     a_cid = s.substring(6, s.length)
@@ -383,70 +344,61 @@ class WriteCardActivity : BaseImmersionActivity() {
                 }
             }
 
-            if (loadMac1Status.serviceCode == 0) {
-                RetrofitHelper().loadMoney(cardInfo.cardId, RQcMoney.toString(), RAdjust.toString(), a_m1, a_cbb, a_rnd, a_on, Sn)
-                        .enqueue(object : Callback<CircleSave> {
-                            override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
-                                hideProgressDialog()
-                                response.body()?.run {
-                                    if (success) {
-                                        var date = ""
-                                        val timeStr = response.body()?.RWriteTime
-                                        if (!TextUtils.isEmpty(timeStr)) {
-                                            date = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date(timeStr!!).time)
-                                        }
-                                        val dateMac2 = date + response.body()?.Mac2
-                                        LogHelper.e("dateMac2 = $dateMac2")
-                                        val writeCardStatu = App.getInstance().mObuInterface.loadCreditWriteCard(dateMac2)
-                                        LogHelper.e("写卡 = " + Gson().toJson(writeCardStatu))
-                                        var chargeFlag = "-1"
-                                        if (writeCardStatu.serviceCode == 0) {
-                                            chargeFlag = "0"
-                                        } else {
-                                            chargeFlag = "-1"
-                                        }
-                                        RetrofitHelper().sureLoadMoney(cardInfo.cardId,
-                                                response.body()!!.RChargeLsh,
-                                                cardInfo.balanceString, chargeFlag, writeCardStatu.serviceInfo,
-                                                a_on,
-                                                (RQcMoney + RAdjust).toString(),
-                                                response.body()!!.RWriteTime!!.replace("/".toRegex(), "-"))
-                                                .enqueue(object : Callback<CircleSave> {
-                                                    override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
-                                                        hideProgressDialog()
-                                                        response.body()?.run {
-                                                            if (success) {
-                                                                val cardInfo = CardInformation()
-                                                                App.getInstance().mObuInterface.getCardInformation(cardInfo)
+            if (mac1Status.serviceCode == 0) {
+                RetrofitHelper().loadMoney(cardInfo.cardId, RQcMoney.toString(), RAdjust.toString(), a_m1, a_cbb, a_rnd, a_on, Sn).enqueue(object : Callback<CircleSave> {
+                    override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
+                        hideProgressDialog()
+                        response.body()?.run {
+                            if (success) {
+                                var date = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date(RWriteTime).time)
 
-                                                                Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
-                                                                startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
-                                                                        .putExtra("data", response.body())
-                                                                        .putExtra("cardNo", card?.cardId)
-                                                                        .putExtra("carNo", licensePlate)
-                                                                        .putExtra("balance", cardInfo.balance))
-                                                            } else {
-                                                                Toast.makeText(applicationContext, "圈存失败", Toast.LENGTH_SHORT).show()
-                                                            }
-                                                        }
-                                                    }
+                                LogHelper.e("mac2 = $date$Mac2")
 
-                                                    override fun onFailure(call: Call<CircleSave>, t: Throwable) {
-                                                        hideProgressDialog()
-                                                        toast(R.string.network_anomaly)
-                                                    }
-                                                })
-                                    } else {
-                                        toast("$msg")
+                                val writeCardStatu = App.getInstance().mObuInterface.loadCreditWriteCard(date + Mac2)
+
+                                LogHelper.e("写卡 = ${Gson().toJson(writeCardStatu)}")
+
+                                var chargeFlag = if (writeCardStatu.serviceCode == 0) "0" else "-1"
+
+                                RetrofitHelper().sureLoadMoney(cardInfo.cardId, RChargeLsh, (cardInfo.balance + RQcMoney + RAdjust).toString(),
+                                        chargeFlag, writeCardStatu.serviceInfo, a_on, (RQcMoney + RAdjust).toString(),
+                                        RWriteTime?.replace("/".toRegex(), "-")).enqueue(object : Callback<CircleSave> {
+                                    override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
+                                        hideProgressDialog()
+                                        response.body()?.run {
+                                            if (success) {
+                                                val c = CardInformation()
+                                                App.getInstance().mObuInterface.getCardInformation(c)
+
+                                                Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
+                                                startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
+                                                        .putExtra("data", this)
+                                                        .putExtra("cardNo", c?.cardId)
+                                                        .putExtra("balance", c.balance))
+                                            } else {
+                                                Toast.makeText(applicationContext, "圈存失败", Toast.LENGTH_SHORT).show()
+                                                qcFailure()
+                                            }
+                                        }
                                     }
-                                }
-                            }
 
-                            override fun onFailure(call: Call<CircleSave>, t: Throwable) {
-                                hideProgressDialog()
-                                toast(R.string.network_anomaly)
+                                    override fun onFailure(call: Call<CircleSave>, t: Throwable) {
+                                        hideProgressDialog()
+                                        toast(R.string.network_anomaly)
+                                    }
+                                })
+                            } else {
+                                toast("$msg")
+                                qcFailure()
                             }
-                        })
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CircleSave>, t: Throwable) {
+                        hideProgressDialog()
+                        toast(R.string.network_anomaly)
+                    }
+                })
             }
         }
     }

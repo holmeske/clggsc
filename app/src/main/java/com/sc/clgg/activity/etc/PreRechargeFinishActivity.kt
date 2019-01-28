@@ -2,6 +2,8 @@ package com.sc.clgg.activity.etc
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.View
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CardInfo
@@ -20,7 +22,7 @@ class PreRechargeFinishActivity : BaseImmersionActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_recharge_finish)
-
+        titlebar_left.visibility = View.GONE
         titlebar_title.text = "完成"
 
         intent.getParcelableExtra<CardList.Card>("data")?.let {
@@ -55,5 +57,13 @@ class PreRechargeFinishActivity : BaseImmersionActivity() {
         }
 
         tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            startActivity(EtcActivity::class.java)
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }

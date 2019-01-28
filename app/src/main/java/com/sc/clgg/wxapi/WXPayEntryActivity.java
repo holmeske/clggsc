@@ -21,7 +21,10 @@ import org.greenrobot.eventbus.EventBus;
  * @date：2018/10/10 14:52
  */
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
-    private IWXAPI iwxapi;// IWXAPI 是第三方app和微信通信的openapi接口
+    /**
+     * 第三方app和微信通信的openapi接口
+     */
+    private IWXAPI iwxapi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,12 +48,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onResp(BaseResp resp) {
         LogHelper.d("WXPayEntryActivity.onResp()");
-        //Toast.makeText(getApplicationContext(), new Gson().toJson(resp), Toast.LENGTH_SHORT).show();
         if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
             EventBus.getDefault().post(new MessageEvent(4));
-            //支付成功
             //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_SUCCESS));
-            //LogHelper.e("卡号:" + WeChatPayCache.Companion.getCardNo() + "\n金额:" + WeChatPayCache.Companion.getMoney());
             //Toast.makeText(getApplicationContext(), "支付成功", Toast.LENGTH_SHORT).show();
         } else if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {
             //支付取消
@@ -61,7 +61,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_FAILURE));
             Toast.makeText(getApplicationContext(), "支付失败", Toast.LENGTH_SHORT).show();
         }
-        //WeChatPayCache.Companion.initValue();
         finish();
     }
 

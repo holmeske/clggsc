@@ -72,13 +72,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="ADGS201808220101"
             android:textColor="@color/_444"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_order_str"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_success"
-            app:layout_constraintTop_toTopOf="@id/tv_order_str"/>
+            app:layout_constraintTop_toTopOf="@id/tv_order_str"
+            tools:text="ADGS201808220101"/>
 
         <TextView
             android:id="@+id/tv_card_str"
@@ -97,12 +97,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="6211 6617 1118 999"
             android:textColor="@color/_444"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_card_str"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_card_str"/>
+            app:layout_constraintTop_toTopOf="@id/tv_card_str"
+            tools:text="6211 6617 1118 999"/>
 
         <TextView
             android:id="@+id/tv_carno_str"
@@ -121,12 +121,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="陕A12345"
             android:textColor="@color/_444"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_carno_str"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_carno_str"/>
+            app:layout_constraintTop_toTopOf="@id/tv_carno_str"
+            tools:text="陕A12345"/>
 
         <TextView
             android:id="@+id/tv_can_write_str"
