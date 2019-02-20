@@ -25,6 +25,7 @@ class AuditActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audit)
 
+        titlebar_left.visibility=View.GONE
         init()
     }
 

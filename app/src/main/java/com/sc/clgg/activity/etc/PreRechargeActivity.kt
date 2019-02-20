@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.view_titlebar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,6 +50,10 @@ class PreRechargeActivity : BaseImmersionActivity() {
         initListener()
     }
 
+    private fun resultNotice(title: String? = "", msg: String? = "") {
+        startActivity(Intent(this@PreRechargeActivity, ResultNoticeActivity::class.java).putExtra("title", title).putExtra("msg", msg))
+    }
+
     private var http_2: Call<CardInfo>? = null
     private fun getCardInfo(cardNo: String?) {
         showProgressDialog(false)
@@ -58,7 +61,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
             enqueue(object : Callback<CardInfo> {
                 override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                     hideProgressDialog()
-                    toast(R.string.network_anomaly)
+                    resultNotice("支付异常", "应答错误：卡状态查询失败！联系方式：400-888-1122")
                 }
 
                 override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
@@ -75,7 +78,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
                             }
                             tv_can_write_amount.text = "${String.format("%.2f", canCircleMoney)}元"
                         } else {
-                            toast("${it.msg}")
+                            resultNotice("支付异常", "${it.msg}")
                         }
                     }
                 }
@@ -139,7 +142,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
             enqueue(object : Callback<StatusBean> {
                 override fun onFailure(call: Call<StatusBean>, t: Throwable) {
                     hideProgressDialog()
-                    toast(R.string.network_anomaly)
+                    resultNotice("支付异常", "订单异常，请联系客服进行处理，客服工作时间：9:00-18:00 ；联系方式：400-888-1122")
                 }
 
                 override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
@@ -153,7 +156,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
                         } else {
                             if (it.payStatus != 2) {
                                 hideProgressDialog()
-                                startActivity(Intent(this@PreRechargeActivity, ResultNoticeActivity::class.java).putExtra("msg", it.msg))
+                                resultNotice("支付失败", it.msg)
                             } else {
                                 handler.postDelayed(runnable, 3000)
                             }

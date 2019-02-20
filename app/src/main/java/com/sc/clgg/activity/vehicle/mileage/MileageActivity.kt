@@ -85,7 +85,9 @@ class MileageActivity : BaseImmersionActivity() {
                     hideProgressDialog()
 
                     response.body()?.let {
-                        if (!it.success){ toast("${it.msg}");return@let}
+                        if (!it.success) {
+                            toast("${it.msg}");return@let
+                        }
                         tv_month_mileage?.text = it.totalMileages
                         tv_day_mileage?.text = it.totalDays
                         one_vehice_month_mileage?.text = it.singleTotal
@@ -96,7 +98,7 @@ class MileageActivity : BaseImmersionActivity() {
                         }
                         adpter?.refresh(it.details)
 
-                        initChart(data, (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
+                        initChart(data, if (data.isEmpty()) 0f else (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
                     }
                 }
 
@@ -116,7 +118,7 @@ class MileageActivity : BaseImmersionActivity() {
     private fun initTimePickerView() {
         startCalendar.set(CalendarHelper.getCurrentYear(), CalendarHelper.getCurrentMonth() - 1, 0)
 
-        mTimePickerView = TimePickerBuilder(this,  OnTimeSelectListener { date, _ ->
+        mTimePickerView = TimePickerBuilder(this, OnTimeSelectListener { date, _ ->
             // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
             selectedCalendar.time = date
 

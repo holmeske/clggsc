@@ -2,6 +2,7 @@ package com.sc.clgg;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 /**
  * @author：lvke
@@ -9,6 +10,14 @@ import java.text.DecimalFormat;
  */
 public class a {
     public static void main(String[] args) {
+        int[][] matrix = {{},
+                {1, 2, 8, 9},
+                {2, 4, 9, 12},
+                {4, 7, 10, 13},
+                {6, 8, 11, 15}};
+
+        System.out.print(""+ Calendar.getInstance().getActualMaximum(Calendar.DATE));
+
         System.out.print(String.format("%.4f", 3.1415926));
         System.out.print("\n");
         System.out.print(new BigDecimal(3.1415926).setScale(4, BigDecimal.ROUND_DOWN).doubleValue());

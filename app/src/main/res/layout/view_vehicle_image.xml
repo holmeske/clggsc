@@ -25,7 +25,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:padding="15dp"
-                android:text="输入车辆信息"
+                android:text="输入车辆信息（行驶证与车头照一一对应）"
                 android:textColor="@color/white"/>
 
             <ImageView

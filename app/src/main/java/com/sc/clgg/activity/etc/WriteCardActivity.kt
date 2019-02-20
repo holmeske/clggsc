@@ -40,6 +40,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     private var RAdjust = 0
     private var RCarNo: String? = ""
     private var wasteSn: String? = ""
+    private var justCircle: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,15 +76,17 @@ class WriteCardActivity : BaseImmersionActivity() {
         RetrofitHelper().getCardInfo(card.cardId, "0").enqueue(object : Callback<CardInfo> {
             override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                 toast(R.string.network_anomaly)
+                resultNotice("支付异常", "应答错误：卡状态查询失败！联系方式：400-888-1122")
             }
 
             override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
                 response.body()?.let {
-                    if (it.success.not()) {
-                        toast("${it.msg}")
-                        return@let
+                    if (it.success) {
+                        setViewData(it)
+                        if (it.RQcMoney?.toDouble()!! > 0) justCircle = true else justCircle = false
+                    } else {
+                        resultNotice("支付异常", "${it.msg}")
                     }
-                    setViewData(it)
                 }
             }
         })
@@ -184,7 +187,7 @@ class WriteCardActivity : BaseImmersionActivity() {
         payStatusHttp?.enqueue(object : Callback<StatusBean> {
             override fun onFailure(call: Call<StatusBean>, t: Throwable) {
                 hideProgressDialog()
-                toast(R.string.network_anomaly)
+                resultNotice("支付异常", "订单异常，请联系客服进行处理，客服工作时间：9:00-18:00 ；联系方式：400-888-1122")
             }
 
             override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
@@ -215,7 +218,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                     } else {
                         if (it.payStatus != 2) {
                             hideProgressDialog()
-                            startActivity(Intent(this@WriteCardActivity, ResultNoticeActivity::class.java).putExtra("msg", it.msg))
+                            resultNotice("支付失败", it.msg)
                         } else {
                             handler.postDelayed(runnable, 3000)
                         }
@@ -223,6 +226,10 @@ class WriteCardActivity : BaseImmersionActivity() {
                 }
             }
         })
+    }
+
+    private fun resultNotice(title: String? = "", msg: String? = "") {
+        startActivity(Intent(this@WriteCardActivity, ResultNoticeActivity::class.java).putExtra("title", title).putExtra("msg", msg))
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
@@ -238,8 +245,8 @@ class WriteCardActivity : BaseImmersionActivity() {
      * 连接设备写卡
      */
     private fun connectWriteCard() {
-        var key = "2D65d001246ade79151C634be75264AF"
-        var intRandom = "1234"
+        val key = "2D65d001246ade79151C634be75264AF"
+        val intRandom = "1234"
         var intMac = ""
         LogHelper.e("开始连接 - 蓝牙设备")
         App.getInstance().mObuInterface.connectDevice().apply {
@@ -367,36 +374,61 @@ class WriteCardActivity : BaseImmersionActivity() {
                                         hideProgressDialog()
                                         response.body()?.run {
                                             if (success) {
-                                                val c = CardInformation()
-                                                App.getInstance().mObuInterface.getCardInformation(c)
-
-                                                Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
-                                                startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
-                                                        .putExtra("data", this)
-                                                        .putExtra("cardNo", c?.cardId)
-                                                        .putExtra("balance", c.balance))
+                                                if (writeCardStatu.serviceCode != 0) {
+                                                    resultNotice("圈存失败", "圈存失败，钱款稍后在可圈存余额中查看。")
+                                                } else {
+                                                    var c = CardInformation()
+                                                    Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
+                                                    if (App.getInstance().mObuInterface.getCardInformation(c).serviceCode == 0) {
+                                                        startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
+                                                                .putExtra("data", this)
+                                                                .putExtra("justCircle",justCircle)
+                                                                .putExtra("cardNo", c?.cardId)
+                                                                .putExtra("balance", c.balance))
+                                                    } else {
+                                                        startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
+                                                                .putExtra("data", this)
+                                                                .putExtra("justCircle",justCircle)
+                                                                .putExtra("cardNo", c?.cardId)
+                                                                .putExtra("balance", cardInfo.balance + RQcMoney + RAdjust))
+                                                    }
+                                                }
                                             } else {
-                                                Toast.makeText(applicationContext, "圈存失败", Toast.LENGTH_SHORT).show()
-                                                qcFailure()
+                                                if (writeCardStatu.serviceCode != 0) {
+                                                    resultNotice("圈存失败", "$msg")
+                                                } else {
+                                                    resultNotice("圈存成功", "$msg")
+                                                }
                                             }
                                         }
                                     }
 
                                     override fun onFailure(call: Call<CircleSave>, t: Throwable) {
                                         hideProgressDialog()
-                                        toast(R.string.network_anomaly)
+                                        if (writeCardStatu.serviceCode != 0) {
+                                            resultNotice("圈存失败", "圈存失败，请稍后再试，请勿在行车中圈存，以及圈存中请勿拔出卡片。")
+                                        } else {
+                                            resultNotice("圈存成功", "圈存成功，卡状态存在异常，请联系客服处理。联系电话：400-888-1122")
+                                        }
                                     }
                                 })
                             } else {
-                                toast("$msg")
-                                qcFailure()
+                                if (justCircle) {
+                                    resultNotice("圈存失败", "$msg")
+                                } else {
+                                    qcFailure()
+                                }
                             }
                         }
                     }
 
                     override fun onFailure(call: Call<CircleSave>, t: Throwable) {
                         hideProgressDialog()
-                        toast(R.string.network_anomaly)
+                        if (justCircle) {
+                            resultNotice("圈存失败", "网络异常，请稍后再试。")
+                        } else {
+                            qcFailure()
+                        }
                     }
                 })
             }

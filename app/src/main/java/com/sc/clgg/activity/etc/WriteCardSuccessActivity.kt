@@ -36,8 +36,13 @@ class WriteCardSuccessActivity : BaseImmersionActivity() {
                 tv_card_number.text = it.cardNo
             }
         } else {
-            titlebar_title.text = "圈存成功"
-            tv_suc_str.text = "成功圈存:"
+            if (intent.getBooleanExtra("justCircle", false)) {
+                titlebar_title.text = "充值成功"
+                tv_suc_str.text = "成功充值:"
+            } else {
+                titlebar_title.text = "圈存成功"
+                tv_suc_str.text = "成功圈存:"
+            }
 
             tv_can_circle.text = "0.00元"
 

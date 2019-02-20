@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,8 +40,8 @@ import retrofit2.Response;
 public class RechargeDialog extends Dialog implements View.OnClickListener {
     private ImageView iv_alipay_state, iv_wechat_state;
     private View v_alipay, v_wechat, v_instant_recharge;
-    private RadioButton rb_1, rb_2, rb_3, rb_4, rb_5, rb_6;
-    private List<RadioButton> mRadioButtons = new ArrayList<>();
+    private TextView rb_1, rb_2, rb_3, rb_4, rb_5, rb_6;
+    private List<TextView> mRadioButtons = new ArrayList<>();
     private EditText et_amount;
     private TextView tv_recharge_amount;
 
@@ -91,12 +91,12 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
         mRadioButtons.add(rb_4);
         mRadioButtons.add(rb_5);
         mRadioButtons.add(rb_6);
-        for (RadioButton rb : mRadioButtons) {
+        for (TextView rb : mRadioButtons) {
             rb.setOnClickListener(v -> {
-                for (RadioButton rb1 : mRadioButtons) {
-                    rb1.setChecked(false);
+                for (TextView rb1 : mRadioButtons) {
+                    rb1.setSelected(false);
                 }
-                rb.setChecked(true);
+                rb.setSelected(true);
                 String text = rb.getText().toString();
                 et_amount.setText(text.subSequence(0, text.length() - 1));
                 tv_recharge_amount.setText(text.subSequence(0, text.length() - 1));
@@ -107,6 +107,7 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
         v_wechat.setOnClickListener(this);
         v_instant_recharge.setOnClickListener(this);
 
+        rb_2.setSelected(true);
         iv_wechat_state.setSelected(true);
         et_amount.setText("500");
         tv_recharge_amount.setText("500");
@@ -142,6 +143,11 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.v_instant_recharge:
                 String money = tv_recharge_amount.getText().toString();
+                if (TextUtils.isEmpty(money.trim())){
+                    Toast.makeText(mActivity, "请输入充值金额", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (mItemClickListener != null) {
                     mItemClickListener.click(money);
                 }
@@ -150,27 +156,35 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
                     Toast.makeText(mActivity.getApplication(), "请输入大于等于100小于1000000的整数", Toast.LENGTH_SHORT).show();
                     return;
                 }*/
+
+                LoadingDialog dialog = new LoadingDialog(mActivity);
+                dialog.show();
                 new RetrofitHelper().payMoney(cardNumber, money).enqueue(new Callback<StatusBean>() {
                     @Override
                     public void onResponse(Call<StatusBean> call, Response<StatusBean> response) {
+                        dismiss();
+                        if (dialog!=null){
+                            dialog.dismiss();
+                        }
                         if (response.body().getSuccess()) {
                             if (mWasteSnListener != null) {
                                 mWasteSnListener.click(Objects.requireNonNull(response.body()).getWasteSn());
                             }
                             PayhelperKt.wxPay(mActivity, cardNumber, money, response.body().getWasteSn());
-                            //WeChatPayCache.Companion.setValue(cardNumber, money);
                         } else {
-                            Toast.makeText(mActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                             mActivity.startActivity(new Intent(mActivity, ResultNoticeActivity.class).putExtra("msg", response.body().getMsg()));
                         }
                     }
 
                     @Override
                     public void onFailure(Call<StatusBean> call, Throwable t) {
-                        Toast.makeText(mActivity, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
+                        dismiss();
+                        if (dialog!=null){
+                            dialog.dismiss();
+                        }
+                        mActivity.startActivity(new Intent(mActivity, ResultNoticeActivity.class).putExtra("msg", "系统延迟，请稍后再试。"));
                     }
                 });
-                dismiss();
                 break;
 
             default:

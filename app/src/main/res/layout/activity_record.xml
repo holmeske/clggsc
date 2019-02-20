@@ -17,14 +17,14 @@
         android:background="#11151f"
         android:paddingLeft="12dp"
         android:paddingTop="25dp"
-        android:text="2018"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/cl"
-        app:layout_constraintTop_toBottomOf="@+id/titlebar"/>
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:text="2019"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl"
@@ -42,14 +42,15 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:drawablePadding="5dp"
             android:drawableRight="@drawable/account_ico_arrow"
+            android:drawablePadding="5dp"
             android:gravity="center"
-            tools:text="工资"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="工资"
+            tools:ignore="MissingConstraints"/>
 
         <EditText
             android:id="@+id/account_num"
@@ -58,10 +59,9 @@
             android:background="@null"
             android:ellipsize="end"
             android:gravity="end"
-            android:maxLength="8"
-            tools:text="100000.00"
-            android:inputType="numberDecimal"
             android:hint="0.00"
+            android:inputType="numberDecimal"
+            android:maxLength="8"
             android:maxLines="1"
             android:paddingRight="12sp"
             android:textColor="@color/white"
@@ -70,15 +70,16 @@
             android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="100000.00"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginBottom="25dp"
         android:text="5"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -101,8 +102,8 @@
         android:id="@+id/tv_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
         android:layout_marginLeft="3dp"
+        android:layout_marginBottom="25dp"
         android:text="- -"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -154,18 +155,18 @@
             android:background="@null"
             android:hint="记点什么"
             android:maxLength="24"
-            tools:text="131654564"
             android:paddingLeft="12dp"
             android:textColorHint="#888"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:text="131654564"/>
     </LinearLayout>
 
     <TextView
         android:id="@+id/sure"
         android:layout_width="300dp"
         android:layout_height="44dp"
-        android:layout_marginBottom="100dp"
         android:layout_marginTop="70dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/bg_orange"
         android:gravity="center"
         android:text="确定"

@@ -15,6 +15,7 @@ class ResultNoticeActivity : BaseImmersionActivity() {
 
         titlebar_title.text = "结果通知"
 
+        tv_recharge_result?.text = intent.getStringExtra("title") ?: "支付失败"
         tv_recharge_des?.text = intent.getStringExtra("msg") ?: ""
 
         tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }

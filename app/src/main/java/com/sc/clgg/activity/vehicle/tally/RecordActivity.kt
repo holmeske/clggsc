@@ -46,6 +46,7 @@ class RecordActivity : BaseImmersionActivity() {
         initTitle(title)
 
         createTimeStamp = System.currentTimeMillis()
+        tv_year.text =CalendarHelper.getCurrentYear().toString()
         tv_month.text = CalendarHelper.getCurrentMonth().toString()
         tv_day.text = CalendarHelper.getCurrentDay().toString()
         initListener()

@@ -34,6 +34,7 @@ import com.sc.clgg.util.UpdateHelper
 import com.sc.clgg.util.setData
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_car_net.*
+import kotlinx.coroutines.Job
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,6 +46,7 @@ import java.io.File.separator
  * @date：2018/2/27 17:02
  */
 class CarNetFragment : Fragment(), TruckManageContact {
+
     private lateinit var myViewModel: MyViewModel
     private val changeObserver = Observer<Banner> { value ->
         LogHelper.e("更新Banner")
@@ -66,7 +68,6 @@ class CarNetFragment : Fragment(), TruckManageContact {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewCreated = true
-
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             title.setPadding(0, 0, 0, 0)
@@ -115,7 +116,6 @@ class CarNetFragment : Fragment(), TruckManageContact {
                 ActivityHelper.startAcScale(activity, TallyBookActivity::class.java)
             }
         }
-
         RetrofitHelper().bannerList.apply {
             enqueue(object : Callback<Banner> {
                 override fun onFailure(call: Call<Banner>, t: Throwable) {
@@ -131,7 +131,26 @@ class CarNetFragment : Fragment(), TruckManageContact {
                 }
             })
         }
+        /*job = GlobalScope.launch {
+            LogHelper.e("---1")
+            val deffered = async { RetrofitHelper().bannerList.execute() }
+            LogHelper.e("---2")
+            LogHelper.e(deffered.await().body().toString())
+            val http = deffered.await()
+            LogHelper.e("---3")
+            launch(Dispatchers.Main) {
+                LogHelper.e("---4")
+                if (http.isSuccessful) {
+                    myViewModel.getBanner().value = http.body()
+                } else {
+                    toast(R.string.network_anomaly)
+                }
+            }
+        }
+        job.start()*/
     }
+
+    private lateinit var job: Job
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
@@ -148,5 +167,4 @@ class CarNetFragment : Fragment(), TruckManageContact {
         LogHelper.e(path)
         bean?.single?.type?.let { UpdateHelper().checkUpdateInfo(activity, bean.single?.code, it, bean.single?.url, false) }
     }
-
 }

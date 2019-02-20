@@ -181,10 +181,11 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
             @Override
             public void onFailure(@NonNull Call<Location> call, @NonNull Throwable t) {
                 hideProgressDialog();
-                Toast.makeText(LocateActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
+                if (!LocateActivity.this.isFinishing()){
+                    Toast.makeText(LocateActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
     }
 
     @Override

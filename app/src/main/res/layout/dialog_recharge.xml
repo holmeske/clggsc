@@ -29,13 +29,12 @@
         app:layout_constraintLeft_toRightOf="@id/tv_0"
         app:layout_constraintTop_toTopOf="@id/tv_0"/>
 
-    <RadioButton
+    <TextView
         android:id="@+id/rb_1"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/select_yellow"
-        android:button="@null"
         android:gravity="center"
         android:text="100元"
         android:textColor="@color/selecter_white_black"
@@ -44,13 +43,12 @@
         app:layout_constraintRight_toLeftOf="@id/rb_2"
         app:layout_constraintTop_toBottomOf="@id/tv_0"/>
 
-    <RadioButton
+    <TextView
         android:id="@+id/rb_2"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:background="@drawable/select_yellow"
         android:button="@null"
-        android:checked="true"
         android:gravity="center"
         android:text="500元"
         android:textColor="@color/selecter_white_black"
@@ -59,12 +57,11 @@
         app:layout_constraintRight_toLeftOf="@id/rb_3"
         app:layout_constraintTop_toTopOf="@id/rb_1"/>
 
-    <RadioButton
+    <TextView
         android:id="@+id/rb_3"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:background="@drawable/select_yellow"
-        android:button="@null"
         android:gravity="center"
         android:text="1000元"
         android:textColor="@color/selecter_white_black"
@@ -74,13 +71,12 @@
         app:layout_constraintTop_toTopOf="@id/rb_1"/>
 
 
-    <RadioButton
+    <TextView
         android:id="@+id/rb_4"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_marginTop="22dp"
         android:background="@drawable/select_yellow"
-        android:button="@null"
         android:gravity="center"
         android:text="2000元"
         android:textColor="@color/selecter_white_black"
@@ -89,12 +85,11 @@
         app:layout_constraintRight_toLeftOf="@id/rb_5"
         app:layout_constraintTop_toBottomOf="@id/rb_1"/>
 
-    <RadioButton
+    <TextView
         android:id="@+id/rb_5"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:background="@drawable/select_yellow"
-        android:button="@null"
         android:gravity="center"
         android:text="3000元"
         android:textColor="@color/selecter_white_black"
@@ -103,12 +98,11 @@
         app:layout_constraintRight_toLeftOf="@id/rb_6"
         app:layout_constraintTop_toTopOf="@id/rb_4"/>
 
-    <RadioButton
+    <TextView
         android:id="@+id/rb_6"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:background="@drawable/select_yellow"
-        android:button="@null"
         android:gravity="center"
         android:text="5000元"
         android:textColor="@color/selecter_white_black"
@@ -127,6 +121,7 @@
         android:paddingStart="100dp"
         android:paddingTop="15dp"
         android:inputType="number"
+        android:textColor="@color/_444"
         android:paddingEnd="15dp"
         android:paddingBottom="15dp"
         android:textColorHint="@color/_a5a5a5"

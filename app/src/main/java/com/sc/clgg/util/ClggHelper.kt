@@ -21,6 +21,13 @@ import com.youth.banner.loader.ImageLoader
  * @date：2018/10/15 14:48
  */
 
+/**
+ * 对象转Gson字符串
+ */
+fun Any?.toJson(): String {
+    return Gson().toJson(this)
+}
+
 fun Activity.isOpenBluetoothLocation(): Boolean {
     if (!isOpenBlueTooth()) {
         showAlertDialog("请打开手机蓝牙", { AppHelper.openBluetoothSettings(this) })

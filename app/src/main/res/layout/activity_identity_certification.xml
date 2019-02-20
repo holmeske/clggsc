@@ -272,7 +272,7 @@
                     android:background="@color/bg"
                     android:gravity="center_vertical"
                     android:paddingStart="18sp"
-                    android:text="上传营业执照正本加盖公章"
+                    android:text="营业执照正本或者副本加盖红章"
                     android:textColor="@color/black_333"
                     android:textSize="12sp"/>
 
@@ -297,7 +297,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
-                    android:text="上传企业营业执照图片"
+                    android:text="营业执照正本或者副本加盖红章"
                     android:textColor="@color/_9c9c9c"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
