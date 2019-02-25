@@ -29,10 +29,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.ActivityHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
-import com.sc.clgg.util.ConfigUtil
-import com.sc.clgg.util.UpdateHelper
-import com.sc.clgg.util.setData
-import com.sc.clgg.util.statusBarHeight
+import com.sc.clgg.util.*
 import kotlinx.android.synthetic.main.fragment_car_net.*
 import kotlinx.coroutines.Job
 import org.jetbrains.anko.toast
@@ -77,17 +74,23 @@ class CarNetFragment : Fragment(), TruckManageContact {
         TruckManagePresenter(this).checkUpdate()
 
         service_station.setOnClickListener {
-            activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                    .putExtra("stationType", "0").putExtra("title", "陕汽服务站"))
+            if (activity.isOpenGps()) {
+                activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
+                        .putExtra("stationType", "0").putExtra("title", "陕汽服务站"))
+            }
         }
 
         operator.setOnClickListener {
-            activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                    .putExtra("stationType", "1").putExtra("title", "营运证服务商"))
+            if (activity.isOpenGps()) {
+                activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
+                        .putExtra("stationType", "1").putExtra("title", "营运证服务商"))
+            }
         }
         accessory_dealer.setOnClickListener {
-            activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                    .putExtra("stationType", "2").putExtra("title", "配件经销商"))
+            if (activity.isOpenGps()) {
+                activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
+                        .putExtra("stationType", "2").putExtra("title", "配件经销商"))
+            }
         }
 
         hb_vehicle_monitor.setHomeButtonOnClickListener {

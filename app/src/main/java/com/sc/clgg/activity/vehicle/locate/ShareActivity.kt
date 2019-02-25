@@ -3,7 +3,6 @@ package com.sc.clgg.activity.vehicle.locate
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.sc.clgg.R
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.UmengHelper
 import com.umeng.socialize.UMShareAPI
@@ -21,7 +20,7 @@ class ShareActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_share)
+        setContentView(com.sc.clgg.R.layout.activity_share)
         title = intent.getStringExtra("title")
         content = intent.getStringExtra("content")
         url = intent.getStringExtra("url")

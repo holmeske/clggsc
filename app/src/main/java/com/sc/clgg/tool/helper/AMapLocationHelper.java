@@ -14,12 +14,6 @@ import com.sc.clgg.bean.LocationBean;
  * @date：2018/6/28 17:07
  */
 public class AMapLocationHelper {
-
-    public AMapLocationHelper(Context context, OnLocationListener listener) {
-        this.mOnLocationListener = listener;
-        startLocation(context);
-    }
-
     /**
      * 用于定位管理器
      */
@@ -32,6 +26,10 @@ public class AMapLocationHelper {
      * 用于定位管理器
      */
     private AMapLocationClient mlocationClient;
+    /**
+     * 自定义定位监听器
+     */
+    private OnLocationListener mOnLocationListener;
     /**
      * 高德定位监听器
      */
@@ -50,18 +48,19 @@ public class AMapLocationHelper {
                     mLocationBean.setLongitude(aMapLocation.getLongitude());
 
                     mLocationBean.setTime(System.currentTimeMillis());
+
                     Bundle locBundle = aMapLocation.getExtras();
                     if (locBundle != null) {
                         mLocationBean.setLocation(locBundle.getString("desc"));
                     }
-
                     mLocationBean.setProvince(aMapLocation.getProvince());
                     mLocationBean.setCity(aMapLocation.getCity());
                     mLocationBean.setDistrict(aMapLocation.getDistrict());
-                    if (mOnLocationListener!=null){
+
+                    if (mOnLocationListener != null) {
                         mOnLocationListener.onLocationChanged(mLocationBean);
                     }
-                    LogHelper.e("(维度Latitude,经度Longitude) =  " + "(" + mLocationBean.getLatitude() + "," + mLocationBean.getLongitude() + ")");
+                    LogHelper.e("(" + mLocationBean.getLatitude() + "," + mLocationBean.getLongitude() + ")" + mLocationBean.getProvince());
                 } else {
                     //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                     LogHelper.e("location Error, ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
@@ -69,6 +68,11 @@ public class AMapLocationHelper {
             }
         }
     };
+
+    public AMapLocationHelper(Context context, OnLocationListener listener) {
+        this.mOnLocationListener = listener;
+        startLocation(context);
+    }
 
     /**
      * 开启高德定位
@@ -80,8 +84,16 @@ public class AMapLocationHelper {
         //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(60 * 1000);
-
+        //mLocationOption.setInterval(2 * 1000);
+        //获取一次定位结果：该方法默认为false。
+        mLocationOption.setOnceLocation(true);
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        mLocationOption.setOnceLocationLatest(true);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+        mLocationOption.setHttpTimeOut(8000);
         if (mlocationClient == null) {
             mlocationClient = new AMapLocationClient(context);
         }
@@ -104,10 +116,7 @@ public class AMapLocationHelper {
         }
     }
 
-
-    private OnLocationListener mOnLocationListener;
-
-    public interface OnLocationListener{
+    public interface OnLocationListener {
         void onLocationChanged(LocationBean bean);
     }
 

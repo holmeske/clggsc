@@ -6,7 +6,6 @@ import com.clgg.api.signature.ClggSignature;
 import com.google.gson.Gson;
 import com.sc.clgg.BuildConfig;
 import com.sc.clgg.application.App;
-import com.sc.clgg.application.AppPresenterKt;
 import com.sc.clgg.bean.ApplyStateList;
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
@@ -63,6 +62,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.sc.clgg.application.AppPresenterKt.CURRENT_LOCATION;
 import static com.sc.clgg.config.NetField.SITE;
 
 /**
@@ -113,13 +113,13 @@ public class RetrofitHelper {
     /**
      * 申请微信预支付订单
      */
-    public retrofit2.Call<WeChatOrder> wxPay(String card_no, String total_fee,String out_trade_no) {
+    public retrofit2.Call<WeChatOrder> wxPay(String card_no, String total_fee, String out_trade_no) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("card_no", card_no);
         params.put("total_fee", total_fee);
         params.put("spbill_create_ip", Tools.getIpAddress(App.getInstance().getApplicationContext()));
         params.put("userCode", new ConfigUtil().getUserid());
-        params.put("out_trade_no",out_trade_no);
+        params.put("out_trade_no", out_trade_no);
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
         return Retrofit(NetField.WX_PAY_SITE).create(RetrofitApi.class).wxPay(json);
@@ -202,6 +202,7 @@ public class RetrofitHelper {
     public retrofit2.Call<StatusBean> invitationCode(String code) {
         return Retrofit().create(RetrofitApi.class).invitationCode(code);
     }
+
     /**
      * 我的车辆
      */
@@ -536,13 +537,17 @@ public class RetrofitHelper {
             }
         }
         params.put("area", a);
-        if (AppPresenterKt.CURRENT_LOCATION != null) {
-            params.put("longitude", String.valueOf(AppPresenterKt.CURRENT_LOCATION.getLongitude()));
-            params.put("latitude", String.valueOf(AppPresenterKt.CURRENT_LOCATION.getLatitude()));
+
+        //android.location.Location location = PotatoKt.getLocationInfo();
+
+        if (CURRENT_LOCATION == null) {
+            params.put("latitude", 39.9088429221);
+            params.put("longitude", 116.3974939159);
         } else {
-            params.put("longitude", "0.0");
-            params.put("latitude", "0.0");
+            params.put("latitude", CURRENT_LOCATION.getLatitude());
+            params.put("longitude", CURRENT_LOCATION.getLongitude());
         }
+
         params.put("stationType", stationType);
         params.put("pageNo", pageNo);
         params.put("pageSize", pageSize);

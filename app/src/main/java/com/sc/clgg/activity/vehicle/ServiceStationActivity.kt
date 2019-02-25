@@ -10,15 +10,13 @@ import com.sc.clgg.R
 import com.sc.clgg.activity.WebActivity
 import com.sc.clgg.activity.contact.ItemClickListener
 import com.sc.clgg.adapter.ServiceStationAdapter
-import com.sc.clgg.application.CURRENT_LOCATION
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.ServiceStation
 import com.sc.clgg.config.NetField
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
-import com.sc.clgg.util.RecycleViewHelper
-import com.sc.clgg.util.statusBarHeight
+import com.sc.clgg.util.*
 import com.sc.clgg.widget.AreaPopHelper
 import kotlinx.android.synthetic.main.activity_service_station.*
 import kotlinx.android.synthetic.main.view_titlebar.*
@@ -116,8 +114,7 @@ class ServiceStationActivity : BaseImmersionActivity() {
             queryType = "1"
 
             if (area.equals("")) {
-
-                area = CURRENT_LOCATION.province
+                area = getArea(getLocationInfo())
                 loadData(queryType, area!!, pageNo, pageSize)
             }
         }
@@ -148,6 +145,13 @@ class ServiceStationActivity : BaseImmersionActivity() {
             }
         })
         loadData(queryType, area!!, pageNo, pageSize)
+
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        LogHelper.e("hasFocus = " + hasFocus)
+        isOpenGps()
     }
 
     private fun showPop() {

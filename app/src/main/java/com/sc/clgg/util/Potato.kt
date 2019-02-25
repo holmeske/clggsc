@@ -1,9 +1,14 @@
 package com.sc.clgg.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
+import android.location.Criteria
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -17,12 +22,53 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.sc.clgg.R
+import com.sc.clgg.application.App
+import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.tool.helper.TakePhotoHelper
 import org.devio.takephoto.app.TakePhoto
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
+fun Context.getArea(location: Location?): String? {
+    if (location == null) {
+        return ""
+    }
+    return Geocoder(this).getFromLocation(location.latitude, location?.longitude, 1)?.get(0)?.adminArea
+}
+
+@SuppressLint("MissingPermission")
+fun getLocationInfo(): Location? {
+    var locationProvider: String?
+    var location: Location?
+    var locationManager = App.instance.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+    /*val providers = locationManager.getProviders(true)
+    if (providers.contains(LocationManager.GPS_PROVIDER)) {
+        locationProvider = LocationManager.GPS_PROVIDER
+    } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+        locationProvider = LocationManager.NETWORK_PROVIDER
+    } else {
+        locationProvider = LocationManager.PASSIVE_PROVIDER
+    }*/
+
+    var criteria = Criteria()
+    //高度
+    criteria.setAltitudeRequired(false)
+    //方向
+    criteria.setBearingRequired(false)
+    criteria.setCostAllowed(false)
+    criteria.setPowerRequirement(Criteria.POWER_HIGH)
+    //精确度
+    criteria.setAccuracy(Criteria.ACCURACY_FINE)
+    locationProvider = locationManager.getBestProvider(criteria, true)
+
+    location = locationManager.getLastKnownLocation(locationProvider)
+
+    LogHelper.e(location?.latitude?.toString() + "," + location?.longitude)
+    return location
+}
 
 fun Context.hideSoftInputFromWindow(v: View) {
     var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -31,11 +77,12 @@ fun Context.hideSoftInputFromWindow(v: View) {
 }
 
 fun Activity.showAlertDialog(message: String, ok: () -> Unit) {
+    var dialog: AlertDialog? = null
     AlertDialog.Builder(this)
             .setMessage(message)
-            .setPositiveButton("确定") { _, _ -> ok() }
+            .setPositiveButton("确定") { _, _ -> ok();dialog?.dismiss() }
             .setNegativeButton("取消", null)
-            .show()
+            .show().apply { dialog = this }
 }
 
 /**

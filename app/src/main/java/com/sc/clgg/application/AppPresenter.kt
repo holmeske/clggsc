@@ -16,7 +16,6 @@ import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
 import com.sc.clgg.bean.LocationBean
 import com.sc.clgg.config.ConstantValue
-import com.sc.clgg.service.AppService
 import com.sc.clgg.tool.helper.AMapLocationHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.tencent.bugly.crashreport.CrashReport
@@ -31,27 +30,16 @@ import java.io.IOException
  * @date：2018/9/11 16:39
  */
 
+
 lateinit var CURRENT_LOCATION: LocationBean
 
-fun Application.start() {
-    CURRENT_LOCATION = LocationBean()
-
-    LogHelper.e("Application初始化")
-    AppService.start(this)
-
+fun Application.init() {
     LogHelper.setLogSwitch(BuildConfig.LOG_DEBUG)
-
     NineGridView.setImageLoader(PicassoImageLoader())
     registerActivityLifecycleCallbacks()
+
+    CURRENT_LOCATION = LocationBean()
     AMapLocationHelper(this, AMapLocationHelper.OnLocationListener { bean -> CURRENT_LOCATION = bean })
-
-    /*if (!BuildConfig.LOG_DEBUG) {
-            CrashHandler crashHandler = CrashHandler.getInstance();
-            crashHandler.init(this, PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0));
-        }*/
-
-    initBugly()
 }
 
 private fun Application.registerActivityLifecycleCallbacks() {
@@ -130,7 +118,7 @@ private fun getProcessName(pid: Int): String? {
     return null
 }
 
-private fun Application.initBugly() {
+fun Application.initBugly() {
     BuildConfig.LOG_DEBUG.let {
         if (!it) {
             val packageName = getPackageName()

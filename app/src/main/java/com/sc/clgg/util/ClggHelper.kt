@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -35,6 +36,14 @@ fun Activity.isOpenBluetoothLocation(): Boolean {
     }
     if (Build.VERSION.SDK_INT >= 23 && !AppHelper.isGpsOpen(applicationContext)) {
         showAlertDialog("请打开定位服务", { AppHelper.openLocationSettings(this) })
+        return false
+    }
+    return true
+}
+
+fun Activity?.isOpenGps(): Boolean {
+    if ( SDK_INT >= 28 && !AppHelper.isGpsOpen(this)) {
+        this?.showAlertDialog("请打开定位服务", { AppHelper.openLocationSettings(this) })
         return false
     }
     return true

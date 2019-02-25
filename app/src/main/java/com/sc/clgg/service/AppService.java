@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.LogHelper;
-import com.sc.clgg.util.UmengHelper;
 import com.sc.clgg.widget.AreaPopHelper;
 
 import androidx.annotation.NonNull;
@@ -62,9 +61,6 @@ public class AppService extends JobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
         LogHelper.e("onHandleWork()");
         LogHelper.e("AppService 名称 :" + this.getApplication().getClass().getSimpleName());
-
-        new UmengHelper().init(this.getApplication());
-
         loadAreaData();
     }
 }

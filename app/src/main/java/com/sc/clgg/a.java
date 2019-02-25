@@ -1,8 +1,12 @@
 package com.sc.clgg;
 
+import android.annotation.SuppressLint;
+import android.location.Location;
+import android.location.LocationManager;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Calendar;
+import java.util.List;
 
 /**
  * @author：lvke
@@ -10,13 +14,6 @@ import java.util.Calendar;
  */
 public class a {
     public static void main(String[] args) {
-        int[][] matrix = {{},
-                {1, 2, 8, 9},
-                {2, 4, 9, 12},
-                {4, 7, 10, 13},
-                {6, 8, 11, 15}};
-
-        System.out.print(""+ Calendar.getInstance().getActualMaximum(Calendar.DATE));
 
         System.out.print(String.format("%.4f", 3.1415926));
         System.out.print("\n");
@@ -33,4 +30,5 @@ public class a {
         double value = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         return new DecimalFormat("#.00").format(value);
     }
+
 }

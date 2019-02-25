@@ -7,6 +7,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.sc.clgg.R
 import com.sc.clgg.activity.fragment.*
 import com.sc.clgg.adapter.FragmentAdapter
+import com.sc.clgg.application.App
 import com.sc.clgg.base.BaseAppCompatActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.MessageEvent
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.doAsync
 
 
 /**
@@ -53,6 +55,10 @@ class MainActivity : BaseAppCompatActivity() {
 
         checked(0)
         tv_home.isSelected = true
+
+        doAsync {
+            App.instance.lateInit()
+        }
     }
 
 
