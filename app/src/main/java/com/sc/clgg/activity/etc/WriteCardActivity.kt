@@ -10,8 +10,8 @@ import com.sc.clgg.application.App
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CardInfo
 import com.sc.clgg.bean.CircleSave
-import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.bean.StatusBean
+import com.sc.clgg.bean.WxPayEvent
 import com.sc.clgg.dialog.ConfirmCircleDialog
 import com.sc.clgg.dialog.PreRechargeHintDialog
 import com.sc.clgg.dialog.RechargeDialog
@@ -147,7 +147,7 @@ class WriteCardActivity : BaseImmersionActivity() {
      */
     private fun qc() {
         if (!isOpenBluetoothLocation()) return
-        showProgressDialog(false)
+        showProgressDialog()
         Thread {
             if (App.getInstance().mObuInterface.getConnectStatus().toString() == "SERVICES_DISCOVERED") writeCard(card) else connectWriteCard()
         }.start()
@@ -233,12 +233,9 @@ class WriteCardActivity : BaseImmersionActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
-    fun onMessageEvent(event: MessageEvent) {
-        EventBus.getDefault().removeStickyEvent(event)
-        if (event.value == 4) {
-            showProgressDialog(false)
-            confirmPayStatus()
-        }
+    fun onWxPayEvent(event: WxPayEvent) {
+        showProgressDialog(false)
+        confirmPayStatus()
     }
 
     /**
@@ -382,13 +379,13 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                     if (App.getInstance().mObuInterface.getCardInformation(c).serviceCode == 0) {
                                                         startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
                                                                 .putExtra("data", this)
-                                                                .putExtra("justCircle",justCircle)
+                                                                .putExtra("justCircle", justCircle)
                                                                 .putExtra("cardNo", c?.cardId)
                                                                 .putExtra("balance", c.balance))
                                                     } else {
                                                         startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
                                                                 .putExtra("data", this)
-                                                                .putExtra("justCircle",justCircle)
+                                                                .putExtra("justCircle", justCircle)
                                                                 .putExtra("cardNo", c?.cardId)
                                                                 .putExtra("balance", cardInfo.balance + RQcMoney + RAdjust))
                                                     }

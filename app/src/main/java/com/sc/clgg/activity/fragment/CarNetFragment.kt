@@ -129,22 +129,20 @@ class CarNetFragment : Fragment(), TruckManageContact {
 
                     response.body()?.let {
                         myViewModel.getBanner().value = it
-                        //banner.setData(activity, it.banner, false)
                     }
                 }
             })
         }
         /*job = GlobalScope.launch {
             LogHelper.e("---1")
-            val deffered = async { RetrofitHelper().bannerList.execute() }
+            val deffered = async { RetrofitHelper().location().execute() }
             LogHelper.e("---2")
-            LogHelper.e(deffered.await().body().toString())
             val http = deffered.await()
             LogHelper.e("---3")
             launch(Dispatchers.Main) {
                 LogHelper.e("---4")
                 if (http.isSuccessful) {
-                    myViewModel.getBanner().value = http.body()
+                    LogHelper.e("协程结果 is "+deffered.await().body().toString())
                 } else {
                     toast(R.string.network_anomaly)
                 }

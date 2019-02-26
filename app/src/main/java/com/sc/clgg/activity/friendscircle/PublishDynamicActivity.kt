@@ -7,7 +7,7 @@ import com.sc.clgg.R
 import com.sc.clgg.activity.TakePhotoActivity
 import com.sc.clgg.adapter.PublishDynamicAdapter
 import com.sc.clgg.bean.Check
-import com.sc.clgg.bean.MessageEvent
+import com.sc.clgg.bean.CommentEvent
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.util.showTakePhoto
 import kotlinx.android.synthetic.main.activity_publish_dynamic.*
@@ -81,7 +81,7 @@ class PublishDynamicActivity : TakePhotoActivity() {
                     hideProgressDialog()
                     response?.body()?.let {
                         if (it.success) {
-                            EventBus.getDefault().postSticky(MessageEvent(1))
+                            EventBus.getDefault().post(CommentEvent(1))
                             toast("发布动态成功")
                         } else {
                             toast("${it.msg}")

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.sc.clgg.bean.MessageEvent;
+import com.sc.clgg.bean.WxPayEvent;
 import com.sc.clgg.config.ConstantValue;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -49,16 +49,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
         LogHelper.d("WXPayEntryActivity.onResp()");
         if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
-            EventBus.getDefault().post(new MessageEvent(4));
-            //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_SUCCESS));
-            //Toast.makeText(getApplicationContext(), "支付成功", Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new WxPayEvent(4));
         } else if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {
             //支付取消
-            //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_CANCEL));
             Toast.makeText(getApplicationContext(), "支付取消", Toast.LENGTH_SHORT).show();
         } else {
             //支付失败
-            //EventBus.getDefault().post(new EventBusBean(Constants.APP_PAY_FAILURE));
             Toast.makeText(getApplicationContext(), "支付失败", Toast.LENGTH_SHORT).show();
         }
         finish();

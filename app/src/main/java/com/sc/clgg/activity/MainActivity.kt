@@ -10,7 +10,7 @@ import com.sc.clgg.adapter.FragmentAdapter
 import com.sc.clgg.application.App
 import com.sc.clgg.base.BaseAppCompatActivity
 import com.sc.clgg.bean.Banner
-import com.sc.clgg.bean.MessageEvent
+import com.sc.clgg.bean.CarNetEvent
 import com.sc.clgg.dialog.ExitDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -73,8 +73,8 @@ class MainActivity : BaseAppCompatActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: MessageEvent) {
-        checked(event.value - 1)
+    fun onCarNetEvent(event: CarNetEvent) {
+        checked(1)
     }
 
     override fun onDestroy() {

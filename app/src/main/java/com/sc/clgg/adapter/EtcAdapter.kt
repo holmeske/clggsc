@@ -12,7 +12,7 @@ import com.sc.clgg.R
 import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.activity.etc.*
 import com.sc.clgg.adapter.EtcAdapter.MyHolder
-import com.sc.clgg.bean.MessageEvent
+import com.sc.clgg.bean.CarNetEvent
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.ConfigUtil
 import org.greenrobot.eventbus.EventBus
@@ -37,7 +37,7 @@ class EtcAdapter : RecyclerView.Adapter<MyHolder>() {
                 5 -> mContext?.startActivity(Intent(mContext, activitys[pos]).putExtra("click", false))
                 6 -> {
                     mContext?.startActivity(Intent(mContext, MainActivity::class.java))
-                    EventBus.getDefault().postSticky(MessageEvent(2))
+                    EventBus.getDefault().postSticky(CarNetEvent(0))
                 }
                 else -> mContext?.startActivity(Intent(mContext, activitys[pos]))
             }

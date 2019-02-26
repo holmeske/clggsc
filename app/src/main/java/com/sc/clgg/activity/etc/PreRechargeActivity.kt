@@ -7,8 +7,8 @@ import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CardInfo
 import com.sc.clgg.bean.CardList
-import com.sc.clgg.bean.MessageEvent
 import com.sc.clgg.bean.StatusBean
+import com.sc.clgg.bean.WxPayEvent
 import com.sc.clgg.dialog.PreRechargeHintDialog
 import com.sc.clgg.dialog.RechargeDialog
 import com.sc.clgg.retrofit.RetrofitHelper
@@ -117,12 +117,9 @@ class PreRechargeActivity : BaseImmersionActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
-    fun onMessageEvent(event: MessageEvent) {
-        //EventBus.getDefault().removeStickyEvent(event)
-        if (event.value == 4) {
-            LogHelper.e("充值确认")
-            confirmPayStatus()
-        }
+    fun onWxPayEvent(event: WxPayEvent) {
+        LogHelper.e("充值确认")
+        confirmPayStatus()
     }
 
     override fun onDestroy() {
