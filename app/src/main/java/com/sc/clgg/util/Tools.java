@@ -21,7 +21,7 @@ public class Tools {
 
     public static void Toast(String content) {
         if (!TextUtils.isEmpty(content)) {
-            Toast.makeText(App.getInstance(), content, Toast.LENGTH_SHORT).show();
+            Toast.makeText(App.app, content, Toast.LENGTH_SHORT).show();
         }
     }
 

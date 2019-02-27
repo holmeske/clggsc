@@ -44,14 +44,18 @@ public class RechargeOrderAdapter extends RecyclerView.Adapter<RechargeOrderAdap
         RechargeOrderList.Order order = dataList.get(holder.getAdapterPosition());
 
         holder.tv_recharge_number.setText(order.getWasteSn());
-        if (order.isLoad().equals("1")) {
+        if (order.isLoad().equals("0")) {
+            holder.tv_recharge_state.setText("待圈存");
+            holder.tv_recharge_state.setBackgroundResource(R.drawable.bg_fff3e5_15);
+            holder.tv_recharge_state.setTextColor(ContextCompat.getColor(mContext, R.color._ee8031));
+        } else if (order.isLoad().equals("1")) {
             holder.tv_recharge_state.setText("已完成");
             holder.tv_recharge_state.setBackgroundResource(R.drawable.bg_6ccd37_15);
             holder.tv_recharge_state.setTextColor(ContextCompat.getColor(mContext, R.color.white));
         } else {
-            holder.tv_recharge_state.setText("待圈存");
-            holder.tv_recharge_state.setBackgroundResource(R.drawable.bg_fff3e5_15);
-            holder.tv_recharge_state.setTextColor(ContextCompat.getColor(mContext, R.color._ee8031));
+            holder.tv_recharge_state.setText("已冲正");
+            holder.tv_recharge_state.setBackgroundResource(R.drawable.bg_fa6565_15);
+            holder.tv_recharge_state.setTextColor(ContextCompat.getColor(mContext, R.color.white));
         }
 
         holder.tv_card_number.setText(order.getCardNo());

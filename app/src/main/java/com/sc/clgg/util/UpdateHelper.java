@@ -78,7 +78,7 @@ public class UpdateHelper {
         this.apkUrl = url;
         int netVerCode = Integer.parseInt(versionCode);
         if (netVerCode > 0) {
-            if (ApkUtils.getVersionCode(App.getInstance()) < netVerCode) {
+            if (ApkUtils.getVersionCode(App.app) < netVerCode) {
                 showUpdatDialog();
             } else {
                 if (showToast) {

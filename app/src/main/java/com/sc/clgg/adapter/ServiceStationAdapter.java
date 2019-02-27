@@ -47,7 +47,7 @@ public class ServiceStationAdapter extends RecyclerView.Adapter<ServiceStationAd
                 // 显示导航对话框
                 DialogHelper.showCustomDialog((Activity) mContext,
                         sb,
-                        MeasureHelper.getScreenWidth(App.getInstance()),
+                        MeasureHelper.getScreenWidth(App.app),
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         R.style.Theme_dialog,
                         list);

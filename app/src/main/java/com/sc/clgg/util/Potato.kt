@@ -42,7 +42,7 @@ fun Context.getArea(location: Location?): String? {
 fun getLocationInfo(): Location? {
     var locationProvider: String?
     var location: Location?
-    var locationManager = App.instance.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    var locationManager = App.app.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     /*val providers = locationManager.getProviders(true)
     if (providers.contains(LocationManager.GPS_PROVIDER)) {

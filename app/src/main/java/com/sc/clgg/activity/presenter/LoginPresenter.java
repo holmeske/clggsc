@@ -56,7 +56,7 @@ public class LoginPresenter {
 
                 if (null != bean) {
 
-                    String historyAccount = SharedPreferencesHelper.SharedPreferences(App.instance).getString("history_account", "");
+                    String historyAccount = SharedPreferencesHelper.SharedPreferences(App.app).getString("history_account", "");
 
                     StringBuilder sb = new StringBuilder();
                     if (historyAccount.length() != 0 && sb.indexOf(username) == -1) {
@@ -67,7 +67,7 @@ public class LoginPresenter {
 
                     SharedPreferencesHelper.editor("sp").putString("history_account", sb.toString()).apply();
 
-                    LogHelper.e("history_account = " + SharedPreferencesHelper.SharedPreferences(App.instance).getString("history_account", ""));
+                    LogHelper.e("history_account = " + SharedPreferencesHelper.SharedPreferences(App.app).getString("history_account", ""));
 
 
                     new ConfigUtil().setUserInfo(bean);

@@ -30,7 +30,7 @@ public class SharedPreferencesHelper {
         if (TextUtils.isEmpty(name)) {
             throw new NullPointerException(" params is incorrect ------ name ");
         }
-        return getIntence().getSharedPreferencesEditor(App.getInstance(), name);
+        return getIntence().getSharedPreferencesEditor(App.app, name);
     }
 
     public static SharedPreferences.Editor editor(Context context, String name) {
@@ -45,7 +45,7 @@ public class SharedPreferencesHelper {
     }
 
     public static SharedPreferences SharedPreferences() {
-        return getIntence().getSharedPreferences(App.getInstance());
+        return getIntence().getSharedPreferences(App.app);
     }
 
     public static SharedPreferences SharedPreferences(Context context, String name) {

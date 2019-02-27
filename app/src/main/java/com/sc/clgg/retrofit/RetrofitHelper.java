@@ -117,7 +117,7 @@ public class RetrofitHelper {
         HashMap<String, Object> params = new HashMap<>();
         params.put("card_no", card_no);
         params.put("total_fee", total_fee);
-        params.put("spbill_create_ip", Tools.getIpAddress(App.getInstance().getApplicationContext()));
+        params.put("spbill_create_ip", Tools.getIpAddress(App.app.getApplicationContext()));
         params.put("userCode", new ConfigUtil().getUserid());
         params.put("out_trade_no", out_trade_no);
 

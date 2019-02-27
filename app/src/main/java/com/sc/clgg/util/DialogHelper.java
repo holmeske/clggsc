@@ -103,7 +103,7 @@ public final class DialogHelper {
 
     public static void showTelDialog(final Activity mActivity, List<String> list) {
         AppDialog dialog = new AppDialog(mActivity,
-                MeasureHelper.getScreenWidth(App.instance),
+                MeasureHelper.getScreenWidth(App.app),
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 R.layout.view_tel_list,
                 R.style.Theme_dialog);

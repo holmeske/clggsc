@@ -82,7 +82,7 @@ class ConfigUtil {
     }
 
     init {
-        sharedPreferences = App.instance?.getSharedPreferences("user_info2", Context.MODE_PRIVATE)
+        sharedPreferences = App.getInstance().getSharedPreferences("user_info2", Context.MODE_PRIVATE)
     }
 
     fun isLogined(context: Context?): Boolean {

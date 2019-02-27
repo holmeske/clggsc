@@ -35,7 +35,9 @@ lateinit var CURRENT_LOCATION: LocationBean
 
 fun Application.init() {
     LogHelper.setLogSwitch(BuildConfig.LOG_DEBUG)
+
     NineGridView.setImageLoader(PicassoImageLoader())
+
     registerActivityLifecycleCallbacks()
 
     CURRENT_LOCATION = LocationBean()

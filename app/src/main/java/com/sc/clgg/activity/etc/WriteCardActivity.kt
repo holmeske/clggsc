@@ -52,7 +52,7 @@ class WriteCardActivity : BaseImmersionActivity() {
 
         tv_card.text = card.cardId
         tv_carno.text = card.vehicleNumber
-        card.balance.toDouble()?.let { tv_balance.text = "${String.format("%.2f", it / 100)}元" }
+        card.balance.toDouble().let { tv_balance.text = "${String.format("%.2f", it / 100)}元" }
 
         tv_recharge_circle.setOnClickListener {
             if (tv_recharge_circle.text == "圈存") {
@@ -386,7 +386,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                         startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
                                                                 .putExtra("data", this)
                                                                 .putExtra("justCircle", justCircle)
-                                                                .putExtra("cardNo", c?.cardId)
+                                                                .putExtra("cardNo", c.cardId)
                                                                 .putExtra("balance", cardInfo.balance + RQcMoney + RAdjust))
                                                     }
                                                 }
