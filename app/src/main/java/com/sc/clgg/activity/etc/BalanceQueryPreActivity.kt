@@ -12,7 +12,7 @@ import com.sc.clgg.util.isOpenBluetoothLocation
 import etc.obu.data.CardInformation
 import kotlinx.android.synthetic.main.activity_balance_query_pre.*
 import kotlinx.android.synthetic.main.view_titlebar.*
-import org.jetbrains.anko.doAsync
+import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
 
 class BalanceQueryPreActivity : BaseImmersionActivity() {
@@ -40,37 +40,42 @@ class BalanceQueryPreActivity : BaseImmersionActivity() {
             e.printStackTrace()
         }
 
-        doAsync {
-            LogHelper.e("蓝牙设备 - 连接中")
+        job = GlobalScope.launch {
+            launch(Dispatchers.Main) { showProgressDialog("正在读卡") }
+            val deffered =     async {
+                LogHelper.e("蓝牙设备 - 开始连接")
+                App.getInstance().mObuInterface.connectDevice().apply {
 
-            runOnUiThread { showProgressDialog("正在读卡") }
-            App.getInstance().mObuInterface.connectDevice().apply {
-                hideProgressDialog()
+                    launch(Dispatchers.Main) { hideProgressDialog() }
 
-                if (serviceCode == 0) {
+                    yield()
+                    if (serviceCode == 0) {
 
-                    LogHelper.e("蓝牙设备 - 连接成功")
-                    if (App.getInstance().mObuInterface.intAuthDev(intRandom.length / 2, intRandom, intMac) == 0) {
-                        LogHelper.e("认证成功")
-                        val cardInfo = CardInformation()
-                        if (App.getInstance().mObuInterface.getCardInformation(cardInfo).serviceCode == 0) {
-                            LogHelper.e(Gson().toJson(cardInfo))
-                            startActivity(Intent(this@BalanceQueryPreActivity, BalanceQueryActivity::class.java).putExtra("card", cardInfo))
+                        LogHelper.e("蓝牙设备 - 连接成功")
+                        if (App.getInstance().mObuInterface.intAuthDev(intRandom.length / 2, intRandom, intMac) == 0) {
+                            LogHelper.e("蓝牙设备 - 认证成功")
+                            val cardInfo = CardInformation()
+                            if (App.getInstance().mObuInterface.getCardInformation(cardInfo).serviceCode == 0) {
+                                LogHelper.e(Gson().toJson(cardInfo))
+                                startActivity(Intent(this@BalanceQueryPreActivity, BalanceQueryActivity::class.java).putExtra("card", cardInfo))
+                            }
                         }
-                    }
 
-                } else {
-                    LogHelper.e("连接设备状态返回信息 is ${Gson().toJson(this)}")
-                    LogHelper.e("$serviceInfo")
-                    runOnUiThread { toast("$serviceInfo") }
+                    } else {
+                        LogHelper.e("连接设备状态返回信息 is ${Gson().toJson(this)}")
+                        LogHelper.e("$serviceInfo")
+                        launch(Dispatchers.Main) { toast("$serviceInfo") }
+                    }
                 }
             }
         }
 
     }
 
+    private var job: Job? = null
+
     override fun onDestroy() {
-        LogHelper.e("${Gson().toJson(App.getInstance().mObuInterface.disconnectDevice())}")
         super.onDestroy()
+        job?.cancel()
     }
 }

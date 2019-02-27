@@ -7,7 +7,6 @@ import com.android.recharge.ObuInterface
 import com.sc.clgg.service.AppService
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.UmengHelper
-import com.squareup.leakcanary.LeakCanary
 import org.jetbrains.anko.doAsync
 
 /**
@@ -51,15 +50,6 @@ class App : Application() {
 
         LogHelper.e("初始化Bugly")
         initBugly()
-
-        LogHelper.e("初始化LeakCanary")
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return
-        }
-        LeakCanary.install(this)
-        // Normal app init code...
     }
 
     fun initObuInterface() {

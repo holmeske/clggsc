@@ -205,7 +205,9 @@ dependencies {
 
     //implementation 'top.zibin:Luban:1.1.8'
     implementation files('libs/obu-sdk.jar')
-//    implementation files('libs/protobuf-java-2.4.0a.jar')
+    implementation files('libs/protobuf-java-2.4.0a.jar')
+
+    //    implementation files('libs/protobuf-java-2.4.0a.jar')
     implementation 'pub.devrel:easypermissions:2.0.0'
 
     // ViewModel and LiveData
