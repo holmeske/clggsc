@@ -63,7 +63,7 @@ public class BleActivity extends AppCompatActivity {
             case R.id.connect:
                 new Thread(() -> {
                     Log.e(tag, "开始连接");
-                    mServiceStatus = App.getInstance().mObuInterface.connectDevice();
+                    mServiceStatus = App.app.mObuInterface.connectDevice();
                     if (mServiceStatus.getServiceCode() == 0) {
                         Log.e(tag, "连接成功");
                     } else {
@@ -77,7 +77,7 @@ public class BleActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.e(tag, "返回结果" + new Gson().toJson(App.getInstance().mObuInterface.disconnectDevice()));
+                        Log.e(tag, "返回结果" + new Gson().toJson(App.app.mObuInterface.disconnectDevice()));
                     }
                 }).start();
                 break;
@@ -86,7 +86,7 @@ public class BleActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        DeviceInformation deviceInformation = App.getInstance().mObuInterface.getDeviceInformation();
+                        DeviceInformation deviceInformation = App.app.mObuInterface.getDeviceInformation();
                         if (deviceInformation != null) {
                             bluetoothSn = deviceInformation.Sn;
                         }
@@ -104,10 +104,10 @@ public class BleActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if (App.getInstance().mObuInterface.intAuthDev(intRandom.length() / 2, intRandom, intMac) == 0) {
+                        if (App.app.mObuInterface.intAuthDev(intRandom.length() / 2, intRandom, intMac) == 0) {
                             Log.e(tag, "认证成功");
                             CardInformation cardInfo = new CardInformation();
-                            ServiceStatus status = App.getInstance().mObuInterface.getCardInformation(cardInfo);
+                            ServiceStatus status = App.app.mObuInterface.getCardInformation(cardInfo);
                             Log.e(tag, "读卡 = " + new Gson().toJson(status));
 
                             if (status.getServiceCode() == 0) {
@@ -119,7 +119,7 @@ public class BleActivity extends AppCompatActivity {
                                 } else {
                                     pinCode = "123456";
                                 }
-                                ServiceStatus loadMac1Status = App.getInstance().mObuInterface.loadCreditGetMac1(
+                                ServiceStatus loadMac1Status = App.app.mObuInterface.loadCreditGetMac1(
                                         cardInfo.getCardId(),
                                         RQcMoney + RAdjust,
                                         "000000000000",
@@ -168,7 +168,7 @@ public class BleActivity extends AppCompatActivity {
                                                 }
                                                 String dateMac2 = date + response.body().getMac2();
                                                 Log.e(tag, "dateMac2 = " + dateMac2);
-                                                ServiceStatus writeCardStatu = App.getInstance().mObuInterface.loadCreditWriteCard(dateMac2);
+                                                ServiceStatus writeCardStatu = App.app.mObuInterface.loadCreditWriteCard(dateMac2);
                                                 Log.e(tag, "写卡 = " + new Gson().toJson(writeCardStatu));
                                                 String chargeFlag = "-1";
                                                 if (writeCardStatu.getServiceCode() == 0) {
@@ -216,7 +216,7 @@ public class BleActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.e(tag, "链接状态 " + new Gson().toJson(App.getInstance().mObuInterface.getConnectStatus()));
+                        Log.e(tag, "链接状态 " + new Gson().toJson(App.app.mObuInterface.getConnectStatus()));
                         intRandom = "1234";
                         try {
                             intMac = NewDES.PBOC_3DES_MAC(intRandom, KEY).substring(0, 8);
@@ -224,17 +224,17 @@ public class BleActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         ServiceStatus status = null;
-                        int AuthDev = App.getInstance().mObuInterface.intAuthDev(intRandom.length() / 2, intRandom, intMac);
+                        int AuthDev = App.app.mObuInterface.intAuthDev(intRandom.length() / 2, intRandom, intMac);
                         if (AuthDev == 0) {
                             Log.e(tag, "认证成功");
                             CardInformation cardInfo = new CardInformation();
-                            status = App.getInstance().mObuInterface.getCardInformation(cardInfo);
+                            status = App.app.mObuInterface.getCardInformation(cardInfo);
                             if (status.getServiceCode() == 0) {
                                 Log.e(tag, "读卡成功 " + new Gson().toJson(cardInfo));
                             }
                         }
                         Log.e(tag, "AuthDev =  " + AuthDev);
-                        Log.e(tag, "读卡 " + new Gson().toJson(App.getInstance().mObuInterface.getCardInformation(new CardInformation())));
+                        Log.e(tag, "读卡 " + new Gson().toJson(App.app.mObuInterface.getCardInformation(new CardInformation())));
                     }
                 }).start();
                 break;
