@@ -119,4 +119,5 @@ class SubmitApplyActivity : BaseImmersionActivity() {
             ds.color = ContextCompat.getColor(mContext, R.color._4285f4)
         }
     }
+
 }

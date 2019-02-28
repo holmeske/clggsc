@@ -168,7 +168,7 @@ public class RetrofitHelper {
         parts.add(MultipartBody.Part.createFormData("agentName", info.getAgentName()));
         parts.add(MultipartBody.Part.createFormData("linkMobile", info.getAgentPhone()));
 
-        LogHelper.e("info = " + new Gson().toJson(info));
+        LogHelper.e("开卡信息 = " + new Gson().toJson(info));
         return Retrofit().create(RetrofitApi.class).apply(parts);
     }
 
@@ -178,13 +178,14 @@ public class RetrofitHelper {
 
     private MultipartBody.Part creatPart(String name, String id, String filePath) {
         File file = new File(filePath);
-
+        LogHelper.e("file.exists() = " + file.exists());
         String fileName = file.getName();
-
+        LogHelper.e("fileName = " + fileName);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part part = MultipartBody.Part.createFormData(name,
                 id + fileName.substring(fileName.indexOf("."), fileName.length()),
                 requestFile);
+        LogHelper.e("新fileName = " + id + fileName.substring(fileName.indexOf("."), fileName.length()));
         return part;
     }
 

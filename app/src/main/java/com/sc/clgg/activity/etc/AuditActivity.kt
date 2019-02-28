@@ -9,6 +9,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.view.KeyEvent
 import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
@@ -25,7 +26,7 @@ class AuditActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audit)
 
-        titlebar_left.visibility=View.GONE
+        titlebar_left.visibility = View.GONE
         init()
     }
 
@@ -59,5 +60,11 @@ class AuditActivity : BaseImmersionActivity() {
         }
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
 
 }

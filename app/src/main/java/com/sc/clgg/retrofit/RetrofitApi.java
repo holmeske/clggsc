@@ -110,9 +110,6 @@ public interface RetrofitApi {
     @GET("client/list/{userCode}")
     Call<PersonalData> personalData(@Path("userCode") String userCode);
 
-    @GET("sso/checkUser/{userCode}")
-    Call<Check> checkUser(@Path("userCode") String userCode);
-
     @GET("user/validateCode/{phone}/{code}")
     Call<StatusBean> authCodeCheck(@Path("phone") String phone, @Path("code") String code);
 

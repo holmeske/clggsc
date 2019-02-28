@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.android.recharge.ObuInterface
 import com.sc.clgg.service.AppService
-import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.UmengHelper
 import org.jetbrains.anko.doAsync
 
@@ -41,19 +40,12 @@ class App : Application() {
      * 延迟初始化
      */
     fun lateInit() {
-
-        LogHelper.e("初始化Umeng")
         UmengHelper().init(this)
-
-        LogHelper.e("初始化JobIntentService")
         AppService.start(this)
-
-        LogHelper.e("初始化Bugly")
         initBugly()
     }
 
     fun initObuInterface() {
-        LogHelper.e("初始化ObuInterface")
         mObuInterface = ObuInterface(this)
         mObuInterface.initialize()
         /*mObuInterface.initializeObu(this, object : BluetoothObuCallback {

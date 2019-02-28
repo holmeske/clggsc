@@ -62,7 +62,7 @@ class VehicleCertificationActivity : TakePhotoActivity() {
         when (currentImageView?.id) {
             R.id.iv_vehicle_license -> {
                 LogHelper.e("设置行驶证")
-                currentVehicle?.car?.vehicleLicenseImg = result?.image?.compressPath
+                currentVehicle?.car?.vehicleLicenseImg = result?.image?.originalPath
                 currentVehicle?.car?.vehicleImageId = randomId()
                 currentVehicle?.hideLicenseHint()
                 Glide.with(this).load(File(currentVehicle?.car?.vehicleLicenseImg)).into(currentImageView!!)
@@ -70,14 +70,14 @@ class VehicleCertificationActivity : TakePhotoActivity() {
             }
             R.id.iv_vehicle_front -> {
                 LogHelper.e("设置正面照")
-                currentVehicle?.car?.vehicleFrontImg = result?.image?.compressPath
+                currentVehicle?.car?.vehicleFrontImg = result?.image?.originalPath
                 currentVehicle?.car?.carNoImageId = randomId()
                 currentVehicle?.hideFrontHint()
                 Glide.with(this).load(File(currentVehicle?.car?.vehicleFrontImg)).into(currentImageView!!)
                 scanVehicleFront(result?.image?.compressPath)
             }
             else -> {
-                LogHelper.e("图片异常 = " + result?.image?.compressPath)
+                LogHelper.e("图片异常 = " + result?.image?.originalPath)
             }
         }
         LogHelper.e("上传照片后的数据 = ${Gson().toJson(certificationInfo)}")

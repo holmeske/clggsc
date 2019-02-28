@@ -60,7 +60,6 @@ public class AppService extends JobIntentService {
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
         LogHelper.e("onHandleWork()");
-        LogHelper.e("AppService 名称 :" + this.getApplication().getClass().getSimpleName());
         loadAreaData();
     }
 }
