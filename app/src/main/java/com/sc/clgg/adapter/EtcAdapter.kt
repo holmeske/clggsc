@@ -30,15 +30,15 @@ class EtcAdapter : RecyclerView.Adapter<MyHolder>() {
     private val activitys = arrayOf<Class<*>>(CardIntroduceActivity::class.java, RechargeActivity::class.java, MyCardActivity::class.java, RechargeOrderActivity::class.java, BalanceQueryPreActivity::class.java, MyCardActivity::class.java, MainActivity::class.java, ApplyStateActivity::class.java)
 
     private val mItemListener = View.OnClickListener { v ->
+        val pos = v.tag as Int
+        if (pos == 6) {
+            mContext?.startActivity(Intent(mContext, MainActivity::class.java))
+            EventBus.getDefault().postSticky(CarNetEvent(0))
+        }
         if (ConfigUtil().isLogined(mContext)) {
-            val pos = v.tag as Int
             when (pos) {
                 2 -> mContext?.startActivity(Intent(mContext, activitys[pos]).putExtra("click", true))
                 5 -> mContext?.startActivity(Intent(mContext, activitys[pos]).putExtra("click", false))
-                6 -> {
-                    mContext?.startActivity(Intent(mContext, MainActivity::class.java))
-                    EventBus.getDefault().postSticky(CarNetEvent(0))
-                }
                 else -> mContext?.startActivity(Intent(mContext, activitys[pos]))
             }
         }

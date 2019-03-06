@@ -1,6 +1,7 @@
 package com.sc.clgg.adapter;
 
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,7 @@ import com.sc.clgg.tool.helper.DecimalFormatHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,33 +26,32 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date：2018/5/25 10:10
  */
 public class TallyBookAdapter extends RecyclerView.Adapter<TallyBookAdapter.MyHolder> {
-    private Map<Integer, String> map = new HashMap<>();
     private List<TallyBook.Info> dataList = new ArrayList<>();
     private onSwipeListener mOnSwipeListener;
+    private SparseArray<String> mSparseArray=new SparseArray<>(20);
 
     public TallyBookAdapter() {
-        map.put(22, "运费收入");
-        map.put(23, "工资收入");
-        map.put(24, "外快收入");
-        map.put(25, "其他收入");
+        mSparseArray.append(22, "运费收入");
+        mSparseArray.append(23, "工资收入");
+        mSparseArray.append(24, "外快收入");
+        mSparseArray.append(25, "其他收入");
 
-        map.put(27, "高速费支出");
-        map.put(28, "加油支出");
-        map.put(29, "餐饮支出");
-        map.put(30, "住宿支出");
-        map.put(31, "进场费支出");
-        map.put(32, "停车费支出");
-        map.put(33, "修车洗车支出");
-        map.put(34, "买零配件支出");
-        map.put(35, "出车费支出");
-        map.put(36, "司机工资支出");
-        map.put(37, "信息费支出");
-        map.put(38, "交罚款支出");
-        map.put(39, "上保险支出");
-        map.put(40, "审车支出");
-        map.put(41, "购车支出");
-        map.put(42, "其他支出");
-
+        mSparseArray.append(27, "高速费支出");
+        mSparseArray.append(28, "加油支出");
+        mSparseArray.append(29, "餐饮支出");
+        mSparseArray.append(30, "住宿支出");
+        mSparseArray.append(31, "进场费支出");
+        mSparseArray.append(32, "停车费支出");
+        mSparseArray.append(33, "修车洗车支出");
+        mSparseArray.append(34, "买零配件支出");
+        mSparseArray.append(35, "出车费支出");
+        mSparseArray.append(36, "司机工资支出");
+        mSparseArray.append(37, "信息费支出");
+        mSparseArray.append(38, "交罚款支出");
+        mSparseArray.append(39, "上保险支出");
+        mSparseArray.append(40, "审车支出");
+        mSparseArray.append(41, "购车支出");
+        mSparseArray.append(42, "其他支出");
     }
 
     public void refresh(List<TallyBook.Info> dataList) {
@@ -88,7 +86,7 @@ public class TallyBookAdapter extends RecyclerView.Adapter<TallyBookAdapter.MyHo
             holder.tv_type.setBackgroundResource(R.drawable.account_bg_expand);
         }
 
-        holder.tv_bill.setText(map.get(bean.getCostType()) + DecimalFormatHelper.formatTwo(bean.getAmount()) + "元");
+        holder.tv_bill.setText(mSparseArray.get(bean.getCostType()) + DecimalFormatHelper.formatTwo(bean.getAmount()) + "元");
 
         if (!TextUtils.isEmpty(bean.getRemark())) {
             holder.tv_describe.setText(bean.getRemark());
@@ -99,15 +97,12 @@ public class TallyBookAdapter extends RecyclerView.Adapter<TallyBookAdapter.MyHo
 
 
         holder.mSwipeMenuLayout.setIos(false).setLeftSwipe(true);
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mOnSwipeListener) {
-                    //如果删除时，不使用mAdapter.notifyItemRemoved(pos)，则删除没有动画效果，
-                    //且如果想让侧滑菜单同时关闭，需要同时调用 ((CstSwipeDelMenu) holder.itemView).quickClose();
-                    //((CstSwipeDelMenu) holder.itemView).quickClose();
-                    mOnSwipeListener.onDel(bean.getId(),holder.getAdapterPosition());
-                }
+        holder.btnDelete.setOnClickListener(v -> {
+            if (null != mOnSwipeListener) {
+                //如果删除时，不使用mAdapter.notifyItemRemoved(pos)，则删除没有动画效果，
+                //且如果想让侧滑菜单同时关闭，需要同时调用 ((CstSwipeDelMenu) holder.itemView).quickClose();
+                //((CstSwipeDelMenu) holder.itemView).quickClose();
+                mOnSwipeListener.onDel(bean.getId(),holder.getAdapterPosition());
             }
         });
     }
@@ -124,7 +119,6 @@ public class TallyBookAdapter extends RecyclerView.Adapter<TallyBookAdapter.MyHo
 
     public interface onSwipeListener {
         void onDel(int id,int pos);
-
     }
 
     class MyHolder extends RecyclerView.ViewHolder {

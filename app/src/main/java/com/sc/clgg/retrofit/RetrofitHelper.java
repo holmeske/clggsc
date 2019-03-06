@@ -1,5 +1,6 @@
 package com.sc.clgg.retrofit;
 
+
 import com.clgg.api.contract.ClggApiException;
 import com.clgg.api.contract.ClggConstants;
 import com.clgg.api.signature.ClggSignature;
@@ -54,6 +55,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import androidx.collection.ArrayMap;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -71,6 +73,10 @@ import static com.sc.clgg.config.NetField.SITE;
  */
 public class RetrofitHelper {
     private HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLogger()).setLevel(HttpLoggingInterceptor.Level.BODY);
+
+    private RequestBody RequestBody(Object params) {
+        return RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+    }
 
     private Map<String, String> sign(Map<String, String> params) {
         try {
@@ -178,14 +184,14 @@ public class RetrofitHelper {
 
     private MultipartBody.Part creatPart(String name, String id, String filePath) {
         File file = new File(filePath);
-        LogHelper.e("file.exists() = " + file.exists());
+        LogHelper.e("文件是否存在 is " + file.exists());
+
         String fileName = file.getName();
-        LogHelper.e("fileName = " + fileName);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData(name,
-                id + fileName.substring(fileName.indexOf("."), fileName.length()),
-                requestFile);
-        LogHelper.e("新fileName = " + id + fileName.substring(fileName.indexOf("."), fileName.length()));
+        LogHelper.e("文件名 is " + fileName);
+
+        RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData(name, id + fileName.substring(fileName.indexOf(".")), body);
+
         return part;
     }
 
@@ -519,9 +525,9 @@ public class RetrofitHelper {
     }
 
     public retrofit2.Call<Area> getArea() {
-        HashMap<String, Object> params = new HashMap<>();
+        ArrayMap<String, Object> params = new ArrayMap<>(1);
         params.put("level", 1);
-        return Retrofit().create(RetrofitApi.class).area(RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(params)));
+        return Retrofit().create(RetrofitApi.class).area(RequestBody(params));
     }
 
     public retrofit2.Call<ServiceStation> getServiceStation(String queryType, String area, String stationType, int pageNo, int pageSize) {
@@ -690,6 +696,7 @@ public class RetrofitHelper {
      */
     public retrofit2.Call<StatusBean> resetPassword(String userName, String password) {
         Map<String, String> params = new HashMap<>();
+
         params.put("userName", userName);
         params.put("password", password);
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
@@ -722,7 +729,7 @@ public class RetrofitHelper {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part p2 = MultipartBody.Part.createFormData("files",
-                uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+                uuid + fileName.substring(fileName.indexOf(".")), requestFile);
 
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(p2);

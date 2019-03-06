@@ -13,10 +13,7 @@ public class NetField {
     public static String WX_PAY_SITE = "http://back.clgg.com:9838/api/";
 
     public static String SITE = "http://back.clgg.com:9838/api/";
-//        public static String SITE = "http://10.1.12.54:8080/api/";
-//    public static String SITE = "http://10.1.200.74:8080/api/";
-//    public static String SITE = "http://10.1.12.20:9838/api/";
-//    public static String SITE = "http://192.168.109.158:8080/api/";
+//    public static String SITE = "http://10.1.12.54:8080/api/";
     public static String CLGG_SITE = "http://api.clgg.com:9000/api/";
     public static String SSO_SITE = "http://sso.clgg.com/";
 

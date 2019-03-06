@@ -39,13 +39,13 @@ class App : Application() {
     /**
      * 延迟初始化
      */
-    fun lateInit() {
+    private fun lateInit() {
         UmengHelper().init(this)
         AppService.start(this)
         initBugly()
     }
 
-    fun initObuInterface() {
+    private fun initObuInterface() {
         mObuInterface = ObuInterface(this)
         mObuInterface.initialize()
         /*mObuInterface.initializeObu(this, object : BluetoothObuCallback {
@@ -73,6 +73,6 @@ class App : Application() {
                 LogHelper.v("onError() p0:${p0}  p1:${p1}")
             }
         })*/
-        //mObuInterface.openLog(BuildConfig.LOG_DEBUG) //10
+//        mObuInterface.openLog(BuildConfig.LOG_DEBUG) //10
     }
 }

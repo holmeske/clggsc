@@ -314,6 +314,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                 .putExtra("failure", 1)
                 .putExtra("data", CircleSave().apply { cardNo = card.cardId;carNo = RCarNo;RWasteSn = wasteSn })
                 .putExtra("qc", RQcMoney)
+                .putExtra("carNo", card.vehicleNumber)
                 .putExtra("balance", card.balanceString))
     }
 
@@ -381,11 +382,13 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                                 .putExtra("data", this)
                                                                 .putExtra("justCircle", justCircle)
                                                                 .putExtra("cardNo", c?.cardId)
+                                                                .putExtra("carNo", c?.vehicleNumber)
                                                                 .putExtra("balance", c.balance))
                                                     } else {
                                                         startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
                                                                 .putExtra("data", this)
                                                                 .putExtra("justCircle", justCircle)
+                                                                .putExtra("carNo", c?.vehicleNumber)
                                                                 .putExtra("cardNo", c.cardId)
                                                                 .putExtra("balance", cardInfo.balance + RQcMoney + RAdjust))
                                                     }

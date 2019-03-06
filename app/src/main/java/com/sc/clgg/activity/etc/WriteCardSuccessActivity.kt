@@ -20,6 +20,10 @@ class WriteCardSuccessActivity : BaseImmersionActivity() {
         titlebar_left.visibility = View.GONE
         iv_nav.setImageResource(R.drawable.pay_success_nav_step_icon)
 
+        intent.getStringExtra("carNo")?.let {
+            tv_car_number.text = it
+        }
+
         if (intent.getIntExtra("failure", -1) == 1) {
             titlebar_title.text = "充值成功 未写卡"
             tv_suc_str.text = "可圈存金额:"
@@ -30,8 +34,6 @@ class WriteCardSuccessActivity : BaseImmersionActivity() {
             intent.getParcelableExtra<CircleSave>("data")?.let {
 
                 tv_order_number.text = it.RWasteSn
-
-                tv_car_number.text = it.carNo
 
                 tv_card_number.text = it.cardNo
             }
@@ -51,8 +53,6 @@ class WriteCardSuccessActivity : BaseImmersionActivity() {
                 it.realMoney?.toDouble()?.let { tv_success_money.text = "${it / 100}元" }
 
                 tv_order_number.text = it.RWasteSn
-
-                tv_car_number.text = it.carNo
 
                 tv_card_number.text = it.cardNo
             }
