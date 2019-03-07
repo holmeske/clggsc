@@ -32,6 +32,7 @@ import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.*
 import kotlinx.android.synthetic.main.fragment_car_net.*
 import kotlinx.coroutines.Job
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -122,7 +123,7 @@ class CarNetFragment : Fragment(), TruckManageContact {
         RetrofitHelper().bannerList.apply {
             enqueue(object : Callback<Banner> {
                 override fun onFailure(call: Call<Banner>, t: Throwable) {
-                    activity?.toast(R.string.network_anomaly)
+                    toast(R.string.network_anomaly)
                 }
 
                 override fun onResponse(call: Call<Banner>, response: Response<Banner>) {

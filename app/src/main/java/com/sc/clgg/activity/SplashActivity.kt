@@ -1,8 +1,11 @@
 package com.sc.clgg.activity
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
+import android.os.Bundle
 import android.os.Looper
+import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.Toast
 import com.sc.clgg.R
@@ -18,8 +21,29 @@ import pub.devrel.easypermissions.EasyPermissions
 
 class SplashActivity : BaseImmersionActivity() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        LogHelper.e("onCreate")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        LogHelper.e("onRestoreInstanceState")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState)
+        LogHelper.e("onRestoreInstanceState双")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        LogHelper.e("onStart")
+    }
+
     override fun onResume() {
         super.onResume()
+        LogHelper.e("onResume")
         if (EasyPermissions.hasPermissions(this, *ConstantValue.PERMISSION_NEED)) {
             init()
         }
@@ -28,7 +52,7 @@ class SplashActivity : BaseImmersionActivity() {
     private fun init() {
         val v = 0
         when (v) {
-            3 ->{
+            3 -> {
 
             }
             1 -> {
@@ -45,7 +69,7 @@ class SplashActivity : BaseImmersionActivity() {
                     }
                 })*/
 
-                job = GlobalScope.launch {
+                GlobalScope.launch {
                     val deffered = async { RetrofitHelper().area.execute() }
 
                     val http = deffered.await()
@@ -58,15 +82,13 @@ class SplashActivity : BaseImmersionActivity() {
                             toast(R.string.network_anomaly)
                         }
                     }
-                }
-                job.start()
-
+                }.apply { job = this;job.start() }
             }
             2 -> {
                 Thread {
                     Looper.prepare()
                     var ts = Toast.makeText(this, "", Toast.LENGTH_SHORT)
-                    ts.view = Button(this).apply { text = "button";backgroundColor=Color.GREEN }
+                    ts.view = Button(this).apply { text = "button";backgroundColor = Color.GREEN }
                     ts.show()
                     Looper.loop()
                 }.start()
@@ -81,4 +103,33 @@ class SplashActivity : BaseImmersionActivity() {
 
     private lateinit var job: Job
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        LogHelper.e("onConfigurationChanged")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LogHelper.e("onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LogHelper.e("onStop")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        LogHelper.e("onSaveInstanceState()")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        LogHelper.e("onSaveInstanceState()双")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LogHelper.e("onDestroy")
+    }
 }

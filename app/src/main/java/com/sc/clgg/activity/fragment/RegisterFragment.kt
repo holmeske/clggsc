@@ -72,11 +72,11 @@ class RegisterFragment : Fragment(), LoginContact {
         tv_send.setOnClickListener {
             val phone = et_new_phone.text.toString()
             if (phone.isEmpty()) {
-                activity?.toast("请输入手机号")
+                toast("请输入手机号")
                 return@setOnClickListener
             }
             if (!CheckHelper.isCorrectPhone(phone)) {
-                activity?.toast("请输入正确的手机号")
+                toast("请输入正确的手机号")
                 return@setOnClickListener
             }
             if (phone.length == 11) {
@@ -93,19 +93,19 @@ class RegisterFragment : Fragment(), LoginContact {
             val inviteCode = et_invite_code.text.toString()
 
             if (phone.isEmpty()) {
-                activity?.toast("请输入手机号")
+                toast("请输入手机号")
                 return@setOnClickListener
             }
             if (!CheckHelper.isCorrectPhone(phone)) {
-                activity?.toast("请输入正确的手机号")
+                toast("请输入正确的手机号")
                 return@setOnClickListener
             }
             if (code.isEmpty()) {
-                activity?.toast("请输入验证码")
+                toast("请输入验证码")
                 return@setOnClickListener
             }
             if (pwd.isEmpty()) {
-                activity?.toast("请输入密码")
+                toast("请输入密码")
                 return@setOnClickListener
             }
             register(phone, pwd, code, inviteCode)
@@ -143,7 +143,7 @@ class RegisterFragment : Fragment(), LoginContact {
                         mCountDownTimer.cancel()
                         tv_send.isEnabled = true
                         tv_send.text = "发送验证码"
-                        activity?.toast("注册成功")
+                        toast("注册成功")
                         mLoginPresenter?.loginToTXJ(account, password)
                     } else {
                         Tools.Toast(it.msg)

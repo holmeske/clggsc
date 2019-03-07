@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_truck_friends.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -162,13 +163,13 @@ class TruckFriendsFragment : BaseFragment() {
                 swipeRefreshLayout?.isRefreshing = false
                 loadMoreView?.text = "加载更多"
                 adapter?.refreshLast()
-                activity?.toast(R.string.network_anomaly)
+                toast(R.string.network_anomaly)
             }
 
             override fun onResponse(call: Call<TruckFriend>?, response: Response<TruckFriend>?) {
                 swipeRefreshLayout?.isRefreshing = false
                 if (!response?.body()?.success!!) {
-                    activity?.toast(response.body()?.msg!!)
+                    toast(response.body()?.msg!!)
                 } else {
                     response.body()?.pageInfo?.list?.let {
                         if (pageNum == 1) {

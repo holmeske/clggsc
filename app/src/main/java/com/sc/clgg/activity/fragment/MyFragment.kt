@@ -25,6 +25,7 @@ import com.sc.clgg.util.setDefaultRoundedCornerPicture
 import com.sc.clgg.util.setRoundedCornerPicture
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_my.*
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -102,18 +103,18 @@ class MyFragment : BaseFragment() {
         call = RetrofitHelper().personalData()
         call?.enqueue(object : Callback<PersonalData> {
             override fun onFailure(call: Call<PersonalData>, t: Throwable?) {
-                activity?.toast(R.string.network_anomaly)
+                toast(R.string.network_anomaly)
                 iv_head.setDefaultRoundedCornerPicture(activity!!, R.drawable.ic_launcher)
             }
 
             override fun onResponse(call: Call<PersonalData>, response: Response<PersonalData>) {
                 if (!response.isSuccessful) {
-                    activity?.toast(R.string.network_anomaly)
+                    toast(R.string.network_anomaly)
                     return
                 }
                 response.body()?.success?.run {
                     if (!this) {
-                        activity?.toast(R.string.network_anomaly)
+                        toast(R.string.network_anomaly)
                         return
                     }
                 }
@@ -153,7 +154,7 @@ class MyFragment : BaseFragment() {
         callIsNotReadInfo?.enqueue(object : Callback<IsNotReadInfo> {
             override fun onFailure(call: Call<IsNotReadInfo>?, t: Throwable?) {
                 v_point.visibility = View.GONE
-                activity?.toast(R.string.network_anomaly)
+                toast(R.string.network_anomaly)
             }
 
             override fun onResponse(call: Call<IsNotReadInfo>?, response: Response<IsNotReadInfo>?) {

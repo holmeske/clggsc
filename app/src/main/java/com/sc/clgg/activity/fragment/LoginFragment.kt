@@ -45,7 +45,7 @@ class LoginFragment : Fragment(), LoginContact {
     }
 
     override fun jumpOtherActivity() {
-        activity?.toast("登录成功")
+        toast("登录成功")
         activity?.finish()
     }
 
@@ -63,11 +63,11 @@ class LoginFragment : Fragment(), LoginContact {
             val userName = et_account?.text.toString().trim()
             val password = et_pwd?.text.toString().trim()
             if (TextUtils.isEmpty(userName)) {
-                activity?.toast("请输入手机号")
+                toast("请输入手机号")
                 return@setOnClickListener
             }
             if (TextUtils.isEmpty(password)) {
-                activity?.toast("请输入密码")
+                toast("请输入密码")
                 return@setOnClickListener
             }
             mLoginPresenter?.loginToTXJ(userName, password)

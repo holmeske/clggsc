@@ -20,7 +20,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
         RetrofitHelper().bannerList.apply {
             enqueue(object : Callback<Banner> {
                 override fun onFailure(call: Call<Banner>, t: Throwable) {
-                    activity?.toast(R.string.network_anomaly)
+                    toast(R.string.network_anomaly)
                     swipeRefreshLayout?.isRefreshing = false
                 }
 
