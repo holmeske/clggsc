@@ -26,11 +26,11 @@ class PreRechargeFinishActivity : BaseImmersionActivity() {
         titlebar_title.text = "完成"
 
         intent.getParcelableExtra<CardList.Card>("data")?.let {
-            tv_card_number.text = "${it.cardId}"
-            tv_car_number.text = "${it.vlp}"
+            tv_card_number.text = "${it.cardNo}"
+            tv_car_number.text = "${it.carNo}"
 
             showProgressDialog()
-            RetrofitHelper().getCardInfo(it.cardId, "0").apply {
+            RetrofitHelper().getCardInfo(it.cardNo, "0").apply {
                 enqueue(object : Callback<CardInfo> {
                     override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                         hideProgressDialog()

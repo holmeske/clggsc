@@ -6,8 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -23,12 +29,14 @@ import com.sc.clgg.activity.etc.ResultNoticeActivity;
 import com.sc.clgg.bean.StatusBean;
 import com.sc.clgg.retrofit.PayhelperKt;
 import com.sc.clgg.retrofit.RetrofitHelper;
+import com.sc.clgg.util.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,7 +48,7 @@ import retrofit2.Response;
 public class RechargeDialog extends Dialog implements View.OnClickListener {
     private ImageView iv_alipay_state, iv_wechat_state;
     private View v_alipay, v_wechat, v_instant_recharge;
-    private TextView rb_1, rb_2, rb_3, rb_4, rb_5, rb_6;
+    private TextView rb_1, rb_2, rb_3, rb_4, rb_5, rb_6, tv_hint;
     private List<TextView> mRadioButtons = new ArrayList<>();
     private EditText et_amount;
     private TextView tv_recharge_amount;
@@ -82,6 +90,7 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
         rb_4 = findViewById(R.id.rb_4);
         rb_5 = findViewById(R.id.rb_5);
         rb_6 = findViewById(R.id.rb_6);
+
         et_amount = findViewById(R.id.et_amount);
         tv_recharge_amount = findViewById(R.id.tv_recharge_amount);
 
@@ -115,7 +124,6 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
         et_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -125,9 +133,30 @@ public class RechargeDialog extends Dialog implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
+
+        tv_hint = findViewById(R.id.tv_hint);
+        SpannableString spannableString = new SpannableString("提示：不要多个手机同时对一张卡充值，有问题联系400-888-1122");
+        spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mActivity, R.color._00a0e9)),
+                spannableString.length() - 12, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new MyClick(), spannableString.length() - 12, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv_hint.setText(spannableString);
+        tv_hint.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    class MyClick extends ClickableSpan {
+
+        @Override
+        public void updateDrawState(@NonNull TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setColor(ContextCompat.getColor(mActivity, R.color._00a0e9));
+        }
+
+        @Override
+        public void onClick(@NonNull View widget) {
+            Tools.callPhone("400-888-1122", mActivity);
+        }
     }
 
     @Override

@@ -52,6 +52,16 @@ import retrofit2.http.Query;
  */
 
 public interface RetrofitApi {
+
+    @POST("etc/cardApply/bindingCard")
+    Call<StatusBean> bindingCard(@Body RequestBody json);
+
+    @GET("etc/cardApply/unBindingCard")
+    Call<StatusBean> unBindingCard(@Query("id") int id);
+
+    @GET("etc/cardApply/cardList")
+    Call<CardList> getCardList(@Query("userCode") String userCode);
+
     @GET("etc/cardApply/getEtcInvitationCode")
     Call<StatusBean> invitationCode(@Query("invitationCode") String invitationCode);
 

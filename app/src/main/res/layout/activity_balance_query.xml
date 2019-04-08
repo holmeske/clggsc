@@ -156,9 +156,27 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/stroke_blue_2"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/back_etc_home"
         android:textColor="@color/_4285f4"
         android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_1"/>
+
+    <TextView
+        android:id="@+id/tv_bind_card"
+        android:layout_width="300dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/bg_orange"
+        android:gravity="center"
+        android:text="确认绑卡"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_1"/>

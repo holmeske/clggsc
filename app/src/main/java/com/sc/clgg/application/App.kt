@@ -50,27 +50,27 @@ class App : Application() {
         mObuInterface.initialize()
         /*mObuInterface.initializeObu(this, object : BluetoothObuCallback {
             override fun onTransferTimeout() {
-                LogHelper.v("onTransferTimeout()")
+                LogHelper.e("BluetoothObuCallback  ------  onTransferTimeout()")
             }
 
             override fun onConnectSuccess() {
-                LogHelper.v("onConnectSuccess()")
+                LogHelper.e("BluetoothObuCallback  ------  onConnectSuccess()")
             }
 
             override fun onDisconnect() {
-                LogHelper.v("onDisconnect()")
+                LogHelper.e("BluetoothObuCallback  ------  onDisconnect()")
             }
 
             override fun onConnectTimeout() {
-                LogHelper.v("onConnectTimeout()")
+                LogHelper.e("BluetoothObuCallback  ------  onConnectTimeout()")
             }
 
             override fun onReceiveObuCmd(p0: String?, p1: String?) {
-                LogHelper.v("onReceiveObuCmd() p0:${p0}  p1:${p1}")
+                LogHelper.e("BluetoothObuCallback  ------  onReceiveObuCmd()")
             }
 
             override fun onError(p0: String?, p1: String?) {
-                LogHelper.v("onError() p0:${p0}  p1:${p1}")
+                LogHelper.e("BluetoothObuCallback  ------  onError()")
             }
         })*/
 //        mObuInterface.openLog(BuildConfig.LOG_DEBUG) //10

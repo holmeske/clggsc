@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Vehicle(var code: Int = 0,var msg:String?="",
+data class Vehicle(var code: Int = 0, var msg: String? = "",
                    var success: Boolean = false,
                    var vehicleInfoList: List<Bean>? = null) : Parcelable {
     @Parcelize
@@ -19,7 +19,3 @@ data class Vehicle(var code: Int = 0,var msg:String?="",
                     var carNumber: String? = "",
                     var isChecked: Boolean = false) : Parcelable
 }
-
-@SuppressLint("ParcelCreator")
-@Parcelize
-data class Words(var words: String? = "") : Parcelable

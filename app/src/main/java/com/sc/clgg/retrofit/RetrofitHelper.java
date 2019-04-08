@@ -74,7 +74,11 @@ import static com.sc.clgg.config.NetField.SITE;
 public class RetrofitHelper {
     private HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLogger()).setLevel(HttpLoggingInterceptor.Level.BODY);
 
-    private RequestBody RequestBody(Object params) {
+    private String getUserId() {
+        return new ConfigUtil().getUserid();
+    }
+
+    private RequestBody createRequestBody(Object params) {
         return RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
     }
 
@@ -116,6 +120,10 @@ public class RetrofitHelper {
                 .build();
     }
 
+    private RetrofitApi service(String... baseUrl) {
+        return Retrofit(baseUrl.length == 0 ? SITE : baseUrl[0]).create(RetrofitApi.class);
+    }
+
     /**
      * 申请微信预支付订单
      */
@@ -124,7 +132,7 @@ public class RetrofitHelper {
         params.put("card_no", card_no);
         params.put("total_fee", total_fee);
         params.put("spbill_create_ip", Tools.getIpAddress(App.app.getApplicationContext()));
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
         params.put("out_trade_no", out_trade_no);
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
@@ -156,7 +164,7 @@ public class RetrofitHelper {
         }
 
         parts.add(MultipartBody.Part.createFormData("cardType", info.getCardType()));
-        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        parts.add(MultipartBody.Part.createFormData("userCode", getUserId()));
         parts.add(MultipartBody.Part.createFormData("userName", ""));
         parts.add(MultipartBody.Part.createFormData("certType", info.getCertType()));
         parts.add(MultipartBody.Part.createFormData("certSn", info.getCertSn()));
@@ -218,7 +226,7 @@ public class RetrofitHelper {
     }
 
     public retrofit2.Call<RechargeOrderList> getRechargeOrderList() {
-        return Retrofit().create(RetrofitApi.class).getRechargeOrderList(new ConfigUtil().getUserid());
+        return Retrofit().create(RetrofitApi.class).getRechargeOrderList(getUserId());
     }
 
     public retrofit2.Call<BusinessNoteList> getEtcBusinessNote() {
@@ -246,7 +254,7 @@ public class RetrofitHelper {
         params.put("cardNo", cardNo);
         params.put("payTime", yyyymmddhhmmss);
         params.put("money", money);
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
 
@@ -264,7 +272,7 @@ public class RetrofitHelper {
         params.put("cardNo", cardNo);
         params.put("payTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(time));
         params.put("money", money);
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
         params.put("payType", "18");
         params.put("payFlag", "0");
         params.put("tradeno", time + "");
@@ -289,7 +297,7 @@ public class RetrofitHelper {
         params.put("rand", rand);
         params.put("onlineNum", onlineNum);
         params.put("bluetoothSn", bluetoothSn);
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
         return Retrofit().create(RetrofitApi.class).loadMoney(json);
@@ -321,7 +329,7 @@ public class RetrofitHelper {
         params.put("cardTran", cardTran);
         params.put("realMoney", realMoney);
         params.put("writeTime", writeTime);
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
         return Retrofit().create(RetrofitApi.class).sureLoadMoney(json);
@@ -335,17 +343,45 @@ public class RetrofitHelper {
         HashMap<String, Object> params = new HashMap<>();
         params.put("cardType", cardType);
         params.put("carNo", carNo);
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
         return Retrofit().create(RetrofitApi.class).getCardList(json);
     }
 
     /**
+     * ETC卡列表
+     */
+    public retrofit2.Call<CardList> getCardList() {
+        return Retrofit().create(RetrofitApi.class).getCardList(getUserId());
+    }
+
+    /**
+     * 解绑卡片
+     */
+    public retrofit2.Call<StatusBean> unBindingCard(int id) {
+        return Retrofit().create(RetrofitApi.class).unBindingCard(id);
+    }
+
+    /**
+     * 绑卡
+     */
+    public retrofit2.Call<StatusBean> bindingCard(String cardNo, String carNo) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("carNo", carNo);
+        params.put("cardNo", cardNo);
+        params.put("userCode", getUserId());
+
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+        return Retrofit().create(RetrofitApi.class).bindingCard(json);
+    }
+
+    /**
      * 车牌列表
      */
     public retrofit2.Call<CarNumberList> getCarNumberList() {
-        return Retrofit().create(RetrofitApi.class).getCarNumberList(new ConfigUtil().getUserid());
+        return Retrofit().create(RetrofitApi.class).getCarNumberList(getUserId());
     }
 
     /**
@@ -369,7 +405,7 @@ public class RetrofitHelper {
      * 我的车辆-删除
      */
     public retrofit2.Call<Check> vehicleDelete(String vinShort) {
-        return Retrofit().create(RetrofitApi.class).vehicleDelete(vinShort, new ConfigUtil().getUserid());
+        return Retrofit().create(RetrofitApi.class).vehicleDelete(vinShort, getUserId());
     }
 
     /**
@@ -393,7 +429,7 @@ public class RetrofitHelper {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
-        params.put("userId", new ConfigUtil().getUserid());
+        params.put("userId", getUserId());
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
 
         return Retrofit().create(RetrofitApi.class).removeMessage(json);
@@ -431,7 +467,7 @@ public class RetrofitHelper {
             params.put("carLicenceDate", carLicenceDate);
         }
 
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
         params.put("carNumber", carNumber);
         params.put("vinLong", vinLong);
         params.put("vinShort", vinLong.substring(vinLong.length() - 8));
@@ -465,7 +501,7 @@ public class RetrofitHelper {
 
     public retrofit2.Call<TallyBook> tallybook(String queryYear, String queryMonth) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("createUser", new ConfigUtil().getUserid());
+        params.put("createUser", getUserId());
         params.put("queryYear", queryYear);
         params.put("queryMonth", queryMonth);
 
@@ -481,7 +517,7 @@ public class RetrofitHelper {
         params.put("recordType", recordType);
         params.put("costType", costType);
         params.put("remark", remark);
-        params.put("createUser", new ConfigUtil().getUserid());
+        params.put("createUser", getUserId());
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
 
@@ -491,7 +527,7 @@ public class RetrofitHelper {
     public retrofit2.Call<Check> update(String gender, String nickName, String realName, String clientSign, String inviteCode) {
         Map<String, String> params = new HashMap<>();
 
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
         params.put("clientSign", clientSign);
         params.put("gender", gender);
         params.put("nickName", nickName);
@@ -524,10 +560,13 @@ public class RetrofitHelper {
         return Retrofit().create(RetrofitApi.class).driverCircle(json);
     }
 
+    /**
+     * 省市区
+     */
     public retrofit2.Call<Area> getArea() {
         ArrayMap<String, Object> params = new ArrayMap<>(1);
         params.put("level", 1);
-        return Retrofit().create(RetrofitApi.class).area(RequestBody(params));
+        return service().area(createRequestBody(params));
     }
 
     public retrofit2.Call<ServiceStation> getServiceStation(String queryType, String area, String stationType, int pageNo, int pageSize) {
@@ -544,8 +583,6 @@ public class RetrofitHelper {
             }
         }
         params.put("area", a);
-
-        //android.location.Location location = PotatoKt.getLocationInfo();
 
         if (CURRENT_LOCATION == null) {
             params.put("latitude", 39.9088429221);
@@ -565,7 +602,7 @@ public class RetrofitHelper {
         HashMap<String, Object> params = new HashMap<>(4);
         params.put("circleMessageId", circleMessageId);
         params.put("commentUserId", commentUserId);
-        params.put("userId", new ConfigUtil().getUserid());
+        params.put("userId", getUserId());
         params.put("comment", comment);
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
@@ -574,28 +611,25 @@ public class RetrofitHelper {
     }
 
     public retrofit2.Call<Check> like(int circleMessageId, int laudUserId) {
-        HashMap<String, Object> params = new HashMap<>(3);
+        ArrayMap<String, Object> params = new ArrayMap<>(3);
         params.put("circleMessageId", circleMessageId);
         params.put("laudUserId", laudUserId);
-        params.put("userId", new ConfigUtil().getUserid());
-
-        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
-
-        return Retrofit().create(RetrofitApi.class).like(json);
+        params.put("userId", getUserId());
+        return Retrofit().create(RetrofitApi.class).like(createRequestBody(params));
     }
 
     public retrofit2.Call<NoReadInfo> noReadInfo() {
-        return Retrofit().create(RetrofitApi.class).noReadInfo(new ConfigUtil().getUserid());
+        return Retrofit().create(RetrofitApi.class).noReadInfo(getUserId());
     }
 
     public retrofit2.Call<IsNotReadInfo> isNotReadInfo() {
-        return Retrofit().create(RetrofitApi.class).isNotReadInfo(new ConfigUtil().getUserid());
+        return Retrofit().create(RetrofitApi.class).isNotReadInfo(getUserId());
     }
 
     public retrofit2.Call<Check> removeLike(int circleMessageId) {
         HashMap<String, Object> params = new HashMap<>(2);
         params.put("circleMessageId", circleMessageId);
-        params.put("userId", new ConfigUtil().getUserid());
+        params.put("userId", getUserId());
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
 
@@ -617,7 +651,7 @@ public class RetrofitHelper {
 
     public retrofit2.Call<Check> modifyAccount(String phone, String checkCode, String password) {
         HashMap<String, String> params = new HashMap<>(4);
-        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("userCode", getUserId());
         params.put("phone", phone);
         params.put("checkCode", checkCode);
         params.put("password", password);
@@ -670,25 +704,23 @@ public class RetrofitHelper {
      * 修改密码
      */
     public retrofit2.Call<StatusBean> modifyPassword(String userName, String password, String newPassword) {
-        Map<String, String> params = new HashMap<>();
+        ArrayMap<String, String> params = new ArrayMap<>(3);
         params.put("userName", userName);
         params.put("password", password);
         params.put("newPassword", newPassword);
-        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
-        return Retrofit(NetField.SSO_SITE).create(RetrofitApi.class).modifyPassword(json);
+        return Retrofit(NetField.SSO_SITE).create(RetrofitApi.class).modifyPassword(createRequestBody(params));
     }
 
     /**
      * 注册
      */
     public retrofit2.Call<StatusBean> register(String userName, String password, String checkCode, String inviteUserCode) {
-        Map<String, String> params = new HashMap<>();
+        ArrayMap<String, String> params = new ArrayMap<>(4);
         params.put("userName", userName);
         params.put("password", password);
         params.put("checkCode", checkCode);
         params.put("inviteUserCode", inviteUserCode);
-        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
-        return Retrofit(SITE).create(RetrofitApi.class).appRegister(json);
+        return Retrofit(SITE).create(RetrofitApi.class).appRegister(createRequestBody(params));
     }
 
     /**
@@ -704,7 +736,7 @@ public class RetrofitHelper {
     }
 
     public retrofit2.Call<PersonalData> personalData() {
-        return Retrofit().create(RetrofitApi.class).personalData(new ConfigUtil().getUserid());
+        return Retrofit().create(RetrofitApi.class).personalData(getUserId());
     }
 
     public retrofit2.Call<Consumption> oilsteams(String date) {
@@ -720,7 +752,7 @@ public class RetrofitHelper {
     }
 
     private String getDefaultUserId() {
-        return "".equals(new ConfigUtil().getUserid()) ? ConstantValue.TEST_ACCOUNT : new ConfigUtil().getUserid();
+        return "".equals(getUserId()) ? ConstantValue.TEST_ACCOUNT : getUserId();
     }
 
     public retrofit2.Call<Check> upload(File file) {
@@ -733,7 +765,7 @@ public class RetrofitHelper {
 
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(p2);
-        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        parts.add(MultipartBody.Part.createFormData("userCode", getUserId()));
 
         return Retrofit().create(RetrofitApi.class).upload(parts);
     }
@@ -751,11 +783,11 @@ public class RetrofitHelper {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part p2 = MultipartBody.Part.createFormData("files",
-                uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+                uuid + fileName.substring(fileName.indexOf(".")), requestFile);
 
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(p2);
-        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        parts.add(MultipartBody.Part.createFormData("userCode", getUserId()));
         return Retrofit().create(RetrofitApi.class).scan(parts);
     }
 
@@ -768,11 +800,11 @@ public class RetrofitHelper {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part p2 = MultipartBody.Part.createFormData("files",
-                uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+                uuid + fileName.substring(fileName.indexOf(".")), requestFile);
 
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(p2);
-        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        parts.add(MultipartBody.Part.createFormData("userCode", getUserId()));
         return Retrofit().create(RetrofitApi.class).passport(parts);
     }
 
@@ -785,11 +817,11 @@ public class RetrofitHelper {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part p2 = MultipartBody.Part.createFormData("files",
-                uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+                uuid + fileName.substring(fileName.indexOf(".")), requestFile);
 
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(p2);
-        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        parts.add(MultipartBody.Part.createFormData("userCode", getUserId()));
         return Retrofit().create(RetrofitApi.class).idCard(parts);
     }
 
@@ -802,17 +834,17 @@ public class RetrofitHelper {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part p2 = MultipartBody.Part.createFormData("files",
-                uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+                uuid + fileName.substring(fileName.indexOf(".")), requestFile);
 
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(p2);
-        parts.add(MultipartBody.Part.createFormData("userCode", new ConfigUtil().getUserid()));
+        parts.add(MultipartBody.Part.createFormData("userCode", getUserId()));
         return Retrofit().create(RetrofitApi.class).licensePlate(parts);
     }
 
     public retrofit2.Call<Check> feedBack(List<String> files, String content) {
         List<MultipartBody.Part> parts = new ArrayList<>();
-        parts.add(MultipartBody.Part.createFormData("userId", new ConfigUtil().getUserid()));
+        parts.add(MultipartBody.Part.createFormData("userId", getUserId()));
         parts.add(MultipartBody.Part.createFormData("phone", new ConfigUtil().getMobile()));
         parts.add(MultipartBody.Part.createFormData("content", content));
 
@@ -821,7 +853,7 @@ public class RetrofitHelper {
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault());
             String fileName = file.getName();
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part p = MultipartBody.Part.createFormData("images", uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+            MultipartBody.Part p = MultipartBody.Part.createFormData("images", uuid + fileName.substring(fileName.indexOf(".")), requestFile);
             parts.add(p);
         }
         return Retrofit().create(RetrofitApi.class).feedBack(parts);
@@ -829,7 +861,7 @@ public class RetrofitHelper {
 
     public retrofit2.Call<Check> publishDynamic(List<String> files, String message) {
         List<MultipartBody.Part> parts = new ArrayList<>();
-        parts.add(MultipartBody.Part.createFormData("userId", new ConfigUtil().getUserid()));
+        parts.add(MultipartBody.Part.createFormData("userId", getUserId()));
         parts.add(MultipartBody.Part.createFormData("cardType", "0"));
         parts.add(MultipartBody.Part.createFormData("message", message));
 
@@ -838,18 +870,20 @@ public class RetrofitHelper {
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault());
             String fileName = file.getName();
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part p = MultipartBody.Part.createFormData("images", uuid + fileName.substring(fileName.indexOf("."), fileName.length()), requestFile);
+            MultipartBody.Part p = MultipartBody.Part.createFormData("images", uuid + fileName.substring(fileName.indexOf(".")), requestFile);
             parts.add(p);
         }
 
         return Retrofit().create(RetrofitApi.class).publishDynamic(parts);
     }
 
+    /**
+     * 自定义日志拦截器
+     */
     public class HttpLogger implements HttpLoggingInterceptor.Logger {
         @Override
         public void log(String message) {
-            LogHelper.v("logcat", message);
+            LogHelper.v("logcat-okhttp", message);
         }
-
     }
 }

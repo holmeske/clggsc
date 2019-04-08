@@ -13,7 +13,6 @@ import com.sc.clgg.dialog.PreRechargeHintDialog
 import com.sc.clgg.dialog.RechargeDialog
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
-import com.sc.clgg.util.logcat
 import kotlinx.android.synthetic.main.activity_pre_recharge.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 import org.greenrobot.eventbus.EventBus
@@ -37,15 +36,13 @@ class PreRechargeActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_recharge)
         card = intent.getParcelableExtra("card")
-        //card?.cardId="37011801220102886198"
-        logcat(card)
-        getCardInfo(card?.cardId)
+        getCardInfo(card?.cardNo)
 
         titlebar_title.text = getString(R.string.pre_recharge)
         titlebar_right.text = getString(R.string.in_card)
 
-        tv_card.text = card?.cardId
-        tv_carno.text = card?.vlp
+        tv_card.text = card?.cardNo
+        tv_carno.text = card?.carNo
 
         initListener()
     }
@@ -96,7 +93,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
                     setCancelListener { dismiss() }
                 }
             } else if (canCircleMoney == 0.0) {
-                RechargeDialog(this).apply { setCardNumber(card?.cardId);setItemClickListener { money = it };setWasteSnListener { wasteSn = it } }.show()
+                RechargeDialog(this).apply { setCardNumber(card?.cardNo);setItemClickListener { money = it };setWasteSnListener { wasteSn = it } }.show()
             }
 
         }
@@ -135,7 +132,7 @@ class PreRechargeActivity : BaseImmersionActivity() {
     private var http_1: Call<StatusBean>? = null
     private fun confirmPayStatus() {
         showProgressDialog("支付确认中...", false)
-        http_1 = RetrofitHelper().confirmPayStatus(card?.cardId).apply {
+        http_1 = RetrofitHelper().confirmPayStatus(card?.cardNo).apply {
             enqueue(object : Callback<StatusBean> {
                 override fun onFailure(call: Call<StatusBean>, t: Throwable) {
                     hideProgressDialog()

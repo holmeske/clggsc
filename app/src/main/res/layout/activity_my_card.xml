@@ -51,7 +51,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:text="- -"
         android:textColor="@color/_9c9c9c"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_car_number_str"
@@ -86,7 +85,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:text="- -"
         android:textColor="@color/_9c9c9c"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_car_type_str"
@@ -105,24 +103,36 @@
         app:layout_constraintTop_toTopOf="@id/tv_car_type_str"/>
 
     <TextView
-        android:id="@+id/tv_apply_state"
+        android:id="@+id/tv_add_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
-        android:visibility="gone"
         android:paddingBottom="15dp"
-        android:text="我的ETC卡申请"
+        android:text="添加ETC卡片"
         android:textColor="@color/_4285f4"
-        android:textSize="13sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="+"
+        android:textColor="@color/red"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_add_card"
+        app:layout_constraintRight_toLeftOf="@id/tv_add_card"
+        app:layout_constraintTop_toTopOf="@id/tv_add_card"/>
 
     <View
         android:id="@+id/v_point"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_marginStart="2dp"
+        android:visibility="gone"
         android:layout_marginTop="15dp"
         android:background="@drawable/point_red"
         app:layout_constraintLeft_toRightOf="@id/tv_apply_state"

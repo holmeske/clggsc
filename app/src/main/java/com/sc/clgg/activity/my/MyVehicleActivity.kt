@@ -10,9 +10,9 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.ActivityHelper
 import kotlinx.android.synthetic.main.activity_my_vehicle.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
 import retrofit2.Call
-import retrofit2.Response
 
 /**
  * 我的车辆
@@ -43,7 +43,30 @@ class MyVehicleActivity : BaseImmersionActivity() {
     private var http: Call<Vehicle>? = null
 
     private fun loadData() {
-        http = RetrofitHelper().myVehicle()
+        showProgressDialog()
+        GlobalScope.launch {
+            val http = async { RetrofitHelper().myVehicle().execute() }.await()
+            withContext(Dispatchers.Main) {
+                hideProgressDialog()
+                if (http.isSuccessful) {
+                    http.body()?.run {
+                        if (success) {
+                            if (vehicleInfoList?.isNullOrEmpty()!!) {
+                                tv_nocar.visibility = View.VISIBLE
+                            } else {
+                                tv_nocar.visibility = View.GONE
+                                adapter?.refresh(vehicleInfoList)
+                            }
+                        } else {
+                            toast("${msg}")
+                        }
+                    }
+                } else {
+                    toast(R.string.network_anomaly)
+                }
+            }
+        }
+        /*http = RetrofitHelper().myVehicle()
         http?.enqueue(object : retrofit2.Callback<Vehicle> {
             override fun onFailure(call: Call<Vehicle>?, t: Throwable?) {
                 toast(R.string.network_anomaly)
@@ -63,7 +86,7 @@ class MyVehicleActivity : BaseImmersionActivity() {
                     }
                 }
             }
-        })
+        })*/
 
     }
 

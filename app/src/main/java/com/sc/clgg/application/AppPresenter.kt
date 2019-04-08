@@ -56,7 +56,7 @@ fun Application.init() {
 private fun Application.registerActivityLifecycleCallbacks() {
     registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-            LogHelper.d("activity", "onActivityCreated    " + activity?.localClassName)
+            LogHelper.v("activity", "onActivityCreated    " + activity?.localClassName)
 
             if (activity?.findViewById<View>(R.id.titlebar_title) != null) {
                 (activity.findViewById<View>(R.id.titlebar_title) as TextView).text = activity.title
@@ -67,30 +67,30 @@ private fun Application.registerActivityLifecycleCallbacks() {
         }
 
         override fun onActivityStarted(activity: Activity?) {
-            LogHelper.d("activity", "onActivityStarted    " + activity?.localClassName)
+            LogHelper.v("activity", "onActivityStarted    " + activity?.localClassName)
         }
 
         override fun onActivityResumed(activity: Activity?) {
-            LogHelper.d("activity", "onActivityResumed    " + activity?.localClassName)
+            LogHelper.v("activity", "onActivityResumed    " + activity?.localClassName)
             if (activity is AppSettingsDialogHolderActivity && EasyPermissions.hasPermissions(activity, *ConstantValue.PERMISSION_NEED)) {
                 activity.finish()
             }
         }
 
         override fun onActivityPaused(activity: Activity?) {
-            LogHelper.d("activity", "onActivityPaused    " + activity?.localClassName)
+            LogHelper.v("activity", "onActivityPaused    " + activity?.localClassName)
         }
 
         override fun onActivityStopped(activity: Activity?) {
-            LogHelper.d("activity", "onActivityStopped    " + activity?.localClassName)
+            LogHelper.v("activity", "onActivityStopped    " + activity?.localClassName)
         }
 
         override fun onActivitySaveInstanceState(activity: Activity?, bundle: Bundle?) {
-            LogHelper.d("activity", "onActivitySaveInstanceState    " + activity?.localClassName)
+            LogHelper.v("activity", "onActivitySaveInstanceState    " + activity?.localClassName)
         }
 
         override fun onActivityDestroyed(activity: Activity?) {
-            LogHelper.d("activity", "onActivityDestroyed    " + activity?.localClassName)
+            LogHelper.v("activity", "onActivityDestroyed    " + activity?.localClassName)
         }
 
     })
@@ -132,14 +132,14 @@ private fun getProcessName(pid: Int): String? {
 fun Application.initBugly() {
     BuildConfig.LOG_DEBUG.let {
         if (!it) {
-            val packageName = getPackageName()
+            val packageName = packageName
             // 获取当前进程名
             val processName = getProcessName(android.os.Process.myPid())
             // 设置是否为上报进程
             val strategy = CrashReport.UserStrategy(this)
             strategy.isUploadProcess = processName == null || processName == packageName
             // 初始化Bugly
-            CrashReport.initCrashReport(getApplicationContext(), "0edd50c749", true, strategy)
+            CrashReport.initCrashReport(applicationContext, "0edd50c749", true, strategy)
         }
     }
 

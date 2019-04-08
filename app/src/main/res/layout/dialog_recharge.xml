@@ -118,12 +118,12 @@
         android:layout_marginTop="22dp"
         android:background="@drawable/bg_yellow_stroke"
         android:hint="您输入的最低充值金额≥100"
+        android:inputType="number"
         android:paddingStart="100dp"
         android:paddingTop="15dp"
-        android:inputType="number"
-        android:textColor="@color/_444"
         android:paddingEnd="15dp"
         android:paddingBottom="15dp"
+        android:textColor="@color/_444"
         android:textColorHint="@color/_a5a5a5"
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="@id/rb_4"
@@ -202,6 +202,16 @@
         app:layout_constraintTop_toBottomOf="@id/iv_alipay"/>
 
     <TextView
+        android:id="@+id/tv_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:gravity="center"
+        android:textColor="@color/_999"
+        android:textSize="11sp"
+        app:layout_constraintTop_toBottomOf="@id/iv_wechat"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -239,17 +249,16 @@
         android:background="@color/_f1f1f1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/v_instant_recharge"
-        app:layout_constraintTop_toBottomOf="@id/iv_wechat"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_hint"/>
 
     <View
         android:id="@+id/v_instant_recharge"
         android:layout_width="130dp"
         android:layout_height="45dp"
-        android:layout_marginTop="22dp"
         android:background="@color/_ffc428"
         app:layout_constraintLeft_toRightOf="@id/v_bottom"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_wechat"/>
+        app:layout_constraintTop_toTopOf="@id/v_bottom"/>
 
     <TextView
         android:id="@+id/tv_4"

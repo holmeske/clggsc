@@ -14,7 +14,7 @@ import java.util.List;
 
 /*
  * @Description描述:地图工具类
- * @Author作者:lip 
+ * @Author作者:lip
  * @Date日期:2014-12-12 下午4:29:52
  */
 public final class MapUtil {
@@ -23,7 +23,7 @@ public final class MapUtil {
      * 获取已经安装的应用程序
      */
     public static ArrayList<AllAppInfo> getAllAppInfos(Context mContext) {
-        ArrayList<AllAppInfo> appList = new ArrayList<AllAppInfo>();
+        ArrayList<AllAppInfo> appList = new ArrayList<>();
         List<PackageInfo> packageInfos = mContext.getPackageManager().getInstalledPackages(0);
         for (int i = 0; i < packageInfos.size(); i++) {
             PackageInfo pInfo = packageInfos.get(i);

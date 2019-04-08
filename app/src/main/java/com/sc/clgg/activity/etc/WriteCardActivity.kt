@@ -83,7 +83,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                 response.body()?.let {
                     if (it.success) {
                         setViewData(it)
-                        if (it.RQcMoney?.toDouble()!! > 0) justCircle = true else justCircle = false
+                        justCircle = it.RQcMoney?.toDouble()!! > 0
                     } else {
                         resultNotice("支付异常", "${it.msg}")
                     }
@@ -97,7 +97,7 @@ class WriteCardActivity : BaseImmersionActivity() {
      */
     private fun setViewData(it: CardInfo?) {
         RQcMoney = it?.RQcMoney?.toInt()!!
-        RAdjust = it?.RAdjust?.toInt()!!
+        RAdjust = it.RAdjust?.toInt()!!
         RCarNo = it.RVLP
         tv_carno?.text = it.RVLP
         it.RQcMoney?.toDouble()?.let { tv_can_write?.text = "${String.format("%.2f", it / 100)} 元" }
@@ -149,7 +149,7 @@ class WriteCardActivity : BaseImmersionActivity() {
         if (!isOpenBluetoothLocation()) return
         showProgressDialog()
         Thread {
-            if (App.getInstance().mObuInterface.getConnectStatus().toString() == "SERVICES_DISCOVERED") writeCard(card) else connectWriteCard()
+            if (App.getInstance().mObuInterface.connectStatus.toString() == "SERVICES_DISCOVERED") writeCard(card) else connectWriteCard()
         }.start()
     }
 
@@ -250,7 +250,7 @@ class WriteCardActivity : BaseImmersionActivity() {
             if (serviceCode == 0) {
                 LogHelper.e("连接蓝牙设备 - 成功")
 
-                App.getInstance().mObuInterface.getDeviceInformation().apply {
+                App.getInstance().mObuInterface.deviceInformation.apply {
                     if (serviceCode == 0) {
                         LogHelper.e("读取蓝牙设备信息 - 成功")
 
@@ -274,7 +274,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                                     LogHelper.e(" ---- 自动断开其他蓝牙设备 ----")
                                     LogHelper.e("断开蓝牙设备 is ${Gson().to(App.getInstance().mObuInterface.disconnectDevice())}")
 
-                                    WriteCardHintDialog(this@WriteCardActivity)?.run {
+                                    WriteCardHintDialog(this@WriteCardActivity).run {
                                         show();setData(card.cardId, cardInfo.cardId)
                                         setCancelListener {
                                             dismiss()
@@ -323,7 +323,7 @@ class WriteCardActivity : BaseImmersionActivity() {
      */
     private fun writeCard(cardInfo: CardInformation) {
 
-        App.getInstance().mObuInterface.getDeviceInformation().apply {
+        App.getInstance().mObuInterface.deviceInformation.apply {
 
             var pinCode = if ("40" == cardInfo.cardVersion) "313233343536" else "123456"
 
@@ -381,14 +381,14 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                         startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
                                                                 .putExtra("data", this)
                                                                 .putExtra("justCircle", justCircle)
-                                                                .putExtra("cardNo", c?.cardId)
-                                                                .putExtra("carNo", c?.vehicleNumber)
+                                                                .putExtra("cardNo", c.cardId)
+                                                                .putExtra("carNo", c.vehicleNumber)
                                                                 .putExtra("balance", c.balance))
                                                     } else {
                                                         startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
                                                                 .putExtra("data", this)
                                                                 .putExtra("justCircle", justCircle)
-                                                                .putExtra("carNo", c?.vehicleNumber)
+                                                                .putExtra("carNo", c.vehicleNumber)
                                                                 .putExtra("cardNo", c.cardId)
                                                                 .putExtra("balance", cardInfo.balance + RQcMoney + RAdjust))
                                                     }
@@ -434,6 +434,8 @@ class WriteCardActivity : BaseImmersionActivity() {
             }
         }
     }
+
+
 }
 
 

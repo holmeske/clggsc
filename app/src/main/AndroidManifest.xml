@@ -17,7 +17,6 @@
 
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS"/>
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
-
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -31,8 +30,7 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS"/> -->
+    <uses-permission android:name="android.permission.CAMERA"/> <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS"/> -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -43,38 +41,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
     <!-- <uses-permission android:name="android.permission.SEND_SMS"/> -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <!-- <uses-permission android:name="android.permission.USE_CREDENTIALS"/> -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/> <!-- <uses-permission android:name="android.permission.USE_CREDENTIALS"/> -->
     <!-- <uses-permission android:name="android.permission.VIBRATE"/> -->
     <!-- <uses-permission android:name="android.permission.WAKE_LOCK"/> -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <!-- Bugly权限 -->
-    <!--
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
-    -->
-    <!-- Bugly权限 -->
-    <!-- 高德地图权限 -->
-    <!-- &lt;!&ndash;允许程序打开网络套接字&ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
-    <!-- &lt;!&ndash;允许程序设置内置sd卡的写权限&ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
-    <!-- &lt;!&ndash;允许程序获取网络状态&ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
-    <!-- &lt;!&ndash;允许程序访问WiFi网络信息&ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
-    <!-- &lt;!&ndash;允许程序读写手机状态和身份&ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
-    <!-- &lt;!&ndash;允许程序访问CellID或WiFi热点来获取粗略的位置&ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
-    <!-- 高德地图权限 -->
 
     <application
         android:name=".application.App"
@@ -88,6 +60,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="allowBackup">
+        <activity android:name=".activity.etc.BindCardResultActivity">
+        </activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -101,9 +75,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
-        </provider>
-
-        <!-- 高德地图KEY设置 -->
+        </provider> <!-- 高德地图KEY设置 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="e377e84ed090fadee7aab76f2f32f096"/>
@@ -220,9 +192,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.vehicle.fault.FaultDetailActivity"
-            android:screenOrientation="portrait"/>
-
-        <!-- 分享 -->
+            android:screenOrientation="portrait"/> <!-- 分享 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

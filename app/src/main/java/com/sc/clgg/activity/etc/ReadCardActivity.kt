@@ -21,7 +21,12 @@ class ReadCardActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_card)
 
-        titlebar_title.text = getString(R.string.read_card)
+        val type = intent.getStringExtra("type")
+        if ("add".equals(type)) {
+            titlebar_title.text = "添加卡片 读卡"
+        } else {
+            titlebar_title.text = getString(R.string.read_card)
+        }
 
         tv_no_card_recharge.setOnClickListener { startActivity(Intent(this, MyCardActivity::class.java).putExtra("click", true)) }
 
@@ -50,7 +55,13 @@ class ReadCardActivity : BaseImmersionActivity() {
                             val cardInfo = CardInformation()
                             if (App.getInstance().mObuInterface.getCardInformation(cardInfo).serviceCode == 0) {
                                 LogHelper.e(Gson().toJson(cardInfo))
-                                startActivity(Intent(this@ReadCardActivity, WriteCardActivity::class.java).putExtra("card", cardInfo))
+                                if ("add".equals(type)) {
+                                    startActivity(Intent(this@ReadCardActivity, BalanceQueryActivity::class.java)
+                                            .putExtra("card", cardInfo)
+                                            .putExtra("type", "add"))
+                                } else {
+                                    startActivity(Intent(this@ReadCardActivity, WriteCardActivity::class.java).putExtra("card", cardInfo))
+                                }
                             }
                         }
 
@@ -61,11 +72,6 @@ class ReadCardActivity : BaseImmersionActivity() {
                 }
             }
         }
-    }
-
-    override fun onDestroy() {
-        LogHelper.e("${Gson().toJson(App.getInstance().mObuInterface.disconnectDevice())}")
-        super.onDestroy()
     }
 
 }
