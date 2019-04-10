@@ -24,7 +24,7 @@ import com.sc.clgg.activity.vehicle.mileage.MileageActivity
 import com.sc.clgg.activity.vehicle.tally.TallyBookActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.VersionInfoBean
-import com.sc.clgg.mvvm.vm.MyViewModel
+import com.sc.clgg.mvvm.MyViewModel
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.ActivityHelper
 import com.sc.clgg.tool.helper.LogHelper
@@ -33,7 +33,6 @@ import com.sc.clgg.util.*
 import kotlinx.android.synthetic.main.fragment_car_net.*
 import kotlinx.coroutines.Job
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

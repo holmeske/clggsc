@@ -263,7 +263,6 @@
         <activity android:name=".activity.etc.CardIntroduceActivity"/>
         <activity android:name=".activity.etc.ApplyStateActivity"/>
         <activity android:name=".activity.etc.CardDetailActivity"/>
-        <activity android:name=".mvvm.m.LiveDataActivity"/>
         <activity android:name=".activity.etc.ble.BleActivity"/>
 
         <service
