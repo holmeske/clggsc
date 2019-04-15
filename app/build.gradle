@@ -137,7 +137,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     androidTestImplementation 'androidx.test:runner:1.1.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
     implementation 'androidx.core:core-ktx:1.1.0-alpha05'
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -179,17 +179,17 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
 
     //沉浸式
-    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.3'
 
     //图表
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     //侧滑
     implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
     implementation files('libs/SecurityEnvSDK-release-1.1.0.jar')
     implementation files('libs/umeng-common-2.0.1.jar')
     implementation files('libs/umeng-share-core-6.9.4.jar')
@@ -199,7 +199,7 @@ dependencies {
     implementation files('libs/umeng-sharetool-6.9.4.jar')
     implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
     implementation 'com.lzy.widget:ninegridview:0.2.1'
-    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation 'com.contrarywind:Android-PickerView:4.1.7'
     implementation 'org.devio.takephoto:takephoto_library:4.1.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.6'
 

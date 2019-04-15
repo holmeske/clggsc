@@ -103,6 +103,10 @@
     <string name="default_hint">- -</string>
     <string name="youjixinxi">邮寄信息</string>
     <string name="write_card_hint">即将写卡的卡号与支付卡号不符（蓝牙设备连接发生变化）\n</string>
+    <string name="apply_state_query">ETC 申请状态查询</string>
+    <string name="my_etc_balance_query">我的ETC卡余额查询</string>
+    <string name="_1">业务说明</string>
+    <string name="_2">ETC卡详情</string>
 
 
 </resources>

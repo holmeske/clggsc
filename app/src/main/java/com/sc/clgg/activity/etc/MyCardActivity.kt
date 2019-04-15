@@ -113,7 +113,7 @@ class MyCardActivity : BaseImmersionActivity() {
                                         tv_car_number.text = "";tv_car_type.text = ""
                                         adapter.refresh(mCardList)
                                     } else {
-                                        toast("${msg}")
+                                        toast("$msg")
                                     }
                                 }
                             }

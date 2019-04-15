@@ -22,7 +22,7 @@ class CardDetailActivity : BaseImmersionActivity() {
     }
 
     private fun init() {
-        titlebar_title.text = "ETC卡详情"
+        titlebar_title.text = getString(R.string._2)
 
         tv_card_balance.text = customText("卡内余额: ", "100.00元")
         tv_card_can_write.text = customText("可写卡余额: ", "100.00元")

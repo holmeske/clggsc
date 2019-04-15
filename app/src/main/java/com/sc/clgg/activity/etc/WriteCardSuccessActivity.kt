@@ -1,5 +1,6 @@
 package com.sc.clgg.activity.etc
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.view_titlebar.*
 
 class WriteCardSuccessActivity : BaseImmersionActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_card_success)
@@ -48,7 +50,7 @@ class WriteCardSuccessActivity : BaseImmersionActivity() {
 
             tv_can_circle.text = "0.00元"
 
-            intent.getParcelableExtra<CircleSave>("data")?.let {
+            intent.getParcelableExtra<CircleSave>("data")?.let { it ->
 
                 it.realMoney?.toDouble()?.let { tv_success_money.text = "${it / 100}元" }
 

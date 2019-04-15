@@ -22,7 +22,7 @@ class ReadCardActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_read_card)
 
         val type = intent.getStringExtra("type")
-        if ("add".equals(type)) {
+        if ("add" == type) {
             titlebar_title.text = "添加卡片 读卡"
         } else {
             titlebar_title.text = getString(R.string.read_card)
@@ -55,7 +55,7 @@ class ReadCardActivity : BaseImmersionActivity() {
                             val cardInfo = CardInformation()
                             if (App.getInstance().mObuInterface.getCardInformation(cardInfo).serviceCode == 0) {
                                 LogHelper.e(Gson().toJson(cardInfo))
-                                if ("add".equals(type)) {
+                                if ("add" == type) {
                                     startActivity(Intent(this@ReadCardActivity, BalanceQueryActivity::class.java)
                                             .putExtra("card", cardInfo)
                                             .putExtra("type", "add"))
@@ -66,7 +66,7 @@ class ReadCardActivity : BaseImmersionActivity() {
                         }
 
                     } else {
-                        LogHelper.e("$serviceInfo")
+                        LogHelper.e(serviceInfo)
                         runOnUiThread { toast(serviceInfo) }
                     }
                 }

@@ -1,5 +1,6 @@
 package com.sc.clgg.activity.etc
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -51,16 +52,17 @@ class PreRechargeActivity : BaseImmersionActivity() {
         startActivity(Intent(this@PreRechargeActivity, ResultNoticeActivity::class.java).putExtra("title", title).putExtra("msg", msg))
     }
 
-    private var http_2: Call<CardInfo>? = null
+    private var http2: Call<CardInfo>? = null
     private fun getCardInfo(cardNo: String?) {
         showProgressDialog(false)
-        http_2 = RetrofitHelper().getCardInfo(cardNo, "0").apply {
+        http2 = RetrofitHelper().getCardInfo(cardNo, "0").apply {
             enqueue(object : Callback<CardInfo> {
                 override fun onFailure(call: Call<CardInfo>, t: Throwable) {
                     hideProgressDialog()
                     resultNotice("支付异常", "应答错误：卡状态查询失败！联系方式：400-888-1122")
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
                     hideProgressDialog()
                     response.body()?.let {
@@ -123,16 +125,16 @@ class PreRechargeActivity : BaseImmersionActivity() {
         super.onDestroy()
         handler.removeCallbacks(runnable)
 
-        http_1?.cancel()
-        http_2?.cancel()
+        http1?.cancel()
+        http2?.cancel()
     }
 
     private var handler = Handler()
     private var runnable: Runnable = Runnable { confirmPayStatus() }
-    private var http_1: Call<StatusBean>? = null
+    private var http1: Call<StatusBean>? = null
     private fun confirmPayStatus() {
         showProgressDialog("支付确认中...", false)
-        http_1 = RetrofitHelper().confirmPayStatus(card?.cardNo).apply {
+        http1 = RetrofitHelper().confirmPayStatus(card?.cardNo).apply {
             enqueue(object : Callback<StatusBean> {
                 override fun onFailure(call: Call<StatusBean>, t: Throwable) {
                     hideProgressDialog()

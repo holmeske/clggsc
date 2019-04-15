@@ -19,13 +19,14 @@ import retrofit2.Response
 
 class PreRechargeFinishActivity : BaseImmersionActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_recharge_finish)
         titlebar_left.visibility = View.GONE
         titlebar_title.text = "完成"
 
-        intent.getParcelableExtra<CardList.Card>("data")?.let {
+        intent.getParcelableExtra<CardList.Card>("data")?.let { it ->
             tv_card_number.text = "${it.cardNo}"
             tv_car_number.text = "${it.carNo}"
 
@@ -40,7 +41,7 @@ class PreRechargeFinishActivity : BaseImmersionActivity() {
                     @SuppressLint("SetTextI18n")
                     override fun onResponse(call: Call<CardInfo>, response: Response<CardInfo>) {
                         hideProgressDialog()
-                        response.body()?.let {
+                        response.body()?.let { it ->
                             it.RQcMoney?.toDouble()?.let {
                                 tv_can_write_balance.text = "${String.format("%.2f", it / 100)}元"
                             }
@@ -53,7 +54,7 @@ class PreRechargeFinishActivity : BaseImmersionActivity() {
             tv_success_money.text = "${String.format("%.2f", it / 100)}元"
         }
         intent.getStringExtra("wasteSn")?.let {
-            tv_order_number.text = "${it}"
+            tv_order_number.text = it
         }
 
         tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }

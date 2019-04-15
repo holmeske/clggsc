@@ -190,7 +190,7 @@
 #----------kotlinx----------
 
 #----------沉浸式状态栏----------
--keep class com.gyf.barlibrary.* {*;}
+-keep class com.gyf.immersionbar.* {*;}
 
 -keep public class android.support.design.widget.TabLayout {*;}
 

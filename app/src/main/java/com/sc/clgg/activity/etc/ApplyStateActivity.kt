@@ -25,7 +25,7 @@ class ApplyStateActivity : BaseImmersionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_state)
 
-        titlebar_title.text = "ETC 申请状态查询"
+        titlebar_title.text = getString(R.string.apply_state_query)
         titlebar_right?.let { it.visibility = View.VISIBLE; it.text = "全部";it.setOnClickListener { mApplyStateAdapter.refresh(dataList);tv_apply_state?.text = "" } }
 
         rv.layoutManager = LinearLayoutManager(this)

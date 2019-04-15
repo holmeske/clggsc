@@ -30,7 +30,7 @@ class BalanceQueryActivity : BaseImmersionActivity() {
         card = intent.getParcelableExtra("card")
 
         val type = intent.getStringExtra("type")
-        if ("add".equals(type)) {
+        if ("add" == type) {
             titlebar_title.text = "确认卡片信息"
             tv_bind_card.visibility = View.VISIBLE
             tv_bind_card.setOnClickListener {
