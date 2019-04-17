@@ -110,6 +110,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/top_home_icon_me"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
