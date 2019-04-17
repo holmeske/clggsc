@@ -1,17 +1,33 @@
 package com.sc.clgg.activity
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.KeyEvent
+import android.view.View
 import android.widget.TextView
+import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.gyf.barlibrary.ImmersionBar
 import com.sc.clgg.R
 import com.sc.clgg.activity.fragment.*
+import com.sc.clgg.activity.login.LoginRegisterActivity
+import com.sc.clgg.activity.my.MyMessageActivity
+import com.sc.clgg.activity.my.MyVehicleActivity
+import com.sc.clgg.activity.my.SetActivity
+import com.sc.clgg.activity.my.userinfo.PersonalDataActivity
 import com.sc.clgg.adapter.FragmentAdapter
 import com.sc.clgg.base.BaseAppCompatActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.CarNetEvent
 import com.sc.clgg.dialog.ExitDialog
+import com.sc.clgg.util.ConfigUtil
+import com.sc.clgg.util.dp2px
+import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.view_drawer.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -51,10 +67,47 @@ class MainActivity : BaseAppCompatActivity() {
         tv_my.setOnClickListener { checked(4) }
         ImmersionBar.with(this).init()
 
+        setDrawerLayout()
+
         checked(0)
         tv_home.isSelected = true
     }
 
+    private fun setDrawerLayout() {
+        if (!ConfigUtil().isLogined(this)) {
+            tv_nickname.text = "未登录"
+            tv_user_type.visibility = View.GONE
+            tv_certification.visibility = View.GONE
+        } else {
+            tv_nickname.text = ConfigUtil().nickName
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            iv_open.setPadding(dp2px(15f), statusBarHeight() + 15, 15, 0)
+        } else {
+            iv_open.setPadding(dp2px(15f), 15, 15, 0)
+        }
+        iv_open.setOnClickListener { drawerLayout.openDrawer(Gravity.LEFT) }
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+        Glide.with(this).load(ConfigUtil().icon)
+                .apply(RequestOptions().error(R.drawable.bg_00a0e9_circle).placeholder(R.drawable.bg_00a0e9_circle))
+                .circleCrop().into(iv_head)
+
+        ll_mymessage.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity(Intent(this, MyMessageActivity::class.java)) }
+        ll_mycar.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity(Intent(this, MyVehicleActivity::class.java)) }
+        ll_personal_data.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity(Intent(this, PersonalDataActivity::class.java)) }
+
+        tv_set.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity(Intent(this, SetActivity::class.java)) }
+        tv_exit.setOnClickListener {
+            ExitDialog(this).show("温馨提示", "确定退出登录？") { _, _ ->
+                ConfigUtil().clear()
+                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, LoginRegisterActivity::class.java))
+                finish()
+            }
+        }
+    }
 
     override fun onStart() {
         super.onStart()

@@ -26,7 +26,6 @@ import com.sc.clgg.util.setRoundedCornerPicture
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_my.*
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -122,12 +121,14 @@ class MyFragment : BaseFragment() {
 
                     iv_head.setRoundedCornerPicture(activity!!, it.headImg)
 
-                    ConfigUtil().userid = it.userCode!!
-                    ConfigUtil().username = it.userName!!
-                    ConfigUtil().realName = it.realName!!
-                    ConfigUtil().mobile = it.userName!!
+                    ConfigUtil().icon = it.headImg
 
-                    ConfigUtil().nickName = it.nickName!!
+                    ConfigUtil().userid = it.userCode!!
+                    ConfigUtil().username = it.userName
+                    ConfigUtil().realName = it.realName
+                    ConfigUtil().mobile = it.userName
+
+                    ConfigUtil().nickName = it.nickName
 
 
                     tv_nickname.text = it.nickName

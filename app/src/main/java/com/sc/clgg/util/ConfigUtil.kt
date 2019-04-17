@@ -21,7 +21,15 @@ class ConfigUtil {
     private val PASSWORD = "password"
     private val ACCOUNT = "account"
 
+    private val ICON = "icon"
+
     private var sharedPreferences: SharedPreferences? = null
+
+    var icon: String?
+        get() = sharedPreferences?.getString(ICON, "")
+        set(icon) {
+            sharedPreferences?.edit { putString(ICON, icon) }
+        }
 
     var mobile: String?
         get() = sharedPreferences?.getString(MOBILE, "")

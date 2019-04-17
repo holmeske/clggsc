@@ -173,9 +173,9 @@ class MileageDetailActivity : BaseImmersionActivity() {
         val sets = chart.data.dataSets
         for (iSet in sets) {
             val set = iSet as LineDataSet
-            set.setValueFormatter { value, _, _, _ ->
-                value.toString()
-            }
+//            set.setValueFormatter { value, _, _, _ ->
+//                value.toString()
+//            }
         }
 
         val colorList = java.util.ArrayList<Int>()

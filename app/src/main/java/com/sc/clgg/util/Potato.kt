@@ -31,11 +31,16 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+fun Context.dp2px(dipValue: Float): Int {
+    val scale = resources.displayMetrics.density
+    return (dipValue * scale + 0.5f).toInt()
+}
+
 fun Context.getArea(location: Location?): String? {
     if (location == null) {
         return ""
     }
-    return Geocoder(this).getFromLocation(location.latitude, location?.longitude, 1)?.get(0)?.adminArea
+    return Geocoder(this).getFromLocation(location.latitude, location.longitude, 1)?.get(0)?.adminArea
 }
 
 @SuppressLint("MissingPermission")
@@ -55,13 +60,13 @@ fun getLocationInfo(): Location? {
 
     var criteria = Criteria()
     //高度
-    criteria.setAltitudeRequired(false)
+    criteria.isAltitudeRequired = false
     //方向
-    criteria.setBearingRequired(false)
-    criteria.setCostAllowed(false)
-    criteria.setPowerRequirement(Criteria.POWER_HIGH)
+    criteria.isBearingRequired = false
+    criteria.isCostAllowed = false
+    criteria.powerRequirement = Criteria.POWER_HIGH
     //精确度
-    criteria.setAccuracy(Criteria.ACCURACY_FINE)
+    criteria.accuracy = Criteria.ACCURACY_FINE
     locationProvider = locationManager.getBestProvider(criteria, true)
 
     location = locationManager.getLastKnownLocation(locationProvider)
