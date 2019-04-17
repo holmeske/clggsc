@@ -125,13 +125,13 @@ def static releaseTime() {//-HH-mm-ss
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation('com.google.android.material:material:1.1.0-alpha02') {
+    implementation('com.google.android.material:material:1.1.0-alpha05') {
         force = true
     }
     implementation('androidx.legacy:legacy-support-v4:1.0.0') {
         force = true
     }
-    implementation('androidx.recyclerview:recyclerview:1.1.0-alpha01') {
+    implementation('androidx.recyclerview:recyclerview:1.1.0-alpha04') {
         force = true
     }
     testImplementation 'junit:junit:4.12'
