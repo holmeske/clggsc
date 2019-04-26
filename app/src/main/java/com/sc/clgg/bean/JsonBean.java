@@ -1,7 +1,7 @@
 package com.sc.clgg.bean;
 
 
-import com.contrarywind.interfaces.IPickerViewData;
+import com.sc.clgg.util.PickerViewHelper;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * @date: 2017/3/16 15:36
  */
 
-public class JsonBean implements IPickerViewData {
+public class JsonBean implements PickerViewHelper.IPickerViewData {
 
 
     /**

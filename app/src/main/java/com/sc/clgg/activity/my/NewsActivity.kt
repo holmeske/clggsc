@@ -39,13 +39,13 @@ class NewsActivity : BaseImmersionActivity() {
         rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         rv.adapter = adapter
 
-        swipeRefreshLayout?.setOnRefreshListener(androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener {
+        swipeRefreshLayout?.setOnRefreshListener({
             noMore = false
             pageNo = 1
             loadData(position, pageNo, pageSize)
         })
 
-        adapter?.setLoadMoreListener(View.OnClickListener { view ->
+        adapter?.setLoadMoreListener({ view ->
             (view as TextView).text = "加载中..."
             if (!noMore) {
                 pageNo++

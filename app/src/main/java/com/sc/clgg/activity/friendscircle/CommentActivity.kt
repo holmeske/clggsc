@@ -55,7 +55,7 @@ class CommentActivity : AppCompatActivity(), View.OnLayoutChangeListener {
         }
         root?.addOnLayoutChangeListener(this)
 
-        tv_send.setOnClickListener {
+        tv_send.setOnClickListener { it ->
             val comment = et_input?.text?.toString()
             hideSoftInputFromWindow(it)
             if (!comment?.isBlank()!!)

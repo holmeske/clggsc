@@ -6,6 +6,8 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
+
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
@@ -20,13 +22,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import androidx.core.content.ContextCompat;
-
 /**
  * @author：lvke
  * @date：2018/11/14 15:20
  */
 public class PickerViewHelper {
+    public interface IPickerViewData {
+        String getPickerViewText();
+    }
 
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();

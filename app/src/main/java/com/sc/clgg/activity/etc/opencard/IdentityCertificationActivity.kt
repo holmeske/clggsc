@@ -80,7 +80,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                     idcardImgFront = it
                     Glide.with(this).load(File(it)).into(iv_idcard_front)
                     tv_idcard_front_hint.visibility = View.INVISIBLE
-                    certificationInfo?.idcardImgFront = result?.image?.originalPath
+                    certificationInfo?.idcardImgFront = result.image?.originalPath
                     LogHelper.e("客户正面")
                     scanIdCard(it, false)
                 }
@@ -88,14 +88,14 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                     idcardImgBehind = it
                     Glide.with(this).load(File(it)).into(iv_idcard_reverse)
                     tv_idcard_reverse_hint.visibility = View.INVISIBLE
-                    certificationInfo?.idcardImgBehind = result?.image?.originalPath
+                    certificationInfo?.idcardImgBehind = result.image?.originalPath
                     LogHelper.e("客户反面")
                 }
                 choosingAgentFront -> {
                     agentIdcardFront = it
                     Glide.with(this).load(File(it)).into(iv_agent_idcard_front)
                     tv_agent_idcard_front_hint.visibility = View.INVISIBLE
-                    certificationInfo?.agentIdcardImgFront = result?.image?.originalPath
+                    certificationInfo?.agentIdcardImgFront = result.image?.originalPath
                     LogHelper.e("经办人正面")
                     scanIdCard(it, true)
                 }
@@ -103,14 +103,14 @@ class IdentityCertificationActivity : TakePhotoActivity() {
                     agentIdcardReverse = it
                     Glide.with(this).load(File(it)).into(iv_agent_idcard_reverse)
                     tv_agent_idcard_reverse_hint.visibility = View.INVISIBLE
-                    certificationInfo?.agentIdcardImgBehind = result?.image?.originalPath
+                    certificationInfo?.agentIdcardImgBehind = result.image?.originalPath
                     LogHelper.e("经办人反面")
                 }
                 else -> {
                     businessLicenseImg = it
                     Glide.with(this).load(File(it)).into(iv_enterprise)
                     tv_enterprise_hint.visibility = View.INVISIBLE
-                    certificationInfo?.businessLicenseImg = result?.image?.originalPath
+                    certificationInfo?.businessLicenseImg = result.image?.originalPath
                     LogHelper.e("营业执照")
                     scanPassport(it)
                 }
@@ -245,7 +245,7 @@ class IdentityCertificationActivity : TakePhotoActivity() {
             override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
                 hideProgressDialog()
                 try {
-                    response.body()?.let {
+                    response.body()?.let { it ->
                         if (it.containsKey("success") && it["success"] as Boolean) {
 
                             if (it.containsKey("identify")) {

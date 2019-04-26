@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.sc.clgg"
-          android:installLocation="auto">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sc.clgg"
+    android:installLocation="auto">
 
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
         android:resizeable="true"
-        android:xlargeScreens="true"/>
+        android:xlargeScreens="true" />
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
-        android:required="true"/>
+        android:required="true" />
 
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS"/>
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_GPS"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.CAMERA"/> <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS"/> -->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS"/> -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
     <!-- <uses-permission android:name="android.permission.SEND_SMS"/> -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/> <!-- <uses-permission android:name="android.permission.USE_CREDENTIALS"/> -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- <uses-permission android:name="android.permission.USE_CREDENTIALS"/> -->
     <!-- <uses-permission android:name="android.permission.VIBRATE"/> -->
     <!-- <uses-permission android:name="android.permission.WAKE_LOCK"/> -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".application.App"
@@ -60,12 +60,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="allowBackup">
-        <activity android:name=".activity.etc.BindCardResultActivity">
-        </activity>
+        <activity android:name=".activity.nocar.DrivingLicenseActivity"></activity>
+        <activity android:name=".activity.nocar.IdentityActivity" />
+        <activity android:name=".activity.etc.BindCardResultActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false"/>
+            android:required="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -74,209 +75,205 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider> <!-- 高德地图KEY设置 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="e377e84ed090fadee7aab76f2f32f096"/>
+            android:value="e377e84ed090fadee7aab76f2f32f096" />
 
-        <service android:name="com.amap.api.location.APSService"/>
+        <service android:name="com.amap.api.location.APSService" />
 
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.LaunchActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".activity.my.MyVehicleActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.locate.LocationDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".activity.vehicle.locate.LocateActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.set.AboutUsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.mileage.PathRecordActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.AddVehicleActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.WebActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityTheme"/>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".activity.my.set.ModifyPasswordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityTheme"/>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".activity.login.ForgetPasswordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityTheme"/>
-        <activity android:name=".activity.vehicle.ServiceStationActivity"/>
+            android:theme="@style/ActivityTheme" />
+        <activity android:name=".activity.vehicle.ServiceStationActivity" />
         <activity
             android:name=".activity.vehicle.RepairActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.tally.RecordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.fault.FaultDiagnosisActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".activity.vehicle.mileage.MileageActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.energy.ConsumptionStatisticalActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.energy.ConsumptionDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.mileage.MileageDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.tally.TallyBookActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.friendscircle.PublishDynamicActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.userinfo.PersonalDataActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.userinfo.GenderActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.userinfo.NickNameActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.userinfo.ModifyAccountActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.SetActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.set.FeedbackActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.MyMessageActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my.NewsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.login.LoginRegisterActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.vehicle.fault.FaultDetailActivity"
-            android:screenOrientation="portrait"/> <!-- 分享 -->
+            android:screenOrientation="portrait" /> <!-- 分享 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/noStyle"/>
+            android:theme="@style/noStyle" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1105755915"/>
+                <data android:scheme="tencent1105755915" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activity.vehicle.locate.ShareActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TranslucentFullScreenTheme"/>
+            android:theme="@style/TranslucentFullScreenTheme" />
         <activity
             android:name=".activity.friendscircle.CommentActivity"
             android:theme="@style/TranslucentFullScreenTheme"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".activity.my.DynamicDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.friendscircle.PictureActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".service.AppService"
-            android:exported="false"/>
+            android:exported="false" />
 
-        <activity android:name=".activity.friendscircle.InteractiveDetailActivity"/>
-        <activity android:name=".activity.etc.RechargeActivity"/>
-        <activity android:name=".activity.etc.ReadCardActivity"/>
-        <activity android:name=".activity.etc.WriteCardActivity"/>
-        <activity android:name=".activity.etc.WriteCardSuccessActivity"/>
-        <activity android:name=".activity.etc.ResultNoticeActivity"/>
-        <activity android:name=".activity.etc.MyCardActivity"/>
+        <activity android:name=".activity.friendscircle.InteractiveDetailActivity" />
+        <activity android:name=".activity.etc.RechargeActivity" />
+        <activity android:name=".activity.etc.ReadCardActivity" />
+        <activity android:name=".activity.etc.WriteCardActivity" />
+        <activity android:name=".activity.etc.WriteCardSuccessActivity" />
+        <activity android:name=".activity.etc.ResultNoticeActivity" />
+        <activity android:name=".activity.etc.MyCardActivity" />
         <activity
             android:name=".activity.etc.EtcActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.etc.PreRechargeActivity"/>
-        <activity android:name=".activity.etc.opencard.IdentityCertificationActivity"/>
-        <activity android:name=".activity.etc.BalanceQueryActivity"/>
-        <activity android:name=".activity.etc.opencard.VehicleCertificationActivity"/>
-        <activity android:name=".activity.etc.opencard.InfoCertificationActivity"/>
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.etc.PreRechargeActivity" />
+        <activity android:name=".activity.etc.opencard.IdentityCertificationActivity" />
+        <activity android:name=".activity.etc.BalanceQueryActivity" />
+        <activity android:name=".activity.etc.opencard.VehicleCertificationActivity" />
+        <activity android:name=".activity.etc.opencard.InfoCertificationActivity" />
         <activity
             android:name=".activity.etc.AuditActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.etc.opencard.SubmitApplyActivity"/>
-        <activity android:name=".activity.etc.CardIntroduceActivity"/>
-        <activity android:name=".activity.etc.ApplyStateActivity"/>
-        <activity android:name=".activity.etc.CardDetailActivity"/>
-        <activity android:name=".activity.etc.ble.BleActivity"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.etc.opencard.SubmitApplyActivity" />
+        <activity android:name=".activity.etc.CardIntroduceActivity" />
+        <activity android:name=".activity.etc.ApplyStateActivity" />
+        <activity android:name=".activity.etc.CardDetailActivity" />
+        <activity android:name=".activity.etc.ble.BleActivity" />
 
         <service
             android:name="com.genvict.bluetooth.manage.BlueToothService"
-            android:enabled="true"/>
+            android:enabled="true" />
 
-        <activity android:name=".activity.etc.BalanceQueryPreActivity">
-        </activity>
-        <activity android:name=".activity.etc.PreRechargeFinishActivity">
-        </activity>
-        <activity android:name=".activity.etc.RechargeOrderActivity">
-        </activity>
-        <activity android:name=".activity.BusinessIntroductionActivity">
-        </activity>
+        <activity android:name=".activity.etc.BalanceQueryPreActivity" />
+        <activity android:name=".activity.etc.PreRechargeFinishActivity" />
+        <activity android:name=".activity.etc.RechargeOrderActivity" />
+        <activity android:name=".activity.BusinessIntroductionActivity" />
     </application>
 
 </manifest>

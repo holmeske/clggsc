@@ -62,14 +62,14 @@ class SubmitApplyActivity : BaseImmersionActivity() {
         titlebar_title.text = "提交申请"
         certificationProgressView.setProress(4)
 
-        var hint = getString(R.string.submint_hint)
+        val hint = getString(R.string.submint_hint)
 
-        var spannableString = SpannableString(hint)
+        val spannableString = SpannableString(hint)
 
         spannableString.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, R.color._4285f4)), hint.length - 4, hint.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(MyClick(this@SubmitApplyActivity), hint.length - 4, hint.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        tv_hint.setText(spannableString)
+        tv_hint.text = spannableString
         tv_hint.movementMethod = LinkMovementMethod.getInstance()
 
         tv_submit_card.setOnClickListener {
@@ -80,7 +80,7 @@ class SubmitApplyActivity : BaseImmersionActivity() {
             showProgressDialog()
             http = RetrofitHelper().apply(certificationInfo).apply {
                 enqueue(object : Callback<Check> {
-                    override fun onResponse(call: retrofit2.Call<Check>, response: Response<Check>) {
+                    override fun onResponse(call: Call<Check>, response: Response<Check>) {
                         hideProgressDialog()
                         response.body()?.let {
                             if (it.success) {
@@ -91,7 +91,7 @@ class SubmitApplyActivity : BaseImmersionActivity() {
                         }
                     }
 
-                    override fun onFailure(call: retrofit2.Call<Check>, t: Throwable) {
+                    override fun onFailure(call: Call<Check>, t: Throwable) {
                         hideProgressDialog()
                         toast(R.string.network_anomaly)
                     }

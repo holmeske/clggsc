@@ -10,7 +10,10 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.ActivityHelper
 import kotlinx.android.synthetic.main.activity_my_vehicle.*
 import kotlinx.android.synthetic.main.view_titlebar.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.jetbrains.anko.toast
 import retrofit2.Call
 
@@ -45,7 +48,7 @@ class MyVehicleActivity : BaseImmersionActivity() {
     private fun loadData() {
         showProgressDialog()
         GlobalScope.launch {
-            val http = async { RetrofitHelper().myVehicle().execute() }.await()
+            val http = withContext(Dispatchers.Default) { RetrofitHelper().myVehicle().execute() }
             withContext(Dispatchers.Main) {
                 hideProgressDialog()
                 if (http.isSuccessful) {
@@ -58,7 +61,7 @@ class MyVehicleActivity : BaseImmersionActivity() {
                                 adapter?.refresh(vehicleInfoList)
                             }
                         } else {
-                            toast("${msg}")
+                            toast("$msg")
                         }
                     }
                 } else {
