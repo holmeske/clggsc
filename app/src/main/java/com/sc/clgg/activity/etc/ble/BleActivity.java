@@ -8,6 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.gson.Gson;
 import com.sc.clgg.R;
 import com.sc.clgg.application.App;
@@ -19,10 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import etc.obu.data.CardInformation;
 import etc.obu.data.DeviceInformation;
 import etc.obu.data.ServiceStatus;
@@ -137,17 +138,17 @@ public class BleActivity extends AppCompatActivity {
                                 for (String s : info) {
                                     Log.e(tag, "info元素 = " + s);
                                     if (s.startsWith("a_cid=")) {
-                                        a_cid = s.substring(6, s.length());
+                                        a_cid = s.substring(6);
                                     } else if (s.startsWith("a_pt=")) {
-                                        a_pt = s.substring(5, s.length());
+                                        a_pt = s.substring(5);
                                     } else if (s.startsWith("a_rnd=")) {
-                                        a_rnd = s.substring(6, s.length());
+                                        a_rnd = s.substring(6);
                                     } else if (s.startsWith("a_cbb=")) {
-                                        a_cbb = s.substring(6, s.length());
+                                        a_cbb = s.substring(6);
                                     } else if (s.startsWith("a_m1=")) {
-                                        a_m1 = s.substring(5, s.length());
+                                        a_m1 = s.substring(5);
                                     } else if (s.startsWith("a_on=")) {
-                                        a_on = s.substring(5, s.length());
+                                        a_on = s.substring(5);
                                     }
                                 }
                                 if (loadMac1Status.getServiceCode() == 0) {

@@ -14,6 +14,8 @@ import android.os.Message;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import androidx.core.content.FileProvider;
+
 import com.sc.clgg.R;
 import com.sc.clgg.application.App;
 import com.sc.clgg.tool.helper.ApkUtils;
@@ -27,8 +29,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import androidx.core.content.FileProvider;
 
 /**
  * @author lvke
@@ -125,7 +125,7 @@ public class UpdateHelper {
             FileOutputStream fos = new FileOutputStream(apk);
 
             int count = 0;
-            byte buf[] = new byte[1024];
+            byte[] buf = new byte[1024];
 
             do {
                 int numRead = is.read(buf);

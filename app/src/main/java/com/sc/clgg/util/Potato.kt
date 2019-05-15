@@ -9,6 +9,7 @@ import android.location.Criteria
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -115,6 +116,18 @@ fun EditText.setTextChangeListener(body: (key: String) -> Unit) {
     })
 }
 
+@SuppressLint("MissingPermission")
+fun Context.makeDIAL(number: String): Boolean {
+    try {
+        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
+        startActivity(intent)
+        return true
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return false
+    }
+}
+
 fun Context.startActivity(cls: Class<*>) {
     startActivity(Intent(this, cls))
 }
@@ -180,20 +193,6 @@ fun ImageView.setRoundedCornerPicture(context: Context, url: String? = "") {
     })*/
             .into(this)
     //}
-}
-
-fun ImageView.setPicture(context: Context, url: String? = "") {
-    Glide.with(context).load(url).apply(
-            RequestOptions().placeholder(R.drawable.ic_launcher).error(R.drawable.ic_launcher)
-    ).into(this)
-}
-
-fun Context.statActivity(mClass: Class<*>? = null) {
-    startActivity(Intent(this@statActivity, mClass))
-}
-
-fun Context.statActivity(imageView: ImageView?, mClass: Class<*>? = null) {
-    imageView!!.setOnClickListener { startActivity(Intent(this@statActivity, mClass)) }
 }
 
 fun ImageView.setImage(url: String? = "") {

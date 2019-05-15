@@ -38,7 +38,7 @@ class NickNameActivity : BaseImmersionActivity() {
             }
             type.equals("invite") -> {
                 initTitle("设置邀请码")
-                et.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+                et.keyListener = DigitsKeyListener.getInstance("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
                 et.setText(intent.getStringExtra("invite"))
             }
         }

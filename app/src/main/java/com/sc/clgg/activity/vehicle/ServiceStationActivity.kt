@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import com.sc.clgg.R
 import com.sc.clgg.activity.WebActivity
-import com.sc.clgg.activity.contact.ItemClickListener
 import com.sc.clgg.adapter.ServiceStationAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.ServiceStation
@@ -135,7 +134,7 @@ class ServiceStationActivity : BaseImmersionActivity() {
 
         }
 
-        adapter?.setLoadMoreListener(View.OnClickListener { view ->
+        adapter?.setLoadMoreListener { view ->
             (view as TextView).text = "加载中..."
             if (!noMore) {
                 pageNo++
@@ -143,28 +142,28 @@ class ServiceStationActivity : BaseImmersionActivity() {
             } else {
                 Toast.makeText(applicationContext, getString(R.string.no_more), Toast.LENGTH_SHORT).show()
             }
-        })
+        }
         loadData(queryType, area!!, pageNo, pageSize)
 
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        LogHelper.e("hasFocus = " + hasFocus)
+        LogHelper.e("hasFocus = $hasFocus")
         isOpenGps()
     }
 
     private fun showPop() {
-        var popHelper = AreaPopHelper()
-        var mPopupWindow = popHelper.init(this@ServiceStationActivity)
-        popHelper.setItemClickListener(ItemClickListener {
+        val popHelper = AreaPopHelper()
+        val mPopupWindow = popHelper.init(this@ServiceStationActivity)
+        popHelper.setItemClickListener {
             mPopupWindow?.dismiss()
             noMore = false
             pageNo = 1
             area = it
-            LogHelper.e("" + it)
+            LogHelper.e(it)
             loadData(queryType, area!!, pageNo, pageSize)
-        })
+        }
 
         mPopupWindow.showAsDropDown(v2, 0, MeasureHelper.dp2px(this@ServiceStationActivity, 12f))
     }
@@ -188,6 +187,8 @@ class ServiceStationActivity : BaseImmersionActivity() {
                     swipeRefreshLayout?.isRefreshing = false
                     response.body()?.let { it ->
                         service_station_num.text = "${area}共${it.page?.total}家$title"
+//                        service_station_num.text = String.format(getString(R.string.servicestation),area,it.page?.total,title)
+
                         if (it.page?.total == 0) {
                             adapter?.clear()
                             return@let

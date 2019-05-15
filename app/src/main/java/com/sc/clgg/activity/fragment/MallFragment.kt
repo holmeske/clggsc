@@ -44,9 +44,9 @@ class MallFragment : Fragment() {
         viewIsCreated = true
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            titlebar_top.setVisibility(View.GONE)
+            titlebar_top.visibility = View.GONE
         } else {
-            titlebar_top.setLayoutParams(LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, activity!!.statusBarHeight()))
+            titlebar_top.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, activity!!.statusBarHeight())
         }
         titlebar_left.visibility = View.GONE
         titlebar_left.setOnClickListener {
@@ -98,10 +98,10 @@ class MallFragment : Fragment() {
         mWebSettings?.loadsImagesAutomatically = true //支持自动加载图片
         mWebSettings?.defaultTextEncodingName = "utf-8"//设置编码格式
 
-        mWebSettings?.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS)
-        mWebSettings?.setBlockNetworkImage(false)//是否阻止网络数据
+        mWebSettings?.layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
+        mWebSettings?.blockNetworkImage = false//是否阻止网络数据
         mWebSettings?.setSupportMultipleWindows(true)
-        mWebSettings?.setDomStorageEnabled(true)
+        mWebSettings?.domStorageEnabled = true
 
         webView?.addJavascriptInterface(JsInterface(), "Android")
         //mWebSettings?.textZoom = 100
@@ -143,10 +143,6 @@ class MallFragment : Fragment() {
                 } else {
                     titlebar_left.visibility = View.GONE
                 }
-            }
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
             }
 
         }

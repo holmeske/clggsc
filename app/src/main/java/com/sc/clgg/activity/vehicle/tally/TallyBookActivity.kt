@@ -1,6 +1,5 @@
 package com.sc.clgg.activity.vehicle.tally
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import com.bigkoo.pickerview.builder.TimePickerBuilder
@@ -16,6 +15,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.CalendarHelper
 import com.sc.clgg.tool.helper.LogHelper
 import kotlinx.android.synthetic.main.activity_tally_book.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -71,12 +71,10 @@ class TallyBookActivity : BaseImmersionActivity() {
         tv_year.setOnClickListener { mTimePickerView?.show() }
 
         record_income.setOnClickListener {
-            startActivity(Intent(this@TallyBookActivity, RecordActivity::class.java)
-                    .putExtra("title", "记录收入").putExtra("str", "工资").putExtra("recordType", "0"))
+            startActivity<RecordActivity>(Pair("title", "记录收入"), Pair("str", "工资"), Pair("recordType", "0"))
         }
         record_spending.setOnClickListener {
-            startActivity(Intent(this@TallyBookActivity, RecordActivity::class.java)
-                    .putExtra("title", "记录支出").putExtra("str", "高速费").putExtra("recordType", "1"))
+            startActivity<RecordActivity>(Pair("title", "记录支出"), Pair("str", "高速费"), Pair("recordType", "1"))
         }
     }
 

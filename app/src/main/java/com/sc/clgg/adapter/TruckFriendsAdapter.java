@@ -344,7 +344,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
         if (str == null || str.isEmpty()) {
             return "";
         }
-        return str.substring(1, str.length());
+        return str.substring(1);
     }
 
     /**

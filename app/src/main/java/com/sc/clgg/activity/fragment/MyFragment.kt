@@ -1,6 +1,5 @@
 package com.sc.clgg.activity.fragment
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -25,6 +24,7 @@ import com.sc.clgg.util.setDefaultRoundedCornerPicture
 import com.sc.clgg.util.setRoundedCornerPicture
 import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_my.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,14 +50,14 @@ class MyFragment : BaseFragment() {
         }
 
         v_0.setOnClickListener { ConfigUtil().isLogined(activity!!) }
-        v_1.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, MyMessageActivity::class.java)) }
-        item_my_car.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, MyVehicleActivity::class.java)) }
+        v_1.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity<MyMessageActivity>() }
+        item_my_car.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity<MyVehicleActivity>() }
         item_real_name.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "实名认证", ConstantValue.REAL_NAME_AUTHENTICATION) }
         item_wallet.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "我的钱包", ConstantValue.WALLET_ENTRANCE) }
         tv_operation.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "运营", ConstantValue.OPERATING) }
         tv_member_info.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) WebActivity.start(activity, "会员信息", ConstantValue.MEMBER_INFORMATION) }
-        item_personal_data.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, PersonalDataActivity::class.java)) }
-        item_set.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity(Intent(activity, SetActivity::class.java)) }
+        item_personal_data.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity<PersonalDataActivity>() }
+        item_set.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity<SetActivity>() }
     }
 
 
@@ -76,7 +76,7 @@ class MyFragment : BaseFragment() {
     override fun onResume() {
         LogHelper.e("onResume() --->我的")
         super.onResume()
-        if (!ConfigUtil().userid.isEmpty()) {
+        if (ConfigUtil().userid.isNotEmpty()) {
             activity.apply {
                 this as MainActivity
                 if (currenMainTabIndex == 4) {

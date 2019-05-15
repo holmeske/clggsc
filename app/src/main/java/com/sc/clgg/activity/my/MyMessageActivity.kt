@@ -1,6 +1,5 @@
 package com.sc.clgg.activity.my
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.sc.clgg.R
@@ -8,6 +7,7 @@ import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.IsNotReadInfo
 import com.sc.clgg.retrofit.RetrofitHelper
 import kotlinx.android.synthetic.main.activity_my_message.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,16 +21,9 @@ class MyMessageActivity : BaseImmersionActivity() {
 
         initTitle("我的消息")
 
-        v_1.setOnClickListener { startActivity(Intent(this@MyMessageActivity, DynamicDetailActivity::class.java)) }
-        v_2.setOnClickListener {
-            startActivity(Intent(this@MyMessageActivity, NewsActivity::class.java)
-                    .putExtra("title", "新闻资讯").putExtra("position", "1"))
-        }
-        v_3.setOnClickListener {
-            startActivity(Intent(this@MyMessageActivity, NewsActivity::class.java)
-                    .putExtra("title", "活动公告").putExtra("position", "11"))
-        }
-
+        v_1.setOnClickListener { startActivity<DynamicDetailActivity>() }
+        v_2.setOnClickListener { startActivity<NewsActivity>(Pair("title", "新闻资讯"), Pair("position", "1")) }
+        v_3.setOnClickListener { startActivity<NewsActivity>(Pair("title", "活动公告"), Pair("position", "11")) }
     }
 
     override fun onResume() {

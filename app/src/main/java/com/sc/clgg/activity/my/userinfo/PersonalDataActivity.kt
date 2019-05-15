@@ -1,6 +1,5 @@
 package com.sc.clgg.activity.my.userinfo
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.gson.Gson
@@ -14,12 +13,12 @@ import com.sc.clgg.util.showTakePhotoWithCrop
 import kotlinx.android.synthetic.main.activity_personal_data.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 import org.devio.takephoto.model.TResult
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-
 
 class PersonalDataActivity : TakePhotoActivity() {
 
@@ -50,29 +49,23 @@ class PersonalDataActivity : TakePhotoActivity() {
         }
 
         tv_phone.setOnClickListener {
-            startActivity(Intent(this@PersonalDataActivity, ModifyAccountActivity::class.java))
+            startActivity<ModifyAccountActivity>()
         }
         tv_sex.setOnClickListener {
-            startActivity(Intent(this@PersonalDataActivity, GenderActivity::class.java).putExtra("gender", DATA?.gender))
+            startActivity<GenderActivity>(Pair("gender", DATA?.gender))
         }
-
         tv_name.setOnClickListener {
-            startActivity(Intent(this@PersonalDataActivity, NickNameActivity::class.java)
-                    .putExtra("cardType", "name").putExtra("name", DATA?.realName)
-                    .putExtra("maxLength", 20))
+            startActivity<NickNameActivity>(Pair("cardType", "name"), Pair("name", DATA?.realName), Pair("maxLength", 20))
         }
         tv_nickname.setOnClickListener {
-            startActivity(Intent(this@PersonalDataActivity, NickNameActivity::class.java)
-                    .putExtra("cardType", "nickname").putExtra("nickname", DATA?.nickName).putExtra("maxLength", 20))
+            startActivity<NickNameActivity>(Pair("cardType", "nickname"), Pair("nickname", DATA?.nickName), Pair("maxLength", 20))
         }
         tv_signature.setOnClickListener {
-            startActivity(Intent(this@PersonalDataActivity, NickNameActivity::class.java)
-                    .putExtra("cardType", "signature").putExtra("signature", DATA?.clientSign).putExtra("maxLength", 50))
+            startActivity<NickNameActivity>(Pair("cardType", "signature"), Pair("signature", DATA?.clientSign), Pair("maxLength", 50))
         }
 
         tv_invite_code.setOnClickListener {
-            startActivity(Intent(this@PersonalDataActivity, NickNameActivity::class.java)
-                    .putExtra("cardType", "invite").putExtra("invite", DATA?.inviteCode).putExtra("maxLength", 15))
+            startActivity<NickNameActivity>(Pair("cardType", "invite"), Pair("invite", DATA?.inviteCode), Pair("maxLength", 15))
         }
 
         getPersonalInfo()
@@ -89,8 +82,7 @@ class PersonalDataActivity : TakePhotoActivity() {
     private fun upload(file: File?): Call<Check>? {
         return RetrofitHelper().upload(file)?.apply {
             enqueue(object : Callback<Check> {
-                override fun onFailure(call: Call<Check>, t: Throwable) {
-                }
+                override fun onFailure(call: Call<Check>, t: Throwable) {}
 
                 override fun onResponse(call: Call<Check>, response: Response<Check>) {
                     response.body()?.let {
@@ -116,7 +108,7 @@ class PersonalDataActivity : TakePhotoActivity() {
                 response?.body()?.data.let {
                     DATA = it
 
-                    iv_head.setRoundedCornerPicture(this@PersonalDataActivity,it?.headImg)
+                    iv_head.setRoundedCornerPicture(this@PersonalDataActivity, it?.headImg)
 
                     it?.bindView()
                 }

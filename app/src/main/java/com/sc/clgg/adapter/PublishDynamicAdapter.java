@@ -30,9 +30,7 @@ public class PublishDynamicAdapter extends RecyclerView.Adapter<PublishDynamicAd
 
 
     public List<String> getPublishImageList() {
-        if (pathList.contains("")){
-            pathList.remove("");
-        }
+        pathList.remove("");
         return pathList;
     }
 

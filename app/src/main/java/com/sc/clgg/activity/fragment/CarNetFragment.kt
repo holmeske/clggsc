@@ -31,7 +31,7 @@ import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.*
 import kotlinx.android.synthetic.main.fragment_car_net.*
-import kotlinx.coroutines.Job
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -73,23 +73,24 @@ class CarNetFragment : Fragment(), TruckManageContact {
 
         TruckManagePresenter(this).checkUpdate()
 
+        fun skip(stationType: String, title: String) {
+            startActivity<ServiceStationActivity>(Pair("stationType", stationType), Pair("title", title))
+        }
+
         service_station.setOnClickListener {
             if (activity.isOpenGps()) {
-                activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                        .putExtra("stationType", "0").putExtra("title", "陕汽服务站"))
+                skip("0", "陕汽服务站")
             }
         }
 
         operator.setOnClickListener {
             if (activity.isOpenGps()) {
-                activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                        .putExtra("stationType", "1").putExtra("title", "营运证服务商"))
+                skip("1", "营运证服务商")
             }
         }
         accessory_dealer.setOnClickListener {
             if (activity.isOpenGps()) {
-                activity?.startActivity(Intent(activity, ServiceStationActivity::class.java)
-                        .putExtra("stationType", "2").putExtra("title", "配件经销商"))
+                skip("2", "配件经销商")
             }
         }
 
@@ -151,7 +152,7 @@ class CarNetFragment : Fragment(), TruckManageContact {
         job.start()*/
     }
 
-    private lateinit var job: Job
+//    private lateinit var job: Job
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">车轮滚滚</string>
 
+    <string name="servicestation">%1$s共%2$d家%3$s</string>
+
     <string name="confirm_circle">确认圈存%1$s元?</string>
     <string name="can_write_str">可写卡金额为%1$s元</string>
     <string name="can_circle_amount">可圈存金额为%1$s元</string>

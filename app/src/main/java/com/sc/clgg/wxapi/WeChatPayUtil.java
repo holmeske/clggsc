@@ -3,6 +3,8 @@ package com.sc.clgg.wxapi;
 import android.content.Context;
 import android.widget.Toast;
 
+import androidx.collection.ArrayMap;
+
 import com.sc.clgg.config.ConstantValue;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -11,11 +13,14 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Map;
 
-import androidx.collection.ArrayMap;
-
+/**
+ * @author lvke
+ */
 public class WeChatPayUtil {
     private Context context;
-    // IWXAPI 是第三方app和微信通信的openapi接口
+    /**
+     * IWXAPI 是第三方app和微信通信的openapi接口
+     */
     private IWXAPI wxApi;
 
     public WeChatPayUtil(Context context) {

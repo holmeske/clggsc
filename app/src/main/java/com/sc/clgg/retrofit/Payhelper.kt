@@ -1,22 +1,16 @@
 package com.sc.clgg.retrofit
 
 import android.content.Context
-import android.content.Intent
 import com.sc.clgg.BuildConfig
 import com.sc.clgg.R
-import com.sc.clgg.activity.etc.PreRechargeFinishActivity
-import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.bean.WeChatOrder
 import com.sc.clgg.config.ConstantValue
-import com.sc.clgg.tool.helper.RandomHelper
 import com.sc.clgg.wxapi.WeChatPayUtil
 import com.tencent.mm.opensdk.modelpay.PayReq
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * @author：lvke
@@ -26,7 +20,7 @@ import java.util.*
  * 微信支付
  */
 fun Context.wxPay(cardNo: String?, acount: String?, out_trade_no: String?) {
-    RetrofitHelper().wxPay(cardNo, acount,out_trade_no).enqueue(object : Callback<WeChatOrder> {
+    RetrofitHelper().wxPay(cardNo, acount, out_trade_no).enqueue(object : Callback<WeChatOrder> {
         override fun onResponse(call: Call<WeChatOrder>, response: Response<WeChatOrder>) {
             val request = PayReq()
             response.body()?.let {
@@ -49,57 +43,6 @@ fun Context.wxPay(cardNo: String?, acount: String?, out_trade_no: String?) {
             toast(R.string.network_anomaly)
         }
     })
-}
-
-/**
- * 流水号
- */
-fun Context.getWasteSn(currentTimeMillis: Long, cardNo: String): String {
-    return SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis) + cardNo.substring(cardNo.length - 4) + RandomHelper.two()
-}
-
-fun Context.getWasteSnThree(currentTimeMillis: Long, cardNo: String): String {
-    return SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(currentTimeMillis) + cardNo.substring(cardNo.length - 4) + RandomHelper.three()
-}
-
-fun Context.surePayMoney(cardNo: String?, money: String?) {
-
-    RetrofitHelper().surePayMoney(cardNo, money).enqueue(object : Callback<StatusBean> {
-        override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
-            response.body()?.let {
-                if (it.success) {
-                    toast("支付成功")
-                    startActivity(Intent(this@surePayMoney, PreRechargeFinishActivity::class.java)
-                            .putExtra("data", response.body()))
-                } else {
-                    toast("${it.msg}")
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<StatusBean>, t: Throwable) {
-            toast(R.string.network_anomaly)
-        }
-    })
-}
-
-internal class WeChatPayCache {
-    companion object {
-        var cardNo: String? = ""
-        var money: String? = ""
-        var wasteSn: String? = ""
-
-        fun setValue(cardNumber: String, money: String) {
-            this.cardNo = cardNumber
-            this.money = money
-        }
-
-        fun initValue() {
-            cardNo = ""
-            money = ""
-            wasteSn = ""
-        }
-    }
 }
 
 

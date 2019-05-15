@@ -7,13 +7,13 @@ import com.sc.clgg.adapter.MyVehicleAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.Vehicle
 import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.tool.helper.ActivityHelper
 import kotlinx.android.synthetic.main.activity_my_vehicle.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 
@@ -30,7 +30,7 @@ class MyVehicleActivity : BaseImmersionActivity() {
 
         initTitle("我的车辆")
         titlebar_right.text = "添加车辆"
-        titlebar_right.setOnClickListener { ActivityHelper.startAcScale(this@MyVehicleActivity, AddVehicleActivity::class.java) }
+        titlebar_right.setOnClickListener { startActivity<AddVehicleActivity>() }
 
         adapter = MyVehicleAdapter()
         rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
