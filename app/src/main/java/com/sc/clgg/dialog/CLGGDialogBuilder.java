@@ -817,6 +817,7 @@ public class CLGGDialogBuilder {
 	         getWindow().setAttributes(lp);*/
         }
 
+        @Override
         public void show() {
             try {
                 if (getContext() instanceof Activity) {

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.sc.clgg.R;
 import com.sc.clgg.activity.WebActivity;
 import com.sc.clgg.bean.Message;
@@ -20,8 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder> {
     private List<Message.Data.Row> listAll = new ArrayList<>();
@@ -95,12 +95,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder
 
         holder.tv_title.setText(b.getTitle());
 
-        if (b.getTop().equals("1")) {
+        if ("1".equals(b.getTop())) {
             holder.tv_top.setVisibility(View.VISIBLE);
         } else {
             holder.tv_top.setVisibility(View.GONE);
         }
-        if (b.getStress().equals("1")) {
+        if ("1".equals(b.getStress())) {
             holder.tv_hot.setVisibility(View.VISIBLE);
         } else {
             holder.tv_hot.setVisibility(View.GONE);

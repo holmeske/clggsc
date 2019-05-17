@@ -7,15 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.sc.clgg.R;
 import com.sc.clgg.activity.contact.CallbackListener;
 import com.sc.clgg.tool.helper.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author：lvke
@@ -48,7 +48,7 @@ public class PublishDynamicAdapter extends RecyclerView.Adapter<PublishDynamicAd
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        if (pathList.get(holder.getAdapterPosition()).equals("")) {
+        if ("".equals(pathList.get(holder.getAdapterPosition()))) {
             holder.iv_pic.setImageResource(R.drawable.pic_addpic);
             holder.iv_close.setVisibility(View.GONE);
             holder.iv_pic.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class PublishDynamicAdapter extends RecyclerView.Adapter<PublishDynamicAd
                     notifyItemRemoved(holder.getAdapterPosition());
                     notifyItemRangeChanged(holder.getAdapterPosition(), pathList.size() - holder.getAdapterPosition());
 
-                    if (pathList.size() < 9 && !pathList.get(pathList.size() - 1).equals("")) {
+                    if (pathList.size() < 9 && !"".equals(pathList.get(pathList.size() - 1))) {
                         pathList.add("");
                         notifyDataSetChanged();
                     }

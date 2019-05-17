@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.sc.clgg.R
 import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.activity.WebActivity
+import com.sc.clgg.activity.etc.EtcActivity
 import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.activity.vehicle.energy.ConsumptionStatisticalActivity
 import com.sc.clgg.activity.vehicle.locate.LocateActivity
@@ -19,6 +20,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +50,10 @@ class HomeFragment : Fragment() {
         tv_more_truck_goods.setOnClickListener { (activity as MainActivity).checked(2) }
         tv_tire.setOnClickListener { WebActivity.start(activity, "轮胎", ConstantValue.TIRE) }
         tv_lube.setOnClickListener { WebActivity.start(activity, "润滑油", ConstantValue.LUBE) }
-        tv_etc_card.setOnClickListener { toast("敬请关注...") }//startActivity<EtcActivity>()
+        tv_etc_card.setOnClickListener {
+            startActivity<EtcActivity>()
+//            toast("敬请关注...")
+        }
 
         tv_more_financial.setOnClickListener { (activity as MainActivity).checked(2) }
         tv_lease.setOnClickListener { WebActivity.start(activity, "融资租赁", ConstantValue.LEASE) }

@@ -334,18 +334,13 @@ class WriteCardActivity : BaseImmersionActivity() {
 
             for (s in serviceInfo) {
                 LogHelper.e("info元素 = $s")
-                if (s.startsWith("a_cid=")) {
-                    a_cid = s.substring(6, s.length)
-                } else if (s.startsWith("a_pt=")) {
-                    a_pt = s.substring(5, s.length)
-                } else if (s.startsWith("a_rnd=")) {
-                    a_rnd = s.substring(6, s.length)
-                } else if (s.startsWith("a_cbb=")) {
-                    a_cbb = s.substring(6, s.length)
-                } else if (s.startsWith("a_m1=")) {
-                    a_m1 = s.substring(5, s.length)
-                } else if (s.startsWith("a_on=")) {
-                    a_on = s.substring(5, s.length)
+                when {
+                    s.startsWith("a_cid=") -> a_cid = s.substring(6, s.length)
+                    s.startsWith("a_pt=") -> a_pt = s.substring(5, s.length)
+                    s.startsWith("a_rnd=") -> a_rnd = s.substring(6, s.length)
+                    s.startsWith("a_cbb=") -> a_cbb = s.substring(6, s.length)
+                    s.startsWith("a_m1=") -> a_m1 = s.substring(5, s.length)
+                    s.startsWith("a_on=") -> a_on = s.substring(5, s.length)
                 }
             }
 

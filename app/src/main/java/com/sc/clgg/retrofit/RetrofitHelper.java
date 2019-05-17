@@ -1,6 +1,8 @@
 package com.sc.clgg.retrofit;
 
 
+import androidx.collection.ArrayMap;
+
 import com.clgg.api.contract.ClggApiException;
 import com.clgg.api.contract.ClggConstants;
 import com.clgg.api.signature.ClggSignature;
@@ -55,7 +57,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import androidx.collection.ArrayMap;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -458,7 +459,7 @@ public class RetrofitHelper {
 
         HashMap<String, Object> params = new HashMap<>();
 
-        if (scanFlag.equals("1")) {
+        if ("1".equals(scanFlag)) {
             params.put("carType", carType);
             params.put("carOwner", carOwner);
             params.put("address", address);

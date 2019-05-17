@@ -6,15 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.sc.clgg.R;
 import com.sc.clgg.bean.RechargeOrderList;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class RechargeOrderAdapter extends RecyclerView.Adapter<RechargeOrderAdapter.MyHolder> {
     private List<RechargeOrderList.Order> dataList = new ArrayList<>();
@@ -44,11 +44,11 @@ public class RechargeOrderAdapter extends RecyclerView.Adapter<RechargeOrderAdap
         RechargeOrderList.Order order = dataList.get(holder.getAdapterPosition());
 
         holder.tv_recharge_number.setText(order.getWasteSn());
-        if (order.isLoad().equals("0")) {
+        if ("0".equals(order.isLoad())) {
             holder.tv_recharge_state.setText("待圈存");
             holder.tv_recharge_state.setBackgroundResource(R.drawable.bg_fff3e5_15);
             holder.tv_recharge_state.setTextColor(ContextCompat.getColor(mContext, R.color._ee8031));
-        } else if (order.isLoad().equals("1")) {
+        } else if ("1".equals(order.isLoad())) {
             holder.tv_recharge_state.setText("已完成");
             holder.tv_recharge_state.setBackgroundResource(R.drawable.bg_6ccd37_15);
             holder.tv_recharge_state.setTextColor(ContextCompat.getColor(mContext, R.color.white));
@@ -61,8 +61,8 @@ public class RechargeOrderAdapter extends RecyclerView.Adapter<RechargeOrderAdap
         holder.tv_card_number.setText(order.getCardNo());
         holder.tv_recharge_amount.setText("￥" + order.getPayMoney() / 100f);
         holder.tv_pay_time.setText(order.getPayTime());
-        holder.tv_pay_into.setText(order.getPayFlag().equals("1") ? "已到账" : "确认中");
-        holder.tv_pay_way.setText(order.getPayType().equals("18") ? "微信支付" : "");
+        holder.tv_pay_into.setText("1".equals(order.getPayFlag()) ? "已到账" : "确认中");
+        holder.tv_pay_way.setText("18".equals(order.getPayType()) ? "微信支付" : "");
         holder.tv_write_time.setText(order.getCreateTime());
     }
 

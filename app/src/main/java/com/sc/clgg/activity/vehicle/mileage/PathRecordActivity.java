@@ -12,6 +12,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.OnMarkerClickListener;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -34,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -238,7 +239,7 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
             @Override
             public void onFailure(Call call, Throwable t) {
                 hideProgressDialog();
-                if (!t.getMessage().equals("Socket closed")) {
+                if (!"Socket closed".equals(t.getMessage())) {
                     Toast.makeText(PathRecordActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
                 }
                 finish();

@@ -49,7 +49,7 @@ public class TruckCircleMessageAdapter extends RecyclerView.Adapter<TruckCircleM
         PotatoKt.setRoundedCornerPicture(holder.iv_head, mContext, bean.getHeadImg());
 
         if (bean.getRemark() != null) {
-            if (bean.getRemark().equals("点赞")) {
+            if ("点赞".equals(bean.getRemark())) {
                 holder.iv_des.setVisibility(View.VISIBLE);
                 holder.tv_des.setVisibility(View.INVISIBLE);
             } else {

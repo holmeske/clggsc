@@ -26,10 +26,11 @@ public final class DataFormat {
 			int len = data.length;
 			String str = "";
 			for (int i = 0; i < len; i++) {
-				if ((data[i] & 0xFF) < 16)
+				if ((data[i] & 0xFF) < 16) {
 					str = str + "0" + Integer.toHexString(data[i] & 0xFF);
-				else
+				} else {
 					str = str + Integer.toHexString(data[i] & 0xFF);
+				}
 			}
 			return str.toUpperCase();
 		}
@@ -44,8 +45,9 @@ public final class DataFormat {
 		int len = hexdata.length();
 		if (len == 0) {
 			paddataString = "8000000000000000";
-		} else if (len % 2 != 0)
+		} else if (len % 2 != 0) {
 			hexdata = hexdata + "0";
+		}
 		// 先补足偶数倍
 		len = len / 2;
 		if (len % 8 == 0) {
@@ -53,9 +55,9 @@ public final class DataFormat {
 		} else {
 			hexdata = hexdata + "80";
 			len = len + 1;
-			if (len % 8 == 0)
+			if (len % 8 == 0) {
 				paddataString = hexdata;
-			else {
+			} else {
 				for (int i = 0; i < 8 - len % 8; i++) {
 					hexdata = hexdata + "00";
 				}

@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.NineGridViewAdapter;
@@ -36,8 +39,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -165,7 +166,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                 if (lineCount > 6) {
                     holder.tv_all_show.setVisibility(View.VISIBLE);
                     holder.tv_all_show.setOnClickListener(v -> {
-                        if (holder.tv_all_show.getText().equals("全文")) {
+                        if ("全文".equals(holder.tv_all_show.getText())) {
                             holder.tv_message.setMaxLines(10);
                             holder.tv_all_show.setText("收起");
                         } else {
@@ -543,7 +544,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                     tv_lauds.setVisibility(View.VISIBLE);
 
                     iv.setImageResource(R.drawable.ico_like_yes);
-                    if (!tv.getText().equals("99+")) {
+                    if (!"99+".equals(tv.getText())) {
                         tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString()) + 1));
                     }
                 } else {
@@ -572,7 +573,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
                     setLaudsFilte(bean, tv_lauds);
 
                     iv.setImageResource(R.drawable.ico_like_no);
-                    if (!tv.getText().equals("99+")) {
+                    if (!"99+".equals(tv.getText())) {
                         tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString()) - 1));
                     }
                 } else {

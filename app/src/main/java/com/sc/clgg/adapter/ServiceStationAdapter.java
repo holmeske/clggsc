@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.sc.clgg.R;
 import com.sc.clgg.application.App;
 import com.sc.clgg.bean.Service;
@@ -22,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -131,7 +131,7 @@ public class ServiceStationAdapter extends RecyclerView.Adapter<ServiceStationAd
     }
 
     private void bindView(MyHolder holder, int position) {
-        if (stationType.equals("2")) {
+        if ("2".equals(stationType)) {
             holder.ll_one.setVisibility(View.GONE);
         } else {
             holder.ll_one.setVisibility(View.VISIBLE);
@@ -155,7 +155,7 @@ public class ServiceStationAdapter extends RecyclerView.Adapter<ServiceStationAd
             LogHelper.e("捕获异常啦");
         }
 
-        if (stationType.equals("1")) {
+        if ("1".equals(stationType)) {
             holder.company_position_str.setText("接入范围: ");
         } else {
             holder.company_position_str.setText("地址: ");
