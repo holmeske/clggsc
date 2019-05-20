@@ -72,6 +72,7 @@ class InfoCertificationActivity : BaseImmersionActivity() {
                 certificationInfo?.agentPhone = et_agent_tel?.text.toString()
                 certificationInfo?.certType = tv_certificate_type?.text.toString()
                 certificationInfo?.certSn = et_certificate_number?.text.toString()
+                certificationInfo?.agentCertSn = et_agent_idno?.text.toString()
 
                 certificationInfo?.etcCardApplyVehicleVoList?.clear()
                 ll_view_container?.takeIf { it.childCount > 0 }?.run {

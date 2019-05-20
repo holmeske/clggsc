@@ -169,7 +169,9 @@ data class CertificationInfo(
         var recipientsAddress: String? = "",
 
         var agentName: String? = "",
-        var agentPhone: String? = ""
+        var agentPhone: String? = "",
+        var agentCertSn: String? = ""
+
 ) : Parcelable {
 
     @Parcelize

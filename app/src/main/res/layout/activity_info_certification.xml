@@ -288,6 +288,46 @@
                     android:textSize="14sp"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="身份证号"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_agent_idno"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入经办人身份证号"
+                    android:inputType="number"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
