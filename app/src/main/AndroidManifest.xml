@@ -69,14 +69,15 @@
             android:required="false" />
 
         <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
+            android:name=".utils.CustomFileProvider"
+            android:authorities="${applicationId}.custom.fileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider> <!-- 高德地图KEY设置 -->
+                android:resource="@xml/file_paths_demo" />
+        </provider>
+        <!-- 高德地图KEY设置 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="e377e84ed090fadee7aab76f2f32f096" />

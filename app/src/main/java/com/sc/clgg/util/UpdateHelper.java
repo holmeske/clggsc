@@ -170,7 +170,7 @@ public class UpdateHelper {
         Uri data;
         // 判断版本大于等于7.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            data = FileProvider.getUriForFile(context, "com.sc.clgg.fileprovider", apkfile);
+            data = FileProvider.getUriForFile(context, "com.sc.clgg.custom.fileProvider", apkfile);
             // 给目标应用一个临时授权
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {

@@ -33,13 +33,6 @@ import java.io.IOException
 lateinit var CURRENT_LOCATION: LocationBean
 
 fun Application.init() {
-//    if (LeakCanary.isInAnalyzerProcess(this)) {
-//        // This process is dedicated to LeakCanary for heap analysis.
-//        // You should not init your app in this process.
-//        return
-//    }
-//    LeakCanary.install(this)
-//    // Normal app init code...
 
     LogHelper.setLogSwitch(BuildConfig.LOG_DEBUG)
 
@@ -140,5 +133,4 @@ fun Application.initBugly() {
             CrashReport.initCrashReport(applicationContext, "0edd50c749", true, strategy)
         }
     }
-
 }
