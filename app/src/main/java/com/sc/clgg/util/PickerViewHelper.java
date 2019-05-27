@@ -27,9 +27,6 @@ import java.util.ArrayList;
  * @date：2018/11/14 15:20
  */
 public class PickerViewHelper {
-    public interface IPickerViewData {
-        String getPickerViewText();
-    }
 
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();

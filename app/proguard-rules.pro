@@ -89,8 +89,8 @@
 }
 
 #--takephoto---
--keep class com.jph.takephoto.** { *; }
--dontwarn com.jph.takephoto.**
+-keep class org.devio.takephoto.** { *; }
+-dontwarn org.devio.takephoto.**
 
 -keep class com.darsh.multipleimageselect.** { *; }
 -dontwarn com.darsh.multipleimageselect.**
