@@ -17,6 +17,7 @@ import com.sc.clgg.bean.MileageDetail
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
 import kotlinx.android.synthetic.main.activity_mileage_detail.*
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,8 +25,8 @@ import java.util.*
 
 class MileageDetailActivity : BaseImmersionActivity() {
     var adpter: StatisticalDetailAdapter? = null
-    var year: String? = ""
-    var month: Int = 0
+    private var year: String? = ""
+    private var month: Int = 0
     var maximum: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +48,8 @@ class MileageDetailActivity : BaseImmersionActivity() {
         val calendar = Calendar.getInstance()
         LogHelper.e("" + year + "\t\t" + month)
         calendar.set(year!!.toInt(), month, 0)
-        maximum=  calendar.getActualMaximum(Calendar.DATE)
-        tv4.text = "${maximum}日"
+        maximum = calendar.getActualMaximum(Calendar.DATE)
+        tv4.text = String.format(getString(R.string.s_0), maximum)
 
         loadData(date, intent.getStringExtra("vin"))
     }
@@ -65,6 +66,11 @@ class MileageDetailActivity : BaseImmersionActivity() {
                 override fun onResponse(call: Call<MileageDetail>, response: Response<MileageDetail>) {
                     hideProgressDialog()
                     response.body()?.apply {
+                        if(!success){
+                            toast("$msg")
+                            return
+                        }
+
                         tv_mileage?.text = data?.intervalMileage
 
                         val indexs = ArrayList<Int>()
@@ -103,7 +109,7 @@ class MileageDetailActivity : BaseImmersionActivity() {
 
 //        chart.layoutParams.width = App.screenWidth * data?.size / 5 - MeasureUtils.dp2px(this, 24f)
 
-       // val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
+        // val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
 
         chart.setDrawGridBackground(false)
 
@@ -172,13 +178,13 @@ class MileageDetailActivity : BaseImmersionActivity() {
 
         val sets = chart.data.dataSets
         for (iSet in sets) {
-            val set = iSet as LineDataSet
+//            val set = iSet as LineDataSet
 //            set.setValueFormatter { value, _, _, _ ->
 //                value.toString()
 //            }
         }
 
-        val colorList = java.util.ArrayList<Int>()
+        val colorList = ArrayList<Int>()
         for (i in 0..data.size) {
             if (i in listOf(0, 7, 14, 21, 30)) {
                 colorList.add(Color.parseColor("#444444"))

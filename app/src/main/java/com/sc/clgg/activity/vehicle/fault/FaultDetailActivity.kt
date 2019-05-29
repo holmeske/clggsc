@@ -27,8 +27,8 @@ class FaultDetailActivity : BaseImmersionActivity() {
         adapter = FaultDetailAdapter()
         rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         rv.adapter = adapter
-        LogHelper.e("传递的数据 = "+Gson().toJson(data))
-        LogHelper.e("传递的数据大小 = "+data?.size)
+        LogHelper.e("传递的数据 = " + Gson().toJson(data))
+        LogHelper.e("传递的数据大小 = " + data?.size)
         adapter?.refresh(data)
 
         if (data?.size == 0) {
@@ -38,7 +38,7 @@ class FaultDetailActivity : BaseImmersionActivity() {
                 it as TextView
                 it.setCompoundDrawablesWithIntrinsicBounds(null,
                         ContextCompat.getDrawable(this@FaultDetailActivity, R.drawable.diagnosis_popup_icon), null, null)
-                it.text = "您的爱车经过发动机、\n控制器检测，未发现故障"
+                it.text = getString(R.string.s_1)
             }
             dialog.findViewById<View>(R.id.tv_2)?.run {
                 this as TextView

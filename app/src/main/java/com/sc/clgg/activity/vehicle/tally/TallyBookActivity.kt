@@ -2,6 +2,7 @@ package com.sc.clgg.activity.vehicle.tally
 
 import android.graphics.Color
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.TimePickerView
@@ -26,7 +27,7 @@ class TallyBookActivity : BaseImmersionActivity() {
     private var mTallyBookAdapter: TallyBookAdapter? = null
     private var call: Call<TallyBook>? = null
     var dataList: ArrayList<TallyBook.Info>? = null
-    private var call_delete: Call<Check>? = null
+    private var http: Call<Check>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,27 +36,25 @@ class TallyBookActivity : BaseImmersionActivity() {
         initTitle("记账本")
         rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         mTallyBookAdapter = TallyBookAdapter()
-        mTallyBookAdapter?.setOnDelListener(object : TallyBookAdapter.onSwipeListener {
-            override fun onDel(id: Int, pos: Int) {
-                call_delete = RetrofitHelper().remove(id)
-                call_delete?.enqueue(object : Callback<Check> {
-                    override fun onFailure(call: Call<Check>?, t: Throwable?) {
-                        toast("删除失败")
-                        loadData(year, month)
-                    }
+        mTallyBookAdapter?.setOnDelListener { id, pos ->
+            http = RetrofitHelper().remove(id)
+            http?.enqueue(object : Callback<Check> {
+                override fun onFailure(call: Call<Check>?, t: Throwable?) {
+                    toast("删除失败")
+                    loadData(year, month)
+                }
 
-                    override fun onResponse(call: Call<Check>?, response: Response<Check>?) {
-                        LogHelper.e("response: " + Gson().toJson(response?.body()))
-                        var check = response?.body()
-                        if (check?.success!!) {
-                            dataList?.removeAt(pos)
-                            mTallyBookAdapter?.notifyItemRemoved(pos)
-                        }
-                        loadData(year, month)
+                override fun onResponse(call: Call<Check>?, response: Response<Check>?) {
+                    LogHelper.e("response: " + Gson().toJson(response?.body()))
+                    val check = response?.body()
+                    if (check?.success!!) {
+                        dataList?.removeAt(pos)
+                        mTallyBookAdapter?.notifyItemRemoved(pos)
                     }
-                })
-            }
-        })
+                    loadData(year, month)
+                }
+            })
+        }
         rv.adapter = mTallyBookAdapter
 
         initTimePickerView()
@@ -89,13 +88,13 @@ class TallyBookActivity : BaseImmersionActivity() {
         call = RetrofitHelper().tallybook(queryYear, queryMonth)
         call?.enqueue(object : Callback<TallyBook> {
             override fun onResponse(call: Call<TallyBook>?, response: Response<TallyBook>?) {
-                var bean = response?.body()
+                val bean = response?.body()
                 tv_income?.text = bean?.allIncome
                 tv_spending?.text = bean?.allExpense
                 bean?.allInfo?.let {
                     if (it.isNotEmpty()) {
                         it[0].show = true
-                        for (i in 0..it.size - 1) {
+                        for (i in 0 until it.size) {
                             if (i == it.size - 1) continue
                             it[i + 1].show = !it[i].costDate.equals(it[i + 1].costDate)
                         }
@@ -122,7 +121,7 @@ class TallyBookActivity : BaseImmersionActivity() {
     private val endCalendar = Calendar.getInstance()
     private fun initTimePickerView() {
         startCalendar.set(CalendarHelper.getCurrentYear(), CalendarHelper.getCurrentMonth() - 1, 0)
-        mTimePickerView = TimePickerBuilder(this,  OnTimeSelectListener { date, _ ->
+        mTimePickerView = TimePickerBuilder(this, OnTimeSelectListener { date, _ ->
             // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
             selectedCalendar.time = date
 
@@ -139,7 +138,7 @@ class TallyBookActivity : BaseImmersionActivity() {
                 .setContentTextSize(21)
                 .setDate(selectedCalendar)
                 .setRangDate(startCalendar, endCalendar)
-                .setBackgroundId(R.color.white) //设置外部遮罩颜色
+                .setOutSideColor(ContextCompat.getColor(this, R.color.white)) //设置外部遮罩颜色
                 .setDecorView(null).build()
     }
 

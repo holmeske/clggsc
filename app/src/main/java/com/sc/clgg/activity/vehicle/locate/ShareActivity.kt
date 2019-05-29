@@ -83,7 +83,7 @@ class ShareActivity : AppCompatActivity() {
 
 
         override fun onError(share_media: SHARE_MEDIA, throwable: Throwable) {
-            LogHelper.e("onError" + throwable.toString())
+            LogHelper.e("onError$throwable")
             toast("分享失败")
         }
 

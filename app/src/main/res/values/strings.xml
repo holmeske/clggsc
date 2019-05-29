@@ -2,7 +2,9 @@
     <string name="app_name">车轮滚滚</string>
 
     <string name="servicestation">%1$s共%2$d家%3$s</string>
-
+    <string name="s_0">%1$s日</string>
+    <string name="s_1">您的爱车经过发动机、\n控制器检测，未发现故障</string>
+    <string name="text_0">共诊断%1$d辆车，正在诊断第%2$d辆车</string>
     <string name="confirm_circle">确认圈存%1$s元?</string>
     <string name="can_write_str">可写卡金额为%1$s元</string>
     <string name="can_circle_amount">可圈存金额为%1$s元</string>

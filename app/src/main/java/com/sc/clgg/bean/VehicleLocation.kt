@@ -167,6 +167,7 @@ data class ConsumptionDetail(var code: Int = 0,
 @Parcelize
 data class MileageDetail(var code: Double? = 0.toDouble(),
                          var data: Data? = null,
+                         val msg:String?="",
                          var success: Boolean = false) : Parcelable {
     @Parcelize
     data class Data(

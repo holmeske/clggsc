@@ -9,6 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.CameraUpdate;
@@ -50,11 +56,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -81,7 +82,7 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_detail);
-        map=findViewById(R.id.map);
+        map = findViewById(R.id.map);
         map.onCreate(savedInstanceState);
         init();
     }
@@ -122,13 +123,12 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
     public void onBackPressed() {
         if (select_root != null && select_root.getVisibility() == View.VISIBLE) {
             select_root.setVisibility(View.GONE);
-            return;
         } else {
             super.onBackPressed();
         }
     }
 
-    protected void init() {
+    private void init() {
         carno = getIntent().getStringExtra("carno");
         vin = getIntent().getStringExtra("vin");
         findViewById(R.id.trajectory_playback).setOnClickListener(new View.OnClickListener() {
@@ -423,7 +423,6 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
     public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
         if (rCode == 1000) {
             if (result != null && result.getRegeocodeAddress() != null && result.getRegeocodeAddress().getFormatAddress() != null) {
-                //((TextView) findViewById(R.id.address)).setText(String.format(result.getRegeocodeAddress().getFormatAddress(), "附近"));
             } else {
                 Tools.Toast("逆地理编码失败");
             }

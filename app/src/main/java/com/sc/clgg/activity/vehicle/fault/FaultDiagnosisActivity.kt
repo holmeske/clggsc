@@ -101,7 +101,7 @@ class FaultDiagnosisActivity : BaseImmersionActivity() {
 
         /*点击选择车辆*/
         titlebar_right?.setOnClickListener {
-            if(vehicleList.isNullOrEmpty()){
+            if (vehicleList.isNullOrEmpty()) {
                 toast("正在加载车辆列表")
                 return@setOnClickListener
             }
@@ -174,10 +174,10 @@ class FaultDiagnosisActivity : BaseImmersionActivity() {
         }
 
         et_select_vehicle.setTextChangeListener {
-            if (it.length == 0) {
+            if (it.isEmpty()) {
                 mSelectVehicleAdapter?.refresh(vehicleList)
             }
-            var searchList = ArrayList<Vehicle.Bean>()
+            val searchList = ArrayList<Vehicle.Bean>()
             for (data in vehicleList!!) {
                 if (data.carNumber!!.contains(it)) {
                     searchList.add(data)
@@ -201,7 +201,7 @@ class FaultDiagnosisActivity : BaseImmersionActivity() {
 
     private fun loadVehicleList() {
         call = RetrofitHelper().myVehicle()
-        call?.enqueue(object : retrofit2.Callback<Vehicle> {
+        call?.enqueue(object : Callback<Vehicle> {
             override fun onFailure(call: Call<Vehicle>?, t: Throwable?) {
 
             }
@@ -251,7 +251,7 @@ class FaultDiagnosisActivity : BaseImmersionActivity() {
                 tv_des.textColor = Color.parseColor("#ff3434")
                 faults.filter { it.data != null && it.data?.size!! > 0 }.let {
                     LogHelper.e("过滤后的数据 = " + it.size)
-                    if (it.size == 0) {
+                    if (it.isEmpty()) {
                         toast("您的爱车未检测出有故障")
                         return@let
                     }
@@ -265,16 +265,15 @@ class FaultDiagnosisActivity : BaseImmersionActivity() {
 
     private fun diagnosis(vin: String, position: Int) {
 
-        var vehicle = mSelectVehicleAdapter?.selectedList!![position]
-        var size = mSelectVehicleAdapter?.selectedList!!.size
+        val vehicle = mSelectVehicleAdapter?.selectedList!![position]
+        val size = mSelectVehicleAdapter?.selectedList!!.size
 
-        tv_des.text = "共诊断${mSelectVehicleAdapter?.selectedList?.size}辆车，正在诊断第${position + 1}辆车"
+        tv_des.text = String.format(getString(R.string.text_0), mSelectVehicleAdapter?.selectedList?.size, position + 1)
 
-        var call = RetrofitHelper().faultDiagnose(vin)
+        val call = RetrofitHelper().faultDiagnose(vin)
         calls?.add(call)
         call.enqueue(object : Callback<Fault> {
             override fun onFailure(call: Call<Fault>?, t: Throwable?) {
-                //faults.add(FaultDetail(vehicle.carNumber, null))
                 if ((size - 1) == position) {
                     diagnosis.text = "开始诊断"
                     tv_des.text = "请先选择您要诊断的车辆"
@@ -289,7 +288,7 @@ class FaultDiagnosisActivity : BaseImmersionActivity() {
             }
 
             override fun onResponse(call: Call<Fault>?, response: Response<Fault>?) {
-                LogHelper.e("response = "+Gson().toJson(response?.body()))
+                LogHelper.e("response = " + Gson().toJson(response?.body()))
                 if (response?.body()?.success!! && response.body()?.data != null && response.body()?.data?.isNotEmpty()!!) {
                     faults.add(FaultDetail(vehicle.carNumber, response.body()?.data))
                 }
@@ -301,8 +300,8 @@ class FaultDiagnosisActivity : BaseImmersionActivity() {
                     faults.filter { it.data != null && it.data?.size!! > 0 }.let {
                         LogHelper.e("过滤后的数据 = " + it.size)
 //                        if (it.size == 0) {
-                            //toast("您的爱车未检测出有故障")
-                            //return@let
+                        //toast("您的爱车未检测出有故障")
+                        //return@let
 //                        }
                         startActivity(Intent(this@FaultDiagnosisActivity, FaultDetailActivity::class.java)
                                 .putParcelableArrayListExtra("data", faults))

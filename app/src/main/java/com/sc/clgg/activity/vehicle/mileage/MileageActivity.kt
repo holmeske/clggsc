@@ -32,10 +32,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MileageActivity : BaseImmersionActivity() {
-    var adpter: MileageStatisticalAdapter? = null
+    private var adpter: MileageStatisticalAdapter? = null
     private var dateStr: String? = ""
-    var year: String? = ""
-    var month: Int = 0
+    private var year: String? = ""
+    private var month: Int = 0
     private var maxDay: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,6 @@ class MileageActivity : BaseImmersionActivity() {
         chart.setNoDataText("")
 
         adpter = MileageStatisticalAdapter(MileageStatisticalAdapter.ItemClickListener { vin, carno ->
-            LogHelper.e("month = " + month)
             startActivity(Intent(this@MileageActivity, MileageDetailActivity::class.java)
                     .putExtra("date", dateStr)
                     .putExtra("vin", vin)
@@ -67,7 +66,7 @@ class MileageActivity : BaseImmersionActivity() {
         tv_date.text = dateStr
 
         maxDay = selectedCalendar.getActualMaximum(Calendar.DATE)
-        tv4.text = "${maxDay}日"
+        tv4.text = String.format(getString(R.string.s_0), maxDay)
         loadData(dateStr)
     }
 
@@ -76,7 +75,7 @@ class MileageActivity : BaseImmersionActivity() {
         http.cancel()
     }
 
-    private lateinit var http: retrofit2.Call<Mileage>
+    private lateinit var http: Call<Mileage>
     private fun loadData(date: String?) {
         http = RetrofitHelper().mileage(date).apply {
             showProgressDialog()
@@ -126,7 +125,7 @@ class MileageActivity : BaseImmersionActivity() {
             month = selectedCalendar.get(Calendar.MONTH) + 1
 
             maxDay = selectedCalendar.getActualMaximum(Calendar.DATE)
-            tv4.text = "${maxDay}日"
+            tv4.text = String.format(getString(R.string.s_0), maxDay)
             dateStr = DateHelper.formatCurrentTime(selectedCalendar, "yyyy-MM")
             tv_date.text = dateStr
             loadData(dateStr)
@@ -137,7 +136,7 @@ class MileageActivity : BaseImmersionActivity() {
                 .setContentTextSize(21)
                 .setDate(selectedCalendar)
                 .setRangDate(startCalendar, endCalendar)
-                .setBackgroundId(R.color.white) //设置外部遮罩颜色
+                .setOutSideColor(ContextCompat.getColor(this, R.color.white)) //设置外部遮罩颜色
                 .setDecorView(null)
                 .build()
     }
@@ -228,7 +227,7 @@ class MileageActivity : BaseImmersionActivity() {
 
         val sets = chart.data.dataSets
         for (iSet in sets) {
-            val set = iSet as LineDataSet
+//            val set = iSet as LineDataSet
 //            set.setValueFormatter { value, _, _, _ ->
 //                value.toString()
 //            }
@@ -246,9 +245,9 @@ class MileageActivity : BaseImmersionActivity() {
     }
 
     private fun setData(datas: List<Float>) {
-        var values = ArrayList<Entry>()
+        val values = ArrayList<Entry>()
 
-        var colorList = ArrayList<Int>()
+        val colorList = ArrayList<Int>()
 
 
         for (i in datas.indices) {

@@ -3,6 +3,8 @@ package com.sc.clgg.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
 import com.sc.clgg.R;
 import com.sc.clgg.base.BaseImmersionActivity;
 import com.sc.clgg.tool.helper.LogHelper;
@@ -15,8 +17,7 @@ import org.devio.takephoto.model.TResult;
 import org.devio.takephoto.permission.InvokeListener;
 import org.devio.takephoto.permission.PermissionManager;
 import org.devio.takephoto.permission.TakePhotoInvocationHandler;
-
-import androidx.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class TakePhotoActivity extends BaseImmersionActivity implements TakePhoto.TakeResultListener, InvokeListener {
     private TakePhoto takePhoto;
@@ -29,7 +30,7 @@ public class TakePhotoActivity extends BaseImmersionActivity implements TakePhot
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         getTakePhoto().onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
