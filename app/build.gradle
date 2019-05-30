@@ -74,8 +74,8 @@ android {
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             //"armeabi", "armeabi-v7a", "arm64-v8a", ,"arm64-v8a","x86", "x86_64"
-//            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', "x86"
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', "x86"
+//            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
             // armeabi, mips and mips64 has removed since NDK r17
         }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -143,10 +143,10 @@ dependencies {
     implementation('androidx.recyclerview:recyclerview:1.1.0-alpha04') {
         force = true
     }
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    testImplementation 'junit:junit:4.13-beta-3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-beta01'
+    androidTestImplementation 'androidx.test:runner:1.2.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
     implementation 'androidx.core:core-ktx:1.2.0-alpha01'
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -156,7 +156,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.youth.banner:banner:1.4.10'
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
 
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
@@ -181,8 +181,8 @@ dependencies {
     // Anko SQLite
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
     implementation "org.jetbrains.anko:anko-sdk25-listeners:$anko_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
 
     //沉浸式
     implementation 'com.gyf.immersionbar:immersionbar:2.3.3'
@@ -211,7 +211,7 @@ dependencies {
     implementation files('libs/umeng-sharetool-6.9.4.jar')
     implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
     implementation 'com.lzy.widget:ninegridview:0.2.1'
-    implementation 'com.contrarywind:Android-PickerView:4.1.7'
+    implementation 'com.contrarywind:Android-PickerView:4.1.8'
 
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.6'
 
