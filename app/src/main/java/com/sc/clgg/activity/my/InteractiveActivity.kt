@@ -5,25 +5,25 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sc.clgg.R
-import com.sc.clgg.adapter.TruckCircleMessageAdapter
+import com.sc.clgg.adapter.InteractiveAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.NoReadInfo
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
-import kotlinx.android.synthetic.main.activity_dynamic_detail.*
+import kotlinx.android.synthetic.main.activity_interactive.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DynamicDetailActivity : BaseImmersionActivity() {
-    private var adapter: TruckCircleMessageAdapter? = null
+class InteractiveActivity : BaseImmersionActivity() {
+    private var adapter: InteractiveAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dynamic_detail)
+        setContentView(R.layout.activity_interactive)
         initTitle("卡友圈互动")
 
-        adapter = TruckCircleMessageAdapter()
+        adapter = InteractiveAdapter()
         recyclerView.layoutManager=  LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }

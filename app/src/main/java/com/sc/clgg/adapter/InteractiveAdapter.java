@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.sc.clgg.R;
@@ -19,14 +22,11 @@ import com.sc.clgg.util.PotatoKt;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 /**
  * @author：lvke
  * @date：2018/6/25 10:46
  */
-public class TruckCircleMessageAdapter extends RecyclerView.Adapter<TruckCircleMessageAdapter.MyHolder> {
+public class InteractiveAdapter extends RecyclerView.Adapter<InteractiveAdapter.MyHolder> {
     private List<NoReadInfo.Info> dataList = new ArrayList<>();
     private Context mContext;
 
@@ -39,7 +39,7 @@ public class TruckCircleMessageAdapter extends RecyclerView.Adapter<TruckCircleM
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        return new MyHolder(LayoutInflater.from(mContext).inflate(R.layout.item_truck_circle_message, parent, false));
+        return new MyHolder(LayoutInflater.from(mContext).inflate(R.layout.item_interactive, parent, false));
     }
 
     @Override

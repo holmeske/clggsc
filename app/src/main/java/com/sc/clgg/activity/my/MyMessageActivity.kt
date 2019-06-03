@@ -21,7 +21,7 @@ class MyMessageActivity : BaseImmersionActivity() {
 
         initTitle("我的消息")
 
-        v_1.setOnClickListener { startActivity<DynamicDetailActivity>() }
+        v_1.setOnClickListener { startActivity<InteractiveActivity>() }
         v_2.setOnClickListener { startActivity<NewsActivity>(Pair("title", "新闻资讯"), Pair("position", "1")) }
         v_3.setOnClickListener { startActivity<NewsActivity>(Pair("title", "活动公告"), Pair("position", "11")) }
     }

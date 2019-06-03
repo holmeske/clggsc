@@ -39,13 +39,13 @@ class NewsActivity : BaseImmersionActivity() {
         rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         rv.adapter = adapter
 
-        swipeRefreshLayout?.setOnRefreshListener({
+        swipeRefreshLayout?.setOnRefreshListener {
             noMore = false
             pageNo = 1
             loadData(position, pageNo, pageSize)
-        })
+        }
 
-        adapter?.setLoadMoreListener({ view ->
+        adapter?.setLoadMoreListener { view ->
             (view as TextView).text = "加载中..."
             if (!noMore) {
                 pageNo++
@@ -53,7 +53,7 @@ class NewsActivity : BaseImmersionActivity() {
             } else {
                 Toast.makeText(applicationContext, getString(R.string.no_more), Toast.LENGTH_SHORT).show()
             }
-        })
+        }
         loadData(position, pageNo, pageSize)
     }
 

@@ -2,9 +2,6 @@
     <string name="app_name">车轮滚滚</string>
 
     <string name="servicestation">%1$s共%2$d家%3$s</string>
-    <string name="s_0">%1$s日</string>
-    <string name="s_1">您的爱车经过发动机、\n控制器检测，未发现故障</string>
-    <string name="text_0">共诊断%1$d辆车，正在诊断第%2$d辆车</string>
     <string name="confirm_circle">确认圈存%1$s元?</string>
     <string name="can_write_str">可写卡金额为%1$s元</string>
     <string name="can_circle_amount">可圈存金额为%1$s元</string>
@@ -92,7 +89,7 @@
     <string name="next_step">下一步</string>
     <string name="back_home">返回首页</string>
     <string name="back_etc_home">返回ETC首页</string>
-    <string name="audit_hint">需3-5工作日内审核，7个工作日寄送，请在“开卡审核”查看进度。如遇系统升级，会稍许延迟，可拨打客服电话：400-888-1122进行查询。</string>
+    <string name="audit_hint">需3–5工作日内审核，7个工作日寄送，请在“开卡审核”查看进度。如遇系统升级，会稍许延迟，可拨打客服电话：400-888-1122进行查询。</string>
     <string name="upload_hint">上传时确保行驶证主副页一起，字体清晰，亮度均匀:</string>
     <string name="card_a_introduce">鲁通卡A卡(记账卡)发售对象为信用度较高的单位用户，一卡一车，车与卡绑定，先消费，后缴费。办理时需登记单位用户资料、车辆等相关信息，按规定缴纳一定额度的通行费保证金，并签订协议，可挂失、可注销。</string>
     <string name="click_apply_a_card">点击申请A卡</string>
@@ -111,6 +108,11 @@
     <string name="my_etc_balance_query">我的ETC卡余额查询</string>
     <string name="_1">业务说明</string>
     <string name="_2">ETC卡详情</string>
-
+    <string name="s_0">%1$s日</string>
+    <string name="s_1">您的爱车经过发动机、\n控制器检测，未发现故障</string>
+    <string name="text_0">共诊断%1$d辆车，正在诊断第%2$d辆车</string>
+    <string name="text_1">%1$ds</string>
+    <string name="s_2">%1$s...</string>
+    <string name="_3">99+</string>
 
 </resources>

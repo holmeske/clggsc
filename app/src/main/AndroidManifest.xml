@@ -232,7 +232,7 @@
             android:theme="@style/TranslucentFullScreenTheme"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
-            android:name=".activity.my.DynamicDetailActivity"
+            android:name=".activity.my.InteractiveActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.friendscircle.PictureActivity"
