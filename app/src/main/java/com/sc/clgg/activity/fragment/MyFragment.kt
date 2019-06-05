@@ -2,22 +2,20 @@ package com.sc.clgg.activity.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sc.clgg.R
-import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.activity.WebActivity
 import com.sc.clgg.activity.my.MyMessageActivity
 import com.sc.clgg.activity.my.MyVehicleActivity
 import com.sc.clgg.activity.my.SetActivity
 import com.sc.clgg.activity.my.userinfo.PersonalDataActivity
+import com.sc.clgg.base.BaseFragment
 import com.sc.clgg.bean.IsNotReadInfo
 import com.sc.clgg.bean.PersonalData
 import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.setDefaultRoundedCornerPicture
@@ -60,47 +58,23 @@ class MyFragment : BaseFragment() {
         item_set.setOnClickListener { if (ConfigUtil().isLogined(activity!!)) startActivity<SetActivity>() }
     }
 
-
-    private var isActivityCreated: Boolean = false
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        isActivityCreated = true
-    }
-
-    override fun onLazyFetchData() {
-        super.onLazyFetchData()
-        getUserInfo()
-        isNotReadInfo()
-    }
-
     override fun onResume() {
-        LogHelper.e("onResume() --->我的")
         super.onResume()
         if (ConfigUtil().userid.isNotEmpty()) {
-            activity.apply {
-                this as MainActivity
-                if (currenMainTabIndex == 4) {
-                    getUserInfo()
-                }
-            }
+            getUserInfo()
+            isNotReadInfo()
         } else {
             iv_head.setImageResource(R.drawable.ic_launcher)
             tv_nickname.text = "请登录"
             tv_describe.text = ""
         }
-        if (userVisibleHint) {
-            isNotReadInfo()
-        }
     }
 
-    private var call: Call<PersonalData>? = null
+    private var personalDataHttp: Call<PersonalData>? = null
 
     private fun getUserInfo() {
-        if (TextUtils.isEmpty(ConfigUtil().userid)) {
-            return
-        }
-        call = RetrofitHelper().personalData()
-        call?.enqueue(object : Callback<PersonalData> {
+        personalDataHttp = RetrofitHelper().personalData()
+        personalDataHttp?.enqueue(object : Callback<PersonalData> {
             override fun onFailure(call: Call<PersonalData>, t: Throwable?) {
                 toast(R.string.network_anomaly)
                 iv_head.setDefaultRoundedCornerPicture(activity!!, R.drawable.ic_launcher)
@@ -142,17 +116,14 @@ class MyFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        call?.cancel()
-        callIsNotReadInfo?.cancel()
+        personalDataHttp?.cancel()
+        notReadInfoHttp?.cancel()
     }
 
-    private var callIsNotReadInfo: Call<IsNotReadInfo>? = null
+    private var notReadInfoHttp: Call<IsNotReadInfo>? = null
     private fun isNotReadInfo() {
-        if (TextUtils.isEmpty(ConfigUtil().userid)) {
-            return
-        }
-        callIsNotReadInfo = RetrofitHelper().isNotReadInfo
-        callIsNotReadInfo?.enqueue(object : Callback<IsNotReadInfo> {
+        notReadInfoHttp = RetrofitHelper().isNotReadInfo
+        notReadInfoHttp?.enqueue(object : Callback<IsNotReadInfo> {
             override fun onFailure(call: Call<IsNotReadInfo>?, t: Throwable?) {
                 v_point.visibility = View.GONE
                 toast(R.string.network_anomaly)

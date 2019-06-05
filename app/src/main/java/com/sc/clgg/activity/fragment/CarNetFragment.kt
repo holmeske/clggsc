@@ -8,7 +8,6 @@ import android.os.Environment.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.sc.clgg.R
@@ -22,6 +21,7 @@ import com.sc.clgg.activity.vehicle.fault.FaultDiagnosisActivity
 import com.sc.clgg.activity.vehicle.locate.LocateActivity
 import com.sc.clgg.activity.vehicle.mileage.MileageActivity
 import com.sc.clgg.activity.vehicle.tally.TallyBookActivity
+import com.sc.clgg.base.BaseFragment
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.VersionInfoBean
 import com.sc.clgg.mvvm.MyViewModel
@@ -42,7 +42,7 @@ import java.io.File.separator
  * @author：lvke
  * @date：2018/2/27 17:02
  */
-class CarNetFragment : Fragment(), TruckManageContact {
+class CarNetFragment : BaseFragment(), TruckManageContact {
 
     private lateinit var myViewModel: MyViewModel
     private val changeObserver = Observer<Banner> { value ->
@@ -152,16 +152,14 @@ class CarNetFragment : Fragment(), TruckManageContact {
         job.start()*/
     }
 
-//    private lateinit var job: Job
+    override fun onResume() {
+        super.onResume()
+        banner?.startAutoPlay()
+    }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (viewCreated) {
-            when {
-                isVisibleToUser -> banner?.startAutoPlay()
-                else -> banner?.stopAutoPlay()
-            }
-        }
+    override fun onPause() {
+        super.onPause()
+        banner?.stopAutoPlay()
     }
 
     override fun getVersionInfo(bean: VersionInfoBean?) {

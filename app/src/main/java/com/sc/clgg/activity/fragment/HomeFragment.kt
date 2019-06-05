@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.sc.clgg.R
 import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.activity.WebActivity
@@ -14,6 +13,7 @@ import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.activity.vehicle.energy.ConsumptionStatisticalActivity
 import com.sc.clgg.activity.vehicle.locate.LocateActivity
 import com.sc.clgg.activity.vehicle.tally.TallyBookActivity
+import com.sc.clgg.base.BaseFragment
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.retrofit.RetrofitHelper
@@ -30,7 +30,7 @@ import retrofit2.Response
  * @author：lvke
  * @date：2018/10/12 14:37
  */
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(activity).inflate(R.layout.fragment_home, container, false)
     }
