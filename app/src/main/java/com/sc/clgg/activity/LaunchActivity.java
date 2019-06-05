@@ -3,9 +3,9 @@ package com.sc.clgg.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.sc.clgg.R;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.sc.clgg.R;
 
 /**
  * @author lvke

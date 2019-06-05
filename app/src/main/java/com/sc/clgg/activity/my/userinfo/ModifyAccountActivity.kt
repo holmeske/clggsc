@@ -18,7 +18,7 @@ class ModifyAccountActivity : BaseImmersionActivity() {
     private var mLoadingDialogHelper: LoadingDialogHelper? = null
     private val mCountDownTimer = object : CountDownTimer(60000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
-            tv_send.text = (millisUntilFinished / 1000).toString() + "s"
+            tv_send.text = String.format(getString(R.string.text_1), millisUntilFinished / 1000)
         }
 
         override fun onFinish() {
@@ -37,9 +37,9 @@ class ModifyAccountActivity : BaseImmersionActivity() {
 
         tv_send.setOnClickListener {
             tv_send.isEnabled = false
-            call_verificationCode = RetrofitHelper().verificationCode(et_new_phone.text.toString())
+            http = RetrofitHelper().verificationCode(et_new_phone.text.toString())
             mLoadingDialogHelper?.show()
-            call_verificationCode?.enqueue(object : Callback<Check> {
+            http?.enqueue(object : Callback<Check> {
                 override fun onFailure(call: Call<Check>?, t: Throwable?) {
                     mLoadingDialogHelper?.dismiss()
                 }
@@ -74,12 +74,12 @@ class ModifyAccountActivity : BaseImmersionActivity() {
                 return@setOnClickListener
             }
 
-            call_commit = RetrofitHelper().modifyAccount(
+            commitHttp = RetrofitHelper().modifyAccount(
                     et_new_phone.text.toString(),
                     et_verification_code.text.toString(),
                     et_current_password.text.toString())
             mLoadingDialogHelper?.show()
-            call_commit?.enqueue(object : Callback<Check> {
+            commitHttp?.enqueue(object : Callback<Check> {
                 override fun onFailure(call: Call<Check>?, t: Throwable?) {
                     mLoadingDialogHelper?.dismiss()
                 }
@@ -99,13 +99,13 @@ class ModifyAccountActivity : BaseImmersionActivity() {
         }
     }
 
-    private var call_verificationCode: Call<Check>? = null
+    private var http: Call<Check>? = null
 
-    private var call_commit: Call<Check>? = null
+    private var commitHttp: Call<Check>? = null
 
     override fun onDestroy() {
         super.onDestroy()
-        call_verificationCode?.cancel()
+        http?.cancel()
         mCountDownTimer.cancel()
     }
 }

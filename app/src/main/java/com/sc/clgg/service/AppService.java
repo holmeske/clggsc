@@ -3,13 +3,14 @@ package com.sc.clgg.service;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
+
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.widget.AreaPopHelper;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.JobIntentService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

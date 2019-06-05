@@ -14,6 +14,7 @@ import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.util.PotatoKt;
 
 import org.devio.takephoto.model.TResult;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Map;
@@ -26,15 +27,13 @@ import retrofit2.Response;
  * @author lvke
  */
 public class AddVehicleActivity extends TakePhotoActivity {
-    private EditText et_car_no;
-    private EditText et_car_vin;
+    private EditText etCarNo;
+    private EditText etCarVin;
 
     private Call<Check> addVehicleHttp;
     private Call<Map<String, Object>> vehicleLicenseInfoHttp;
 
     private String scan = "0";
-    private String carno = "";
-    private String vin = "";
     private String carType = "";
     private String carOwner = "";
     private String address = "";
@@ -48,11 +47,11 @@ public class AddVehicleActivity extends TakePhotoActivity {
         setContentView(R.layout.activity_add_vehicle);
         initTitle("添加车辆");
 
-        et_car_no = findViewById(R.id.et_car_no);
-        et_car_vin = findViewById(R.id.et_car_vin);
+        etCarNo = findViewById(R.id.et_car_no);
+        etCarVin = findViewById(R.id.et_car_vin);
 
-        et_car_no.setTransformationMethod(new AllCapTransformationMethod());
-        et_car_vin.setTransformationMethod(new AllCapTransformationMethod());
+        etCarNo.setTransformationMethod(new AllCapTransformationMethod());
+        etCarVin.setTransformationMethod(new AllCapTransformationMethod());
 
         findViewById(R.id.tv_add).setOnClickListener(v -> add());
         findViewById(R.id.iv_scan).setOnClickListener(v -> PotatoKt.showTakePhoto(AddVehicleActivity.this, getTakePhoto(), 1));
@@ -83,7 +82,7 @@ public class AddVehicleActivity extends TakePhotoActivity {
         vehicleLicenseInfoHttp = new RetrofitHelper().scan(new File(filePath));
         vehicleLicenseInfoHttp.enqueue(new Callback<Map<String, Object>>() {
             @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+            public void onResponse(@NotNull Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 hideProgressDialog();
                 try {
                     Map<String, Object> allMap = response.body();
@@ -93,8 +92,8 @@ public class AddVehicleActivity extends TakePhotoActivity {
                         if (identifyMap.containsKey("words_result")) {
                             Map<String, Object> resultMap = (Map<String, Object>) identifyMap.get("words_result");
 
-                            et_car_no.setText(((Map<String, String>) resultMap.get("号牌号码")).get("words"));
-                            et_car_vin.setText(((Map<String, String>) resultMap.get("车辆识别代号")).get("words"));
+                            etCarNo.setText(((Map<String, String>) resultMap.get("号牌号码")).get("words"));
+                            etCarVin.setText(((Map<String, String>) resultMap.get("车辆识别代号")).get("words"));
 
                             scan = "1";
                             carType = ((Map<String, String>) resultMap.get("车辆类型")).get("words");
@@ -112,7 +111,7 @@ public class AddVehicleActivity extends TakePhotoActivity {
             }
 
             @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+            public void onFailure(@NotNull Call<Map<String, Object>> call, Throwable t) {
                 hideProgressDialog();
             }
         });
@@ -122,8 +121,8 @@ public class AddVehicleActivity extends TakePhotoActivity {
      * 添加车辆
      */
     private void add() {
-        carno = et_car_no.getText().toString();
-        vin = et_car_vin.getText().toString();
+        String carno = etCarNo.getText().toString();
+        String vin = etCarVin.getText().toString();
 
         if (TextUtils.isEmpty(carno)) {
             Toast.makeText(this, "请输入车牌号", Toast.LENGTH_SHORT).show();
@@ -154,7 +153,7 @@ public class AddVehicleActivity extends TakePhotoActivity {
             }
 
             @Override
-            public void onFailure(Call<Check> call, Throwable t) {
+            public void onFailure(@NotNull Call<Check> call, Throwable t) {
                 Toast.makeText(AddVehicleActivity.this, R.string.network_anomaly, Toast.LENGTH_SHORT).show();
             }
         });
@@ -171,7 +170,9 @@ public class AddVehicleActivity extends TakePhotoActivity {
         }
     }
 
-    //小写字母自动转换为大写
+    /**
+     * 小写字母自动转换为大写
+     */
     private class AllCapTransformationMethod extends ReplacementTransformationMethod {
 
         @Override

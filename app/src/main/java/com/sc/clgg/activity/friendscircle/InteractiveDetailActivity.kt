@@ -53,11 +53,10 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
         call = RetrofitHelper().getSingleDetail(intent.getStringExtra("messageId"))
         call?.enqueue(object : Callback<InteractiveDetail> {
             override fun onFailure(call: Call<InteractiveDetail>?, t: Throwable?) {
-
             }
 
             override fun onResponse(call: Call<InteractiveDetail>?, response: Response<InteractiveDetail>?) {
-                response?.body()?.detail?.let {
+                response?.body()?.detail?.let { it ->
                     data = it
                     send(data?.id!!, data?.userId!!)
 
@@ -71,14 +70,14 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
 
                     it.driverCircleCommentList?.size?.let {
                         if (it > 99) {
-                            tv_comment_count.text = "99+"
+                            tv_comment_count.text = getString(R.string._3)
                         } else {
                             tv_comment_count.text = it.toString()
                         }
                     }
                     it.driverCircleLaudList?.size?.let {
                         if (it > 99) {
-                            tv_laud_count.text = "99+"
+                            tv_laud_count.text = getString(R.string._3)
                         } else {
                             tv_laud_count.text = it.toString()
                         }
@@ -117,7 +116,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
     }
 
     private fun setLauds(bean: InteractiveDetail.A, tv: TextView, iv_lauds: ImageView): String {
-        if (bean.driverCircleLaudList != null && bean.driverCircleLaudList!!.size > 0) {
+        if (bean.driverCircleLaudList != null && bean.driverCircleLaudList!!.isNotEmpty()) {
             tv.visibility = View.VISIBLE
             iv_lauds.visibility = View.VISIBLE
 
@@ -134,7 +133,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
         return tv.text.toString()
     }
 
-    private fun setMessageLimit(bean: InteractiveDetail.A) {
+    /*private fun setMessageLimit(bean: InteractiveDetail.A) {
         tv_message.post {
             val lineCount = tv_message.lineCount//行数
             //val maxLineCount = tv_message.maxLines
@@ -142,7 +141,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
 
             if (lineCount > 1) {
                 tv_all_show.visibility = View.VISIBLE
-                tv_all_show.setOnClickListener({
+                tv_all_show.setOnClickListener {
                     if (tv_all_show.text == "全文") {
                         tv_message.maxLines = 10
                         tv_all_show.text = "收起"
@@ -151,33 +150,33 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
                         tv_all_show.text = "全文"
                     }
                     tv_message.text = if (bean.message == null) "" else bean.message
-                })
+                }
             } else {
                 tv_all_show.visibility = View.GONE
             }
         }
-    }
+    }*/
 
     private fun setTextViewMaxLinesEllipsize(context: String, tv_lauds: TextView) {
         tv_lauds.viewTreeObserver.addOnGlobalLayoutListener {
             tv_lauds.text = context
             if (tv_lauds.lineCount > tv_lauds.maxLines) {
-                var lineEndIndex = tv_lauds.layout.getLineEnd(4 - 1)
-                tv_lauds.text = "${context.subSequence(0, lineEndIndex - 1)}…"
+                val lineEndIndex = tv_lauds.layout.getLineEnd(4 - 1)
+                tv_lauds.text = String.format(getString(R.string.s_2), context.subSequence(0, lineEndIndex - 1))
             }
         }
     }
 
     private fun setLaudsLimit(context: String, bean: InteractiveDetail.A) {
-        tv_lauds.post(Runnable {
+        tv_lauds.post {
             val lineCount = tv_lauds.lineCount//行数
             val maxLineCount = tv_lauds.maxLines
-            LogHelper.e("消息行数：" + lineCount + "   最大行数：" + maxLineCount)
+            LogHelper.e("消息行数：$lineCount   最大行数：$maxLineCount")
 
             if (lineCount > 4) {
                 with(tv_all_show_commen) {
                     visibility = View.VISIBLE
-                    setOnClickListener(View.OnClickListener {
+                    setOnClickListener {
                         if (tv_all_show_commen.text == "显示全部") {
                             tv_lauds.maxLines = lineCount
 
@@ -194,12 +193,12 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
                         LogHelper.e("消息行数：" + tv_lauds.lineCount + "   最大行数：" + tv_lauds.maxLines)
                         setLauds(bean, tv_lauds, iv_lauds)
 
-                    })
+                    }
                 }
             } else {
                 tv_all_show_commen.visibility = View.GONE
             }
-        })
+        }
     }
 
     private fun setCommens(bean: InteractiveDetail.A, ll: LinearLayout) {
@@ -209,7 +208,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
             ll.addView(View.inflate(this, R.layout.view_line, null))
 
             for ((id, _, _, userId, createTime, _, comment, _, nickName, headImg) in bean.driverCircleCommentList!!) {
-                var itemView = View.inflate(this, R.layout.item_interactive_detail, null)
+                val itemView = View.inflate(this, R.layout.item_interactive_detail, null)
 
                 itemView.iv_head.setRoundedCornerPicture(this@InteractiveDetailActivity, headImg)
 
@@ -299,7 +298,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
     private fun setDelete(userId: Int, id: Int) {
         if (ConfigUtil().userid == userId.toString()) {
             tv_delete.visibility = View.VISIBLE
-            tv_delete.setOnClickListener({
+            tv_delete.setOnClickListener {
                 AlertDialogHelper().show(this, "确定删除?") { _, _ ->
                     RetrofitHelper().removeMessage(id).enqueue(object : Callback<Check> {
                         override fun onResponse(call: Call<Check>, response: Response<Check>) {
@@ -316,7 +315,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
                         }
                     })
                 }
-            })
+            }
         } else {
             tv_delete.visibility = View.GONE
         }
@@ -328,7 +327,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
             if (userId.toString() != ConfigUtil().userid) {
                 sb.append(",").append(nickName ?: "")
             }
-            if (sb.length > 0) {
+            if (sb.isNotEmpty()) {
                 tv_lauds.visibility = View.VISIBLE
             } else {
                 tv_lauds.visibility = View.GONE
@@ -378,12 +377,12 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
     private var sendCall: Call<Check>? = null
     private fun send(circleMessageId: Int, commentUserId: Int) {
         tv_send.setOnClickListener {
-            var comment = et_input?.text?.toString()
+            val comment = et_input?.text?.toString()
 
             if (!comment.isNullOrEmpty())
 
                 sendCall = RetrofitHelper().sendOpinion(circleMessageId, commentUserId, comment)
-            sendCall?.enqueue(object : retrofit2.Callback<Check> {
+            sendCall?.enqueue(object : Callback<Check> {
                 override fun onFailure(call: Call<Check>?, t: Throwable?) {
                     cs_input.visibility = View.GONE
                     toast("评论失败")
@@ -408,7 +407,7 @@ class InteractiveDetailActivity : BaseImmersionActivity() {
     }
 
     private fun hideSoftInput(v: View) {
-        var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(v, InputMethodManager.SHOW_FORCED)
         imm.hideSoftInputFromWindow(v.windowToken, 0)
     }
