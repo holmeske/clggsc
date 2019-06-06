@@ -12,9 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import com.sc.clgg.R
 import com.sc.clgg.activity.MainActivity
+import com.sc.clgg.base.BaseFragment
 import com.sc.clgg.config.NetField
 import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.util.ConfigUtil
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_mall.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.toast
 
-class MallFragment : Fragment() {
+class MallFragment : BaseFragment() {
     private var historyUrl: String? = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_mall, container, false)
@@ -36,7 +36,6 @@ class MallFragment : Fragment() {
     fun goBack() {
         webView?.goBack()
     }
-
 
     private var viewIsCreated: Boolean = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,22 +58,10 @@ class MallFragment : Fragment() {
         v_reload?.setOnClickListener { webView.loadUrl(historyUrl) }
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (viewIsCreated && isVisibleToUser) {
-            LogHelper.e("商城页面 setUserVisibleHint")
-
-            webView.resumeTimers()
-            webView.onResume()
-        }
-    }
-
-
     override fun onResume() {
         super.onResume()
-        if (userVisibleHint) {
-            LogHelper.e("onResume() --->商城")
-        }
+        webView.resumeTimers()
+        webView.onResume()
     }
 
     private var mWebSettings: WebSettings? = null
@@ -114,8 +101,7 @@ class MallFragment : Fragment() {
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 if (url.startsWith("mailto:") || url.startsWith("geo:") || url.startsWith("tel:")) {
-                    var intent = Intent(Intent.ACTION_CALL, Uri.parse(url))
-                    startActivity(intent)
+                    startActivity(Intent(Intent.ACTION_CALL, Uri.parse(url)))
                     return true
                 }
                 view.loadUrl(url)

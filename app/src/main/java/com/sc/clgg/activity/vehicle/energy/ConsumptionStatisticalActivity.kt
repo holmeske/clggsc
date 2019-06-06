@@ -30,10 +30,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ConsumptionStatisticalActivity : BaseImmersionActivity() {
-    var adpter: ConsumptionStatisticalAdapter? = null
+    private var adpter: ConsumptionStatisticalAdapter? = null
     private var dateStr: String? = null
-    var year: Int = 0
-    var month: Int = 0
+    private var year: Int = 0
+    private var month: Int = 0
     private var maxDay: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,6 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
         initTitle("能耗统计")
 
         adpter = ConsumptionStatisticalAdapter(ConsumptionStatisticalAdapter.ItemClickListener { vin, carno ->
-            LogHelper.e("month = " + month)
             startActivity(Intent(this@ConsumptionStatisticalActivity, ConsumptionDetailActivity::class.java)
                     .putExtra("date", dateStr)
                     .putExtra("vin", vin)
@@ -63,7 +62,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
         tv_date?.text = DateHelper.formatCurrentTime("yyyy-MM")
 
         maxDay = selectedCalendar.getActualMaximum(Calendar.DATE)
-        tv4.text = "${maxDay}日"
+        tv4.text = String.format(getString(R.string.s_0), maxDay)
 
         chart.setNoDataText("")
         loadData(dateStr)
@@ -88,14 +87,14 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
             override fun onResponse(call: Call<Consumption>?, response: Response<Consumption>?) {
                 hideProgressDialog()
 
-                response?.body()?.data?.let {
+                response?.body()?.data?.let { it ->
 
                     tv_month_mileage?.text = DecimalFormatHelper.formatTwo(it.totalFuel)
                     one_vehice_month_mileage?.text = DecimalFormatHelper.formatTwo(it.hundredFuel)
 
                     val data = ArrayList<Float>()
                     it.dayDetails?.let {
-                        if (it.size > 0) {
+                        if (it.isNotEmpty()) {
                             for ((_, totalFuel) in it) {
                                 data.add(totalFuel!!.toFloat())
                             }
@@ -107,7 +106,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
                         tv2.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
                         tv3.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
                     }
-                    initChart(data, if(data.isEmpty()) 0f else (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat(), maxDay)
+                    initChart(data, if (data.isEmpty()) 0f else (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat(), maxDay)
                 }
             }
         })
@@ -126,7 +125,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
             // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
             selectedCalendar.time = date
 
-              year = selectedCalendar.get(Calendar.YEAR)
+            year = selectedCalendar.get(Calendar.YEAR)
             month = selectedCalendar.get(Calendar.MONTH) + 1
 
             tv_date.text = DateHelper.formatCurrentTime(selectedCalendar, "yyyy-MM")
@@ -134,7 +133,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
             dateStr = DateHelper.formatCurrentTime(selectedCalendar, "yyyyMM")
             loadData(dateStr)
             maxDay = selectedCalendar.getActualMaximum(Calendar.DATE)
-            tv4.text = "${maxDay}日"
+            tv4.text = String.format(getString(R.string.s_0), maxDay)
         }).setType(booleanArrayOf(true, true, false, false, false, false))//年月日时分秒 的显示与否，不设置则默认全部显示
                 .setLabel("", "", "", "", "", "")
                 .isCenterLabel(false)
@@ -142,7 +141,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
                 .setContentTextSize(21)
                 .setDate(selectedCalendar)
                 .setRangDate(startCalendar, endCalendar)
-                .setBackgroundId(R.color.white) //设置外部遮罩颜色
+                .setOutSideColor(ContextCompat.getColor(this, R.color.white)) //设置外部遮罩颜色
                 .setDecorView(null)
                 .build()
     }
@@ -153,7 +152,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
             mTimePickerView?.show()
         }
         tv_mileage.setOnClickListener {
-            var drawable: Drawable?
+            val drawable: Drawable?
             if (!change) {
                 change = true
                 drawable = ContextCompat.getDrawable(application, R.drawable.energy_ico_up)
@@ -172,14 +171,14 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
 
         val params = chart.layoutParams
         if (data.size == 1) {
-            params.width = (MeasureHelper.getScreenWidth(this)/ maxDay!!) * 3
+            params.width = (MeasureHelper.getScreenWidth(this) / maxDay!!) * 3
         } else {
 //          params.width =MeasureHelper.getScreenWidth(this)
             params.width = ((MeasureHelper.getScreenWidth(this) - MeasureHelper.dp2px(this, 10f)) / maxDay!!) * data.size
             +MeasureHelper.dp2px(this, 10f)
         }
 
-        LogHelper.e("数组长度 = " + data.size + "   maximum = " + maximum + "   maxDay = " + maxDay+ "   width = " + params.width)
+        LogHelper.e("数组长度 = " + data.size + "   maximum = " + maximum + "   maxDay = " + maxDay + "   width = " + params.width)
 
         chart.setNoDataText("")
         //val xLabels = listOf("1日", "8日", "15日", "22日", "31日")
@@ -255,7 +254,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
 
         val sets = chart.data.dataSets
         for (iSet in sets) {
-            val set = iSet as LineDataSet
+//            val set = iSet as LineDataSet
 //            set.setValueFormatter { value, _, _, _ ->
 //                value.toString()
 //            }

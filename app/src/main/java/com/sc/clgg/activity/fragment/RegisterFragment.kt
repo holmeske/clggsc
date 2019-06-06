@@ -18,7 +18,6 @@ import com.sc.clgg.tool.helper.CheckHelper
 import com.sc.clgg.util.Tools
 import kotlinx.android.synthetic.main.fragment_register.*
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

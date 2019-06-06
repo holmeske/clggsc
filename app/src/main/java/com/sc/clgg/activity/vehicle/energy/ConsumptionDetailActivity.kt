@@ -51,10 +51,10 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
         loadData(dateStr)
 
         val calendar = Calendar.getInstance()
-        LogHelper.e(""+intent.getIntExtra("year",0)+"\t\t"+intent.getIntExtra("month",0))
-        calendar.set(intent.getIntExtra("year",0), intent.getIntExtra("month",0), 0)
-        maximum=  calendar.getActualMaximum(Calendar.DATE)
-        tv4.text = "${maximum}日"
+        LogHelper.e("" + intent.getIntExtra("year", 0) + "\t\t" + intent.getIntExtra("month", 0))
+        calendar.set(intent.getIntExtra("year", 0), intent.getIntExtra("month", 0), 0)
+        maximum = calendar.getActualMaximum(Calendar.DATE)
+        tv4.text = String.format(getString(R.string.s_0), maximum)
     }
 
     private var call: Call<ConsumptionDetail>? = null
@@ -184,7 +184,7 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
 
         val sets = chart.data.dataSets
         for (iSet in sets) {
-            val set = iSet as LineDataSet
+//            val set = iSet as LineDataSet
 //            set.setValueFormatter { value, _, _, _ ->
 //                value.toString()
 //            }
