@@ -15,6 +15,7 @@ import com.sc.clgg.activity.friendscircle.CommentActivity
 import com.sc.clgg.activity.friendscircle.PublishDynamicActivity
 import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.adapter.TruckFriendsAdapter
+import com.sc.clgg.base.BaseFragment
 import com.sc.clgg.bean.CommentEvent
 import com.sc.clgg.bean.TruckFriend
 import com.sc.clgg.retrofit.RetrofitHelper
@@ -28,7 +29,6 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,6 +43,7 @@ class TruckFriendsFragment : BaseFragment() {
     private var pageNum = 1
     private val pageSize = 5
     private var noMore = false
+    private var isLoaded = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_truck_friends, container, false)
@@ -63,6 +64,15 @@ class TruckFriendsFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isLoaded) {
+            isLoaded = true
+            swipeRefreshLayout?.isRefreshing = true
+            loadData()
+        }
     }
 
     override fun onStop() {
@@ -93,19 +103,6 @@ class TruckFriendsFragment : BaseFragment() {
             adapter?.listAll!![CommentActivity.position]?.driverCircleCommentList?.add(CommentActivity.commen!!)
             adapter?.notifyItemChanged(CommentActivity.position, 2)
         }
-    }
-
-    override fun onLazyFetchData() {
-        super.onLazyFetchData()
-        LogHelper.e("onLazyFetchData() --->卡友圈")
-        if (recyclerView.childCount == 0) {
-            loadData()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        LogHelper.e("onResume() --->卡友圈")
     }
 
     private fun init() {
@@ -143,7 +140,7 @@ class TruckFriendsFragment : BaseFragment() {
             pageNum = 1
             loadData()
         }
-        adapter?.setLoadMoreListener(View.OnClickListener { view ->
+        adapter?.setLoadMoreListener { view ->
             (view as TextView).text = "加载中..."
             loadMoreView = view
             if (!noMore) {
@@ -152,7 +149,7 @@ class TruckFriendsFragment : BaseFragment() {
             } else {
                 Toast.makeText(activity, getString(R.string.no_more), Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
     private var call: Call<TruckFriend>? = null

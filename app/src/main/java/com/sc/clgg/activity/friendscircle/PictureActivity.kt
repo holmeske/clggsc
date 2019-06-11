@@ -1,17 +1,15 @@
 package com.sc.clgg.activity.friendscircle
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sc.clgg.R
-import com.sc.clgg.adapter.ViewPagerAdapter
 import com.sc.clgg.base.BaseImmersionActivity
-import com.sc.clgg.tool.helper.LogHelper
 import kotlinx.android.synthetic.main.activity_picture.*
-import java.util.*
-
 
 
 class PictureActivity : BaseImmersionActivity() {
@@ -22,21 +20,28 @@ class PictureActivity : BaseImmersionActivity() {
 
         iv_back.setOnClickListener { finish() }
 
-        val  urls=intent.getStringArrayListExtra("urls")
-        val viewList = ArrayList<View>()
-        urls?.forEach {
-            LogHelper.e(it)
-            val iv = ImageView(this)
-            iv.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            iv.scaleType = ImageView.ScaleType.FIT_CENTER
-            iv.setOnClickListener { finish() }
-            Glide.with(this).load(it).into(iv)
-            viewList.add(iv)
-        }
+        val urls = intent.getStringArrayListExtra("urls")
 
-        viewPager.adapter=ViewPagerAdapter(viewList)
-        viewPager.offscreenPageLimit=viewList.size
-        viewPager.currentItem=intent.getIntExtra("index",0)
+        viewpager2.adapter = object : RecyclerView.Adapter<MyHolder>() {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_picture, parent, false)
+                return MyHolder(view)
+            }
+
+            override fun onBindViewHolder(holder: MyHolder, position: Int) {
+                Glide.with(this@PictureActivity).load(urls[position]).into(holder.iv_picture)
+                holder.iv_picture.setOnClickListener { finish() }
+            }
+
+            override fun getItemCount(): Int {
+                return urls.size
+            }
+        }
+        viewpager2.setCurrentItem(intent.getIntExtra("index", 0), false)
+    }
+
+    class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val iv_picture: ImageView = itemView.findViewById(R.id.iv_picture)
     }
 
 }
