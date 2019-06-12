@@ -60,7 +60,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="allowBackup">
-        <activity android:name=".activity.nocar.DrivingLicenseActivity"></activity>
+        <activity android:name=".activity.nocar.DrivingLicenseActivity" />
         <activity android:name=".activity.nocar.IdentityActivity" />
         <activity android:name=".activity.etc.BindCardResultActivity" />
 

@@ -171,16 +171,17 @@ fun ImageView.setDefaultRoundedCornerPicture(context: Context, @DrawableRes reso
     ).into(this)
 }
 
-fun ImageView.setRoundedCornerPicture(context: Context, url: String? = "") {
+fun ImageView.setRoundedCornerPicture(context: Context?, url: String? = "") {
     //if (!TextUtils.isEmpty(url)) {
     //LogHelper.e("ImageView 宽高：" + measuredWidth + "," + measuredHeight)
-    Glide.with(context).load(url).apply(
-            RequestOptions.bitmapTransform(RoundedCorners(MeasureHelper.dp2px(context.applicationContext, 5f)))
-                    .placeholder(R.drawable.ic_launcher)
-                    .error(R.drawable.ic_launcher)
-                    .override(if (measuredWidth == 0) 100 else measuredWidth, if (measuredHeight == 0) 100 else measuredHeight)
-    )
-            /*.listener(object : RequestListener<Drawable> {
+    context?.let {
+        Glide.with(it).load(url).apply(
+                RequestOptions.bitmapTransform(RoundedCorners(MeasureHelper.dp2px(context.applicationContext, 5f)))
+                        .placeholder(R.drawable.ic_launcher)
+                        .error(R.drawable.ic_launcher)
+                        .override(if (measuredWidth == 0) 100 else measuredWidth, if (measuredHeight == 0) 100 else measuredHeight)
+        )
+                /*.listener(object : RequestListener<Drawable> {
         override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
             LogHelper.e("onLoadFailed")
             return false
@@ -191,7 +192,8 @@ fun ImageView.setRoundedCornerPicture(context: Context, url: String? = "") {
             return false
         }
     })*/
-            .into(this)
+                .into(this)
+    }
     //}
 }
 

@@ -2,11 +2,12 @@ package com.sc.clgg.activity
 
 import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gyf.barlibrary.ImmersionBar
@@ -18,7 +19,7 @@ import com.sc.clgg.activity.my.MyVehicleActivity
 import com.sc.clgg.activity.my.SetActivity
 import com.sc.clgg.activity.my.userinfo.PersonalDataActivity
 import com.sc.clgg.activity.nocar.IdentityActivity
-import com.sc.clgg.adapter.FragmentAdapter
+import com.sc.clgg.adapter.CustomFragmentPagerAdapter
 import com.sc.clgg.base.BaseAppCompatActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.CarNetEvent
@@ -57,7 +58,9 @@ class MainActivity : BaseAppCompatActivity() {
 
         viewpager?.offscreenPageLimit = 5
         mallFragment = MallFragment()
-        viewpager?.adapter = FragmentAdapter(supportFragmentManager, listOf(HomeFragment(), CarNetFragment(), mallFragment, TruckFriendsFragment(), MyFragment()))
+        //viewpager?.adapter = FragmentAdapter(supportFragmentManager, listOf(HomeFragment(), CarNetFragment(), mallFragment, TruckFriendsFragment(), MyFragment()))
+        viewpager?.adapter = CustomFragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+                listOf(HomeFragment(), CarNetFragment(), mallFragment, TruckFriendsFragment(), MyFragment()))
 
         textViews = listOf(tv_home, tv_car_net, tv_mall, tv_truck_circle, tv_my)
 
@@ -89,7 +92,7 @@ class MainActivity : BaseAppCompatActivity() {
         } else {
             iv_open.setPadding(dp2px(15f), 15, 15, 0)
         }
-        iv_open.setOnClickListener { drawerLayout.openDrawer(Gravity.LEFT) }
+        iv_open.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         Glide.with(this).load(ConfigUtil().icon)

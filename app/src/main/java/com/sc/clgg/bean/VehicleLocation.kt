@@ -103,7 +103,7 @@ data class Mileage(var msg: String? = "",
 }
 
 @Parcelize
-data class Consumption(var code: Int = 0,
+data class Consumption(var code: Int = 0, var msg: String? = "",
                        var data: Data? = null,
                        var success: Boolean = false) : Parcelable {
     @Parcelize

@@ -23,6 +23,7 @@ import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.*
 import com.sc.clgg.widget.MyMarkerView
 import kotlinx.android.synthetic.main.activity_consumption_statistical.*
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -87,26 +88,33 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
             override fun onResponse(call: Call<Consumption>?, response: Response<Consumption>?) {
                 hideProgressDialog()
 
-                response?.body()?.data?.let { it ->
+                response?.body()?.let { it2 ->
+                    if (!it2.success) {
+                        it2.msg?.let { it1 -> toast(it1) }
+                        return
+                    } else {
+                        it2.data?.let { it ->
 
-                    tv_month_mileage?.text = DecimalFormatHelper.formatTwo(it.totalFuel)
-                    one_vehice_month_mileage?.text = DecimalFormatHelper.formatTwo(it.hundredFuel)
+                            tv_month_mileage?.text = DecimalFormatHelper.formatTwo(it.totalFuel)
+                            one_vehice_month_mileage?.text = DecimalFormatHelper.formatTwo(it.hundredFuel)
 
-                    val data = ArrayList<Float>()
-                    it.dayDetails?.let {
-                        if (it.isNotEmpty()) {
-                            for ((_, totalFuel) in it) {
-                                data.add(totalFuel!!.toFloat())
+                            val data = ArrayList<Float>()
+                            it.dayDetails?.let {
+                                if (it.isNotEmpty()) {
+                                    for ((_, totalFuel) in it) {
+                                        data.add(totalFuel!!.toFloat())
+                                    }
+                                }
                             }
+                            adpter?.refresh(it.dataList)
+
+                            if (maxDay == 31) {
+                                tv2.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
+                                tv3.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
+                            }
+                            initChart(data, if (data.isEmpty()) 0f else (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat(), maxDay)
                         }
                     }
-                    adpter?.refresh(it.dataList)
-
-                    if (maxDay == 31) {
-                        tv2.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
-                        tv3.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
-                    }
-                    initChart(data, if (data.isEmpty()) 0f else (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat(), maxDay)
                 }
             }
         })

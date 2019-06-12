@@ -1,11 +1,8 @@
 package com.sc.clgg.activity
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Color
-import android.os.Bundle
 import android.os.Looper
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.Toast
 import com.sc.clgg.R
@@ -21,7 +18,7 @@ import pub.devrel.easypermissions.EasyPermissions
 
 class SplashActivity : BaseImmersionActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogHelper.e("onCreate")
     }
@@ -39,7 +36,7 @@ class SplashActivity : BaseImmersionActivity() {
     override fun onStart() {
         super.onStart()
         LogHelper.e("onStart")
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()
@@ -158,7 +155,7 @@ class SplashActivity : BaseImmersionActivity() {
 
     private lateinit var job: Job
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
+    /*override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         LogHelper.e("onConfigurationChanged")
     }
@@ -186,5 +183,5 @@ class SplashActivity : BaseImmersionActivity() {
     override fun onDestroy() {
         super.onDestroy()
         LogHelper.e("onDestroy")
-    }
+    }*/
 }

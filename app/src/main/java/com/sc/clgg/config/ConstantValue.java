@@ -38,7 +38,7 @@ public class ConstantValue {
     public static final String INSURANCE = NetField.SITE + "shop/mx";
     public static final String USER_AGREEMENT = NetField.SITE + "preview/cardB";
 
-    private static String NO_VEHICLE_HEAD = "http://sj.clgg.com/Html/View/Main/Index.html?username="
+    private static String NO_VEHICLE_HEAD = "http://sj.clgg.com:8004/Html/View/Main/Index.html?username="
             + new ConfigUtil().getAccount() + "&password=" + new ConfigUtil().getPassword();
     public static final String REAL_NAME_AUTHENTICATION = NO_VEHICLE_HEAD + "&url=NameAuthentication/Index.html";
     public static final String WALLET_ENTRANCE = NO_VEHICLE_HEAD + "&url=MyWallet/Index.html";

@@ -1,11 +1,14 @@
 package com.sc.clgg.adapter;
 
-import java.util.List;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import java.util.List;
+
+/**
+ * @author lvke
+ */
 public class FragmentAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
 
@@ -21,7 +24,6 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-
         return fragments == null ? 0 : fragments.size();
     }
 
