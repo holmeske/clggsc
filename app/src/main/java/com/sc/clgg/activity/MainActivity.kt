@@ -13,7 +13,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.gyf.barlibrary.ImmersionBar
 import com.sc.clgg.R
 import com.sc.clgg.activity.fragment.*
-import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.activity.my.MyMessageActivity
 import com.sc.clgg.activity.my.MyVehicleActivity
 import com.sc.clgg.activity.my.SetActivity
@@ -23,10 +22,7 @@ import com.sc.clgg.adapter.CustomFragmentPagerAdapter
 import com.sc.clgg.base.BaseAppCompatActivity
 import com.sc.clgg.bean.Banner
 import com.sc.clgg.bean.CarNetEvent
-import com.sc.clgg.dialog.ExitDialog
-import com.sc.clgg.util.ConfigUtil
-import com.sc.clgg.util.dp2px
-import com.sc.clgg.util.statusBarHeight
+import com.sc.clgg.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_drawer.*
 import org.greenrobot.eventbus.EventBus
@@ -48,7 +44,7 @@ class MainActivity : BaseAppCompatActivity() {
      */
     var currenMainTabIndex: Int = 0
 
-    private var mallFragment: MallFragment? = null
+    private lateinit var mallFragment: MallFragment
 
     var bannerData: ArrayList<Banner.Bean>? = null
 
@@ -58,7 +54,6 @@ class MainActivity : BaseAppCompatActivity() {
 
         viewpager?.offscreenPageLimit = 5
         mallFragment = MallFragment()
-        //viewpager?.adapter = FragmentAdapter(supportFragmentManager, listOf(HomeFragment(), CarNetFragment(), mallFragment, TruckFriendsFragment(), MyFragment()))
         viewpager?.adapter = CustomFragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
                 listOf(HomeFragment(), CarNetFragment(), mallFragment, TruckFriendsFragment(), MyFragment()))
 
@@ -106,12 +101,13 @@ class MainActivity : BaseAppCompatActivity() {
 
         tv_set.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity<SetActivity>() }
         tv_exit.setOnClickListener {
-            ExitDialog(this).show("温馨提示", "确定退出登录？") { _, _ ->
+            /*ExitDialog(this).show("温馨提示", "确定退出登录？") { _, _ ->
                 ConfigUtil().clear()
                 startActivity<MainActivity>()
                 startActivity<LoginRegisterActivity>()
                 finish()
-            }
+            }*/
+            logOut()
         }
     }
 
@@ -147,10 +143,11 @@ class MainActivity : BaseAppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (currenMainTabIndex == 2 && mallFragment?.canGoBack()!!) {
-                mallFragment?.goBack()
+            if (currenMainTabIndex == 2 && mallFragment.canGoBack()) {
+                mallFragment.goBack()
             } else {
-                ExitDialog(this).show("退出提示", "确定退出车轮滚滚？") { _, _ -> System.exit(0) }
+                //ExitDialog(this).show("退出提示", "确定退出车轮滚滚？") { _, _ -> System.exit(0) }
+                exit()
             }
             return true
         }

@@ -30,8 +30,8 @@ class ModifyPasswordActivity : BaseImmersionActivity() {
     }
 
     private fun initListener() {
-        et_old_password!!.setTextChangeListener {
-            iv_delete_old_password!!.visibility = if (it.isNotEmpty()) View.VISIBLE else View.INVISIBLE
+        et_old_password.setTextChangeListener {
+            iv_delete_old_password.visibility = if (it.isNotEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
         et_new_password.setTextChangeListener {
@@ -39,12 +39,12 @@ class ModifyPasswordActivity : BaseImmersionActivity() {
         }
 
         et_again_new_password.setTextChangeListener {
-            iv_delete_again_new_password!!.visibility = if (it.isNotEmpty()) View.VISIBLE else View.INVISIBLE
+            iv_delete_again_new_password.visibility = if (it.isNotEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
-        iv_delete_old_password.setOnClickListener { et_old_password!!.setText("") }
-        iv_delete_new_password.setOnClickListener { et_new_password!!.setText("") }
-        iv_delete_again_new_password.setOnClickListener { et_again_new_password!!.setText("") }
+        iv_delete_old_password.setOnClickListener { et_old_password.setText("") }
+        iv_delete_new_password.setOnClickListener { et_new_password.setText("") }
+        iv_delete_again_new_password.setOnClickListener { et_again_new_password.setText("") }
 
         confirm_btn.setOnClickListener {
             determine()
@@ -86,21 +86,21 @@ class ModifyPasswordActivity : BaseImmersionActivity() {
         }
 
         http = RetrofitHelper().modifyPassword(ConfigUtil().username, oldPassword, newPassword).apply {
-            mLoadingDialogHelper!!.show()
+            mLoadingDialogHelper?.show()
             enqueue(object : Callback<StatusBean> {
                 override fun onFailure(call: Call<StatusBean>, t: Throwable) {
-                    mLoadingDialogHelper!!.dismiss()
+                    mLoadingDialogHelper?.dismiss()
                 }
 
                 override fun onResponse(call: Call<StatusBean>, response: Response<StatusBean>) {
-                    mLoadingDialogHelper!!.dismiss()
+                    mLoadingDialogHelper?.dismiss()
 
-                    if (response.body()?.status!!) {
+                    if (response.body()?.status == true) {
                         toast("密码修改成功")
                         startActivity(Intent(this@ModifyPasswordActivity, LoginRegisterActivity::class.java))
                         finish()
                     } else {
-                        toast(response.body()?.msg!!)
+                        toast("${response.body()?.msg}")
                     }
                 }
             })

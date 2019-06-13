@@ -2,18 +2,15 @@ package com.sc.clgg.activity.my
 
 import android.os.Bundle
 import com.sc.clgg.R
-import com.sc.clgg.activity.MainActivity
-import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.activity.my.set.AboutUsActivity
 import com.sc.clgg.activity.my.set.FeedbackActivity
 import com.sc.clgg.activity.my.set.ModifyPasswordActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.VersionInfoBean
 import com.sc.clgg.config.ConstantValue
-import com.sc.clgg.dialog.ExitDialog
 import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.util.ConfigUtil
 import com.sc.clgg.util.UpdateHelper
+import com.sc.clgg.util.logOut
 import com.sc.clgg.util.makeDIAL
 import kotlinx.android.synthetic.main.activity_set.*
 import org.jetbrains.anko.startActivity
@@ -53,12 +50,13 @@ class SetActivity : BaseImmersionActivity() {
         }
 
         exitTxt.setOnClickListener {
-            ExitDialog(this@SetActivity).show("温馨提示", "确定退出登录？") { _, _ ->
+            /*ExitDialog(this@SetActivity).show("温馨提示", "确定退出登录？") { _, _ ->
                 ConfigUtil().clear()
                 startActivity<MainActivity>()
                 startActivity<LoginRegisterActivity>()
                 finish()
-            }
+            }*/
+            logOut()
         }
     }
 
