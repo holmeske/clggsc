@@ -3,8 +3,8 @@ package com.sc.clgg.activity.etc
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.sc.clgg.R
-import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_bind_card_result.*
+import org.jetbrains.anko.startActivity
 
 class BindCardResultActivity : AppCompatActivity() {
 
@@ -20,6 +20,6 @@ class BindCardResultActivity : AppCompatActivity() {
             iv.setImageResource(R.drawable.card_fail)
             tv.text = "绑卡失败请稍后再试"
         }
-        tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity<EtcActivity>() }
     }
 }

@@ -47,15 +47,15 @@ class MyFragment : BaseFragment() {
             title.layoutParams.height = MeasureHelper.dp2px(activity, 64f) - activity!!.statusBarHeight()
         }
 
-        v_0.setOnClickListener { ConfigUtil().isLogined(activity) }
-        v_1.setOnClickListener { if (ConfigUtil().isLogined(activity)) startActivity<MyMessageActivity>() }
-        item_my_car.setOnClickListener { if (ConfigUtil().isLogined(activity)) startActivity<MyVehicleActivity>() }
-        item_real_name.setOnClickListener { if (ConfigUtil().isLogined(activity)) WebActivity.start(activity, "实名认证", ConstantValue.REAL_NAME_AUTHENTICATION) }
-        item_wallet.setOnClickListener { if (ConfigUtil().isLogined(activity)) WebActivity.start(activity, "我的钱包", ConstantValue.WALLET_ENTRANCE) }
-        tv_operation.setOnClickListener { if (ConfigUtil().isLogined(activity)) WebActivity.start(activity, "运营", ConstantValue.OPERATING) }
-        tv_member_info.setOnClickListener { if (ConfigUtil().isLogined(activity)) WebActivity.start(activity, "会员信息", ConstantValue.MEMBER_INFORMATION) }
-        item_personal_data.setOnClickListener { if (ConfigUtil().isLogined(activity)) startActivity<PersonalDataActivity>() }
-        item_set.setOnClickListener { if (ConfigUtil().isLogined(activity)) startActivity<SetActivity>() }
+        v_0.setOnClickListener { ConfigUtil().loggedIn(activity) }
+        v_1.setOnClickListener { if (ConfigUtil().loggedIn(activity)) startActivity<MyMessageActivity>() }
+        item_my_car.setOnClickListener { if (ConfigUtil().loggedIn(activity)) startActivity<MyVehicleActivity>() }
+        item_real_name.setOnClickListener { if (ConfigUtil().loggedIn(activity)) WebActivity.start(activity, "实名认证", ConstantValue.REAL_NAME_AUTHENTICATION) }
+        item_wallet.setOnClickListener { if (ConfigUtil().loggedIn(activity)) WebActivity.start(activity, "我的钱包", ConstantValue.WALLET_ENTRANCE) }
+        tv_operation.setOnClickListener { if (ConfigUtil().loggedIn(activity)) WebActivity.start(activity, "运营", ConstantValue.OPERATING) }
+        tv_member_info.setOnClickListener { if (ConfigUtil().loggedIn(activity)) WebActivity.start(activity, "会员信息", ConstantValue.MEMBER_INFORMATION) }
+        item_personal_data.setOnClickListener { if (ConfigUtil().loggedIn(activity)) startActivity<PersonalDataActivity>() }
+        item_set.setOnClickListener { if (ConfigUtil().loggedIn(activity)) startActivity<SetActivity>() }
     }
 
     override fun onResume() {

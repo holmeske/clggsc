@@ -72,7 +72,7 @@ class MainActivity : BaseAppCompatActivity() {
     }
 
     private fun setDrawerLayout() {
-        if (!ConfigUtil().isLogined(this)) {
+        if (!ConfigUtil().loggedIn(this)) {
             tv_nickname.text = "未登录"
             tv_user_type.visibility = View.GONE
         } else {
@@ -95,11 +95,11 @@ class MainActivity : BaseAppCompatActivity() {
                 //.circleCrop()
                 .into(iv_head)
 
-        ll_mymessage.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity<MyMessageActivity>() }
-        ll_mycar.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity<MyVehicleActivity>() }
-        ll_personal_data.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity<PersonalDataActivity>() }
+        ll_mymessage.setOnClickListener { if (ConfigUtil().loggedIn(this)) startActivity<MyMessageActivity>() }
+        ll_mycar.setOnClickListener { if (ConfigUtil().loggedIn(this)) startActivity<MyVehicleActivity>() }
+        ll_personal_data.setOnClickListener { if (ConfigUtil().loggedIn(this)) startActivity<PersonalDataActivity>() }
 
-        tv_set.setOnClickListener { if (ConfigUtil().isLogined(this)) startActivity<SetActivity>() }
+        tv_set.setOnClickListener { if (ConfigUtil().loggedIn(this)) startActivity<SetActivity>() }
         tv_exit.setOnClickListener {
             /*ExitDialog(this).show("温馨提示", "确定退出登录？") { _, _ ->
                 ConfigUtil().clear()

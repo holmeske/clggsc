@@ -8,10 +8,10 @@ import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CardInfo
 import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.util.startActivity
 import etc.obu.data.CardInformation
 import kotlinx.android.synthetic.main.activity_balance_query.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,7 +54,7 @@ class BalanceQueryActivity : BaseImmersionActivity() {
         } else {
             titlebar_title.text = "查询页面"
             tv_back_home.visibility = View.VISIBLE
-            tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
+            tv_back_home.setOnClickListener { startActivity<EtcActivity>() }
         }
 
         tv_card_no.text = card?.cardId

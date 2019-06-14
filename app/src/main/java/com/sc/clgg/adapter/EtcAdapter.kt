@@ -35,7 +35,7 @@ class EtcAdapter : RecyclerView.Adapter<MyHolder>() {
             mContext?.startActivity(Intent(mContext, MainActivity::class.java))
             EventBus.getDefault().postSticky(CarNetEvent(0))
         }
-        if (ConfigUtil().isLogined(mContext)) {
+        if (ConfigUtil().loggedIn(mContext)) {
             when (pos) {
                 2 -> mContext?.startActivity(Intent(mContext, activitys[pos]).putExtra("click", true))
                 5 -> mContext?.startActivity(Intent(mContext, activitys[pos]).putExtra("click", false))

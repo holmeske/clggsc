@@ -9,7 +9,6 @@ import com.sc.clgg.R
 import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.activity.WebActivity
 import com.sc.clgg.activity.etc.EtcActivity
-import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.activity.vehicle.energy.ConsumptionStatisticalActivity
 import com.sc.clgg.activity.vehicle.locate.LocateActivity
 import com.sc.clgg.activity.vehicle.tally.TallyBookActivity
@@ -18,7 +17,10 @@ import com.sc.clgg.bean.Banner
 import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.MeasureHelper
-import com.sc.clgg.util.*
+import com.sc.clgg.util.ConfigUtil
+import com.sc.clgg.util.setData
+import com.sc.clgg.util.setImage
+import com.sc.clgg.util.statusBarHeight
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -60,9 +62,13 @@ class HomeFragment : BaseFragment() {
         tv_factoring.setOnClickListener { WebActivity.start(activity, "商业保理", ConstantValue.FACTORING) }
         tv_insurance.setOnClickListener { WebActivity.start(activity, "保险经纪", ConstantValue.INSURANCE) }
 
-        tv_vehicle_positioning.setOnClickListener { activity!!.startActivity(LocateActivity::class.java) }
-        tv_consumption_statistical.setOnClickListener { activity!!.startActivity(ConsumptionStatisticalActivity::class.java) }
-        tv_tally_book.setOnClickListener { activity!!.startActivity(if (ConfigUtil().userid.isEmpty()) LoginRegisterActivity::class.java else TallyBookActivity::class.java) }
+        tv_vehicle_positioning.setOnClickListener { startActivity<LocateActivity>() }
+        tv_consumption_statistical.setOnClickListener { startActivity<ConsumptionStatisticalActivity>() }
+        tv_tally_book.setOnClickListener {
+            if (ConfigUtil().loggedIn(activity)) {
+                startActivity<TallyBookActivity>()
+            }
+        }
         tv_more.setOnClickListener { (activity as MainActivity).checked(1) }
 
         getBannerList()

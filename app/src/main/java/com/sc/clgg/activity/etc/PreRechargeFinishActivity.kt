@@ -9,9 +9,9 @@ import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CardInfo
 import com.sc.clgg.bean.CardList
 import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_pre_recharge_finish.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -57,12 +57,12 @@ class PreRechargeFinishActivity : BaseImmersionActivity() {
             tv_order_number.text = it
         }
 
-        tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity<EtcActivity>() }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(EtcActivity::class.java)
+            startActivity<EtcActivity>()
             return true
         }
         return super.onKeyDown(keyCode, event)
