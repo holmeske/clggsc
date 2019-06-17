@@ -35,6 +35,8 @@ import com.sc.clgg.util.ConfigUtil;
 import com.sc.clgg.util.PotatoKt;
 import com.sc.clgg.util.Tools;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -73,7 +75,7 @@ public class TruckFriendsAdapter extends RecyclerView.Adapter<TruckFriendsAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position, List<Object> payloads) {
+    public void onBindViewHolder(@NonNull MyHolder holder, int position, @NotNull List<Object> payloads) {
         super.onBindViewHolder(holder, position, payloads);
 
         if (payloads.isEmpty()) {

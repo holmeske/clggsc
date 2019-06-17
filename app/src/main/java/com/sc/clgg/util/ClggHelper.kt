@@ -6,21 +6,52 @@ import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
+import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.activity.WebActivity
+import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.tool.helper.AppHelper
 import com.sc.clgg.tool.helper.LogHelper
 import com.youth.banner.Banner
 import com.youth.banner.loader.ImageLoader
+import org.jetbrains.anko.startActivity
 
 
 /**
  * @author：lvke
  * @date：2018/10/15 14:48
  */
+
+/**
+ * 退出系统
+ */
+fun Activity.exit() {
+    AlertDialog.Builder(this)
+            .setMessage("确定退出车轮滚滚？")
+            .setNegativeButton("确定") { _, _ -> System.exit(0) }
+            .setPositiveButton("取消") { _, _ -> }
+            .show()
+}
+
+/**
+ * 退出登录
+ */
+fun Activity.logOut() {
+    AlertDialog.Builder(this)
+            .setMessage("确定退出登录？")
+            .setNegativeButton("确定") { _, _ ->
+                ConfigUtil().clear()
+                startActivity<MainActivity>()
+                startActivity<LoginRegisterActivity>()
+                finish()
+            }
+            .setPositiveButton("取消") { _, _ -> }
+            .show()
+}
 
 /**
  * 对象转Gson字符串
@@ -31,19 +62,19 @@ fun Any?.toJson(): String {
 
 fun Activity.isOpenBluetoothLocation(): Boolean {
     if (!isOpenBlueTooth()) {
-        showAlertDialog("请打开手机蓝牙", { AppHelper.openBluetoothSettings(this) })
+        showAlertDialog("请打开手机蓝牙") { AppHelper.openBluetoothSettings(this) }
         return false
     }
     if (Build.VERSION.SDK_INT >= 23 && !AppHelper.isGpsOpen(applicationContext)) {
-        showAlertDialog("请打开定位服务", { AppHelper.openLocationSettings(this) })
+        showAlertDialog("请打开定位服务") { AppHelper.openLocationSettings(this) }
         return false
     }
     return true
 }
 
 fun Activity?.isOpenGps(): Boolean {
-    if ( SDK_INT >= 28 && !AppHelper.isGpsOpen(this)) {
-        this?.showAlertDialog("请打开定位服务", { AppHelper.openLocationSettings(this) })
+    if (SDK_INT >= 28 && !AppHelper.isGpsOpen(this)) {
+        this?.showAlertDialog("请打开定位服务") { AppHelper.openLocationSettings(this) }
         return false
     }
     return true

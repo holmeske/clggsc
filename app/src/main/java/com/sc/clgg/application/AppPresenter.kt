@@ -36,7 +36,7 @@ fun Application.init() {
 
     LogHelper.setLogSwitch(BuildConfig.LOG_DEBUG)
 
-    NineGridView.setImageLoader(PicassoImageLoader())
+    NineGridView.setImageLoader(GlideImageLoader())
 
     registerActivityLifecycleCallbacks()
 
@@ -87,7 +87,7 @@ private fun Application.registerActivityLifecycleCallbacks() {
     })
 }
 
-private class PicassoImageLoader : NineGridView.ImageLoader {
+private class GlideImageLoader : NineGridView.ImageLoader {
 
     override fun onDisplayImage(context: Context, imageView: ImageView, url: String) {
         Glide.with(context).load(url).apply(RequestOptions().error(R.drawable.ic_launcher).placeholder(R.drawable.ic_launcher)).into(imageView)

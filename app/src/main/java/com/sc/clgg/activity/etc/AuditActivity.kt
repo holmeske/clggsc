@@ -16,9 +16,9 @@ import androidx.core.content.ContextCompat
 import com.sc.clgg.R
 import com.sc.clgg.activity.MainActivity
 import com.sc.clgg.base.BaseImmersionActivity
-import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_audit.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.startActivity
 
 class AuditActivity : BaseImmersionActivity() {
 
@@ -44,7 +44,7 @@ class AuditActivity : BaseImmersionActivity() {
         tv_2.text = spannableString
         tv_2.movementMethod = LinkMovementMethod.getInstance()
 
-        tv_back_home.setOnClickListener { startActivity(MainActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity<MainActivity>() }
 
     }
 

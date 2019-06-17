@@ -7,10 +7,10 @@ import android.view.View
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CircleSave
-import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_write_card_success.*
 import kotlinx.android.synthetic.main.view_read_card.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.startActivity
 
 class WriteCardSuccessActivity : BaseImmersionActivity() {
 
@@ -62,12 +62,12 @@ class WriteCardSuccessActivity : BaseImmersionActivity() {
 
         tv_card_balance.text = "${intent.getIntExtra("balance", 0).toDouble() / 100}元"
 
-        tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity<EtcActivity>() }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(EtcActivity::class.java)
+            startActivity<EtcActivity>()
             return true
         }
         return super.onKeyDown(keyCode, event)

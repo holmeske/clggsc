@@ -1,10 +1,9 @@
 package com.sc.clgg.util;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -52,6 +51,7 @@ public class UpdateHelper {
      * 是否继续下载
      */
     private boolean isCountinue = true;
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -62,6 +62,8 @@ public class UpdateHelper {
                 case DOWN_OVER:
                     mDownLoadDialog.dismiss();
                     installApk();
+                    break;
+                default:
                     break;
             }
         }
@@ -95,21 +97,17 @@ public class UpdateHelper {
 
 //        saveFilePath = Environment.getDataDirectory()+"/"+Environment.getDownloadCacheDirectory().getPath() + "/" + System.currentTimeMillis() + ".apk";
 
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                File apk = new File(saveFilePath);
-                File parentFile = new File(parentPath);
-                if (!parentFile.exists()) {
-                    if (parentFile.mkdirs()) {
-                        requestApkUrl(apk);
-                    } else {
-                        LogHelper.e("创建文件夹失败");
-                    }
-                } else {
+        new Thread(() -> {
+            File apk = new File(saveFilePath);
+            File parentFile = new File(parentPath);
+            if (!parentFile.exists()) {
+                if (parentFile.mkdirs()) {
                     requestApkUrl(apk);
+                } else {
+                    LogHelper.e("创建文件夹失败");
                 }
+            } else {
+                requestApkUrl(apk);
             }
         }).start();
     }
@@ -151,7 +149,6 @@ public class UpdateHelper {
             LogHelper.e(e);
         } catch (IOException e) {
             LogHelper.e(e);
-        } finally {
         }
     }
 
@@ -199,22 +196,12 @@ public class UpdateHelper {
         builder.setCancelable(false);
         builder.setTitle("提示");
         builder.setMessage("检测到新的版本");
-        builder.setPositiveButton("更新", new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                showDownloadDialog();
-            }
+        builder.setPositiveButton("更新", (dialog, which) -> {
+            dialog.dismiss();
+            showDownloadDialog();
         });
 
-        if (type == 1) {
-            builder.setNegativeButton("取消", new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-        }
+        if (type == 1) builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
 
         builder.show();
     }

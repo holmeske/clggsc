@@ -156,7 +156,6 @@ public class TimeHelper {
 
     /**
      * 按格式字符串得到当前时间没有延时
-     *
      */
     public static String getCurrentDateNotHasDelay(String formaterStr) {
         return date2str(formaterStr, getCurrentDate());
@@ -164,7 +163,6 @@ public class TimeHelper {
 
     /**
      * 按格式字符串得到当前时间没有延时
-     *
      */
     public static String getCurrentDateNotHasDelay() {
         return getCurrentDateNotHasDelay(JAVA_TIME_FORAMTER_2);
@@ -172,7 +170,6 @@ public class TimeHelper {
 
     /**
      * 按格式字符串得到时间
-     *
      */
     public static Date str2date(String formaterStr, String param) {
         DateFormat tf = new SimpleDateFormat(formaterStr, Locale.getDefault());
@@ -188,7 +185,7 @@ public class TimeHelper {
     /**
      * 按格式字符串得到时间的Long
      *
-     * @param time     时间
+     * @param time 时间
      */
     public static long time2long(String formaterStr, String time) {
         DateFormat tf = new SimpleDateFormat(formaterStr, Locale.getDefault());
@@ -203,7 +200,6 @@ public class TimeHelper {
 
     /**
      * 已Long长度得到按格式字符串时间
-     *
      */
     public static String long2time(String formaterStr, long timeLong) {
         DateFormat tf = new SimpleDateFormat(formaterStr, Locale.getDefault());
@@ -213,8 +209,8 @@ public class TimeHelper {
     /**
      * 得到在一个时间之后的days天的时间
      *
-     * @param time     时间
-     * @param days     天数
+     * @param time 时间
+     * @param days 天数
      */
     public static String timeAfterDays(String formaterStr, String time, int days) {
         return timeAfterHours(formaterStr, time, 24 * days);
@@ -222,7 +218,6 @@ public class TimeHelper {
 
     /**
      * 得到在一个时间之后的days天的时间
-     *
      */
     public static String timeAfterHours(String formaterStr, String time,
                                         int hours) {
@@ -231,7 +226,6 @@ public class TimeHelper {
 
     /**
      * 得到在一个时间之后的days天的时间
-     *
      */
     public static String timeAfterMinute(String formaterStr, String time,
                                          int minute) {
@@ -257,8 +251,7 @@ public class TimeHelper {
                                     String formaterStr2, String dateStr2) {
         Date date1 = str2date(formaterStr1, dateStr1);
         Date date2 = str2date(formaterStr2, dateStr2);
-        int days = (int) ((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-        return days;
+        return (int) ((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24)) + 1;
     }
 
     /**

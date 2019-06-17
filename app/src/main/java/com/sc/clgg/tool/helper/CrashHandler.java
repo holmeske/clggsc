@@ -13,7 +13,8 @@ import android.widget.Toast;
 
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private static CrashHandler instance;
-    private PendingIntent intent; //APP退出后,PendingIntent还存在,设置2秒之后,重新启动你的主Activity
+    //APP退出后,PendingIntent还存在,设置2秒之后,重新启动你的主Activity
+    private PendingIntent intent;
     private Context mContext;
 
     public static CrashHandler getInstance() {

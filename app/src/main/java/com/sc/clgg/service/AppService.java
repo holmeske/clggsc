@@ -15,6 +15,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * @author lvke
+ */
 public class AppService extends JobIntentService {
 
 

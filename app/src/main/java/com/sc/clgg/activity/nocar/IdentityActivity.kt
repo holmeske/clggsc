@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
-import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_identity.*
 import kotlinx.android.synthetic.main.view_titlebar.*
 import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.startActivity
 
 class IdentityActivity : BaseImmersionActivity() {
 
@@ -40,7 +40,7 @@ class IdentityActivity : BaseImmersionActivity() {
             v_shipper.backgroundColor = ContextCompat.getColor(this, R.color._ee8031)
         }
         tv_next.setOnClickListener {
-            startActivity(DrivingLicenseActivity::class.java)
+            startActivity<DrivingLicenseActivity>()
         }
     }
 }

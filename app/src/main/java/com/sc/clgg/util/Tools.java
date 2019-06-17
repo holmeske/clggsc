@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.sc.clgg.application.App;
 
+/**
+ * @author lvke
+ */
 public class Tools {
 
     public static void callPhone(String telphone, Activity activity) {
@@ -32,7 +35,7 @@ public class Tools {
      */
     public static String getIpAddress(Context context) {
         try {
-            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             assert wifiManager != null;
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             int ipAddress = wifiInfo.getIpAddress();
@@ -46,7 +49,7 @@ public class Tools {
         return defaultIp("");
     }
 
-    public static String defaultIp(String ip) {
+    private static String defaultIp(String ip) {
         if ("".equals(ip) || ip == null) {
             return "0.0.0.0";
         } else {

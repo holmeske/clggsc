@@ -65,8 +65,7 @@ public final class NewDES {
         // 使用密钥的后16字节，对第一的计算结果TMP1，进行解密，得到解密的结果TMP2
         String DataMiddle = NewDES.DECRYPTMethod(DataStart, trikey.substring(16, 32));
         // 再次使用密钥的前16字节，对第二次的计算结果TMP2，进行加密，得到加密的结果DEST。DEST就为最终的结果
-        String DataEnd = NewDES.ENCRYPTMethod(DataMiddle, trikey.substring(0, 16));
-        return DataEnd;
+        return NewDES.ENCRYPTMethod(DataMiddle, trikey.substring(0, 16));
     }
 
     // 3DES 解密
@@ -74,8 +73,7 @@ public final class NewDES {
         // 使用密钥的前16字节，对数据DATA进行加密，得到加密的结果TMP1;
         String DataStart = NewDES.DECRYPTMethod(dstData, trikey.substring(0, 16));
         String DataMiddle = NewDES.ENCRYPTMethod(DataStart, trikey.substring(16, 32));
-        String DataEnd = NewDES.DECRYPTMethod(DataMiddle, trikey.substring(0, 16));
-        return DataEnd;
+        return NewDES.DECRYPTMethod(DataMiddle, trikey.substring(0, 16));
     }
 
     public static String DivKey(String genkey, String div) throws Exception {

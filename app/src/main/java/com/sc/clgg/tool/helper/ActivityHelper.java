@@ -13,11 +13,6 @@ import java.lang.ref.WeakReference;
 
 public class ActivityHelper {
 
-    public static void startActivityScale(Activity activity, Intent intent) {
-        WeakReference<Activity> weakReference = new WeakReference<>(activity);
-        weakReference.get().startActivity(intent);
-        weakReference.get().overridePendingTransition(R.anim.scale_in, R.anim.alpha_out);
-    }
 
     public static void startAcScale(Activity activity, Class cls) {
         WeakReference<Activity> weakReference = new WeakReference<>(activity);

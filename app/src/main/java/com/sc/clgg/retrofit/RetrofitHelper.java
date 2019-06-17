@@ -199,9 +199,8 @@ public class RetrofitHelper {
         LogHelper.e("文件名 is " + fileName);
 
         RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData(name, id + fileName.substring(fileName.indexOf(".")), body);
 
-        return part;
+        return MultipartBody.Part.createFormData(name, id + fileName.substring(fileName.indexOf(".")), body);
     }
 
     /**

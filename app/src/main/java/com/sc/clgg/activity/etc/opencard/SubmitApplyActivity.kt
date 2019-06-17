@@ -21,9 +21,9 @@ import com.sc.clgg.bean.Check
 import com.sc.clgg.config.ConstantValue
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
-import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_submit_apply.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -84,7 +84,7 @@ class SubmitApplyActivity : BaseImmersionActivity() {
                         hideProgressDialog()
                         response.body()?.let {
                             if (it.success) {
-                                startActivity(AuditActivity::class.java)
+                                startActivity<AuditActivity>()
                             } else {
                                 toast("${it.msg}")
                             }

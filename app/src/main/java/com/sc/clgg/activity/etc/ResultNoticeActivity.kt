@@ -3,9 +3,9 @@ package com.sc.clgg.activity.etc
 import android.os.Bundle
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
-import com.sc.clgg.util.startActivity
 import kotlinx.android.synthetic.main.activity_result_notice.*
 import kotlinx.android.synthetic.main.view_titlebar.*
+import org.jetbrains.anko.startActivity
 
 class ResultNoticeActivity : BaseImmersionActivity() {
 
@@ -18,6 +18,6 @@ class ResultNoticeActivity : BaseImmersionActivity() {
         tv_recharge_result?.text = intent.getStringExtra("title") ?: "支付失败"
         tv_recharge_des?.text = intent.getStringExtra("msg") ?: ""
 
-        tv_back_home.setOnClickListener { startActivity(EtcActivity::class.java) }
+        tv_back_home.setOnClickListener { startActivity<EtcActivity>() }
     }
 }

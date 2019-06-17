@@ -26,7 +26,7 @@ public class UmengHelper {
     public void init(Context context) {
         UMConfigure.init(context, "5b28b84ba40fa341c8000093", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         PlatformConfig.setWeixin("wxd9d46485cf9c6a3b", "a5404367a2d24624fe3e566015f4715b");
-//        PlatformConfig.setQQZone("1106985514", "6n1uH0NFjrAHcUsl");
+        //PlatformConfig.setQQZone("1106985514", "6n1uH0NFjrAHcUsl");
         PlatformConfig.setQQZone("1105755915", "onOnQlludHdU0Q4g");
         UMConfigure.setLogEnabled(BuildConfig.LOG_DEBUG);
     }
@@ -41,18 +41,21 @@ public class UmengHelper {
         UMShareConfig config = new UMShareConfig();
         config.isNeedAuthOnGetUserInfo(true);
         UMShareAPI.get(activity).setShareConfig(config);
-
-        UMImage image = new UMImage(activity, R.drawable.ic_launcher);//资源文件
+        //资源文件
+        UMImage image = new UMImage(activity, R.drawable.ic_launcher);
 
         UMWeb web = new UMWeb(url);
-        web.setTitle(title);//标题
-        web.setThumb(image);  //缩略图
-        web.setDescription(description);//描述
+        //标题
+        web.setTitle(title);
+        //缩略图
+        web.setThumb(image);
+        //描述
+        web.setDescription(description);
 
         new ShareAction(activity).setPlatform(var1).withMedia(web).setCallback(listener).share();
     }
 
-    public void destroy(Activity activity){
+    public void destroy(Activity activity) {
         UMShareAPI.get(activity).release();
     }
 }

@@ -93,7 +93,10 @@ class ConfigUtil {
         sharedPreferences = App.getInstance().getSharedPreferences("user_info2", Context.MODE_PRIVATE)
     }
 
-    fun isLogined(context: Context?): Boolean {
+    /**
+     * 是否已经登录
+     */
+    fun loggedIn(context: Context?): Boolean {
         return if (TextUtils.isEmpty(userid)) {
             context?.startActivity(Intent(context, LoginRegisterActivity::class.java))
             false
