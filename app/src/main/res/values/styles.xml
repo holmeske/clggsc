@@ -77,12 +77,6 @@
         <item name="android:layout_weight">1</item>
     </style>
 
-    <style name="wh_0w" parent="bg_transparent">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
     <!-- dialog 样式 -->
     <style name="dialog_base" parent="@android:style/Theme.Dialog">
         <item name="android:windowContentOverlay">@null</item>

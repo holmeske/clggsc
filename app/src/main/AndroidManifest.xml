@@ -265,7 +265,6 @@
         <activity android:name=".activity.etc.CardIntroduceActivity" />
         <activity android:name=".activity.etc.ApplyStateActivity" />
         <activity android:name=".activity.etc.CardDetailActivity" />
-        <activity android:name=".activity.etc.ble.BleActivity" />
 
         <service
             android:name="com.genvict.bluetooth.manage.BlueToothService"

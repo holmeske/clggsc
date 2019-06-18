@@ -124,56 +124,59 @@ def static releaseTime() {//-HH-mm-ss
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation('com.google.android.material:material:1.1.0-alpha05') {
-        force = true
+
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
+    implementation ('androidx.core:core-ktx:1.2.0-alpha01'){
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
     }
-    implementation('androidx.legacy:legacy-support-v4:1.0.0') {
-        force = true
-    }
-    implementation('androidx.recyclerview:recyclerview:1.1.0-alpha04') {
-        force = true
+    implementation('androidx.constraintlayout:constraintlayout:2.0.0-beta1') {
+        exclude group: 'androidx.appcompat', module: 'appcompat'
     }
     testImplementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-beta01'
-    androidTestImplementation 'androidx.test:runner:1.2.0-beta01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha04'
-    implementation 'androidx.core:core-ktx:1.2.0-alpha01'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha05'
+
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.amap.api:3dmap:6.7.0'
+
+    implementation('com.google.android.material:material:1.1.0-alpha07') {
+        force = true
+        exclude group: 'androidx.appcompat', module: 'appcompat'
+    }
+    implementation('androidx.recyclerview:recyclerview:1.1.0-alpha06') {
+        force = true
+    }
+
+    //Using Anko
+    implementation ("org.jetbrains.anko:anko:$anko_version"){
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
+    }
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
+
+    implementation 'com.amap.api:3dmap:6.9.0'
     implementation 'com.amap.api:location:4.5.0'
-    implementation 'com.amap.api:search:6.5.0.1'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.amap.api:search:6.9.0'
+
     implementation 'com.youth.banner:banner:1.4.10'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
 
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     implementation 'org.greenrobot:eventbus:3.1.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    // Anko Commons
-    implementation "org.jetbrains.anko:anko-commons:$anko_version"
-
-    // Anko Layouts
-    implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
-
-    // sdk15, sdk19, sdk21, sdk23 are also available
-    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
-
-    // Coroutine listeners for Anko Layouts
-    implementation "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
-    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
-
-    // Anko SQLite
-    implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
-    implementation "org.jetbrains.anko:anko-sdk25-listeners:$anko_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation('com.squareup.retrofit2:converter-gson:2.5.0') {
+        exclude group: 'com.squareup.retrofit2'
+        exclude group: 'com.google.code.gson'
+    }
+    implementation('com.squareup.okhttp3:logging-interceptor:3.12.1') {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
 
     //沉浸式
     implementation 'com.gyf.immersionbar:immersionbar:2.3.3'
@@ -188,10 +191,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.tencent.bugly:crashreport:2.8.6.0'
-    implementation 'org.devio.takephoto:takephoto_library:4.1.0'
-//    implementation('org.devio.takephoto:takephoto_library:4.1.0') {
-//        exclude group: 'com.github.bumptech.glide'
-//    }
+    implementation('org.devio.takephoto:takephoto_library:4.1.0') {
+        exclude group: 'com.github.bumptech.glide', module: 'glide'
+        exclude group: 'io.reactivex'
+        exclude group: 'androidx.appcompat', module: 'appcompat'
+    }
 
     implementation files('libs/SecurityEnvSDK-release-1.1.0.jar')
     implementation files('libs/umeng-common-2.0.1.jar')
@@ -201,7 +205,12 @@ dependencies {
     implementation files('libs/umeng-shareboard-widget-6.9.4.jar')
     implementation files('libs/umeng-sharetool-6.9.4.jar')
     implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
-    implementation 'com.lzy.widget:ninegridview:0.2.1'
+
+    implementation('com.lzy.widget:ninegridview:0.2.1') {
+        exclude group: 'androidx.appcompat', module: 'appcompat'
+        exclude group: 'androidx.legacy', module: 'legacy-support-v4'
+        exclude group: 'androidx.annotation', module: 'annotation'
+    }
     implementation 'com.contrarywind:Android-PickerView:4.1.8'
 
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.6'
@@ -210,8 +219,10 @@ dependencies {
     implementation files('libs/obu-sdk.jar')
     implementation files('libs/protobuf-java-2.4.0a.jar')
 
-    //    implementation files('libs/protobuf-java-2.4.0a.jar')
-    implementation 'pub.devrel:easypermissions:2.0.0'
+    //implementation files('libs/protobuf-java-2.4.0a.jar')
+    implementation('pub.devrel:easypermissions:2.0.0') {
+        exclude group: 'androidx.appcompat', module: 'appcompat'
+    }
 
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
@@ -238,4 +249,31 @@ dependencies {
 
     // optional - Test helpers for LiveData
     testImplementation "android.arch.core:core-testing:$lifecycle_version"
+
+
+    /*configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+        //循环一个个的依赖库
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            //获取当前循环到的依赖库
+            def requested = details.requested
+            //如果这个依赖库群组的名字是com.android.support
+            if (requested.group == 'com.android.support') {
+                //且其名字不是以multidex开头的
+                if (!requested.name.startsWith("multidex")) {
+                    //这里指定需要统一的依赖版本
+                    details.useVersion '27.1.0'
+                }
+            }
+        }
+    }*/
+
+    /*configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:design:27.1.1'
+            force 'com.android.support:support-v4:27.1.1'
+            force 'com.android.support:appcompat-v7:27.1.1'
+            force 'com.github.bumptech.glide:glide:4.6.1'
+        }
+    }*/
 }
