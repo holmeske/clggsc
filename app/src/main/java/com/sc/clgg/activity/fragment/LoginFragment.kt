@@ -15,7 +15,6 @@ import com.sc.clgg.activity.presenter.LoginPresenter
 import com.sc.clgg.dialog.LoadingDialogHelper
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 
 /**
  * @author：lvke
@@ -33,7 +32,7 @@ class LoginFragment : Fragment(), LoginContact {
     }
 
     override fun onToast(msg: String?) {
-        Toast.makeText(activity,msg,Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStartLoading() {

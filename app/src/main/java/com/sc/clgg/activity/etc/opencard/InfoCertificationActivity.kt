@@ -42,7 +42,7 @@ class InfoCertificationActivity : BaseImmersionActivity() {
 
         tv_region.setOnClickListener {
             hideSoftInputFromWindow(it)
-            pickerViewHelper.showPickerView(this) { s1, s2, s3 -> tv_region.text = "${s1} ${s2} ${s3}" }
+            pickerViewHelper.showPickerView(this) { s1, s2, s3 -> tv_region.text = "$s1 $s2 $s3" }
         }
 
         tv_certificate_type.setOnClickListener {

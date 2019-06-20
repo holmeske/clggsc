@@ -20,6 +20,7 @@ import com.sc.clgg.bean.Message;
 import com.sc.clgg.bean.Mileage;
 import com.sc.clgg.bean.MileageDetail;
 import com.sc.clgg.bean.NoReadInfo;
+import com.sc.clgg.bean.Passport;
 import com.sc.clgg.bean.PathRecord;
 import com.sc.clgg.bean.PersonalData;
 import com.sc.clgg.bean.RechargeOrderList;
@@ -169,11 +170,11 @@ public interface RetrofitApi {
 
     @Multipart
     @POST("vehicleInfo/passport")
-    Call<Map<String, Object>> passport(@Part List<MultipartBody.Part> parts);
+    Call<Passport> passport(@Part List<MultipartBody.Part> parts);
 
     @Multipart
     @POST("vehicleInfo/idCard")
-    Call<Map<String, Object>> idCard(@Part List<MultipartBody.Part> parts);
+    Call<Passport> idCard(@Part List<MultipartBody.Part> parts);
 
     @Multipart
     @POST("vehicleInfo/licensePlate")

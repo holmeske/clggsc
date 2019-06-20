@@ -113,5 +113,6 @@
     <string name="text_1">%1$ds</string>
     <string name="s_2">%1$s...</string>
     <string name="_3">99+</string>
+    <string name="_1">1</string>
 
 </resources>

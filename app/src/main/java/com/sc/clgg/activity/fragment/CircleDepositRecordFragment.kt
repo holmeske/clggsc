@@ -32,7 +32,7 @@ class CircleDepositRecordFragment : Fragment() {
         rv.layoutManager = LinearLayoutManager(activity)
         rv.adapter = mTrafficDetailAdapter
 
-        var bean = TrafficDetail("消费时间:  2018-01-21 13:45:21",
+        val bean = TrafficDetail("消费时间:  2018-01-21 13:45:21",
                 "消费金额:  ￥28.00",
                 "卡内余额:  ￥100.00",
                 "通行区间:  上海-杭州",
@@ -40,7 +40,7 @@ class CircleDepositRecordFragment : Fragment() {
                 "出口通行时间:  2018-01-21 13:45:21",
                 "结算省份:  杭州")
 
-        var list= ArrayList<TrafficDetail>()
+        val list = ArrayList<TrafficDetail>()
 
         for (i in 0..3){
             list.add(bean)

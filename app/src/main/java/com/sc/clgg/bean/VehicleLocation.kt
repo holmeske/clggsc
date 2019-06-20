@@ -5,6 +5,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+
 /**
  * @author：lvke
  * @date：2018/2/24 10:52
@@ -75,6 +76,13 @@ data class PathRecord(var msg: String? = "", var code: Double? = 0.toDouble(), v
                 return o.lat == this.lat && o.lng == this.lng
             }
             return super.equals(other)
+        }
+
+        override fun hashCode(): Int {
+            var result = 17
+            result = 31 * result + if (lng != null) lng.hashCode() else 0
+            result = 31 * result + if (lat != null) lat.hashCode() else 0
+            return result
         }
     }
 
@@ -167,7 +175,7 @@ data class ConsumptionDetail(var code: Int = 0,
 @Parcelize
 data class MileageDetail(var code: Double? = 0.toDouble(),
                          var data: Data? = null,
-                         val msg:String?="",
+                         val msg: String? = "",
                          var success: Boolean = false) : Parcelable {
     @Parcelize
     data class Data(

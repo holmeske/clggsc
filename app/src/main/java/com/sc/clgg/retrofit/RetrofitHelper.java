@@ -30,6 +30,7 @@ import com.sc.clgg.bean.Message;
 import com.sc.clgg.bean.Mileage;
 import com.sc.clgg.bean.MileageDetail;
 import com.sc.clgg.bean.NoReadInfo;
+import com.sc.clgg.bean.Passport;
 import com.sc.clgg.bean.PathRecord;
 import com.sc.clgg.bean.PersonalData;
 import com.sc.clgg.bean.RechargeOrderList;
@@ -727,7 +728,7 @@ public class RetrofitHelper {
      * 重置密码
      */
     public retrofit2.Call<StatusBean> resetPassword(String userName, String password) {
-        Map<String, String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>(2);
 
         params.put("userName", userName);
         params.put("password", password);
@@ -794,7 +795,7 @@ public class RetrofitHelper {
     /**
      * 营业执照识别
      */
-    public retrofit2.Call<Map<String, Object>> passport(File file) {
+    public retrofit2.Call<Passport> passport(File file) {
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault());
         String fileName = file.getName();
 
@@ -811,7 +812,7 @@ public class RetrofitHelper {
     /**
      * 身份证识别
      */
-    public retrofit2.Call<Map<String, Object>> idCard(File file) {
+    public retrofit2.Call<Passport> idCard(File file) {
         String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault());
         String fileName = file.getName();
 

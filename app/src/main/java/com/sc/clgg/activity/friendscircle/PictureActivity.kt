@@ -29,8 +29,8 @@ class PictureActivity : BaseImmersionActivity() {
             }
 
             override fun onBindViewHolder(holder: MyHolder, position: Int) {
-                Glide.with(this@PictureActivity).load(urls[position]).into(holder.iv_picture)
-                holder.iv_picture.setOnClickListener { finish() }
+                Glide.with(this@PictureActivity).load(urls[position]).into(holder.ivPicture)
+                holder.ivPicture.setOnClickListener { finish() }
             }
 
             override fun getItemCount(): Int {
@@ -41,7 +41,7 @@ class PictureActivity : BaseImmersionActivity() {
     }
 
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val iv_picture: ImageView = itemView.findViewById(R.id.iv_picture)
+        val ivPicture: ImageView = itemView.findViewById(R.id.iv_picture)
     }
 
 }

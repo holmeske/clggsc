@@ -10,6 +10,7 @@ import com.sc.clgg.application.App
 import com.sc.clgg.bean.UserInfoBean
 
 class ConfigUtil {
+    private var sharedPreferences: SharedPreferences? = null
 
     private val USERID = "userid"
     private val MOBILE = "mobile"
@@ -23,7 +24,9 @@ class ConfigUtil {
 
     private val ICON = "icon"
 
-    private var sharedPreferences: SharedPreferences? = null
+    init {
+        sharedPreferences = App.getInstance().getSharedPreferences("user_info2", Context.MODE_PRIVATE)
+    }
 
     var icon: String?
         get() = sharedPreferences?.getString(ICON, "")
@@ -87,10 +90,6 @@ class ConfigUtil {
         sharedPreferences?.edit {
             clear()
         }
-    }
-
-    init {
-        sharedPreferences = App.getInstance().getSharedPreferences("user_info2", Context.MODE_PRIVATE)
     }
 
     /**

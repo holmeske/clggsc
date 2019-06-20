@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.sc.clgg.R
 import com.sc.clgg.activity.TakePhotoActivity
 import com.sc.clgg.bean.CertificationInfo
+import com.sc.clgg.bean.Passport
 import com.sc.clgg.bean.StatusBean
 import com.sc.clgg.retrofit.RetrofitHelper
 import com.sc.clgg.tool.helper.LogHelper
@@ -234,76 +235,44 @@ class IdentityCertificationActivity : TakePhotoActivity() {
         scanPassportHttp?.cancel()
     }
 
-    private var scanPassportHttp: Call<Map<String, Any>>? = null
+    private var scanPassportHttp: Call<Passport>? = null
     /**
      * 识别营业执照
      */
     private fun scanPassport(filePath: String?) {
         showProgressDialog(false)
         scanPassportHttp = RetrofitHelper().passport(File(filePath))
-        scanPassportHttp?.enqueue(object : Callback<Map<String, Any>> {
-            override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
+        scanPassportHttp?.enqueue(object : Callback<Passport> {
+            override fun onResponse(call: Call<Passport>, response: Response<Passport>) {
                 hideProgressDialog()
-                try {
-                    response.body()?.let { it ->
-                        if (it.containsKey("success") && it["success"] as Boolean) {
-
-                            if (it.containsKey("identify")) {
-                                it["identify"]?.let { it as Map<String, Any> }?.let {
-                                    if (it.containsKey("words_result")) {
-                                        it["words_result"]?.let { it as Map<String, Any> }?.let {
-                                            it["社会信用代码"]?.let { it as Map<String, String> }?.let {
-                                                certificationInfo?.certSn = if (it["words"] == "无") "" else it["words"]
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-                } catch (e: Exception) {
-                    LogHelper.e(e)
-                }
+                response.body()?.identify?.words_result?.社会信用代码?.words?.takeUnless { it == "无" }?.let { certificationInfo?.certSn = it }
             }
 
-            override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
+            override fun onFailure(call: Call<Passport>, t: Throwable) {
                 hideProgressDialog()
                 toast(R.string.network_anomaly)
             }
         })
     }
 
-    private var scanIdCardHttp: Call<Map<String, Any>>? = null
+    private var scanIdCardHttp: Call<Passport>? = null
     /**
      * 识别身份证
      */
     private fun scanIdCard(filePath: String?, isAgent: Boolean) {
         showProgressDialog(false)
         scanIdCardHttp = RetrofitHelper().idCard(File(filePath))
-        scanIdCardHttp?.enqueue(object : Callback<Map<String, Any>> {
-            override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
+        scanIdCardHttp?.enqueue(object : Callback<Passport> {
+            override fun onResponse(call: Call<Passport>, response: Response<Passport>) {
                 hideProgressDialog()
-                try {
-                    val allMap = response.body()
-                    if (allMap!!.containsKey("success") && allMap["success"] as Boolean) {
-                        val identifyMap = allMap["identify"] as Map<String, Any>
 
-                        if (identifyMap.containsKey("words_result")) {
-
-                            val resultMap = identifyMap["words_result"] as Map<String, Any>
-
-                            if (isAgent) certificationInfo?.agentName = (resultMap["姓名"] as Map<String, String>)["words"]
-                            else certificationInfo?.certSn = (resultMap["公民身份号码"] as Map<String, String>)["words"]
-                        }
-
-                    }
-                } catch (e: Exception) {
-                    LogHelper.e(e)
+                response.body()?.identify?.words_result?.let { it ->
+                    if (isAgent) it.姓名?.words?.takeUnless { it == "无" }?.let { certificationInfo?.agentName = it }
+                    else it.公民身份号码?.words?.takeUnless { it == "无" }?.let { certificationInfo?.certSn = it }
                 }
             }
 
-            override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
+            override fun onFailure(call: Call<Passport>, t: Throwable) {
                 hideProgressDialog()
                 toast(R.string.network_anomaly)
             }

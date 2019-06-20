@@ -46,9 +46,9 @@ fun Context.getArea(location: Location?): String? {
 
 @SuppressLint("MissingPermission")
 fun getLocationInfo(): Location? {
-    var locationProvider: String?
-    var location: Location?
-    var locationManager = App.app.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    val locationProvider: String?
+    val location: Location?
+    val locationManager = App.app.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     /*val providers = locationManager.getProviders(true)
     if (providers.contains(LocationManager.GPS_PROVIDER)) {
@@ -59,7 +59,7 @@ fun getLocationInfo(): Location? {
         locationProvider = LocationManager.PASSIVE_PROVIDER
     }*/
 
-    var criteria = Criteria()
+    val criteria = Criteria()
     //高度
     criteria.isAltitudeRequired = false
     //方向
@@ -77,7 +77,7 @@ fun getLocationInfo(): Location? {
 }
 
 fun Context.hideSoftInputFromWindow(v: View) {
-    var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(v, InputMethodManager.SHOW_FORCED)
     imm.hideSoftInputFromWindow(v.windowToken, 0)
 }
@@ -118,13 +118,13 @@ fun EditText.setTextChangeListener(body: (key: String) -> Unit) {
 
 @SuppressLint("MissingPermission")
 fun Context.makeDIAL(number: String): Boolean {
-    try {
+    return try {
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
         startActivity(intent)
-        return true
+        true
     } catch (e: Exception) {
         e.printStackTrace()
-        return false
+        false
     }
 }
 
@@ -154,11 +154,11 @@ fun formatDataStr(str: String, oldPattern: String, newPattern: String): String {
     //yyyyMMddHHmmss yyyyMMddHHmmss
     val format1 = SimpleDateFormat(oldPattern, Locale.getDefault())
 
-    try {
+    return try {
         val date = format1.parse(str)
-        return SimpleDateFormat(newPattern, Locale.getDefault()).format(date)
+        SimpleDateFormat(newPattern, Locale.getDefault()).format(date)
     } catch (e: ParseException) {
-        return ""
+        ""
     }
 }
 
@@ -213,24 +213,24 @@ fun ImageView.setImage(url: String? = "") {
 fun Activity.showTakePhoto(t: TakePhoto, limit: Int = 1, v: () -> Unit) {
     AlertDialog.Builder(this)
             .setMessage("选择")
-            .setNegativeButton("相机", { _, _ -> TakePhotoHelper().onPikeByTake(t); v() })
-            .setPositiveButton("图库", { _, _ -> TakePhotoHelper().onPickBySelect(t, limit);v() })
+            .setNegativeButton("相机") { _, _ -> TakePhotoHelper().onPikeByTake(t); v() }
+            .setPositiveButton("图库") { _, _ -> TakePhotoHelper().onPickBySelect(t, limit);v() }
             .show()
 }
 
 fun Activity.showTakePhoto(t: TakePhoto, limit: Int = 1) {
     AlertDialog.Builder(this)
             .setMessage("选择")
-            .setNegativeButton("相机", { _, _ -> TakePhotoHelper().onPikeByTake(t) })
-            .setPositiveButton("图库", { _, _ -> TakePhotoHelper().onPickBySelect(t, limit) })
+            .setNegativeButton("相机") { _, _ -> TakePhotoHelper().onPikeByTake(t) }
+            .setPositiveButton("图库") { _, _ -> TakePhotoHelper().onPickBySelect(t, limit) }
             .show()
 }
 
 fun Activity.showTakePhotoWithCrop(t: TakePhoto, limit: Int = 1) {
     AlertDialog.Builder(this)
             .setMessage("选择")
-            .setNegativeButton("相机", { _, _ -> TakePhotoHelper().onPickFromCaptureWithCrop(t) })
-            .setPositiveButton("图库", { _, _ -> TakePhotoHelper().onPickMultipleWithCrop(t, limit) })
+            .setNegativeButton("相机") { _, _ -> TakePhotoHelper().onPickFromCaptureWithCrop(t) }
+            .setPositiveButton("图库") { _, _ -> TakePhotoHelper().onPickMultipleWithCrop(t, limit) }
             .show()
 }
 

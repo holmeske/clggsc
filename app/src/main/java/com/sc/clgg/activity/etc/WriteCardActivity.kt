@@ -272,7 +272,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                                     hideProgressDialog()
                                     LogHelper.e(" ---- 已连接其他蓝牙设备 ----")
                                     LogHelper.e(" ---- 自动断开其他蓝牙设备 ----")
-                                    LogHelper.e("断开蓝牙设备 is ${Gson().to(App.getInstance().mObuInterface.disconnectDevice())}")
+                                    LogHelper.e("断开蓝牙设备 is ${Gson() to App.getInstance().mObuInterface.disconnectDevice()}")
 
                                     WriteCardHintDialog(this@WriteCardActivity).run {
                                         show();setData(card.cardId, cardInfo.cardId)
@@ -325,7 +325,7 @@ class WriteCardActivity : BaseImmersionActivity() {
 
         App.getInstance().mObuInterface.deviceInformation.apply {
 
-            var pinCode = if ("40" == cardInfo.cardVersion) "313233343536" else "123456"
+            val pinCode = if ("40" == cardInfo.cardVersion) "313233343536" else "123456"
 
             val mac1Status = App.getInstance().mObuInterface.loadCreditGetMac1(cardInfo.cardId, RQcMoney + RAdjust, "000000000000",
                     pinCode, "02", "01")
