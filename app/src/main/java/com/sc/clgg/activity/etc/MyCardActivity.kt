@@ -84,6 +84,7 @@ class MyCardActivity : BaseImmersionActivity() {
         }
 
         iv_car_number.setOnClickListener {
+            if (mCarNoList.isNullOrEmpty()) return@setOnClickListener
             PickerViewHelper().creat(this@MyCardActivity, mCarNoList) { options1, _, _, _ ->
                 tv_car_number.text = mCarNoList[options1]
                 if (tv_car_type.text == "鲁通A卡") {

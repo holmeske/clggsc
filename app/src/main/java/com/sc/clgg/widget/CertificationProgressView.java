@@ -5,10 +5,10 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.sc.clgg.R;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+
+import com.sc.clgg.R;
 
 /**
  * @author：lvke
@@ -67,6 +67,8 @@ public class CertificationProgressView extends ConstraintLayout {
                 break;
             case 4:
                 proressTo4();
+                break;
+            default:
                 break;
         }
     }

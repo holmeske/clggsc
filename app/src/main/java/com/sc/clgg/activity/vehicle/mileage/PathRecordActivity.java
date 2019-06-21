@@ -373,6 +373,8 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
                     start.setVisibility(View.GONE);
                 }
                 break;
+            default:
+                break;
         }
     }
 

@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
-import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+
+import androidx.annotation.ColorInt;
 
 import com.sc.clgg.R;
 
@@ -17,7 +18,8 @@ import com.sc.clgg.R;
  */
 
 public class ShapeLinearLayout extends LinearLayout {
-    private @ColorInt int solid;
+    private @ColorInt
+    int solid;
     private GradientDrawable defaultGradientDrawable;
 
     public ShapeLinearLayout(Context context) {
@@ -91,6 +93,8 @@ public class ShapeLinearLayout extends LinearLayout {
                 break;
             case 3:
                 gradientDrawable.setShape(GradientDrawable.RING);
+                break;
+            default:
                 break;
         }
     }
