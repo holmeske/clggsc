@@ -22,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.math.ceil
 
 class MileageDetailActivity : BaseImmersionActivity() {
     var adpter: StatisticalDetailAdapter? = null
@@ -92,7 +93,7 @@ class MileageDetailActivity : BaseImmersionActivity() {
                             adpter?.refresh(it)
                         }
 
-                        initChart(data, (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
+                        initChart(data, (ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
                     }
                 }
             })

@@ -23,6 +23,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.ceil
 
 class ConsumptionDetailActivity : BaseImmersionActivity() {
     var adpter: ConsumptionDetailAdapter? = null
@@ -102,7 +103,7 @@ class ConsumptionDetailActivity : BaseImmersionActivity() {
 
                     adpter?.refresh(it.dayDetails)
 
-                    initChart(data, (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
+                    initChart(data, (ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
                 }
             }
         })

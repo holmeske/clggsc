@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.sc.clgg.R;
 import com.sc.clgg.tool.helper.MeasureHelper;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 
 /**
@@ -20,7 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
  * @date：2018/9/26 13:42
  */
 public class GeneralItem extends ConstraintLayout {
-    private View mView;
+    private View mView, v_divider_top, v_divider_bottom;
 
     public GeneralItem(Context context) {
         super(context);
@@ -40,8 +40,8 @@ public class GeneralItem extends ConstraintLayout {
     private void init(Context context, AttributeSet attrs) {
         mView = LayoutInflater.from(context).inflate(R.layout.view_general_item, this, true);
         TextView tv_name = mView.findViewById(R.id.tv_name);
-        View v_divider_top = mView.findViewById(R.id.divider_top);
-        View v_divider_bottom = mView.findViewById(R.id.divider_bottom);
+        v_divider_top = mView.findViewById(R.id.divider_top);
+        v_divider_bottom = mView.findViewById(R.id.divider_bottom);
         ImageView iv_arrow = mView.findViewById(R.id.iv_arrow);
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.GeneralItem);
@@ -74,5 +74,12 @@ public class GeneralItem extends ConstraintLayout {
 
     }
 
+    public void setTopDivider(boolean show) {
+        if (show) {
+            v_divider_top.setVisibility(View.VISIBLE);
+        } else {
+            v_divider_top.setVisibility(View.GONE);
+        }
+    }
 
 }

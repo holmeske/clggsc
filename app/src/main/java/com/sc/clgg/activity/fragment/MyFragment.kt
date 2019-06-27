@@ -56,6 +56,10 @@ class MyFragment : BaseFragment() {
         tv_member_info.setOnClickListener { if (ConfigUtil().loggedIn(activity)) WebActivity.start(activity, "会员信息", ConstantValue.MEMBER_INFORMATION) }
         item_personal_data.setOnClickListener { if (ConfigUtil().loggedIn(activity)) startActivity<PersonalDataActivity>() }
         item_set.setOnClickListener { if (ConfigUtil().loggedIn(activity)) startActivity<SetActivity>() }
+
+
+        group_no_car.visibility = View.VISIBLE
+        item_personal_data.setTopDivider(false)
     }
 
     override fun onResume() {

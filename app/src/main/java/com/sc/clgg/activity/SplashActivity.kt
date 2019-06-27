@@ -47,15 +47,8 @@ class SplashActivity : BaseImmersionActivity() {
     }
 
 
-
-
     private fun init() {
         when (0) {
-            4 -> {
-            }
-            3 -> {
-                //startSignContact(privatekey, zqid, user_code, no, signtype)
-            }
             1 -> {
                 GlobalScope.launch {
                     val deffered = async { RetrofitHelper().area.execute() }
@@ -82,6 +75,7 @@ class SplashActivity : BaseImmersionActivity() {
                 }.start()
             }
             else -> {
+                //BiometricActivity
                 startActivity(Intent(this, LaunchActivity::class.java))
                 finish()
             }

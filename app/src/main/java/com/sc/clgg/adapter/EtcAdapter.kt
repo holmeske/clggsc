@@ -37,6 +37,12 @@ class EtcAdapter : RecyclerView.Adapter<MyHolder>() {
         }
         if (ConfigUtil().loggedIn(mContext)) {
             when (pos) {
+                0 -> {
+                    /*var intent = Intent()
+                    intent.data = Uri.parse("alipays://platformapi/startapp?appId=2018110562038165")
+                    intent.action = Intent.ACTION_VIEW
+                    if (intent != null) mContext?.startActivity(intent) */
+                }
                 2 -> mContext?.startActivity(Intent(mContext, activitys[pos]).putExtra("click", true))
                 5 -> mContext?.startActivity(Intent(mContext, activitys[pos]).putExtra("click", false))
                 else -> mContext?.startActivity(Intent(mContext, activitys[pos]))

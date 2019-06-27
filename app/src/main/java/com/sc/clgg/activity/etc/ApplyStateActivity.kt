@@ -14,8 +14,6 @@ import kotlinx.android.synthetic.main.view_titlebar.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
-import kotlin.collections.ArrayList
 
 class ApplyStateActivity : BaseImmersionActivity() {
     private var mApplyStateAdapter = ApplyStateAdapter()
@@ -33,7 +31,7 @@ class ApplyStateActivity : BaseImmersionActivity() {
         loadData()
 
         tv_apply_state.setOnClickListener {
-            val data = Arrays.asList<String>("审核中", "审核驳回", "审核通过", "开卡成功", "开卡失败", "卡片寄出")
+            val data = listOf("审核中", "审核驳回", "审核通过", "开卡成功", "开卡失败", "卡片寄出")
             PickerViewHelper().creat(this, data)
             { options1, _, _, _ ->
                 tv_apply_state.text = data[options1]

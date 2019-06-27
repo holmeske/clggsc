@@ -28,8 +28,6 @@ import com.sc.clgg.tool.helper.LogHelper
 import com.sc.clgg.tool.helper.MeasureHelper
 import com.sc.clgg.tool.helper.TakePhotoHelper
 import org.devio.takephoto.app.TakePhoto
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 
 fun Context.dp2px(dipValue: Float): Int {
@@ -144,22 +142,6 @@ fun Context.statusBarHeight(): Int {
 
 fun View.show() {
     this.visibility = View.VISIBLE
-}
-
-fun View.hide() {
-    this.visibility = View.GONE
-}
-
-fun formatDataStr(str: String, oldPattern: String, newPattern: String): String {
-    //yyyyMMddHHmmss yyyyMMddHHmmss
-    val format1 = SimpleDateFormat(oldPattern, Locale.getDefault())
-
-    return try {
-        val date = format1.parse(str)
-        SimpleDateFormat(newPattern, Locale.getDefault()).format(date)
-    } catch (e: ParseException) {
-        ""
-    }
 }
 
 fun ImageView.setDefaultRoundedCornerPicture(context: Context, @DrawableRes resourceId: Int) {

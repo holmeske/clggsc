@@ -29,6 +29,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.ceil
 
 class ConsumptionStatisticalActivity : BaseImmersionActivity() {
     private var adpter: ConsumptionStatisticalAdapter? = null
@@ -112,7 +113,7 @@ class ConsumptionStatisticalActivity : BaseImmersionActivity() {
                                 tv2.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
                                 tv3.translationX = -MeasureHelper.dp2px(this@ConsumptionStatisticalActivity, 8f).toFloat()
                             }
-                            initChart(data, if (data.isEmpty()) 0f else (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat(), maxDay)
+                            initChart(data, if (data.isEmpty()) 0f else (ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat(), maxDay)
                         }
                     }
                 }

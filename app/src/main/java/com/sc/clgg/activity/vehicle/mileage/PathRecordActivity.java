@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,14 +49,7 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
     private TextView total_mileage;
     private TextView time_second;
     private TextView time_date;
-    private SeekBar mSeekBar;
     private ImageView start;
-    private TextView day_before;
-    private TextView day_after;
-    private TextView playback_time;
-    private TextView day_before_seven;
-    private TextView day_before_three;
-    private TextView day_custom;
     // 地图对象
     private AMap aMap;
 
@@ -79,24 +71,6 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
     private TextView tv_speed;
     private double firstPoint, distance;
     private Call mCall;
-
-    private void initView() {
-
-        car_num = findViewById(R.id.car_num);
-        current_mileage = findViewById(R.id.current_mileage);
-        total_mileage = findViewById(R.id.total_mileage);
-        time_second = findViewById(R.id.time_second);
-        time_date = findViewById(R.id.time_date);
-        mSeekBar = findViewById(R.id.seekbar);
-        start = findViewById(R.id.start);
-        day_before = findViewById(R.id.day_before);
-        day_after = findViewById(R.id.day_after);
-        playback_time = findViewById(R.id.playback_time);
-        day_before_seven = findViewById(R.id.day_before_seven);
-        day_before_three = findViewById(R.id.day_before_three);
-        day_custom = findViewById(R.id.day_custom);
-        mapView = findViewById(R.id.map);
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -197,6 +171,17 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
 
         };
 
+    }
+
+    private void initView() {
+
+        car_num = findViewById(R.id.car_num);
+        current_mileage = findViewById(R.id.current_mileage);
+        total_mileage = findViewById(R.id.total_mileage);
+        time_second = findViewById(R.id.time_second);
+        time_date = findViewById(R.id.time_date);
+        start = findViewById(R.id.start);
+        mapView = findViewById(R.id.map);
     }
 
     private void loadData() {
@@ -321,7 +306,8 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
         // 当前经纬度
         LatLng currentLatLng;
         if (gps != null && gps.size() > 0) {
-            setCurrentLocation(Double.parseDouble(gps.get(s / 2).getLat()), Double.parseDouble(gps.get(s / 2).getLng()), 6); //设置第一个GPS信息为当前位置
+            //设置第一个GPS信息为当前位置
+            setCurrentLocation(Double.parseDouble(gps.get(s / 2).getLat()), Double.parseDouble(gps.get(s / 2).getLng()), 6);
             latitude = Double.parseDouble(gps.get(0).getLat());
             longitude = Double.parseDouble(gps.get(0).getLng());
         } else {
@@ -347,13 +333,6 @@ public class PathRecordActivity extends BaseImmersionActivity implements OnMarke
             points.add(latLng);
             allPoints.add(latLng);
 
-            /*if (i == gps.size() - 1) {
-                MarkerOptions markerOptionDes = new MarkerOptions()
-                        .position(latLng)
-                        .draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.dot_b));
-                aMap.addMarker(markerOptionDes);
-            }*/
         }
 
         if (points != null && points.size() > 0) {

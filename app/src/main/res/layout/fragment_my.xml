@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         android:paddingTop="20dp"
         android:text="@string/my"
         android:textColor="@color/white"
-        android:textSize="19sp"/>
+        android:textSize="19sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +30,7 @@
                 android:id="@+id/v_0"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@color/white"/>
+                android:background="@color/white" />
 
             <ImageView
                 android:id="@+id/iv_head"
@@ -41,7 +40,7 @@
                 android:contentDescription="@null"
                 app:layout_constraintBottom_toBottomOf="@id/v_0"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/v_0"/>
+                app:layout_constraintTop_toTopOf="@id/v_0" />
 
             <TextView
                 android:id="@+id/tv_nickname"
@@ -54,7 +53,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/tv_describe"
                 app:layout_constraintLeft_toRightOf="@id/iv_head"
                 app:layout_constraintTop_toTopOf="@id/iv_head"
-                tools:text="万事屋老班来一打"/>
+                tools:text="万事屋老班来一打" />
 
             <TextView
                 android:id="@+id/tv_describe"
@@ -71,7 +70,7 @@
                 app:layout_constraintLeft_toRightOf="@id/iv_head"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_nickname"
-                tools:text="少壮不努力，长大玩手机"/>
+                tools:text="少壮不努力，长大玩手机" />
 
             <View
                 android:id="@+id/v_1"
@@ -79,7 +78,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/v_0"/>
+                app:layout_constraintTop_toBottomOf="@id/v_0" />
 
             <TextView
                 android:id="@+id/tv_my_message"
@@ -93,7 +92,7 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@id/v_1"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/v_1"/>
+                app:layout_constraintTop_toTopOf="@id/v_1" />
 
             <View
                 android:id="@+id/v_point"
@@ -102,7 +101,7 @@
                 android:background="@drawable/point_red"
                 android:visibility="visible"
                 app:layout_constraintLeft_toRightOf="@id/tv_my_message"
-                app:layout_constraintTop_toTopOf="@id/tv_my_message"/>
+                app:layout_constraintTop_toTopOf="@id/tv_my_message" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -112,7 +111,7 @@
                 android:src="@drawable/ico_skip"
                 app:layout_constraintBottom_toBottomOf="@id/v_1"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/v_1"/>
+                app:layout_constraintTop_toTopOf="@id/v_1" />
 
             <com.sc.clgg.widget.GeneralItem
                 android:id="@+id/item_my_car"
@@ -121,57 +120,65 @@
                 app:item_divider_top="true"
                 app:item_icon="@drawable/mine_ico_mycar"
                 app:item_text="@string/my_car"
-                app:layout_constraintTop_toBottomOf="@id/v_1"/>
+                app:layout_constraintTop_toBottomOf="@id/v_1" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_no_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="item_real_name,item_wallet,
+                item_nocar,v_nocar_bottom,v_nocar_divider,tv_operation,
+                tv_member_info" />
 
             <com.sc.clgg.widget.GeneralItem
                 android:id="@+id/item_real_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                app:item_divider_top="true"
+                android:visibility="visible"
                 app:item_icon="@drawable/mine_icon_real_name"
                 app:item_text="实名认证"
-                app:layout_constraintTop_toBottomOf="@id/item_my_car"/>
+                app:layout_constraintTop_toBottomOf="@id/item_my_car" />
 
             <com.sc.clgg.widget.GeneralItem
                 android:id="@+id/item_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:item_divider_bottom="true"
+                android:visibility="visible"
+                app:item_divider_top="true"
                 app:item_icon="@drawable/mine_icon_wallet"
                 app:item_text="我的钱包"
-                app:layout_constraintTop_toBottomOf="@id/item_real_name"/>
+                app:layout_constraintTop_toBottomOf="@id/item_real_name" />
 
             <com.sc.clgg.widget.GeneralItem
                 android:id="@+id/item_nocar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:visibility="visible"
                 app:item_divider_bottom="true"
-                android:visibility="gone"
                 app:item_icon="@drawable/mine_icon_nocar"
                 app:item_text="无车承运人"
-                app:layout_constraintTop_toBottomOf="@id/item_wallet"/>
+                app:layout_constraintTop_toBottomOf="@id/item_wallet" />
 
             <View
                 android:id="@+id/v_nocar_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/item_nocar"/>
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/item_nocar" />
 
             <View
                 android:id="@+id/v_nocar_divider"
                 android:layout_width="@dimen/divider_line"
-                android:visibility="gone"
                 android:layout_height="0dp"
                 android:background="@color/divider_line"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/v_nocar_bottom"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/v_nocar_bottom"/>
+                app:layout_constraintTop_toTopOf="@id/v_nocar_bottom" />
 
             <TextView
                 android:id="@+id/tv_operation"
@@ -181,14 +188,14 @@
                 android:drawablePadding="10dp"
                 android:gravity="center"
                 android:paddingStart="50dp"
-                android:visibility="gone"
                 android:paddingEnd="50dp"
                 android:text="运营"
                 android:textColor="@color/_444"
                 android:textSize="13sp"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="@id/v_nocar_bottom"
                 app:layout_constraintRight_toRightOf="@id/v_nocar_divider"
-                app:layout_constraintTop_toBottomOf="@id/item_nocar"/>
+                app:layout_constraintTop_toBottomOf="@id/item_nocar" />
 
             <TextView
                 android:id="@+id/tv_member_info"
@@ -198,24 +205,23 @@
                 android:drawablePadding="10dp"
                 android:gravity="center"
                 android:paddingStart="50dp"
-                android:visibility="gone"
                 android:paddingEnd="50dp"
                 android:text="会员信息"
                 android:textColor="@color/_444"
                 android:textSize="13sp"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="@id/v_nocar_divider"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_operation"/>
+                app:layout_constraintTop_toTopOf="@id/tv_operation" />
 
             <com.sc.clgg.widget.GeneralItem
                 android:id="@+id/item_personal_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:item_divider_top="true"
                 app:item_divider_bottom="true"
                 app:item_icon="@drawable/mine_ico_perdata"
                 app:item_text="@string/personal_data"
-                app:layout_constraintTop_toBottomOf="@id/tv_operation"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_operation" />
 
             <com.sc.clgg.widget.GeneralItem
                 android:id="@+id/item_set"
@@ -223,7 +229,7 @@
                 android:layout_height="wrap_content"
                 app:item_icon="@drawable/mine_ico_setting"
                 app:item_text="@string/set"
-                app:layout_constraintTop_toBottomOf="@id/item_personal_data"/>
+                app:layout_constraintTop_toBottomOf="@id/item_personal_data" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

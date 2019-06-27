@@ -3,7 +3,6 @@ package com.sc.clgg.mvvm
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sc.clgg.bean.Banner
-import com.sc.clgg.bean.VersionInfoBean
 
 /**
  * @author：lvke
@@ -21,12 +20,4 @@ class MyViewModel : ViewModel() {
         return banner
     }
 
-    private lateinit var versionInfo: MutableLiveData<VersionInfoBean>
-
-    fun getVersionInfo(): MutableLiveData<VersionInfoBean> {
-        if (!::versionInfo.isInitialized) {
-            versionInfo = MutableLiveData()
-        }
-        return versionInfo
-    }
 }

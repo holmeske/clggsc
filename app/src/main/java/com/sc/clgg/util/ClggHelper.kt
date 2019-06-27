@@ -19,6 +19,7 @@ import com.sc.clgg.tool.helper.LogHelper
 import com.youth.banner.Banner
 import com.youth.banner.loader.ImageLoader
 import org.jetbrains.anko.startActivity
+import kotlin.system.exitProcess
 
 
 /**
@@ -39,7 +40,7 @@ fun toJson(src: Any?): String {
 fun Activity.exit() {
     AlertDialog.Builder(this)
             .setMessage("确定退出车轮滚滚？")
-            .setNegativeButton("确定") { _, _ -> System.exit(0) }
+            .setNegativeButton("确定") { _, _ -> exitProcess(0) }
             .setPositiveButton("取消") { _, _ -> }
             .show()
 }

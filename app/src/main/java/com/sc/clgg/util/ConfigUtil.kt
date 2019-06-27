@@ -9,83 +9,80 @@ import com.sc.clgg.activity.login.LoginRegisterActivity
 import com.sc.clgg.application.App
 import com.sc.clgg.bean.UserInfoBean
 
+/**
+ * 保存用户信息
+ */
 class ConfigUtil {
     private var sharedPreferences: SharedPreferences? = null
-
-    private val USERID = "userid"
-    private val MOBILE = "mobile"
-
-    private val REALNAME = "realName"
-    private val USERNAME = "username"
-    private val NICKNAME = "nickName"
-
-    private val PASSWORD = "password"
-    private val ACCOUNT = "account"
-
-    private val ICON = "icon"
 
     init {
         sharedPreferences = App.getInstance().getSharedPreferences("user_info2", Context.MODE_PRIVATE)
     }
 
     var icon: String?
-        get() = sharedPreferences?.getString(ICON, "")
+        get() = sharedPreferences?.getString("icon", "")
         set(icon) {
-            sharedPreferences?.edit { putString(ICON, icon) }
+            sharedPreferences?.edit { putString("icon", icon) }
         }
 
     var mobile: String?
-        get() = sharedPreferences?.getString(MOBILE, "")
+        get() = sharedPreferences?.getString("mobile", "")
         set(mobile) {
-            sharedPreferences?.edit { putString(MOBILE, mobile) }
+            sharedPreferences?.edit { putString("mobile", mobile) }
         }
 
     var userid: String
-        get() = sharedPreferences?.getString(USERID, "")!!
+        get() = sharedPreferences?.getString("userid", "") ?: ""
         set(userid) {
-            sharedPreferences?.edit { putString(USERID, userid) }
+            sharedPreferences?.edit { putString("userid", userid) }
         }
 
     var username: String?
-        get() = sharedPreferences?.getString(USERNAME, "")
+        get() = sharedPreferences?.getString("username", "")
         set(username) {
-            sharedPreferences?.edit { putString(USERNAME, username) }
+            sharedPreferences?.edit { putString("username", username) }
         }
     /**
      * 无车承运人账号
      */
     var account: String?
-        get() = sharedPreferences?.getString(ACCOUNT, "")
+        get() = sharedPreferences?.getString("account", "")
         set(account) {
-            sharedPreferences?.edit { putString(ACCOUNT, account) }
+            sharedPreferences?.edit { putString("account", account) }
         }
 
     var realName: String?
-        get() = sharedPreferences?.getString(REALNAME, "")
+        get() = sharedPreferences?.getString("realName", "")
         set(username) {
-            sharedPreferences?.edit { putString(REALNAME, username) }
+            sharedPreferences?.edit { putString("realName", username) }
         }
     var nickName: String?
-        get() = sharedPreferences?.getString(NICKNAME, "")
+        get() = sharedPreferences?.getString("nickName", "")
         set(nickName) {
-            sharedPreferences?.edit { putString(NICKNAME, nickName) }
+            sharedPreferences?.edit { putString("nickName", nickName) }
         }
     var password: String?
-        get() = sharedPreferences?.getString(PASSWORD, "")
+        get() = sharedPreferences?.getString("password", "")
         set(password) {
-            sharedPreferences?.edit { putString(PASSWORD, password) }
+            sharedPreferences?.edit { putString("password", password) }
         }
 
+    /**
+     * 更新应用中存储的用户信息
+     */
     fun setUserInfo(bean: UserInfoBean?) {
         sharedPreferences?.edit {
-            putString(USERID, bean?.userCode)
-            putString(USERNAME, bean?.userName)
-            putString(MOBILE, bean?.personalPhone)
-            putString(PASSWORD, bean?.password)
-            putString(ACCOUNT, bean?.userName)
+            putString("userid", bean?.userCode)
+            putString("username", bean?.userName)
+            putString("mobile", bean?.personalPhone)
+            putString("password", bean?.password)
+            putString("account", bean?.userName)
         }
     }
 
+    /**
+     * 删除应用中存储的用户信息
+     */
     fun clear() {
         sharedPreferences?.edit {
             clear()

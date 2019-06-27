@@ -30,6 +30,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.ceil
 
 class MileageActivity : BaseImmersionActivity() {
     private var adpter: MileageStatisticalAdapter? = null
@@ -97,7 +98,7 @@ class MileageActivity : BaseImmersionActivity() {
                         }
                         adpter?.refresh(it.details)
 
-                        initChart(data, if (data.isEmpty()) 0f else (Math.ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
+                        initChart(data, if (data.isEmpty()) 0f else (ceil((Collections.max(data) / 100f).toDouble()) * 100f).toFloat())
                     }
                 }
 

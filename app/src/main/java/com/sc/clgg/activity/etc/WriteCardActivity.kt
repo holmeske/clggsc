@@ -36,9 +36,9 @@ import java.util.*
 
 class WriteCardActivity : BaseImmersionActivity() {
     private lateinit var card: CardInformation
-    private var RQcMoney = 0
-    private var RAdjust = 0
-    private var RCarNo: String? = ""
+    private var qcMoney = 0
+    private var adjust = 0
+    private var carNo: String? = ""
     private var wasteSn: String? = ""
     private var justCircle: Boolean = false
 
@@ -58,7 +58,7 @@ class WriteCardActivity : BaseImmersionActivity() {
             if (tv_recharge_circle.text == "圈存") {
                 ConfirmCircleDialog(this@WriteCardActivity).run {
                     show()
-                    setData(RQcMoney.toDouble() / 100)
+                    setData(qcMoney.toDouble() / 100)
                     setConfirmListener {
                         dismiss()
                         qc()
@@ -83,7 +83,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                 response.body()?.let {
                     if (it.success) {
                         setViewData(it)
-                        justCircle = it.RQcMoney?.toDouble()!! > 0
+                        justCircle = it.RQcMoney?.toDoubleOrNull() ?: 0.0 > 0
                     } else {
                         resultNotice("支付异常", "${it.msg}")
                     }
@@ -96,13 +96,13 @@ class WriteCardActivity : BaseImmersionActivity() {
      * 卡信息处理
      */
     private fun setViewData(it: CardInfo?) {
-        RQcMoney = it?.RQcMoney?.toInt()!!
-        RAdjust = it.RAdjust?.toInt()!!
-        RCarNo = it.RVLP
-        tv_carno?.text = it.RVLP
-        it.RQcMoney?.toDouble()?.let { tv_can_write?.text = "${String.format("%.2f", it / 100)} 元" }
+        qcMoney = it?.RQcMoney?.toIntOrNull() ?: 0
+        adjust = it?.RAdjust?.toIntOrNull() ?: 0
+        carNo = it?.RVLP
+        tv_carno?.text = it?.RVLP
+        it?.RQcMoney?.toDouble()?.let { tv_can_write?.text = "${String.format("%.2f", it / 100)} 元" }
 
-        if (it.RQcMoney?.toDouble()!! > 0) {
+        if (it?.RQcMoney?.toDoubleOrNull() ?: 0.0 > 0) {
             tv_recharge_circle?.text = "圈存"
             cl_go_circle?.isSelected = true
             cl_go_recharge?.isSelected = false
@@ -118,29 +118,29 @@ class WriteCardActivity : BaseImmersionActivity() {
     }
 
     /**
-     * a_cid   卡号（后16位）
+     * aCid   卡号（后16位）
      */
-    private var a_cid = ""
+    private var aCid = ""
     /**
      * a_pt     充值金额（单位分）
      */
-    private var a_pt = ""
+    private var aPt = ""
     /**
      *a_cbb   充值前余额（单位分）
      */
-    private var a_rnd = ""
+    private var aRnd = ""
     /**
      * a_m1    MAC1码
      */
-    private var a_cbb = ""
+    private var aCbb = ""
     /**
-     * a_cid   卡号（后16位）
+     * aCid   卡号（后16位）
      */
-    private var a_m1 = ""
+    private var aM1 = ""
     /**
      *a_on     联机交易序号
      */
-    private var a_on = ""
+    private var aOn = ""
 
     /**
      * 圈存
@@ -172,11 +172,7 @@ class WriteCardActivity : BaseImmersionActivity() {
     }
 
     private var handler = Handler()
-    private var runnable: Runnable = object : Runnable {
-        override fun run() {
-            confirmPayStatus()
-        }
-    }
+    private var runnable: Runnable = Runnable { confirmPayStatus() }
 
     private var payStatusHttp: Call<StatusBean>? = null
     /**
@@ -312,8 +308,8 @@ class WriteCardActivity : BaseImmersionActivity() {
     private fun qcFailure() {
         startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
                 .putExtra("failure", 1)
-                .putExtra("data", CircleSave().apply { cardNo = card.cardId;carNo = RCarNo;RWasteSn = wasteSn })
-                .putExtra("qc", RQcMoney)
+                .putExtra("data", CircleSave().apply { cardNo = card.cardId;carNo = this@WriteCardActivity.carNo;RWasteSn = wasteSn })
+                .putExtra("qc", qcMoney)
                 .putExtra("carNo", card.vehicleNumber)
                 .putExtra("balance", card.balanceString))
     }
@@ -327,7 +323,7 @@ class WriteCardActivity : BaseImmersionActivity() {
 
             val pinCode = if ("40" == cardInfo.cardVersion) "313233343536" else "123456"
 
-            val mac1Status = App.getInstance().mObuInterface.loadCreditGetMac1(cardInfo.cardId, RQcMoney + RAdjust, "000000000000",
+            val mac1Status = App.getInstance().mObuInterface.loadCreditGetMac1(cardInfo.cardId, qcMoney + adjust, "000000000000",
                     pinCode, "02", "01")
 
             val serviceInfo = mac1Status.serviceInfo.split("&".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -335,22 +331,22 @@ class WriteCardActivity : BaseImmersionActivity() {
             for (s in serviceInfo) {
                 LogHelper.e("info元素 = $s")
                 when {
-                    s.startsWith("a_cid=") -> a_cid = s.substring(6, s.length)
-                    s.startsWith("a_pt=") -> a_pt = s.substring(5, s.length)
-                    s.startsWith("a_rnd=") -> a_rnd = s.substring(6, s.length)
-                    s.startsWith("a_cbb=") -> a_cbb = s.substring(6, s.length)
-                    s.startsWith("a_m1=") -> a_m1 = s.substring(5, s.length)
-                    s.startsWith("a_on=") -> a_on = s.substring(5, s.length)
+                    s.startsWith("a_cid=") -> aCid = s.substring(6, s.length)
+                    s.startsWith("a_pt=") -> aPt = s.substring(5, s.length)
+                    s.startsWith("a_rnd=") -> aRnd = s.substring(6, s.length)
+                    s.startsWith("a_cbb=") -> aCbb = s.substring(6, s.length)
+                    s.startsWith("a_m1=") -> aM1 = s.substring(5, s.length)
+                    s.startsWith("a_on=") -> aOn = s.substring(5, s.length)
                 }
             }
 
             if (mac1Status.serviceCode == 0) {
-                RetrofitHelper().loadMoney(cardInfo.cardId, RQcMoney.toString(), RAdjust.toString(), a_m1, a_cbb, a_rnd, a_on, Sn).enqueue(object : Callback<CircleSave> {
+                RetrofitHelper().loadMoney(cardInfo.cardId, qcMoney.toString(), adjust.toString(), aM1, aCbb, aRnd, aOn, Sn).enqueue(object : Callback<CircleSave> {
                     override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
                         hideProgressDialog()
                         response.body()?.run {
-                            if (success) {
-                                var date = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date(RWriteTime).time)
+                            if (success) {//DateFormat.getInstance().parse(RWriteTime).time
+                                val date = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date(RWriteTime).time)
 
                                 LogHelper.e("mac2 = $date$Mac2")
 
@@ -358,10 +354,10 @@ class WriteCardActivity : BaseImmersionActivity() {
 
                                 LogHelper.e("写卡 = ${Gson().toJson(writeCardStatu)}")
 
-                                var chargeFlag = if (writeCardStatu.serviceCode == 0) "0" else "-1"
+                                val chargeFlag = if (writeCardStatu.serviceCode == 0) "0" else "-1"
 
-                                RetrofitHelper().sureLoadMoney(cardInfo.cardId, RChargeLsh, (cardInfo.balance + RQcMoney + RAdjust).toString(),
-                                        chargeFlag, writeCardStatu.serviceInfo, a_on, (RQcMoney + RAdjust).toString(),
+                                RetrofitHelper().sureLoadMoney(cardInfo.cardId, RChargeLsh, (cardInfo.balance + qcMoney + adjust).toString(),
+                                        chargeFlag, writeCardStatu.serviceInfo, aOn, (qcMoney + adjust).toString(),
                                         RWriteTime?.replace("/".toRegex(), "-")).enqueue(object : Callback<CircleSave> {
                                     override fun onResponse(call: Call<CircleSave>, response: Response<CircleSave>) {
                                         hideProgressDialog()
@@ -370,7 +366,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                 if (writeCardStatu.serviceCode != 0) {
                                                     resultNotice("圈存失败", "圈存失败，钱款稍后在可圈存余额中查看。")
                                                 } else {
-                                                    var c = CardInformation()
+                                                    val c = CardInformation()
                                                     Toast.makeText(applicationContext, "圈存成功", Toast.LENGTH_SHORT).show()
                                                     if (App.getInstance().mObuInterface.getCardInformation(c).serviceCode == 0) {
                                                         startActivity(Intent(this@WriteCardActivity, WriteCardSuccessActivity::class.java)
@@ -385,7 +381,7 @@ class WriteCardActivity : BaseImmersionActivity() {
                                                                 .putExtra("justCircle", justCircle)
                                                                 .putExtra("carNo", c.vehicleNumber)
                                                                 .putExtra("cardNo", c.cardId)
-                                                                .putExtra("balance", cardInfo.balance + RQcMoney + RAdjust))
+                                                                .putExtra("balance", cardInfo.balance + qcMoney + adjust))
                                                     }
                                                 }
                                             } else {
