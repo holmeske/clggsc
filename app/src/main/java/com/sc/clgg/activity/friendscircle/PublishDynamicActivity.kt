@@ -81,7 +81,7 @@ class PublishDynamicActivity : TakePhotoActivity() {
                     hideProgressDialog()
                     response?.body()?.let {
                         if (it.success) {
-                            EventBus.getDefault().post(CommentEvent(1))
+                            EventBus.getDefault().postSticky(CommentEvent(1))
                             toast("发布动态成功")
                         } else {
                             toast("${it.msg}")

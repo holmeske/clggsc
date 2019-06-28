@@ -4,9 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.sc.clgg.R;
-
 import androidx.annotation.NonNull;
+
+import com.sc.clgg.R;
 
 /**
  * @author：lvke
@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
  */
 public class UndevelopedHintDialog extends Dialog {
     public UndevelopedHintDialog(@NonNull Context context) {
-        super(context,R.style.dialog_base);
+        super(context, R.style.dialog_base);
     }
 
     @Override

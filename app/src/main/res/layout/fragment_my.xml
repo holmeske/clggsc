@@ -126,7 +126,7 @@
                 android:id="@+id/group_no_car"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:constraint_referenced_ids="item_real_name,item_wallet,
                 item_nocar,v_nocar_bottom,v_nocar_divider,tv_operation,
                 tv_member_info" />
@@ -218,6 +218,7 @@
                 android:id="@+id/item_personal_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:item_divider_top="true"
                 app:item_divider_bottom="true"
                 app:item_icon="@drawable/mine_ico_perdata"
                 app:item_text="@string/personal_data"

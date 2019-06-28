@@ -58,8 +58,8 @@ class MyFragment : BaseFragment() {
         item_set.setOnClickListener { if (ConfigUtil().loggedIn(activity)) startActivity<SetActivity>() }
 
 
-        group_no_car.visibility = View.VISIBLE
-        item_personal_data.setTopDivider(false)
+        /*group_no_car.visibility = View.VISIBLE
+        item_personal_data.setTopDivider(false)*/
     }
 
     override fun onResume() {

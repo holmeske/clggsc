@@ -80,7 +80,7 @@ class TruckFriendsFragment : BaseFragment() {
         EventBus.getDefault().unregister(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onCommentEvent(event: CommentEvent) {
         when (event.value) {
             0 -> {
@@ -92,8 +92,6 @@ class TruckFriendsFragment : BaseFragment() {
                 noMore = false
                 pageNum = 1
                 loadData()
-            }
-            else -> {
             }
         }
     }
