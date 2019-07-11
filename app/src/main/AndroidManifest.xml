@@ -19,6 +19,8 @@
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -30,7 +32,7 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS"/> -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -41,11 +43,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
-    <!-- <uses-permission android:name="android.permission.SEND_SMS"/> -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- <uses-permission android:name="android.permission.USE_CREDENTIALS"/> -->
-    <!-- <uses-permission android:name="android.permission.VIBRATE"/> -->
-    <!-- <uses-permission android:name="android.permission.WAKE_LOCK"/> -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -60,6 +59,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="allowBackup">
+        <activity android:name=".activity.my.NoticeActivity"></activity>
+        <activity android:name=".PagingActivity" />
+        <activity android:name=".BiometricActivity" />
         <activity android:name=".activity.nocar.DrivingLicenseActivity" />
         <activity android:name=".activity.nocar.IdentityActivity" />
         <activity android:name=".activity.etc.BindCardResultActivity" />
@@ -71,13 +73,12 @@
         <provider
             android:name=".utils.CustomFileProvider"
             android:authorities="${applicationId}.custom.fileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths_demo" />
-        </provider>
-        <!-- 高德地图KEY设置 -->
+        </provider> <!-- 高德地图KEY设置 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="e377e84ed090fadee7aab76f2f32f096" />

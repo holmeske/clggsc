@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author lvke
+ */
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder> {
     private List<Message.Data.Row> listAll = new ArrayList<>();
     private boolean noMore;

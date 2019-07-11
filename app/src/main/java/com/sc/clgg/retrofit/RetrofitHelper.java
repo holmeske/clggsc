@@ -1,6 +1,8 @@
 package com.sc.clgg.retrofit;
 
 
+import android.text.TextUtils;
+
 import androidx.collection.ArrayMap;
 
 import com.clgg.api.contract.ClggApiException;
@@ -884,7 +886,9 @@ public class RetrofitHelper {
     public class HttpLogger implements HttpLoggingInterceptor.Logger {
         @Override
         public void log(String message) {
-            LogHelper.v("logcat-okhttp", message);
+            if (!TextUtils.isEmpty(message)) {
+                LogHelper.v("logcat-okhttp", message);
+            }
         }
     }
 }

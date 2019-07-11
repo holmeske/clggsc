@@ -8,11 +8,7 @@ import android.widget.Toast
 import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.config.ConstantValue
-import com.sc.clgg.retrofit.RetrofitHelper
-import com.sc.clgg.tool.helper.LogHelper
-import kotlinx.coroutines.*
 import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.toast
 import pub.devrel.easypermissions.EasyPermissions
 
 
@@ -40,30 +36,14 @@ class SplashActivity : BaseImmersionActivity() {
 
     override fun onResume() {
         super.onResume()
-        LogHelper.e("onResume")
         if (EasyPermissions.hasPermissions(this, *ConstantValue.PERMISSION_NEED)) {
             init()
         }
     }
 
-
     private fun init() {
         when (0) {
             1 -> {
-                GlobalScope.launch {
-                    val deffered = async { RetrofitHelper().area.execute() }
-
-                    val http = deffered.await()
-
-                    withContext(Dispatchers.Main) {
-                        if (http.isSuccessful) {
-                            toast("成功")
-                        } else {
-                            LogHelper.e("失败 is ${http.errorBody().toString()}")
-                            toast(R.string.network_anomaly)
-                        }
-                    }
-                }.apply { job = this;job.start() }
             }
             2 -> {
                 Thread {
@@ -75,15 +55,13 @@ class SplashActivity : BaseImmersionActivity() {
                 }.start()
             }
             else -> {
-                //BiometricActivity
+                //BiometricActivity LaunchActivity   PagingActivity
                 startActivity(Intent(this, LaunchActivity::class.java))
                 finish()
             }
         }
 
     }
-
-    private lateinit var job: Job
 
     /*override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
