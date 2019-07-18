@@ -12,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.MutableLiveData;
+
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -28,14 +33,12 @@ import com.sc.clgg.retrofit.RetrofitHelper;
 import com.sc.clgg.tool.helper.LogHelper;
 import com.sc.clgg.tool.helper.MeasureHelper;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -128,7 +131,7 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
 
         mHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg) {
+            public void handleMessage(@NotNull Message msg) {
                 super.handleMessage(msg);
                 LogHelper.e("isVisible = " + isVisible);
                 if (isVisible) {
@@ -189,7 +192,7 @@ public class LocateActivity extends BaseImmersionActivity implements AMap.OnMark
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (map != null) {
             map.onSaveInstanceState(outState);

@@ -21,7 +21,7 @@ kapt {
 }
 
 android {
-    compileSdkVersion compile
+    compileSdkVersion c
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -56,7 +56,7 @@ android {
         applicationId "com.sc.clgg"
         multiDexEnabled true
         minSdkVersion min
-        targetSdkVersion target
+        targetSdkVersion t
         versionCode = 13
         versionName = "4.2.2"
         signingConfig signingConfigs.debug
@@ -128,7 +128,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation('androidx.core:core-ktx:1.2.0-alpha01') {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
     }

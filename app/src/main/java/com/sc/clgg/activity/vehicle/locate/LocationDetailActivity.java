@@ -43,6 +43,8 @@ import com.sc.clgg.tool.helper.MeasureHelper;
 import com.sc.clgg.util.TimeHelper;
 import com.sc.clgg.util.Tools;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,6 +53,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -131,16 +134,13 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
     private void init() {
         carno = getIntent().getStringExtra("carno");
         vin = getIntent().getStringExtra("vin");
-        findViewById(R.id.trajectory_playback).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance(Locale.CHINA);
-                calendar.add(Calendar.DAY_OF_MONTH, -1);
-                startActivity(new Intent(LocationDetailActivity.this, PathRecordActivity.class)
-                        .putExtra("carno", carno).putExtra("vin", vin)
-                        .putExtra("startDate", TimeHelper.long2time(TimeHelper.JAVA_DATE_FORAMTER_2, calendar.getTimeInMillis()) + "000000")
-                        .putExtra("endDate", TimeHelper.long2time(TimeHelper.JAVA_DATE_FORAMTER_2, calendar.getTimeInMillis()) + "235959"));
-            }
+        findViewById(R.id.trajectory_playback).setOnClickListener(v -> {
+            Calendar calendar = Calendar.getInstance(Locale.CHINA);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            startActivity(new Intent(LocationDetailActivity.this, PathRecordActivity.class)
+                    .putExtra("carno", carno).putExtra("vin", vin)
+                    .putExtra("startDate", TimeHelper.long2time(TimeHelper.JAVA_DATE_FORAMTER_2, calendar.getTimeInMillis()) + "000000")
+                    .putExtra("endDate", TimeHelper.long2time(TimeHelper.JAVA_DATE_FORAMTER_2, calendar.getTimeInMillis()) + "235959"));
         });
         List<Location.Data> dataList = getIntent().getParcelableArrayListExtra("array");
 
@@ -165,6 +165,7 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
                     mSelectVehicleAdapter.refresh(dataList);
                 }
                 searchList.clear();
+                if (dataList == null) return;
                 for (Location.Data data : dataList) {
                     if (data.getCarno().contains(s)) {
                         searchList.add(data);
@@ -330,7 +331,7 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (map != null) {
             map.onSaveInstanceState(outState);
@@ -357,7 +358,7 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
         markerOptions.position(latLng);
         markerOptions.snippet(carno);
 
-        switch (bean.getStatus()) {
+        switch (Objects.requireNonNull(bean.getStatus())) {
             case "1":
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_ico_speed));
                 break;
@@ -379,7 +380,7 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
         int width = MeasureHelper.getScreenWidth(this);
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(builder.build(), width * 4 / 5, width * 4 / 5, 0);
         aMap.moveCamera(cu);
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(14));//设置缩放等级
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(14));
 
         getInfoWindow(marker);
         marker.showInfoWindow();
@@ -392,7 +393,7 @@ public class LocationDetailActivity extends BaseImmersionActivity implements AMa
 
         TextView textMarker = new TextView(this);
         textMarker.setPadding(6, 2, 6, 2);
-        switch (info.getStatus()) {
+        switch (Objects.requireNonNull(info.getStatus())) {
             case "3":
                 textMarker.setTextColor(ContextCompat.getColor(this, R.color.offline));
                 textMarker.setBackgroundResource(R.drawable.bg_offline);
