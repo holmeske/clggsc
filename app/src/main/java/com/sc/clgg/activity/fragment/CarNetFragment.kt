@@ -46,7 +46,6 @@ class CarNetFragment : BaseFragment(), TruckManageContact {
 
     private lateinit var myViewModel: MyViewModel
     private val changeObserver = Observer<Banner> { value ->
-        LogHelper.e("更新Banner")
         banner.setData(activity, value.data?.banner, false)
     }
 
@@ -57,7 +56,6 @@ class CarNetFragment : BaseFragment(), TruckManageContact {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // 创建并注册观察者
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         myViewModel.getBanner().observe(this, changeObserver)
     }
