@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import com.sc.clgg.R
-import com.sc.clgg.activity.etc.opencard.IdentityCertificationActivity
+import com.sc.clgg.activity.etc.opencard.UserInfoActivity
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.CertificationInfo
 import com.sc.clgg.util.Tools
@@ -42,7 +42,8 @@ class CardIntroduceActivity : BaseImmersionActivity() {
     }
 
     private fun next() {
-        startActivity(Intent(this, IdentityCertificationActivity::class.java).putExtra("info", certificationInfo))
+//        startActivity(Intent(this, IdentityCertificationActivity::class.java).putExtra("info", certificationInfo))
+        startActivity(Intent(this, UserInfoActivity::class.java))
     }
 
 }

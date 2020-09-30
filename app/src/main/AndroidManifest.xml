@@ -59,7 +59,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="allowBackup">
-        <activity android:name=".activity.my.NoticeActivity"></activity>
+        <activity android:name=".activity.etc.opencard.UserInfoActivity"></activity>
+        <activity android:name=".activity.etc.opencard.BankCardCertificationActivity"></activity>
+        <activity android:name=".activity.etc.opencard.InfoCertificationNewActivity"></activity>
+        <activity android:name=".activity.etc.opencard.SubmitApplyNewActivity"></activity>
+
+        <activity android:name=".activity.my.NoticeActivity" />
         <activity android:name=".PagingActivity" />
         <activity android:name=".BiometricActivity" />
         <activity android:name=".activity.nocar.DrivingLicenseActivity" />
@@ -265,6 +270,7 @@
         <activity android:name=".activity.etc.opencard.SubmitApplyActivity" />
         <activity android:name=".activity.etc.CardIntroduceActivity" />
         <activity android:name=".activity.etc.ApplyStateActivity" />
+        <activity android:name=".activity.etc.ApplyStateNewActivity" />
         <activity android:name=".activity.etc.CardDetailActivity" />
 
         <service

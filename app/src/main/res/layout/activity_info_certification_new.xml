@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_titlebar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.sc.clgg.widget.CertificationProgressView
+                android:id="@+id/certificationProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="14dp"
+                    android:background="@color/_4285f4" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/youjixinxi"
+                    android:textColor="@color/black_333"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="收货人姓名"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_consignee_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:focusable="true"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入收货人姓名"
+                    android:inputType="text"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="收货人手机号"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_consignee_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入收货人手机号"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="收货地址"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_region"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择所在地区"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <EditText
+                android:id="@+id/et_detailed_address"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:hint="详细地址:如街道、小区、楼栋号、单元室等"
+                android:inputType="text"
+                android:maxLength="120"
+                android:maxLines="1"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:textColorHint="@color/_ccc"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="14dp"
+                    android:background="@color/_4285f4" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="持卡人信息"
+                    android:textColor="@color/black_333"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="持卡人姓名"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_ckr_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入持卡人姓名"
+                    android:inputType="text"
+                    android:maxLength="150"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="联系电话"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_ckr_tel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入联系电话"
+                    android:inputType="number"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="出生日期"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_ckr_csrq"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入出生日期如：1992-01-01"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="性别"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_ckr_sex"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择性别"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="证件类型"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_ckr_zjlx"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择持卡人证件类型"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="证件号码"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_ckr_zjhm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入持卡人证件号码"
+                    android:maxLength="18"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="14dp"
+                    android:background="@color/_4285f4" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="所有人信息"
+                    android:textColor="@color/black_333"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="证件类型"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_syr_zjlx"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择所有人证件类型"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="证件号码"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_syr_zjhm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入所有人证件号码"
+                    android:maxLength="18"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/_4285f4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/_4285f4"
+                    android:paddingStart="18dp"
+                    android:text="车辆"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/iv_folding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:rotation="180"
+                    android:src="@drawable/apply_card_car_skip" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="车牌颜色"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_vehicle_brand_color"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择车牌颜色"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="车牌号码"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_vehicle_no"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入车牌号码"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="所有人"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_vehicle_master"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入所有人（行驶证）"
+                    android:maxLength="150"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="车型"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_vehicle_type"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择车型"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="是否为客车"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_passenger_car"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择是否是客车"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="14dp"
+                    android:background="@color/_4285f4" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="以下信息请依照行驶证进行填写"
+                    android:textColor="@color/black_333"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="行驶证车辆类型"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_xsz_cllx"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择行驶证车辆类型"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="行驶证品牌型号"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_tv_xsz_ppxh"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入行驶证品牌型号"
+                    android:maxLength="150"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="车辆使用性质"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_xsz_syxz"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择车辆使用性质"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="车辆识别代码"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_tv_xsz_sbdm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入车辆识别代码"
+                    android:maxLength="150"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="车辆发动机号"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_tv_xsz_fdjh"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入车辆发动机号"
+                    android:maxLength="150"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:layout_width="300dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/bg_orange"
+                android:gravity="center"
+                android:text="@string/next_step"
+                android:textColor="@color/white"
+                android:textSize="19sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+
+

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
@@ -8,8 +7,6 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,7 +16,7 @@
             android:layout_height="0dp"
             app:canSlide="false"
             app:layout_constraintBottom_toTopOf="@+id/view"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/view"
@@ -27,7 +24,7 @@
             android:layout_height="1dp"
             android:background="@color/grey_e4"
             app:layout_constraintBottom_toTopOf="@+id/tv_car_net"
-            app:layout_constraintTop_toBottomOf="@id/viewpager"/>
+            app:layout_constraintTop_toBottomOf="@id/viewpager" />
 
         <TextView
             android:id="@+id/tv_home"
@@ -45,7 +42,7 @@
             app:layout_constraintHorizontal_chainStyle="spread"
 
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_car_net"/>
+            app:layout_constraintRight_toLeftOf="@+id/tv_car_net" />
 
         <TextView
             android:id="@+id/tv_car_net"
@@ -61,7 +58,7 @@
             android:textSize="@dimen/textsize_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_home"
-            app:layout_constraintRight_toLeftOf="@+id/tv_mall"/>
+            app:layout_constraintRight_toLeftOf="@+id/tv_mall" />
 
         <TextView
             android:id="@+id/tv_mall"
@@ -75,7 +72,7 @@
             android:textSize="@dimen/textsize_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_car_net"
-            app:layout_constraintRight_toLeftOf="@+id/tv_truck_circle"/>
+            app:layout_constraintRight_toLeftOf="@+id/tv_truck_circle" />
 
         <TextView
             android:id="@+id/tv_truck_circle"
@@ -89,7 +86,7 @@
             android:textSize="@dimen/textsize_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_mall"
-            app:layout_constraintRight_toLeftOf="@+id/tv_my"/>
+            app:layout_constraintRight_toLeftOf="@+id/tv_my" />
 
         <TextView
             android:id="@+id/tv_my"
@@ -103,28 +100,30 @@
             android:textSize="@dimen/textsize_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/tv_truck_circle"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent" />
 
         <ImageView
             android:id="@+id/iv_open"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@null"
             android:src="@drawable/top_home_icon_me"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"/>
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:background="#ded3d3"
-        android:clickable="true">
+        android:clickable="true"
+        android:focusable="true">
 
-        <include layout="@layout/view_drawer"/>
+        <include layout="@layout/view_drawer" />
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

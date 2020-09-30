@@ -1,6 +1,7 @@
 package com.sc.clgg.retrofit;
 
 import com.sc.clgg.bean.ApplyStateList;
+import com.sc.clgg.bean.ApplyStateListBean;
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
 import com.sc.clgg.bean.BusinessNoteList;
@@ -16,6 +17,7 @@ import com.sc.clgg.bean.InteractiveDetail;
 import com.sc.clgg.bean.IsNotReadInfo;
 import com.sc.clgg.bean.Location;
 import com.sc.clgg.bean.LocationDetail;
+import com.sc.clgg.bean.Mes;
 import com.sc.clgg.bean.Message;
 import com.sc.clgg.bean.Mileage;
 import com.sc.clgg.bean.MileageDetail;
@@ -53,6 +55,9 @@ import retrofit2.http.Query;
  */
 
 public interface RetrofitApi {
+
+    @POST("mes/v1/vehicle")
+    Call<Mes> uploadMesData(@Body RequestBody json);
 
     @POST("etc/cardApply/bindingCard")
     Call<StatusBean> bindingCard(@Body RequestBody json);
@@ -105,6 +110,12 @@ public interface RetrofitApi {
     @Multipart
     @POST("etc/cardApply/apply")
     Call<Check> apply(@Part List<MultipartBody.Part> parts);
+
+    @POST("icbc/etc/commitCompany")
+    Call<Check> apply_icbc(@Body RequestBody json);
+
+    @POST("icbc/etc/list")
+    Call<ApplyStateListBean> cardList_icbc(@Body RequestBody json);
 
     @POST("wxpay/preOrder")
     Call<WeChatOrder> wxPay(@Body RequestBody json);

@@ -10,7 +10,6 @@ import com.sc.clgg.activity.BusinessIntroductionActivity
 import com.sc.clgg.adapter.EtcAdapter
 import com.sc.clgg.base.BaseImmersionActivity
 import com.sc.clgg.bean.BusinessNoteList
-import com.sc.clgg.dialog.UndevelopedHintDialog
 import com.sc.clgg.retrofit.RetrofitHelper
 import kotlinx.android.synthetic.main.activity_etc.*
 import kotlinx.android.synthetic.main.view_titlebar.*
@@ -26,12 +25,12 @@ class EtcActivity : BaseImmersionActivity() {
         setContentView(R.layout.activity_etc)
 
         init()
-        val dialog = UndevelopedHintDialog(this)
+        /*val dialog = UndevelopedHintDialog(this)
         dialog.show()
         dialog.setCanceledOnTouchOutside(false)
         dialog.findViewById<TextView>(R.id.tv_2).setOnClickListener { finish() }
-        dialog.setOnDismissListener { finish() }
-        //loadData()
+        dialog.setOnDismissListener { finish() }*/
+        loadData()
     }
 
     private fun init() {

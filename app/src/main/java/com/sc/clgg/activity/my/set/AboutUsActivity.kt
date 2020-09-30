@@ -5,7 +5,7 @@ import com.sc.clgg.R
 import com.sc.clgg.base.BaseImmersionActivity
 import kotlinx.android.synthetic.main.activity_about_we.*
 
-class AboutUsActivity :BaseImmersionActivity() {
+class AboutUsActivity : BaseImmersionActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

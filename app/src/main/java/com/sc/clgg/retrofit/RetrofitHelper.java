@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.sc.clgg.BuildConfig;
 import com.sc.clgg.application.App;
 import com.sc.clgg.bean.ApplyStateList;
+import com.sc.clgg.bean.ApplyStateListBean;
 import com.sc.clgg.bean.Area;
 import com.sc.clgg.bean.Banner;
 import com.sc.clgg.bean.BusinessNoteList;
@@ -19,6 +20,7 @@ import com.sc.clgg.bean.CarNumberList;
 import com.sc.clgg.bean.CardInfo;
 import com.sc.clgg.bean.CardList;
 import com.sc.clgg.bean.CertificationInfo;
+import com.sc.clgg.bean.CertificationInfoBean;
 import com.sc.clgg.bean.Check;
 import com.sc.clgg.bean.CircleSave;
 import com.sc.clgg.bean.Consumption;
@@ -28,6 +30,7 @@ import com.sc.clgg.bean.InteractiveDetail;
 import com.sc.clgg.bean.IsNotReadInfo;
 import com.sc.clgg.bean.Location;
 import com.sc.clgg.bean.LocationDetail;
+import com.sc.clgg.bean.Mes;
 import com.sc.clgg.bean.Message;
 import com.sc.clgg.bean.Mileage;
 import com.sc.clgg.bean.MileageDetail;
@@ -141,6 +144,91 @@ public class RetrofitHelper {
 
         RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
         return Retrofit(NetField.WX_PAY_SITE).create(RetrofitApi.class).wxPay(json);
+    }
+
+
+    /**
+     * 开卡申请-工商银行
+     */
+    public retrofit2.Call<Check> apply_icbc(String json) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), json);
+        return Retrofit().create(RetrofitApi.class).apply_icbc(requestBody);
+    }
+
+    /**
+     * 开卡列表-工商银行
+     */
+    public retrofit2.Call<ApplyStateListBean> cardList_icbc() {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("userCode", new ConfigUtil().getUserid());//12033
+        params.put("page", "1");
+        params.put("limit", "10");
+        params.put("status", "");
+
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(params));
+        return Retrofit().create(RetrofitApi.class).cardList_icbc(json);
+    }
+
+    /**
+     * 开卡申请-工商银行
+     */
+    public retrofit2.Call<Check> apply_icbc(CertificationInfoBean info) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("userCode", new ConfigUtil().getUserid());
+        params.put("realName", new ConfigUtil().getRealName());
+
+        params.put("companyflag", info.getCompanyflag());
+        params.put("certifiType", info.getCertifiType());
+        params.put("companyLic", info.getCompanyLic());
+
+        params.put("relationName", info.getRelationName());
+        params.put("phoneNo", info.getPhoneNo());
+        params.put("department", info.getDepartment());
+        params.put("accountName", info.getAccountName());
+        params.put("agentIdType", info.getAgentIdType());
+        params.put("agentIdNum", info.getAgentIdNum());
+
+        params.put("bankCardNo", info.getBankCardNo());
+        params.put("bankCardNoType", info.getBankCardNoType());
+        params.put("bankCardNoCreatBrno", info.getBankCardNoCreatBrno());
+        params.put("companyAgentSerialNo", info.getCompanyAgentSerialNo());
+
+        params.put("contact", info.getContact());
+        params.put("ownerTel", info.getOwnerTel());
+        params.put("address", info.getAddress());
+
+
+        params.put("name", info.getName());
+        params.put("ecardNoPhoneNo", info.getEcardNoPhoneNo());
+        params.put("birthday", info.getBirthday());
+        params.put("sex", info.getSex());
+        params.put("ecardNoCertifiType", info.getEcardNoCertifiType());
+        params.put("certifiNo", info.getCertifiNo());
+
+        params.put("ownerIdType", info.getOwnerIdType());
+        params.put("ownerIdNum", info.getOwnerIdNum());
+
+        params.put("vehicleColor", info.getVehicleColor());
+        params.put("vehiclePlate", info.getVehiclePlate());
+        params.put("ownerName", info.getOwnerName());
+        params.put("vehicleType", info.getVehicleType());
+        params.put("vehicleFlag", info.getVehicleFlag());
+
+        params.put("certifiVehType", info.getCertifiType());
+        params.put("model", info.getModel());
+        params.put("useCharacter", info.getUseCharacter());
+        params.put("vehiclelicNo", info.getVehiclelicNo());
+        params.put("vehicleEngineNo", info.getVehicleEngineNo());
+
+        List<HashMap<String, Object>> list = new ArrayList<>();
+        list.add(params);
+
+        HashMap<String, String> p = new HashMap<>();
+        p.put("data", new Gson().toJson(list));
+
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(p));
+        return Retrofit().create(RetrofitApi.class).apply_icbc(json);
     }
 
     /**
@@ -878,6 +966,20 @@ public class RetrofitHelper {
         }
 
         return Retrofit().create(RetrofitApi.class).publishDynamic(parts);
+    }
+
+    public retrofit2.Call<Mes> uploadMesData(String VIN, String ProductionDate, String SN, String VehicleModule) {
+        Map<String, Map<String, String>> data = new HashMap<>();
+        Map<String, String> params = new HashMap<>(4);
+        params.put("VIN", VIN);
+        params.put("ProductionDate", ProductionDate);
+        params.put("SN", SN);
+        params.put("VehicleModule", VehicleModule);
+
+        data.put("QIS", params);
+
+        RequestBody json = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(data));
+        return Retrofit("http://10.5.1.190/").create(RetrofitApi.class).uploadMesData(json);
     }
 
     /**

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_titlebar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.sc.clgg.widget.CertificationProgressView
+                android:id="@+id/certificationProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_user_type"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="用户类型"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_user_type"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择用户类型"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="证件类型"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_zjlx"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/precharg_home_skip"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical|end"
+                    android:hint="请选择证件类型"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="证件号码"
+                    android:textColor="@color/_444"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_zjhm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入证件号码"
+                    android:maxLength="18"
+                    android:maxLines="1"
+                    android:paddingEnd="18dp"
+                    android:textColor="@color/_444"
+                    android:textColorHint="@color/_9c9c9c"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="14dp"
+                        android:background="@color/_4285f4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="经办人信息"
+                        android:textColor="@color/black_333"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="经办人姓名"
+                        android:textColor="@color/_444"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_agent_name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:hint="请输入经办人姓名"
+                        android:maxLength="150"
+                        android:maxLines="1"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/_444"
+                        android:textColorHint="@color/_9c9c9c"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="联系电话"
+                        android:textColor="@color/_444"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_agent_tel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:hint="请输入经办人联系电话"
+                        android:inputType="number"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/_444"
+                        android:textColorHint="@color/_9c9c9c"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="所在部门"
+                        android:textColor="@color/_444"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_agent_idno"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:hint="请输入经办人所在部门"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/_444"
+                        android:textColorHint="@color/_9c9c9c"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="单位名称"
+                        android:textColor="@color/_444"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_entity_name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:hint="请输入经办人单位名称"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/_444"
+                        android:textColorHint="@color/_9c9c9c"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="证件类型"
+                        android:textColor="@color/_444"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_certificate_type"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/white"
+                        android:drawableEnd="@drawable/precharg_home_skip"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical|end"
+                        android:hint="请选择经办人证件类型"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/_444"
+                        android:textColorHint="@color/_9c9c9c"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:text="证件号码"
+                        android:textColor="@color/_444"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_certificate_number"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:hint="请输入经办人证件号码"
+                        android:maxLength="150"
+                        android:maxLines="1"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/_444"
+                        android:textColorHint="@color/_9c9c9c"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:layout_width="300dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/bg_orange"
+                android:gravity="center"
+                android:text="@string/next_step"
+                android:textColor="@color/white"
+                android:textSize="19sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+
+

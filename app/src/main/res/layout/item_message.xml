@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="00:00"/>
+        tools:text="00:00" />
 
     <LinearLayout
         android:id="@+id/ll_type"
@@ -38,7 +37,7 @@
             android:gravity="center"
             android:text="热门"
             android:textColor="@color/white"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/tv_top"
@@ -49,7 +48,7 @@
             android:gravity="center"
             android:text="置顶"
             android:textColor="@color/white"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
     </LinearLayout>
 
     <TextView
@@ -62,7 +61,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/ll_type"
-        tools:text="天行健最美罗氏芬女神出炉，快点点击查看！！！"/>
+        tools:text="天行健最美罗氏芬女神出炉，快点点击查看！！！" />
 
     <TextView
         android:id="@+id/tv_content"
@@ -75,13 +74,13 @@
         android:textColor="#888"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text=""/>
+        tools:text="" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_line"
         android:background="@color/divider_line"
-        app:layout_constraintTop_toTopOf="@id/tv_content"/>
+        app:layout_constraintTop_toTopOf="@id/tv_content" />
 
     <com.sc.clgg.widget.ShapeTextView
         android:id="@+id/tv_type"
@@ -96,7 +95,7 @@
         app:corners="2dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_content"
-        tools:text="平台动态"/>
+        tools:text="平台动态" />
 
     <TextView
         android:id="@+id/tv_detail"
@@ -107,7 +106,7 @@
         android:textColor="#5277df"
         android:textSize="14sp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_content"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_content" />
 
     <View
         android:id="@+id/v_divider"
@@ -115,7 +114,7 @@
         android:layout_height="@dimen/divider_line"
         android:layout_marginTop="20dp"
         android:background="#f5f5f5"
-        app:layout_constraintTop_toBottomOf="@+id/tv_type"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_type" />
 
     <TextView
         android:id="@+id/tv_loadmore"
@@ -124,11 +123,11 @@
         android:background="@drawable/selector_bg_divider"
         android:gravity="center"
         android:padding="10dp"
-        android:paddingBottom="@dimen/length_15"
         android:paddingTop="@dimen/length_15"
+        android:paddingBottom="@dimen/length_15"
         android:text="@string/load_more"
         android:textColor="#666666"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/tv_type"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_type" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

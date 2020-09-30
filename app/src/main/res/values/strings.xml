@@ -84,6 +84,7 @@
     <string name="in_card">换卡</string>
     <string name="identity_certification">身份认证</string>
     <string name="vehicle_certification">车辆认证</string>
+    <string name="bank_card_certification">银行卡认证</string>
     <string name="info_certification">信息认证</string>
     <string name="online_reviews">提交审核</string>
     <string name="submint_hint">提交申请表示您已经同意用户协议</string>

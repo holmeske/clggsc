@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cl_certification_progress"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="60dp"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/iv_1"
@@ -17,17 +16,17 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/iv_2"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/s_car_certification"
+        android:src="@drawable/s_bank_card_certification"
         app:layout_constraintBottom_toBottomOf="@id/iv_1"
         app:layout_constraintLeft_toRightOf="@id/iv_1"
         app:layout_constraintRight_toLeftOf="@id/iv_3"
-        app:layout_constraintTop_toTopOf="@id/iv_1"/>
+        app:layout_constraintTop_toTopOf="@id/iv_1" />
 
     <ImageView
         android:id="@+id/iv_3"
@@ -37,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_1"
         app:layout_constraintLeft_toRightOf="@id/iv_2"
         app:layout_constraintRight_toLeftOf="@id/iv_4"
-        app:layout_constraintTop_toTopOf="@id/iv_1"/>
+        app:layout_constraintTop_toTopOf="@id/iv_1" />
 
     <ImageView
         android:id="@+id/iv_4"
@@ -48,7 +47,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_1"
         app:layout_constraintLeft_toRightOf="@id/iv_3"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_1"/>
+        app:layout_constraintTop_toTopOf="@id/iv_1" />
 
     <TextView
         android:id="@+id/tv_1"
@@ -61,19 +60,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/iv_1"
         app:layout_constraintRight_toRightOf="@id/iv_1"
-        app:layout_constraintTop_toBottomOf="@id/iv_1"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_1" />
 
     <TextView
         android:id="@+id/tv_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/vehicle_certification"
+        android:text="@string/bank_card_certification"
         android:textColor="@color/s_certification_progress"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_1"
         app:layout_constraintLeft_toLeftOf="@id/iv_2"
         app:layout_constraintRight_toRightOf="@id/iv_2"
-        app:layout_constraintTop_toTopOf="@id/tv_1"/>
+        app:layout_constraintTop_toTopOf="@id/tv_1" />
 
     <TextView
         android:id="@+id/tv_3"
@@ -85,7 +84,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_1"
         app:layout_constraintLeft_toLeftOf="@id/iv_3"
         app:layout_constraintRight_toRightOf="@id/iv_3"
-        app:layout_constraintTop_toTopOf="@id/tv_1"/>
+        app:layout_constraintTop_toTopOf="@id/tv_1" />
 
     <TextView
         android:id="@+id/tv_4"
@@ -97,7 +96,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_1"
         app:layout_constraintLeft_toLeftOf="@id/iv_4"
         app:layout_constraintRight_toRightOf="@id/iv_4"
-        app:layout_constraintTop_toTopOf="@id/tv_1"/>
+        app:layout_constraintTop_toTopOf="@id/tv_1" />
 
     <View
         android:id="@+id/line_1"
@@ -109,7 +108,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_1"
         app:layout_constraintLeft_toRightOf="@id/iv_1"
         app:layout_constraintRight_toLeftOf="@id/iv_2"
-        app:layout_constraintTop_toTopOf="@id/iv_1"/>
+        app:layout_constraintTop_toTopOf="@id/iv_1" />
 
 
     <View
@@ -121,7 +120,7 @@
         android:background="@color/_ccc"
         app:layout_constraintLeft_toRightOf="@id/iv_2"
         app:layout_constraintRight_toLeftOf="@id/iv_3"
-        app:layout_constraintTop_toTopOf="@id/line_1"/>
+        app:layout_constraintTop_toTopOf="@id/line_1" />
 
     <View
         android:id="@+id/line_3"
@@ -132,5 +131,5 @@
         android:background="@color/_ccc"
         app:layout_constraintLeft_toRightOf="@id/iv_3"
         app:layout_constraintRight_toLeftOf="@id/iv_4"
-        app:layout_constraintTop_toTopOf="@id/line_1"/>
+        app:layout_constraintTop_toTopOf="@id/line_1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

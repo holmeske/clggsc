@@ -51,7 +51,7 @@ class AuditActivity : BaseImmersionActivity() {
     internal inner class MyClick(private val mContext: Context) : ClickableSpan() {
 
         override fun onClick(@NonNull widget: View) {
-            mContext.startActivity(Intent(mContext, ApplyStateActivity::class.java))
+            mContext.startActivity(Intent(mContext, ApplyStateNewActivity::class.java))
         }
 
         override fun updateDrawState(ds: TextPaint) {

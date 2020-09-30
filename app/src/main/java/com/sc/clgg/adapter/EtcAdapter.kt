@@ -27,7 +27,7 @@ class EtcAdapter : RecyclerView.Adapter<MyHolder>() {
 
     private val drawables = intArrayOf(R.drawable.etc_icon1, R.drawable.etc_icon2, R.drawable.etc_icon3, R.drawable.etc_icon4, R.drawable.etc_icon5, R.drawable.etc_icon6, R.drawable.etc_icon7, R.drawable.etc_icon8)
 
-    private val activitys = arrayOf<Class<*>>(CardIntroduceActivity::class.java, RechargeActivity::class.java, MyCardActivity::class.java, RechargeOrderActivity::class.java, BalanceQueryPreActivity::class.java, MyCardActivity::class.java, MainActivity::class.java, ApplyStateActivity::class.java)
+    private val activitys = arrayOf<Class<*>>(CardIntroduceActivity::class.java, RechargeActivity::class.java, MyCardActivity::class.java, RechargeOrderActivity::class.java, BalanceQueryPreActivity::class.java, MyCardActivity::class.java, MainActivity::class.java, ApplyStateNewActivity::class.java)
 
     private val mItemListener = View.OnClickListener { v ->
         val pos = v.tag as Int
@@ -38,6 +38,7 @@ class EtcAdapter : RecyclerView.Adapter<MyHolder>() {
         if (ConfigUtil().loggedIn(mContext)) {
             when (pos) {
                 0 -> {
+                    mContext?.startActivity(Intent(mContext, activitys[pos]))
                     /*var intent = Intent()
                     intent.data = Uri.parse("alipays://platformapi/startapp?appId=2018110562038165")
                     intent.action = Intent.ACTION_VIEW

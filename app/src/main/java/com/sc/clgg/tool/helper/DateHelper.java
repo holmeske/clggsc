@@ -17,7 +17,7 @@ public class DateHelper {
      * 将秒数转换为日时分秒，
      *
      * @param ms 毫秒
-     * @return
+     * @ret urn
      */
     public static String secondToTime(long ms) {
         StringBuilder sb = new StringBuilder();
