@@ -18,6 +18,7 @@ kapt {
     }
     //非存在类型校正
     correctErrorTypes = true
+
 }
 
 android {
